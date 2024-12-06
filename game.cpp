@@ -104,6 +104,9 @@ void Game::mousePressEvent(QMouseEvent *event){
 
         }else if(waitforchage&&secondLabel==nullptr){
             //满足消除条件可交换？
+            /**
+             * A method to decide whether it is adjacent
+             */
 
             secondLabel = qobject_cast<StoneLabel*>(clickedWidget);
             secondLabel->setStyleSheet("background-color: lightblue;");
@@ -134,3 +137,6 @@ void Game::mousePressEvent(QMouseEvent *event){
     }
 }
 
+/**
+ * Whether it could eliminate?
+ * */
