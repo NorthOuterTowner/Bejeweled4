@@ -106,9 +106,11 @@ void Game::mousePressEvent(QMouseEvent *event){
         waitLabel->setStyle(1);
         change=true;
     }else{
-        waitLabel->setStyle();
         int row1 =waitLabel->getrow(),col1=waitLabel->getcol();
         int row2=curLabel->getrow(),col2=curLabel->getcol();
+        if(std::abs(row1+col1-row2-col2)!=1)
+            return;
+        waitLabel->setStyle();
         std::swap(stones[row1][col1], stones[row2][col2]);
         stones[row1][col1]->setrow(row1);
         stones[row1][col1]->setcol(col1);
