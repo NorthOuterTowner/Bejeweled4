@@ -14,6 +14,7 @@
 
 /*The Widget of game district*/
 QGridLayout* mainWidget;
+StoneLabel* waitLabel;
 Game* Game::gameInstance = nullptr;
 /**
  * @brief generate random digit from 1 to 10
@@ -67,8 +68,8 @@ void Game::init(){
      * Test code*/
     QWidget* centralWidget = new QWidget(this);
     mainWidget = new QGridLayout();
-    mainWidget->setSpacing(0);  // 控制网格单元之间的间距
-    mainWidget->setContentsMargins(0, 0, 0, 0);  // 控制布局的外边距
+    mainWidget->setSpacing(0);
+    mainWidget->setContentsMargins(0, 0, 0, 0);
     centralWidget->setLayout(mainWidget);
     centralWidget->setGeometry(leftSpacer,upSpacer,384,384);
     centralWidget->setParent(this);
@@ -85,58 +86,36 @@ void Game::init(){
             mainWidget->addWidget(imgLabel, row, col); // 使用addWidget()来将QLabel添加到布局中
         }
     }
-    waitforchage=false;
-    firstLabel=nullptr;
-    secondLabel=nullptr;
+    change=false;
+    waitLabel=nullptr;
+    //secondLabel=nullptr;
 }
 /**
  * @brief Game::mousePressEvent
  * @param event
  */
 void Game::mousePressEvent(QMouseEvent *event){
-    QWidget* clickedWidget=this->childAt(event->pos());
-    StoneLabel* label=qobject_cast<StoneLabel*>(clickedWidget);
-    if(clickedWidget&&clickedWidget->inherits("QLabel")){
-        if(!waitforchage&&firstLabel==nullptr){
-            firstLabel = qobject_cast<StoneLabel*>(clickedWidget);
-            firstLabel->setStyleSheet("background-color: lightblue;");
-            waitforchage = true;
-
-        }else if(waitforchage&&secondLabel==nullptr){
-            //满足消除条件可交换？
-            /**
-             * A method to decide whether it is adjacent
-             */
-
-            secondLabel = qobject_cast<StoneLabel*>(clickedWidget);
-            secondLabel->setStyleSheet("background-color: lightblue;");
-
-            // 交换位置
-            QPoint temp = firstLabel->pos();
-            firstLabel->move(secondLabel->pos());
-            secondLabel->move(temp);
-
-            //高亮消除
-            firstLabel->setStyleSheet("");
-            secondLabel->setStyleSheet("");
-
-            int row1=firstLabel->getrow();
-            int col1=firstLabel->getcol();
-            int row2=secondLabel->getrow();
-            int col2=secondLabel->getcol();
-            StoneLabel* tmp=stones[row1][col1];
-            stones[row1][col1]=stones[row2][col2];
-            stones[row2][col2]=tmp;
-
-            update();
-
-            firstLabel = nullptr;
-            secondLabel = nullptr;
-            waitforchage = false;
-        }
+    QPoint clickPoint=event->pos();
+    int x=clickPoint.x(),y=clickPoint.y();
+    if(x<=leftSpacer||y<=upSpacer||x>=leftSpacer+8*48||y>=upSpacer+8*48)
+        return;
+    int col=(x-leftSpacer)/48,row=(y-upSpacer)/48;
+    StoneLabel* curLabel=stones[row][col];
+    if(!change){
+        waitLabel=curLabel;
+        waitLabel->setStyle(1);
+        change=true;
+    }else{
+        waitLabel->setStyle();
+        int row1 =waitLabel->getrow(),col1=waitLabel->getcol();
+        int row2=curLabel->getrow(),col2=curLabel->getcol();
+        std::swap(stones[row1][col1], stones[row2][col2]);
+        stones[row1][col1]->setrow(row1);
+        stones[row1][col1]->setcol(col1);
+        stones[row2][col2]->setrow(row2);
+        stones[row2][col2]->setcol(col2);
+        change = false;
+        update();
     }
 }
 
-/**
- * Whether it could eliminate?
- * */

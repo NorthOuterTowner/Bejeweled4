@@ -23,9 +23,7 @@ private:
     explicit Game(QWidget *parent = nullptr);
     static Game* gameInstance;
     void mousePressEvent(QMouseEvent *event) override;
-    bool waitforchage=false;
-    StoneLabel *firstLabel=nullptr;
-    StoneLabel *secondLabel=nullptr;
+    bool change=false;
     Ui::Game *ui;
 };
 

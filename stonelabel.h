@@ -31,6 +31,12 @@ public:
     inline int getIndex(){
         return this->index;
     }
+    inline void setStyle(int mode=0){
+        if(mode==1)
+            this->setStyleSheet("background-color: lightblue;");
+        else
+            this->setStyleSheet("");
+    }
 private:
     std::string mode;
     int row;
