@@ -6,19 +6,22 @@
 #include <QWidget>
 #include <QMouseEvent>
 #include <QLabel>
-
+QT_BEGIN_NAMESPACE
 namespace Ui {
 class Game;
 }
-
+QT_END_NAMESPACE
 class Game : public QWidget
 {
+    Q_OBJECT
 
 public:
     ~Game();
     static Game* instance(QWidget* parent = nullptr);
     void init();
     void update();
+signals:
+    void eliminateAgainSignal();
 private slots:
     // 动画完成时调用此槽函数
     void onDropAnimationFinished() {
@@ -30,7 +33,13 @@ private slots:
             qDebug()<<"OK";
             creatstones();
         }
-
+    }
+    void onEliminateAgain(){
+        {
+            if(checkFormatches()){
+                eliminateMatches();
+            }
+        }
     }
 private:
     explicit Game(QWidget *parent = nullptr);
@@ -45,6 +54,7 @@ private:
     void creatstones();
     int  animationsLeft;  // 重置动画计数器
     bool change=false;
+    bool eliminateAgain=true;
     Ui::Game *ui;
 };
 

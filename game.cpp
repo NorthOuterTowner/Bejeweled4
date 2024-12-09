@@ -52,6 +52,7 @@ Game::Game(QWidget *parent)
     , ui(new Ui::Game)
 {
     ui->setupUi(this);
+    connect(this, &Game::eliminateAgainSignal, this, &Game::onEliminateAgain);
     init();
 }
 
@@ -123,12 +124,9 @@ void Game::mousePressEvent(QMouseEvent *event){
         stones[row2][col2]->setcol(col2);
 
         update();
-        if (checkFormatches()) {
-            // 如果能消除，执行消除操作
-            qDebug()<<"in";
-           eliminateMatches();
 
-            //QTimer::singleShot(500, this, SLOT(processElimination()));
+        if (checkFormatches()) {
+           eliminateMatches();
         } else {
             // 如果不能消除，恢复交换
             std::swap(stones[row1][col1], stones[row2][col2]);
@@ -224,6 +222,7 @@ void Game::creatstones(){
         }
     }
     update();
+    emit eliminateAgainSignal();
 }
 
 //棋子下落动画
