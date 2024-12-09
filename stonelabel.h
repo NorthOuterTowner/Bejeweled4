@@ -37,11 +37,20 @@ public:
         else
             this->setStyleSheet("");
     }
+    bool matched = false;  // 是否匹配，用于消除
+    void setMatched(bool matchedStatus) { matched = matchedStatus; }
+    bool isMatched() const { return matched; }
+
+    //目标位置
+    int targetX=0;
+    int targetY=0;
 private:
     std::string mode;
     int row;
     int col;
     int index=0;
+
+
 };
 
 #endif // STONELABEL_H
