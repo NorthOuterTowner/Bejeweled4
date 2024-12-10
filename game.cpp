@@ -22,7 +22,7 @@ Game* Game::gameInstance = nullptr;
  * @brief generate random digit from 1 to 10
  * @return random digit
  */
-int genRandom(int difficulty=4){
+int genRandom(){
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> dis(1, difficulty);
@@ -34,15 +34,12 @@ int genRandom(int difficulty=4){
 void Game::update(){
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
-
                 StoneLabel* pic = stones.at(i).at(j);
                 pic->resize(48,48);
-                std::string pixStr=":/"+pic->getMode()+std::to_string(pic->getIndex())+".png";
+                std::string pixStr=":/"+StoneLabel::stoneMode+std::to_string(pic->getIndex())+".png";
                 pic->setPixmap(QPixmap(QString::fromStdString(pixStr)).scaled(48,48));
                 pic->setAlignment(Qt::AlignCenter);
                 mainWidget->addWidget(pic, i, j);
-
-
         }
     }
 }
@@ -86,8 +83,8 @@ void Game::init(){
             imgLabel->setrow(row);
             imgLabel->setcol(col);
             imgLabel->resize(48,48);
-            imgLabel->setIndex(genRandom(6));
-            std::string pixStr=":/"+imgLabel->getMode()+std::to_string(imgLabel->getIndex())+".png";
+            imgLabel->setIndex(genRandom());
+            std::string pixStr=":/"+StoneLabel::stoneMode+std::to_string(imgLabel->getIndex())+".png";
             imgLabel->setPixmap(QPixmap(QString::fromStdString(pixStr)).scaled(48,48));
             mainWidget->addWidget(imgLabel, row, col); // 使用addWidget()来将QLabel添加到布局中
         }
@@ -200,8 +197,8 @@ void Game::generateNewStone(int row, int col){
     imgLabel->setrow(row);
     imgLabel->setcol(col);
     imgLabel->resize(48, 48);
-    imgLabel->setIndex(genRandom(4));
-    std::string pixStr = ":/" + imgLabel->getMode() + std::to_string(imgLabel->getIndex()) + ".png";
+    imgLabel->setIndex(genRandom());
+    std::string pixStr = ":/" + StoneLabel::stoneMode + std::to_string(imgLabel->getIndex()) + ".png";
     imgLabel->setPixmap(QPixmap(QString::fromStdString(pixStr)).scaled(48, 48));
 
     // 显示添加
@@ -296,3 +293,9 @@ void Game::resetMatchedFlags(){
         }
     }
 }
+
+void Game::on_pushButton_clicked()
+{
+    emit returnMainwindow();
+}
+

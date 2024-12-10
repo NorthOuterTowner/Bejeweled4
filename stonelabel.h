@@ -5,14 +5,8 @@ class StoneLabel:public QLabel
 {
     Q_OBJECT
 public:
-    StoneLabel(QWidget* parent,std::string mode="gemstone");
-    void setMode(std::string mode){
-        this->mode=mode;
-    }
+    StoneLabel(QWidget* parent);
     /*The mode of stone,such as jewellery,fruit and vegetable*/
-    std::string getMode(){
-        return this->mode;
-    }
     inline void setrow(int row){
         this->row=row;
     }
@@ -44,8 +38,8 @@ public:
     //目标位置
     int targetX=0;
     int targetY=0;
+    static std::string stoneMode;
 private:
-    std::string mode;
     int row;
     int col;
     int index=0;

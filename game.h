@@ -22,6 +22,7 @@ public:
     void update();
 signals:
     void eliminateAgainSignal();
+    void returnMainwindow();
 private slots:
     // 动画完成时调用此槽函数
     void onDropAnimationFinished() {
@@ -41,6 +42,8 @@ private slots:
             }
         }
     }
+    void on_pushButton_clicked();
+
 private:
     explicit Game(QWidget *parent = nullptr);
     static Game* gameInstance;

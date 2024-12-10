@@ -65,5 +65,25 @@
         <file>gemstone63.png</file>
         <file>gemstone64.png</file>
         <file>jewel.qrc</file>
+        <file>Fruit1.png</file>
+        <file>Fruit2.png</file>
+        <file>Fruit3.png</file>
+        <file>Fruit4.png</file>
+        <file>Fruit5.png</file>
+        <file>Fruit6.png</file>
+        <file>Fruit7.png</file>
+        <file>Fruit8.png</file>
+        <file>Fruit9.png</file>
+        <file>Vegetable1.png</file>
+        <file>Vegetable2.png</file>
+        <file>Vegetable3.png</file>
+        <file>Vegetable4.png</file>
+        <file>Vegetable5.png</file>
+        <file>Vegetable6.png</file>
+        <file>Vegetable7.png</file>
+        <file>Vegetable8.png</file>
+        <file>Vegetable9.png</file>
+        <file>Fruit10.png</file>
+        <file>Vegetable10.png</file>
     </qresource>
 </RCC>

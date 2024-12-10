@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    QPixmap pixmap(":/images/your_image.png");
+    StoneLabel::stoneMode="gemstone";
 }
 
 MainWindow::~MainWindow()
@@ -20,7 +20,49 @@ MainWindow::~MainWindow()
 void MainWindow::on_pushButton_clicked()
 {
     Game* gameDlg=Game::instance();//new Game();
+    connect(gameDlg,&Game::returnMainwindow,this,&MainWindow::onReturnMainwindow);
     gameDlg->show();
+    //gameDlg->init();
     this->hide();
+}
+void MainWindow::onReturnMainwindow(){
+    this->show();
+    Game::instance()->hide();
+}
+
+/*medium*/
+void MainWindow::on_pushButton_3_clicked()
+{
+    difficulty=6;
+}
+
+/*easy*/
+void MainWindow::on_pushButton_2_clicked()
+{
+    difficulty=4;
+}
+
+/*difficult*/
+void MainWindow::on_pushButton_4_clicked()
+{
+    difficulty=8;
+}
+
+
+void MainWindow::on_pushButton_7_clicked()
+{
+    StoneLabel::stoneMode="Fruit";
+}
+
+
+void MainWindow::on_pushButton_6_clicked()
+{
+    StoneLabel::stoneMode="Vegetable";
+}
+
+
+void MainWindow::on_pushButton_8_clicked()
+{
+    difficulty=10;
 }
 

@@ -37,3 +37,15 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     build/Gems/jewel.qrc
+
+DISTFILES += \
+    build/Fruits/Fruit1.png \
+    build/Fruits/Fruit2.png \
+    build/Fruits/Fruit3.png \
+    build/Fruits/Fruit4.png \
+    build/Fruits/Fruit5.png \
+    build/Fruits/Fruit6.png \
+    build/Fruits/Fruit7.png \
+    build/Fruits/Fruit8.png \
+    build/Fruits/Fruit9.png \
+    build/Fruits/Grape.png
