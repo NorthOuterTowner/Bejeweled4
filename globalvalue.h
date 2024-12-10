@@ -3,6 +3,7 @@
 #include <vector>
 #include "stonelabel.h"
 extern std::vector<std::vector<StoneLabel*>> stones;
+extern int difficulty;
 class globalValue
 {
 public:
