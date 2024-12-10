@@ -48,13 +48,13 @@ private:
     explicit Game(QWidget *parent = nullptr);
     static Game* gameInstance;
     void mousePressEvent(QMouseEvent *event) override;
-    bool checkFormatches();
+    bool checkFormatches();//判断哪些棋子将要被消去
     void eliminateMatches() ;
-    void dropStones();
-    void dropLabel(StoneLabel* stoneLabel, int targetX, int targetY, int duration) ;
-    void resetMatchedFlags();
-    void generateNewStone(int row, int col);
-    void creatstones();
+    void dropStones();//棋子下落，创建新子
+    void dropLabel(StoneLabel* stoneLabel, int startX,int startY,int targetX, int targetY, int duration) ;//棋子下落动画
+    void resetMatchedFlags();//重置所有棋子为不可消除
+    void generateNewStone(int row, int col);//创建一个新子
+    void creatstones();//创建所有需要的子
     int  animationsLeft;  // 重置动画计数器
     bool change=false;
     bool eliminateAgain=true;
