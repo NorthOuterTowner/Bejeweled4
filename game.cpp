@@ -8,6 +8,7 @@
 #include <vector>
 #include <QGridLayout>
 #include <QPropertyAnimation>
+#include <QVector>
 
 /*Space between Window and Labels*/
 #define upSpacer 80
@@ -51,6 +52,7 @@ Game::Game(QWidget *parent)
     ui->setupUi(this);
     connect(this, &Game::eliminateAgainSignal, this, &Game::onEliminateAgain);
     init();
+    this->swapReturn=std::vector<int>(4,0);
 }
 
 Game::~Game()
@@ -97,44 +99,122 @@ void Game::init(){
  * @brief Game::mousePressEvent
  * @param event
  */
-void Game::mousePressEvent(QMouseEvent *event){
-    QPoint clickPoint=event->pos();
-    int x=clickPoint.x(),y=clickPoint.y();
-    if(x<=leftSpacer||y<=upSpacer||x>=leftSpacer+8*48||y>=upSpacer+8*48)
+void Game::mousePressEvent(QMouseEvent *event) {
+    QPoint clickPoint = event->pos();
+    int x = clickPoint.x(), y = clickPoint.y();
+    if (x <= leftSpacer || y <= upSpacer || x >= leftSpacer + 8 * 48 || y >= upSpacer + 8 * 48)
         return;
-    int col=(x-leftSpacer)/48,row=(y-upSpacer)/48;
-    StoneLabel* curLabel=stones[row][col];
-    if(!change){
-        waitLabel=curLabel;
+
+    int col = (x - leftSpacer) / 48, row = (y - upSpacer) / 48;
+    StoneLabel* curLabel = stones[row][col];
+
+    if (!change) {
+        waitLabel = curLabel;
         waitLabel->setStyle(1);
-        change=true;
-    }else{
-        int row1 =waitLabel->getrow(),col1=waitLabel->getcol();
-        int row2=curLabel->getrow(),col2=curLabel->getcol();
-        if(std::abs(row1+col1-row2-col2)!=1)
+        change = true;
+    } else {
+        int row1 = waitLabel->getrow(), col1 = waitLabel->getcol();
+        int row2 = curLabel->getrow(), col2 = curLabel->getcol();
+
+        if (std::abs(row1 + col1 - row2 - col2) != 1)
             return;
-        waitLabel->setStyle();
-        std::swap(stones[row1][col1], stones[row2][col2]);
-        stones[row1][col1]->setrow(row1);
-        stones[row1][col1]->setcol(col1);
-        stones[row2][col2]->setrow(row2);
-        stones[row2][col2]->setcol(col2);
 
-        update();
+        // 创建动画
+        QPropertyAnimation *animation1 = new QPropertyAnimation(stones[row1][col1], "pos");
+        QPropertyAnimation *animation2 = new QPropertyAnimation(stones[row2][col2], "pos");
 
-        if (checkFormatches()) {
-           eliminateMatches();
-        } else {
-            // 如果不能消除，恢复交换
+        // 设置动画时长和目标位置
+        animation1->setDuration(300); // 动画持续时间300ms
+        animation2->setDuration(300);
+
+        // 计算目标位置
+        QPoint targetPos1 = stones[row2][col2]->pos();
+        QPoint targetPos2 = stones[row1][col1]->pos();
+
+        animation1->setEndValue(targetPos1);
+        animation2->setEndValue(targetPos2);
+
+        // 启动动画
+        animation1->start(QAbstractAnimation::DeleteWhenStopped);
+        animation2->start(QAbstractAnimation::DeleteWhenStopped);
+
+        // 动画结束后交换
+        connect(animation1, &QPropertyAnimation::finished, [=]() {
+            // 交换数据
+            waitLabel->setStyle();
             std::swap(stones[row1][col1], stones[row2][col2]);
             stones[row1][col1]->setrow(row1);
             stones[row1][col1]->setcol(col1);
             stones[row2][col2]->setrow(row2);
             stones[row2][col2]->setcol(col2);
-        }
 
-        change = false;
+            update();
 
+            if (checkFormatches()) {
+                eliminateMatches();
+            } else {
+                //Animation Shaked
+                QPoint originalPos = stones[row2][col2]->pos();
+                QPropertyAnimation *animationShake = new QPropertyAnimation(stones[row2][col2], "pos");
+                animationShake->setDuration(300);
+                QList<QPair<double, QVariant>> keyframes;
+
+                keyframes.append(qMakePair(0.0, QVariant::fromValue(originalPos + QPoint(8, 0))));  // 向右移动
+                keyframes.append(qMakePair(0.1, QVariant::fromValue(originalPos - QPoint(8, 0))));  // 向左移动
+                keyframes.append(qMakePair(0.2, QVariant::fromValue(originalPos + QPoint(8, 0))));  // 向右移动
+                keyframes.append(qMakePair(0.3, QVariant::fromValue(originalPos - QPoint(8, 0))));  // 向左移动
+                keyframes.append(qMakePair(0.4, QVariant::fromValue(originalPos)));                  // 恢复原位置
+
+                // 设置关键帧
+                animationShake->setKeyValues(keyframes);
+                animationShake->start(QAbstractAnimation::DeleteWhenStopped);
+                //Animation Shaked2
+                QPoint originalPos2 = stones[row1][col1]->pos();
+                QPropertyAnimation *animationShake2 = new QPropertyAnimation(stones[row1][col1], "pos");
+                animationShake2->setDuration(300);
+                QList<QPair<double, QVariant>> keyframes2;
+
+                keyframes2.append(qMakePair(0.0, QVariant::fromValue(originalPos2 + QPoint(8, 0))));  // 向右移动
+                keyframes2.append(qMakePair(0.1, QVariant::fromValue(originalPos2 - QPoint(8, 0))));  // 向左移动
+                keyframes2.append(qMakePair(0.2, QVariant::fromValue(originalPos2 + QPoint(8, 0))));  // 向右移动
+                keyframes2.append(qMakePair(0.3, QVariant::fromValue(originalPos2 - QPoint(8, 0))));  // 向左移动
+                keyframes2.append(qMakePair(0.4, QVariant::fromValue(originalPos2)));                  // 恢复原位置
+
+                // 设置关键帧
+                animationShake2->setKeyValues(keyframes2);
+                animationShake2->start(QAbstractAnimation::DeleteWhenStopped);
+
+                connect(animationShake, &QPropertyAnimation::finished, [=](){
+
+                QPropertyAnimation *reverseAnim1 = new QPropertyAnimation(stones[row1][col1], "pos");
+                QPropertyAnimation *reverseAnim2 = new QPropertyAnimation(stones[row2][col2], "pos");
+
+                reverseAnim1->setDuration(200);
+                reverseAnim2->setDuration(200);
+
+                // 计算回退的目标位置
+                reverseAnim1->setEndValue(targetPos1); // 原位置
+                reverseAnim2->setEndValue(targetPos2); // 原位置
+
+                reverseAnim1->start(QAbstractAnimation::DeleteWhenStopped);
+                reverseAnim2->start(QAbstractAnimation::DeleteWhenStopped);
+
+                // 动画完成后恢复交换
+                connect(reverseAnim1, &QPropertyAnimation::finished, [=]() {
+                    // 换回去
+                    std::swap(stones[row1][col1], stones[row2][col2]);
+                    stones[row1][col1]->setrow(row1);
+                    stones[row1][col1]->setcol(col1);
+                    stones[row2][col2]->setrow(row2);
+                    stones[row2][col2]->setcol(col2);
+
+                    update();
+                });
+                });
+            }
+
+            change = false;
+        });
     }
 }
 
@@ -294,7 +374,6 @@ void Game::dropStones() {
     resetMatchedFlags();
 }
 
-//重置是否可消除标志
 void Game::resetMatchedFlags(){
     for (int row = 0; row < 8; ++row) {
         for (int col = 0; col < 8; ++col) {

@@ -6,6 +6,7 @@
 #include <QWidget>
 #include <QMouseEvent>
 #include <QLabel>
+#include <iostream>
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class Game;
@@ -39,6 +40,14 @@ private slots:
         {
             if(checkFormatches()){
                 eliminateMatches();
+            }else{
+                int row1=swapReturn[0],col1=swapReturn[1],row2=swapReturn[2],col2=swapReturn[3];
+                std::cout<<"row1:"<<row1<<",row2:"<<row2<<",col1:"<<col1<<",col2:"<<col2<<std::endl;
+                std::swap(stones[row1][col1], stones[row2][col2]);
+                stones[row1][col1]->setrow(row1);
+                stones[row1][col1]->setcol(col1);
+                stones[row2][col2]->setrow(row2);
+                stones[row2][col2]->setcol(col2);
             }
         }
     }
@@ -58,6 +67,7 @@ private:
     int  animationsLeft;  // 重置动画计数器
     bool change=false;
     bool eliminateAgain=true;
+    std::vector<int> swapReturn;
     Ui::Game *ui;
 };
 
