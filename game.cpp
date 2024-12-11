@@ -210,11 +210,21 @@ void Game::generateNewStone(int row, int col){
 }
 //遍历空白位置，生成全部新子
 void Game::creatstones(){
+    int sum=0;
+    for(int row=7;row>=0;--row){// 行从下到上
+        for(int col=7;col>=0;--col){//列从下到上
 
+            if(stones[row][col]==nullptr){
+                sum++;
+            }
+        }
+    }
     for(int row=7;row>=0;--row){// 行从下到上
         for(int col=7;col>=0;--col){//列从下到上
             if(stones[row][col]==nullptr){
                 generateNewStone(row,col);
+                int time=sum*200;
+                dropLabel(stones[row][col],col*48,(row-sum)*48,col*48,row*48,time);
             }
         }
     }
@@ -278,6 +288,7 @@ void Game::dropStones() {
                 }
             }
         }
+         emit eliminateAgainSignal();
     }
 
     resetMatchedFlags();
