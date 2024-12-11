@@ -223,9 +223,9 @@ void Game::creatstones(){
 }
 
 //棋子下落动画
-void Game::dropLabel(StoneLabel* stoneLabel, int targetX, int targetY, int duration) {
+void Game::dropLabel(StoneLabel* stoneLabel, int startX,int startY,int targetX, int targetY, int duration) {
     QPropertyAnimation* animation = new QPropertyAnimation(stoneLabel, "pos");
-    animation->setStartValue(stoneLabel->pos());// 起始位置
+    animation->setStartValue(QPoint(startX,startY));// 起始位置NO
     animation->setEndValue(QPoint(targetX, targetY)); // 目标位置
     animation->setDuration(duration); // 持续时间
     // 连接动画完成的信号
@@ -253,7 +253,7 @@ void Game::dropStones() {
                         int targetY = emptyRow * 48;
                         stones[checkRow][col]->targetX=targetX;
                         stones[checkRow][col]->targetY=targetY;
-                        dropLabel(stones[checkRow][col],targetX,targetY,1000);//下落动画
+                        dropLabel(stones[checkRow][col],col*48,checkRow*48,targetX,targetY,1000);//下落动画
                         drop=true;
 
                         stones[emptyRow][col] = stones[checkRow][col];//逻辑交换
