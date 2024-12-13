@@ -437,6 +437,10 @@ release/moc_game.cpp: ../../game.h \
 		C:/Qt/6.7.2/mingw_64/include/QtGui/qguiapplication_platform.h \
 		C:/Qt/6.7.2/mingw_64/include/QtGui/qpicture.h \
 		C:/Qt/6.7.2/mingw_64/include/QtGui/qtextdocument.h \
+		../../gametimer.h \
+		C:/Qt/6.7.2/mingw_64/include/QtCore/QTimer \
+		C:/Qt/6.7.2/mingw_64/include/QtCore/qtimer.h \
+		C:/Qt/6.7.2/mingw_64/include/QtCore/qbasictimer.h \
 		C:/Qt/6.7.2/mingw_64/include/QtWidgets/QWidget \
 		C:/Qt/6.7.2/mingw_64/include/Qt3DCore/QEntity \
 		C:/Qt/6.7.2/mingw_64/include/Qt3DCore/qentity.h \
@@ -1184,6 +1188,10 @@ release/game.o: ../../game.cpp ../../game.h \
 		C:/Qt/6.7.2/mingw_64/include/QtGui/qguiapplication_platform.h \
 		C:/Qt/6.7.2/mingw_64/include/QtGui/qpicture.h \
 		C:/Qt/6.7.2/mingw_64/include/QtGui/qtextdocument.h \
+		../../gametimer.h \
+		C:/Qt/6.7.2/mingw_64/include/QtCore/QTimer \
+		C:/Qt/6.7.2/mingw_64/include/QtCore/qtimer.h \
+		C:/Qt/6.7.2/mingw_64/include/QtCore/qbasictimer.h \
 		C:/Qt/6.7.2/mingw_64/include/QtWidgets/QWidget \
 		C:/Qt/6.7.2/mingw_64/include/Qt3DCore/QEntity \
 		C:/Qt/6.7.2/mingw_64/include/Qt3DCore/qentity.h \
@@ -1951,6 +1959,10 @@ release/mainwindow.o: ../../mainwindow.cpp ../../mainwindow.h \
 		../../game.h \
 		../../globalvalue.h \
 		../../stonelabel.h \
+		../../gametimer.h \
+		C:/Qt/6.7.2/mingw_64/include/QtCore/QTimer \
+		C:/Qt/6.7.2/mingw_64/include/QtCore/qtimer.h \
+		C:/Qt/6.7.2/mingw_64/include/QtCore/qbasictimer.h \
 		C:/Qt/6.7.2/mingw_64/include/Qt3DCore/QEntity \
 		C:/Qt/6.7.2/mingw_64/include/Qt3DCore/qentity.h \
 		C:/Qt/6.7.2/mingw_64/include/Qt3DCore/qnode.h \
