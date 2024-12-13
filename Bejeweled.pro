@@ -10,6 +10,7 @@ CONFIG += c++17
 
 SOURCES += \
     game.cpp \
+    gametimer.cpp \
     globalvalue.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -17,6 +18,7 @@ SOURCES += \
 
 HEADERS += \
     game.h \
+    gametimer.h \
     globalvalue.h \
     mainwindow.h \
     stonelabel.h
