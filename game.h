@@ -5,7 +5,6 @@
 #include "stonelabel.h"
 #include "gametimer.h"
 #include <QWidget>
-#include <Qt3DCore/QEntity>
 #include <QMouseEvent>
 #include <QLabel>
 #include <iostream>
