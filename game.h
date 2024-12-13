@@ -8,6 +8,7 @@
 #include <QMouseEvent>
 #include <QLabel>
 #include <iostream>
+#include <QProgressDialog>
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class Game;
@@ -23,11 +24,18 @@ public:
     void init();
     void update();
     void handleStoneSwap(int row, int col, StoneLabel* curLabel);
+     static void delInstance(){
+        gameInstance=nullptr;
+    }
 signals:
     void eliminateAgainSignal();
     void returnMainwindow();
+    void initEndSignal();
 private slots:
-    // 动画完成时调用此槽函数
+    void initEnd(){
+        this->progressDialog->setValue(100);
+        this->progressDialog->hide();
+    }
     void onDropAnimationFinished() {
         // 每完成一个动画，减小计数器
         animationsLeft--;
@@ -36,6 +44,7 @@ private slots:
         if (animationsLeft == 0) {
             qDebug()<<"OK";
             creatstones();
+            this->initing=false;
         }
     }
     void onEliminateAgain(){
@@ -50,11 +59,11 @@ private slots:
                 stones[row1][col1]->setcol(col1);
                 stones[row2][col2]->setrow(row2);
                 stones[row2][col2]->setcol(col2);
+                emit initEndSignal();
             }
         }
     }
     void on_pushButton_clicked();
-
 private:
     GameTimer gameTimer;//计时器
     explicit Game(QWidget *parent = nullptr);
@@ -71,6 +80,8 @@ private:
     bool change=false;
     bool eliminateAgain=true;
     std::vector<int> swapReturn;
+    QProgressDialog *progressDialog;
+    bool initing;
     Ui::Game *ui;
 };
 

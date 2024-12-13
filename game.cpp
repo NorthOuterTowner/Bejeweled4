@@ -9,7 +9,7 @@
 #include <QGridLayout>
 #include <QPropertyAnimation>
 #include <QVector>
-
+#include <QProgressDialog>
 /*Space between Window and Labels*/
 #define upSpacer 80
 #define leftSpacer 100
@@ -51,8 +51,20 @@ Game::Game(QWidget *parent)
 {
     ui->setupUi(this);
     connect(this, &Game::eliminateAgainSignal, this, &Game::onEliminateAgain);
+    connect(this, &Game::initEndSignal, this, &Game::initEnd);
     init();
+    initing=true;
+    progressDialog = new QProgressDialog("正在初始化中，请稍后...", "取消", 0, 0, this);
+    progressDialog->setWindowModality(Qt::WindowModal);
+    progressDialog->setValue(0);
+    progressDialog->show();
     this->swapReturn=std::vector<int>(4,0);
+    if (checkFormatches()) {
+        eliminateMatches();
+    }else{
+        progressDialog->setValue(100);
+        progressDialog->hide();
+    }
 }
 
 Game::~Game()
@@ -306,8 +318,6 @@ void Game::creatstones(){
             if(stones[row][col]==nullptr){
                 generateNewStone(row,col);
                 int time=sum*200;
-                std::cout<<"TargetRow:"<<row<<"startRow"<<row-sum<<std::endl;
-                //std::cout<<row-sum<<std::endl;
                 dropLabel(stones[row][col],col*48,(row-sum)*48,col*48,row*48,time);
             }
         }
@@ -319,7 +329,8 @@ void Game::creatstones(){
 //棋子下落动画
 //duration should set to x/v
 void Game::dropLabel(StoneLabel* stoneLabel, int startX,int startY,int targetX, int targetY, int duration) {
-    duration=1000*(targetY-startY)/96;
+    this->initing=true;
+    duration=1000*(targetY-startY)/192;
     QPropertyAnimation* animation = new QPropertyAnimation(stoneLabel, "pos");
     animation->setStartValue(QPoint(startX,startY));// 起始位置NO
     animation->setEndValue(QPoint(targetX, targetY)); // 目标位置
@@ -395,4 +406,3 @@ void Game::on_pushButton_clicked()
 {
     emit returnMainwindow();
 }
-

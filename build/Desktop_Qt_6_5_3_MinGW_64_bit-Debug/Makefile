@@ -242,12 +242,16 @@ Makefile: ../../Bejeweled.pro ../../../../Qt/6.5.3/mingw_64/mkspecs/win32-g++/qm
 		../../../../Qt/6.5.3/mingw_64/mkspecs/features/yacc.prf \
 		../../../../Qt/6.5.3/mingw_64/mkspecs/features/lex.prf \
 		../../Bejeweled.pro \
+		../../../../Qt/6.5.3/mingw_64/lib/Qt6Multimedia.prl \
 		../../../../Qt/6.5.3/mingw_64/lib/Qt6Widgets.prl \
 		../../../../Qt/6.5.3/mingw_64/lib/Qt6Gui.prl \
+		../../../../Qt/6.5.3/mingw_64/lib/Qt6Network.prl \
 		../../../../Qt/6.5.3/mingw_64/lib/Qt6Core.prl \
 		../../../../Qt/6.5.3/mingw_64/lib/Qt6EntryPoint.prl \
 		../../../../Qt/6.5.3/mingw_64/mkspecs/features/build_pass.prf \
 		../Gems/jewel.qrc \
+		../../music.qrc \
+		../../picture/picture.qrc \
 		debug/qmake_qmake_qm_files.qrc \
 		release/qmake_qmake_qm_files.qrc
 	$(QMAKE) -o Makefile ..\..\Bejeweled.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug"
@@ -423,12 +427,16 @@ Makefile: ../../Bejeweled.pro ../../../../Qt/6.5.3/mingw_64/mkspecs/win32-g++/qm
 ../../../../Qt/6.5.3/mingw_64/mkspecs/features/yacc.prf:
 ../../../../Qt/6.5.3/mingw_64/mkspecs/features/lex.prf:
 ../../Bejeweled.pro:
+../../../../Qt/6.5.3/mingw_64/lib/Qt6Multimedia.prl:
 ../../../../Qt/6.5.3/mingw_64/lib/Qt6Widgets.prl:
 ../../../../Qt/6.5.3/mingw_64/lib/Qt6Gui.prl:
+../../../../Qt/6.5.3/mingw_64/lib/Qt6Network.prl:
 ../../../../Qt/6.5.3/mingw_64/lib/Qt6Core.prl:
 ../../../../Qt/6.5.3/mingw_64/lib/Qt6EntryPoint.prl:
 ../../../../Qt/6.5.3/mingw_64/mkspecs/features/build_pass.prf:
 ../Gems/jewel.qrc:
+../../music.qrc:
+../../picture/picture.qrc:
 debug/qmake_qmake_qm_files.qrc:
 release/qmake_qmake_qm_files.qrc:
 qmake: FORCE
