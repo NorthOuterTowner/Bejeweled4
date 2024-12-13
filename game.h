@@ -4,7 +4,6 @@
 #include "globalvalue.h"
 #include "stonelabel.h"
 #include <QWidget>
-#include <Qt3DCore/QEntity>
 #include <QMouseEvent>
 #include <QLabel>
 #include <iostream>
