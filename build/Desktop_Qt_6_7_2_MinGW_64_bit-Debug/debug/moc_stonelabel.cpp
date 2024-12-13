@@ -6,7 +6,7 @@
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include "../../../stonelabel.h"
+#include "../../../../../../Desktop/Bejeweled4-main/stonelabel.h"
 #include <QtGui/qtextcursor.h>
 #include <QtCore/qmetatype.h>
 
