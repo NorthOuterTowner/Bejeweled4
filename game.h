@@ -3,6 +3,7 @@
 
 #include "globalvalue.h"
 #include "stonelabel.h"
+#include "gametimer.h"
 #include <QWidget>
 #include <Qt3DCore/QEntity>
 #include <QMouseEvent>
@@ -56,6 +57,7 @@ private slots:
     void on_pushButton_clicked();
 
 private:
+    GameTimer gameTimer;//计时器
     explicit Game(QWidget *parent = nullptr);
     static Game* gameInstance;
     void mousePressEvent(QMouseEvent *event) override;
