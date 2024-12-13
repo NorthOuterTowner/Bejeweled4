@@ -64,7 +64,6 @@ private slots:
         }
     }
     void on_pushButton_clicked();
-
 private:
     GameTimer gameTimer;//计时器
     explicit Game(QWidget *parent = nullptr);

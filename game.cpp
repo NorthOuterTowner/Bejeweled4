@@ -406,4 +406,3 @@ void Game::on_pushButton_clicked()
 {
     emit returnMainwindow();
 }
-
