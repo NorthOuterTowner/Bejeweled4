@@ -149,6 +149,7 @@ void MainWindow::onReturnMainwindow()
 {
     this->show();
     Game::instance()->hide();
+    Game::delInstance();
 }
 
 void MainWindow::on_pushButton_2_clicked()
