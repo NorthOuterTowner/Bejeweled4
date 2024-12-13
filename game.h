@@ -4,6 +4,7 @@
 #include "globalvalue.h"
 #include "stonelabel.h"
 #include <QWidget>
+#include <Qt3DCore/QEntity>
 #include <QMouseEvent>
 #include <QLabel>
 #include <iostream>
@@ -21,6 +22,7 @@ public:
     static Game* instance(QWidget* parent = nullptr);
     void init();
     void update();
+    void handleStoneSwap(int row, int col, StoneLabel* curLabel);
 signals:
     void eliminateAgainSignal();
     void returnMainwindow();
