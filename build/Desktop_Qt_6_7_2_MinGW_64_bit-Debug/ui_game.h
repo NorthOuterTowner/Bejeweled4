@@ -11,6 +11,7 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QWidget>
 
@@ -21,6 +22,7 @@ class Ui_Game
 public:
     QPushButton *pushButton;
     QPushButton *pushButton_2;
+    QLabel *timerLabel;
 
     void setupUi(QWidget *Game)
     {
@@ -33,6 +35,13 @@ public:
         pushButton_2 = new QPushButton(Game);
         pushButton_2->setObjectName("pushButton_2");
         pushButton_2->setGeometry(QRect(690, 90, 93, 28));
+        timerLabel = new QLabel(Game);
+        timerLabel->setObjectName("timerLabel");
+        timerLabel->setGeometry(QRect(720, 162, 40, 20));
+        timerLabel->setTabletTracking(false);
+        timerLabel->setFocusPolicy(Qt::FocusPolicy::NoFocus);
+        timerLabel->setScaledContents(true);
+        timerLabel->setWordWrap(true);
 
         retranslateUi(Game);
 
@@ -44,6 +53,7 @@ public:
         Game->setWindowTitle(QCoreApplication::translate("Game", "GameDlg", nullptr));
         pushButton->setText(QCoreApplication::translate("Game", "\350\277\224\345\233\236", nullptr));
         pushButton_2->setText(QCoreApplication::translate("Game", "\346\216\222\350\241\214\346\246\234", nullptr));
+        timerLabel->setText(QCoreApplication::translate("Game", "6", nullptr));
     } // retranslateUi
 
 };

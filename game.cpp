@@ -10,6 +10,7 @@
 #include <QPropertyAnimation>
 #include <QVector>
 #include <QProgressDialog>
+#include <QMessageBox>
 /*Space between Window and Labels*/
 #define upSpacer 80
 #define leftSpacer 100
@@ -105,6 +106,13 @@ void Game::init(){
     }
     change=false;
     waitLabel=nullptr;
+
+
+    gameTimer = new GameTimer(this);
+    connect(gameTimer, &GameTimer::timeUpdated, this, &Game::updateTimerDisplay);
+    connect(gameTimer, &GameTimer::timeExpired, this, &Game::onTimeExpired);
+    gameTimer->startCountdown(5);
+    ui->timerLabel->setText("--");
 
 }
 /**
@@ -400,6 +408,20 @@ void Game::resetMatchedFlags(){
             }
         }
     }
+}
+
+void Game::onTimeExpired()
+{
+    // 在这里可以添加游戏结束相关的逻辑，比如提示游戏结束、禁用操作等
+
+    // 示例：简单地弹出一个提示框告知游戏结束
+    QMessageBox::information(this, "游戏结束", "倒计时结束，游戏结束！");
+}
+
+void Game::updateTimerDisplay()
+{
+    int remainingSeconds = gameTimer->getRemainingSeconds();
+    ui->timerLabel->setText(QString::number(remainingSeconds) + "s");
 }
 
 void Game::on_pushButton_clicked()
