@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+
+        <file>music/background/music-1.wav</file>
+        <file>music/button/button_mouseleave.wav</file>
+        <file>music/button/button_mouseover.wav</file>
+        <file>music/button/button_press.wav</file>
+        <file>music/button/button_release.wav</file>
+    </qresource>
+</RCC>
