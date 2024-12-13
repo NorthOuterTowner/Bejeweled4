@@ -10,6 +10,7 @@ CONFIG += c++17
 
 SOURCES += \
     game.cpp \
+    gametimer.cpp \
     globalvalue.cpp \
     hoverbutton.cpp \
     main.cpp \
@@ -18,6 +19,7 @@ SOURCES += \
 
 HEADERS += \
     game.h \
+    gametimer.h \
     globalvalue.h \
     hoverbutton.h \
     mainwindow.h \
