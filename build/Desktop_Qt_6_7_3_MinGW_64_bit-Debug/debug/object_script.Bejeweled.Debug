@@ -1,0 +1,16 @@
+debug/game.o
+debug/gametimer.o
+debug/globalvalue.o
+debug/hoverbutton.o
+debug/main.o
+debug/mainwindow.o
+debug/stonelabel.o
+debug/qrc_jewel.o
+debug/qrc_music.o
+debug/qrc_picture.o
+debug/qrc_qmake_qmake_qm_files.o
+debug/moc_game.o
+debug/moc_gametimer.o
+debug/moc_hoverbutton.o
+debug/moc_mainwindow.o
+debug/moc_stonelabel.o
