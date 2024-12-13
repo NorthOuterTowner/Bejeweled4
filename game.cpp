@@ -291,11 +291,13 @@ void Game::generateNewStone(int row, int col){
 //遍历空白位置，生成全部新子
 void Game::creatstones(){
     int sum=0;
+    int tmpRow=-1;
     for(int row=7;row>=0;--row){// 行从下到上
         for(int col=7;col>=0;--col){//列从下到上
 
-            if(stones[row][col]==nullptr){
+            if(stones[row][col]==nullptr && tmpRow!=row){
                 sum++;
+                tmpRow=row;
             }
         }
     }
@@ -304,6 +306,8 @@ void Game::creatstones(){
             if(stones[row][col]==nullptr){
                 generateNewStone(row,col);
                 int time=sum*200;
+                std::cout<<"TargetRow:"<<row<<"startRow"<<row-sum<<std::endl;
+                //std::cout<<row-sum<<std::endl;
                 dropLabel(stones[row][col],col*48,(row-sum)*48,col*48,row*48,time);
             }
         }
@@ -313,7 +317,9 @@ void Game::creatstones(){
 }
 
 //棋子下落动画
+//duration should set to x/v
 void Game::dropLabel(StoneLabel* stoneLabel, int startX,int startY,int targetX, int targetY, int duration) {
+    duration=1000*(targetY-startY)/96;
     QPropertyAnimation* animation = new QPropertyAnimation(stoneLabel, "pos");
     animation->setStartValue(QPoint(startX,startY));// 起始位置NO
     animation->setEndValue(QPoint(targetX, targetY)); // 目标位置
@@ -361,14 +367,15 @@ void Game::dropStones() {
     }
    // 若无子下落，遍历前三行，找到空位生成新子
     if(!drop){
-        for(int row=0;row<=6;++row){
-            for(int col=0;col<=7;++col){
-                if(stones[row][col]==nullptr){
-                    generateNewStone(row,col);
-                }
-            }
-        }
-         emit eliminateAgainSignal();
+        creatstones();
+        // for(int row=0;row<=6;++row){
+        //     for(int col=0;col<=7;++col){
+        //         if(stones[row][col]==nullptr){
+        //             generateNewStone(row,col);
+        //         }
+        //     }
+        // }
+         //emit eliminateAgainSignal();
     }
 
     resetMatchedFlags();

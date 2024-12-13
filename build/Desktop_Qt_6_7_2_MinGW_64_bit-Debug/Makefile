@@ -107,13 +107,6 @@ Makefile: ../../Bejeweled.pro C:/Qt1/6.7.2/mingw_64/mkspecs/win32-g++/qmake.conf
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_3dquickscene2d_private.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_3drender.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_3drender_private.pri \
-		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_activeqt.pri \
-		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_activeqt_private.pri \
-		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_axbase_private.pri \
-		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_axcontainer.pri \
-		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_axcontainer_private.pri \
-		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_axserver.pri \
-		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_axserver_private.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_bluetooth.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_bluetooth_private.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_bodymovin_private.pri \
@@ -135,8 +128,6 @@ Makefile: ../../Bejeweled.pro C:/Qt1/6.7.2/mingw_64/mkspecs/win32-g++/qmake.conf
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_datavisualizationqml_private.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_dbus.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_dbus_private.pri \
-		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_declarativeopcua.pri \
-		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_declarativeopcua_private.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_designer.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_designer_private.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_designercomponents_private.pri \
@@ -156,14 +147,11 @@ Makefile: ../../Bejeweled.pro C:/Qt1/6.7.2/mingw_64/mkspecs/win32-g++/qmake.conf
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_harfbuzz_private.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_help.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_help_private.pri \
-		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_httpserver.pri \
-		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_httpserver_private.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_insighttracker.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_insighttracker_private.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_insighttrackerqml.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_insighttrackerqml_private.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_jpeg_private.pri \
-		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_jsonrpc_private.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_labsanimation.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_labsanimation_private.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_labsfolderlistmodel.pri \
@@ -176,41 +164,21 @@ Makefile: ../../Bejeweled.pro C:/Qt1/6.7.2/mingw_64/mkspecs/win32-g++/qmake.conf
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_labssharedimage_private.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_labswavefrontmesh.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_labswavefrontmesh_private.pri \
-		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_languageserver_private.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_linguist.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_location.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_location_private.pri \
-		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_mqtt.pri \
-		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_mqtt_private.pri \
-		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_multimedia.pri \
-		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_multimedia_private.pri \
-		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_multimediaquick_private.pri \
-		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_multimediawidgets.pri \
-		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_multimediawidgets_private.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_network.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_network_private.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_networkauth.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_networkauth_private.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_nfc.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_nfc_private.pri \
-		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_opcua.pri \
-		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_opcua_private.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_opengl.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_opengl_private.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_openglwidgets.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_openglwidgets_private.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_packetprotocol_private.pri \
-		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_pdf.pri \
-		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_pdf_private.pri \
-		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_pdfquick.pri \
-		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_pdfquick_private.pri \
-		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_pdfwidgets.pri \
-		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_pdfwidgets_private.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_png_private.pri \
-		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_positioning.pri \
-		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_positioning_private.pri \
-		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_positioningquick.pri \
-		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_positioningquick_private.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_printsupport.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_printsupport_private.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_protobuf.pri \
@@ -278,7 +246,6 @@ Makefile: ../../Bejeweled.pro C:/Qt1/6.7.2/mingw_64/mkspecs/win32-g++/qmake.conf
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_quick3dphysicshelpers_private.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_quick3druntimerender.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_quick3druntimerender_private.pri \
-		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_quick3dspatialaudio_private.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_quick3dutils.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_quick3dutils_private.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_quick_private.pri \
@@ -345,12 +312,6 @@ Makefile: ../../Bejeweled.pro C:/Qt1/6.7.2/mingw_64/mkspecs/win32-g++/qmake.conf
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_sensorsquick_private.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_serialbus.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_serialbus_private.pri \
-		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_serialport.pri \
-		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_serialport_private.pri \
-		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_shadertools.pri \
-		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_shadertools_private.pri \
-		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_spatialaudio.pri \
-		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_spatialaudio_private.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_sql.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_sql_private.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_statemachine.pri \
@@ -369,17 +330,9 @@ Makefile: ../../Bejeweled.pro C:/Qt1/6.7.2/mingw_64/mkspecs/win32-g++/qmake.conf
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_uiplugin.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_uitools.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_uitools_private.pri \
-		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_virtualkeyboard.pri \
-		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_virtualkeyboard_private.pri \
-		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_virtualkeyboardsettings.pri \
-		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_virtualkeyboardsettings_private.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_vncserver.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_vncserver_private.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_vncserverquick_private.pri \
-		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_webchannel.pri \
-		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_webchannel_private.pri \
-		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_webchannelquick.pri \
-		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_webchannelquick_private.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_websockets.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_websockets_private.pri \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_webview.pri \
@@ -422,8 +375,16 @@ Makefile: ../../Bejeweled.pro C:/Qt1/6.7.2/mingw_64/mkspecs/win32-g++/qmake.conf
 		C:/Qt1/6.7.2/mingw_64/mkspecs/features/yacc.prf \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/features/lex.prf \
 		../../Bejeweled.pro \
+		C:/Qt1/6.7.2/mingw_64/lib/Qt63DExtras.prl \
+		C:/Qt1/6.7.2/mingw_64/lib/Qt63DRender.prl \
+		C:/Qt1/6.7.2/mingw_64/lib/Qt63DInput.prl \
+		C:/Qt1/6.7.2/mingw_64/lib/Qt63DLogic.prl \
+		C:/Qt1/6.7.2/mingw_64/lib/Qt63DCore.prl \
+		C:/Qt1/6.7.2/mingw_64/lib/Qt6OpenGL.prl \
 		C:/Qt1/6.7.2/mingw_64/lib/Qt6Widgets.prl \
 		C:/Qt1/6.7.2/mingw_64/lib/Qt6Gui.prl \
+		C:/Qt1/6.7.2/mingw_64/lib/Qt6Concurrent.prl \
+		C:/Qt1/6.7.2/mingw_64/lib/Qt6Network.prl \
 		C:/Qt1/6.7.2/mingw_64/lib/Qt6Core.prl \
 		C:/Qt1/6.7.2/mingw_64/lib/Qt6EntryPoint.prl \
 		C:/Qt1/6.7.2/mingw_64/mkspecs/features/build_pass.prf \
@@ -468,13 +429,6 @@ C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_3dquickscene2d.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_3dquickscene2d_private.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_3drender.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_3drender_private.pri:
-C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_activeqt.pri:
-C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_activeqt_private.pri:
-C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_axbase_private.pri:
-C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_axcontainer.pri:
-C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_axcontainer_private.pri:
-C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_axserver.pri:
-C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_axserver_private.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_bluetooth.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_bluetooth_private.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_bodymovin_private.pri:
@@ -496,8 +450,6 @@ C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_datavisualizationqml.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_datavisualizationqml_private.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_dbus.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_dbus_private.pri:
-C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_declarativeopcua.pri:
-C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_declarativeopcua_private.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_designer.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_designer_private.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_designercomponents_private.pri:
@@ -517,14 +469,11 @@ C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_gui_private.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_harfbuzz_private.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_help.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_help_private.pri:
-C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_httpserver.pri:
-C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_httpserver_private.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_insighttracker.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_insighttracker_private.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_insighttrackerqml.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_insighttrackerqml_private.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_jpeg_private.pri:
-C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_jsonrpc_private.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_labsanimation.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_labsanimation_private.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_labsfolderlistmodel.pri:
@@ -537,41 +486,21 @@ C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_labssharedimage.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_labssharedimage_private.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_labswavefrontmesh.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_labswavefrontmesh_private.pri:
-C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_languageserver_private.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_linguist.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_location.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_location_private.pri:
-C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_mqtt.pri:
-C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_mqtt_private.pri:
-C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_multimedia.pri:
-C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_multimedia_private.pri:
-C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_multimediaquick_private.pri:
-C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_multimediawidgets.pri:
-C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_multimediawidgets_private.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_network.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_network_private.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_networkauth.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_networkauth_private.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_nfc.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_nfc_private.pri:
-C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_opcua.pri:
-C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_opcua_private.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_opengl.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_opengl_private.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_openglwidgets.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_openglwidgets_private.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_packetprotocol_private.pri:
-C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_pdf.pri:
-C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_pdf_private.pri:
-C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_pdfquick.pri:
-C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_pdfquick_private.pri:
-C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_pdfwidgets.pri:
-C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_pdfwidgets_private.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_png_private.pri:
-C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_positioning.pri:
-C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_positioning_private.pri:
-C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_positioningquick.pri:
-C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_positioningquick_private.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_printsupport.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_printsupport_private.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_protobuf.pri:
@@ -639,7 +568,6 @@ C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_quick3dphysicshelpers.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_quick3dphysicshelpers_private.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_quick3druntimerender.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_quick3druntimerender_private.pri:
-C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_quick3dspatialaudio_private.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_quick3dutils.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_quick3dutils_private.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_quick_private.pri:
@@ -706,12 +634,6 @@ C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_sensorsquick.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_sensorsquick_private.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_serialbus.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_serialbus_private.pri:
-C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_serialport.pri:
-C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_serialport_private.pri:
-C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_shadertools.pri:
-C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_shadertools_private.pri:
-C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_spatialaudio.pri:
-C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_spatialaudio_private.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_sql.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_sql_private.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_statemachine.pri:
@@ -730,17 +652,9 @@ C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_tools_private.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_uiplugin.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_uitools.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_uitools_private.pri:
-C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_virtualkeyboard.pri:
-C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_virtualkeyboard_private.pri:
-C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_virtualkeyboardsettings.pri:
-C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_virtualkeyboardsettings_private.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_vncserver.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_vncserver_private.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_vncserverquick_private.pri:
-C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_webchannel.pri:
-C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_webchannel_private.pri:
-C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_webchannelquick.pri:
-C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_webchannelquick_private.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_websockets.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_websockets_private.pri:
 C:/Qt1/6.7.2/mingw_64/mkspecs/modules/qt_lib_webview.pri:
@@ -783,8 +697,16 @@ C:/Qt1/6.7.2/mingw_64/mkspecs/features/exceptions.prf:
 C:/Qt1/6.7.2/mingw_64/mkspecs/features/yacc.prf:
 C:/Qt1/6.7.2/mingw_64/mkspecs/features/lex.prf:
 ../../Bejeweled.pro:
+C:/Qt1/6.7.2/mingw_64/lib/Qt63DExtras.prl:
+C:/Qt1/6.7.2/mingw_64/lib/Qt63DRender.prl:
+C:/Qt1/6.7.2/mingw_64/lib/Qt63DInput.prl:
+C:/Qt1/6.7.2/mingw_64/lib/Qt63DLogic.prl:
+C:/Qt1/6.7.2/mingw_64/lib/Qt63DCore.prl:
+C:/Qt1/6.7.2/mingw_64/lib/Qt6OpenGL.prl:
 C:/Qt1/6.7.2/mingw_64/lib/Qt6Widgets.prl:
 C:/Qt1/6.7.2/mingw_64/lib/Qt6Gui.prl:
+C:/Qt1/6.7.2/mingw_64/lib/Qt6Concurrent.prl:
+C:/Qt1/6.7.2/mingw_64/lib/Qt6Network.prl:
 C:/Qt1/6.7.2/mingw_64/lib/Qt6Core.prl:
 C:/Qt1/6.7.2/mingw_64/lib/Qt6EntryPoint.prl:
 C:/Qt1/6.7.2/mingw_64/mkspecs/features/build_pass.prf:
