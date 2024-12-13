@@ -15,7 +15,6 @@
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
-#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -25,14 +24,10 @@ class Ui_MainWindow
 public:
     QWidget *centralwidget;
     QPushButton *pushButton;
-    QWidget *verticalLayoutWidget;
-    QVBoxLayout *verticalLayout;
     QPushButton *pushButton_2;
     QPushButton *pushButton_3;
     QPushButton *pushButton_4;
     QPushButton *pushButton_8;
-    QWidget *verticalLayoutWidget_2;
-    QVBoxLayout *verticalLayout_2;
     QPushButton *pushButton_5;
     QPushButton *pushButton_6;
     QPushButton *pushButton_7;
@@ -49,57 +44,31 @@ public:
         pushButton = new QPushButton(centralwidget);
         pushButton->setObjectName("pushButton");
         pushButton->setGeometry(QRect(310, 390, 93, 28));
-        verticalLayoutWidget = new QWidget(centralwidget);
-        verticalLayoutWidget->setObjectName("verticalLayoutWidget");
-        verticalLayoutWidget->setGeometry(QRect(620, 170, 160, 135));
-        verticalLayout = new QVBoxLayout(verticalLayoutWidget);
-        verticalLayout->setObjectName("verticalLayout");
-        verticalLayout->setContentsMargins(0, 0, 0, 0);
-        pushButton_2 = new QPushButton(verticalLayoutWidget);
+        pushButton_2 = new QPushButton(centralwidget);
         pushButton_2->setObjectName("pushButton_2");
-
-        verticalLayout->addWidget(pushButton_2);
-
-        pushButton_3 = new QPushButton(verticalLayoutWidget);
+        pushButton_2->setGeometry(QRect(610, 130, 158, 18));
+        pushButton_3 = new QPushButton(centralwidget);
         pushButton_3->setObjectName("pushButton_3");
-
-        verticalLayout->addWidget(pushButton_3);
-
-        pushButton_4 = new QPushButton(verticalLayoutWidget);
+        pushButton_3->setGeometry(QRect(610, 180, 158, 18));
+        pushButton_4 = new QPushButton(centralwidget);
         pushButton_4->setObjectName("pushButton_4");
-
-        verticalLayout->addWidget(pushButton_4);
-
-        pushButton_8 = new QPushButton(verticalLayoutWidget);
+        pushButton_4->setGeometry(QRect(610, 220, 158, 18));
+        pushButton_8 = new QPushButton(centralwidget);
         pushButton_8->setObjectName("pushButton_8");
-
-        verticalLayout->addWidget(pushButton_8);
-
-        verticalLayoutWidget_2 = new QWidget(centralwidget);
-        verticalLayoutWidget_2->setObjectName("verticalLayoutWidget_2");
-        verticalLayoutWidget_2->setGeometry(QRect(620, 320, 160, 100));
-        verticalLayout_2 = new QVBoxLayout(verticalLayoutWidget_2);
-        verticalLayout_2->setObjectName("verticalLayout_2");
-        verticalLayout_2->setContentsMargins(0, 0, 0, 0);
-        pushButton_5 = new QPushButton(verticalLayoutWidget_2);
+        pushButton_8->setGeometry(QRect(610, 260, 158, 18));
+        pushButton_5 = new QPushButton(centralwidget);
         pushButton_5->setObjectName("pushButton_5");
-
-        verticalLayout_2->addWidget(pushButton_5);
-
-        pushButton_6 = new QPushButton(verticalLayoutWidget_2);
+        pushButton_5->setGeometry(QRect(610, 320, 158, 18));
+        pushButton_6 = new QPushButton(centralwidget);
         pushButton_6->setObjectName("pushButton_6");
-
-        verticalLayout_2->addWidget(pushButton_6);
-
-        pushButton_7 = new QPushButton(verticalLayoutWidget_2);
+        pushButton_6->setGeometry(QRect(610, 360, 158, 18));
+        pushButton_7 = new QPushButton(centralwidget);
         pushButton_7->setObjectName("pushButton_7");
-
-        verticalLayout_2->addWidget(pushButton_7);
-
+        pushButton_7->setGeometry(QRect(610, 400, 158, 18));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 800, 25));
+        menubar->setGeometry(QRect(0, 0, 800, 18));
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName("statusbar");
