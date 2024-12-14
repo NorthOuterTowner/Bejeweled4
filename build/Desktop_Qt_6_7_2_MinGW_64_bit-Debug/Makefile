@@ -422,20 +422,16 @@ Makefile: ../../Bejeweled.pro C:/Qt/6.7.2/mingw_64/mkspecs/win32-g++/qmake.conf 
 		C:/Qt/6.7.2/mingw_64/mkspecs/features/yacc.prf \
 		C:/Qt/6.7.2/mingw_64/mkspecs/features/lex.prf \
 		../../Bejeweled.pro \
-		C:/Qt/6.7.2/mingw_64/lib/Qt63DExtras.prl \
-		C:/Qt/6.7.2/mingw_64/lib/Qt63DRender.prl \
-		C:/Qt/6.7.2/mingw_64/lib/Qt63DInput.prl \
-		C:/Qt/6.7.2/mingw_64/lib/Qt63DLogic.prl \
-		C:/Qt/6.7.2/mingw_64/lib/Qt63DCore.prl \
-		C:/Qt/6.7.2/mingw_64/lib/Qt6OpenGL.prl \
+		C:/Qt/6.7.2/mingw_64/lib/Qt6Multimedia.prl \
 		C:/Qt/6.7.2/mingw_64/lib/Qt6Widgets.prl \
 		C:/Qt/6.7.2/mingw_64/lib/Qt6Gui.prl \
-		C:/Qt/6.7.2/mingw_64/lib/Qt6Concurrent.prl \
 		C:/Qt/6.7.2/mingw_64/lib/Qt6Network.prl \
 		C:/Qt/6.7.2/mingw_64/lib/Qt6Core.prl \
 		C:/Qt/6.7.2/mingw_64/lib/Qt6EntryPoint.prl \
 		C:/Qt/6.7.2/mingw_64/mkspecs/features/build_pass.prf \
 		../Gems/jewel.qrc \
+		../../music.qrc \
+		../../picture/picture.qrc \
 		debug/qmake_qmake_qm_files.qrc \
 		release/qmake_qmake_qm_files.qrc
 	$(QMAKE) -o Makefile ..\..\Bejeweled.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug"
@@ -791,20 +787,16 @@ C:/Qt/6.7.2/mingw_64/mkspecs/features/exceptions.prf:
 C:/Qt/6.7.2/mingw_64/mkspecs/features/yacc.prf:
 C:/Qt/6.7.2/mingw_64/mkspecs/features/lex.prf:
 ../../Bejeweled.pro:
-C:/Qt/6.7.2/mingw_64/lib/Qt63DExtras.prl:
-C:/Qt/6.7.2/mingw_64/lib/Qt63DRender.prl:
-C:/Qt/6.7.2/mingw_64/lib/Qt63DInput.prl:
-C:/Qt/6.7.2/mingw_64/lib/Qt63DLogic.prl:
-C:/Qt/6.7.2/mingw_64/lib/Qt63DCore.prl:
-C:/Qt/6.7.2/mingw_64/lib/Qt6OpenGL.prl:
+C:/Qt/6.7.2/mingw_64/lib/Qt6Multimedia.prl:
 C:/Qt/6.7.2/mingw_64/lib/Qt6Widgets.prl:
 C:/Qt/6.7.2/mingw_64/lib/Qt6Gui.prl:
-C:/Qt/6.7.2/mingw_64/lib/Qt6Concurrent.prl:
 C:/Qt/6.7.2/mingw_64/lib/Qt6Network.prl:
 C:/Qt/6.7.2/mingw_64/lib/Qt6Core.prl:
 C:/Qt/6.7.2/mingw_64/lib/Qt6EntryPoint.prl:
 C:/Qt/6.7.2/mingw_64/mkspecs/features/build_pass.prf:
 ../Gems/jewel.qrc:
+../../music.qrc:
+../../picture/picture.qrc:
 debug/qmake_qmake_qm_files.qrc:
 release/qmake_qmake_qm_files.qrc:
 qmake: FORCE

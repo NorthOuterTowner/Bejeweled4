@@ -39,6 +39,69 @@
     <string>排行榜</string>
    </property>
   </widget>
+  <widget class="QLabel" name="timerLabel">
+   <property name="geometry">
+    <rect>
+     <x>480</x>
+     <y>490</y>
+     <width>41</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="tabletTracking">
+    <bool>false</bool>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::FocusPolicy::NoFocus</enum>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel {
+	font: italic 18pt &quot;Monotype Corsiva&quot;;
+    border: 1px solid #ddd;         /* 边框颜色 */
+    border-radius: 5px;             /* 边框圆角 */
+}
+
+QLabel[alignment=&quot;center&quot;] {
+    text-align: center;             /* 文本居中对齐 */
+}</string>
+   </property>
+   <property name="text">
+    <string>25s</string>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+   <property name="wordWrap">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QProgressBar" name="progressBar">
+   <property name="geometry">
+    <rect>
+     <x>97</x>
+     <y>490</y>
+     <width>381</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QProgressBar {
+    border: 1px solid #ccc;         /* 进度条边框颜色 */
+    border-radius: 5px;             /* 进度条圆角 */
+    background: #eee;               /* 进度条背景颜色 */
+    padding: 2px;                   /* 内边距 */
+}
+
+QProgressBar::chunk {
+    background: #3498db;            /* 进度条填充颜色 */
+    width: 20px;                    /* 填充块宽度 */
+    border-radius: 5px;             /* 填充块圆角 */
+}</string>
+   </property>
+   <property name="value">
+    <number>24</number>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>
