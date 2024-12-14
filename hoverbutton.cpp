@@ -55,7 +55,7 @@ void HoverButton::setLabel(QString text, int size)
     label.setGeometry(0, 0, w, h);
     label.setAlignment(Qt::AlignCenter);
     label.setFont(QFont("Microsoft YaHei", size, QFont::Normal));
-    label.setStyleSheet("QLabel{color:white;}");
+    label.setStyleSheet("QLabel{color:pink;}");
     label.setVisible(true);
     // 计算文本的宽度和高度
     QFontMetrics metrics(label.font());
@@ -63,7 +63,7 @@ void HoverButton::setLabel(QString text, int size)
     int textHeight = metrics.height();
 
     // 设置按钮大小为文本大小 + 一些额外的间距
-    setFixedSize(textWidth + 20, textHeight + 10);  // 20和10是额外的间距，可以根据需要调整
+    setFixedSize(textWidth + 80, textHeight + 50);  // 20和10是额外的间距，可以根据需要调整
 }
 
 void HoverButton::enterEvent(QEnterEvent *event)
@@ -77,7 +77,7 @@ void HoverButton::enterEvent(QEnterEvent *event)
         QFontMetrics metrics(label.font());
         int textWidth = metrics.horizontalAdvance(label.text());
         int textHeight = metrics.height();
-        setFixedSize(textWidth + 20, textHeight + 10);  // 自动调整按钮大小
+        setFixedSize(textWidth + 80, textHeight + 50);  // 自动调整按钮大小
     }
 
     // 添加动画
@@ -87,6 +87,13 @@ void HoverButton::enterEvent(QEnterEvent *event)
     animation->setEndValue(QRect(this->x() - 5, this->y() - 5, this->width() + 10, this->height() + 10));
     animation->start();
     QPushButton::enterEvent(event);
+    // 计算文本的宽度和高度
+    QFontMetrics metrics(label.font());
+    int textWidth = metrics.horizontalAdvance(label.text());
+    int textHeight = metrics.height();
+
+    // 设置按钮大小为文本大小 + 一些额外的间距
+    setFixedSize(textWidth + 80, textHeight + 50);
 }
 
 void HoverButton::leaveEvent(QEvent *event)
@@ -100,7 +107,7 @@ void HoverButton::leaveEvent(QEvent *event)
         QFontMetrics metrics(label.font());
         int textWidth = metrics.horizontalAdvance(label.text());
         int textHeight = metrics.height();
-        setFixedSize(textWidth + 20, textHeight + 10);  // 自动调整按钮大小
+        setFixedSize(textWidth + 20, textHeight + 50);  // 自动调整按钮大小
     }
 
     // 添加动画
@@ -110,6 +117,13 @@ void HoverButton::leaveEvent(QEvent *event)
     animation->setEndValue(QRect(this->x() + 5, this->y() + 5, this->width() - 10, this->height() - 10));
     animation->start();
     QPushButton::leaveEvent(event);
+    // 计算文本的宽度和高度
+    QFontMetrics metrics(label.font());
+    int textWidth = metrics.horizontalAdvance(label.text());
+    int textHeight = metrics.height();
+
+    // 设置按钮大小为文本大小 + 一些额外的间距
+    setFixedSize(textWidth + 80, textHeight + 50);
 }
 
 void HoverButton::mousePressEvent(QMouseEvent *event)
@@ -121,6 +135,13 @@ void HoverButton::mousePressEvent(QMouseEvent *event)
         label.setFont(QFont("Microsoft YaHei", textSize * 1.5, QFont::Bold));
 
     QPushButton::mousePressEvent(event);
+    // 计算文本的宽度和高度
+    QFontMetrics metrics(label.font());
+    int textWidth = metrics.horizontalAdvance(label.text());
+    int textHeight = metrics.height();
+
+    // 设置按钮大小为文本大小 + 一些额外的间距
+    setFixedSize(textWidth + 80, textHeight + 50);
 }
 
 void HoverButton::mouseReleaseEvent(QMouseEvent *event)
@@ -132,4 +153,11 @@ void HoverButton::mouseReleaseEvent(QMouseEvent *event)
         label.setFont(QFont("Microsoft YaHei", textSize, QFont::Normal));
 
     QPushButton::mouseReleaseEvent(event);
+    // 计算文本的宽度和高度
+    QFontMetrics metrics(label.font());
+    int textWidth = metrics.horizontalAdvance(label.text());
+    int textHeight = metrics.height();
+
+    // 设置按钮大小为文本大小 + 一些额外的间距
+    setFixedSize(textWidth + 80, textHeight + 50);
 }

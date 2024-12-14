@@ -1,4 +1,4 @@
-QT       += core gui network multimedia
+QT       += core gui network multimedia sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -9,25 +9,31 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    Login.cpp \
     game.cpp \
     gametimer.cpp \
     globalvalue.cpp \
     hoverbutton.cpp \
     main.cpp \
     mainwindow.cpp \
+    signup.cpp \
     stonelabel.cpp
 
 HEADERS += \
+    Login.h \
     game.h \
     gametimer.h \
     globalvalue.h \
     hoverbutton.h \
     mainwindow.h \
+    signup.h \
     stonelabel.h
 
 FORMS += \
+    Login.ui \
     game.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    signup.ui
 
 TRANSLATIONS += \
     Bejeweled_zh_CN.ts
@@ -139,4 +145,5 @@ DISTFILES += \
     picture/scorepod.png \
     picture/splash.jpg \
     picture/starsBK.gif \
-    picture/time_out.png
+    picture/time_out.png \
+    qsqlited.dll
