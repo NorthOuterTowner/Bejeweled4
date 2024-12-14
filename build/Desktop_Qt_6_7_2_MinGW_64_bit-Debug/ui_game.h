@@ -12,6 +12,7 @@
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QProgressBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QWidget>
 
@@ -23,6 +24,7 @@ public:
     QPushButton *pushButton;
     QPushButton *pushButton_2;
     QLabel *timerLabel;
+    QProgressBar *progressBar;
 
     void setupUi(QWidget *Game)
     {
@@ -37,11 +39,36 @@ public:
         pushButton_2->setGeometry(QRect(690, 90, 93, 28));
         timerLabel = new QLabel(Game);
         timerLabel->setObjectName("timerLabel");
-        timerLabel->setGeometry(QRect(720, 162, 40, 20));
+        timerLabel->setGeometry(QRect(480, 490, 41, 21));
         timerLabel->setTabletTracking(false);
         timerLabel->setFocusPolicy(Qt::FocusPolicy::NoFocus);
+        timerLabel->setStyleSheet(QString::fromUtf8("QLabel {\n"
+"	font: italic 18pt \"Monotype Corsiva\";\n"
+"    border: 1px solid #ddd;         /* \350\276\271\346\241\206\351\242\234\350\211\262 */\n"
+"    border-radius: 5px;             /* \350\276\271\346\241\206\345\234\206\350\247\222 */\n"
+"}\n"
+"\n"
+"QLabel[alignment=\"center\"] {\n"
+"    text-align: center;             /* \346\226\207\346\234\254\345\261\205\344\270\255\345\257\271\351\275\220 */\n"
+"}"));
         timerLabel->setScaledContents(true);
         timerLabel->setWordWrap(true);
+        progressBar = new QProgressBar(Game);
+        progressBar->setObjectName("progressBar");
+        progressBar->setGeometry(QRect(97, 490, 381, 23));
+        progressBar->setStyleSheet(QString::fromUtf8("QProgressBar {\n"
+"    border: 1px solid #ccc;         /* \350\277\233\345\272\246\346\235\241\350\276\271\346\241\206\351\242\234\350\211\262 */\n"
+"    border-radius: 5px;             /* \350\277\233\345\272\246\346\235\241\345\234\206\350\247\222 */\n"
+"    background: #eee;               /* \350\277\233\345\272\246\346\235\241\350\203\214\346\231\257\351\242\234\350\211\262 */\n"
+"    padding: 2px;                   /* \345\206\205\350\276\271\350\267\235 */\n"
+"}\n"
+"\n"
+"QProgressBar::chunk {\n"
+"    background: #3498db;            /* \350\277\233\345\272\246\346\235\241\345\241\253\345\205\205\351\242\234\350\211\262 */\n"
+"    width: 20px;                    /* \345\241\253\345\205\205\345\235\227\345\256\275\345\272\246 */\n"
+"    border-radius: 5px;             /* \345\241\253\345\205\205\345\235\227\345\234\206\350\247\222 */\n"
+"}"));
+        progressBar->setValue(24);
 
         retranslateUi(Game);
 
@@ -53,7 +80,7 @@ public:
         Game->setWindowTitle(QCoreApplication::translate("Game", "GameDlg", nullptr));
         pushButton->setText(QCoreApplication::translate("Game", "\350\277\224\345\233\236", nullptr));
         pushButton_2->setText(QCoreApplication::translate("Game", "\346\216\222\350\241\214\346\246\234", nullptr));
-        timerLabel->setText(QCoreApplication::translate("Game", "6", nullptr));
+        timerLabel->setText(QCoreApplication::translate("Game", "25s", nullptr));
     } // retranslateUi
 
 };

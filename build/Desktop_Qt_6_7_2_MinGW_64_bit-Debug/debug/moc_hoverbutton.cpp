@@ -6,11 +6,7 @@
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-<<<<<<< Updated upstream
 #include "../../../hoverbutton.h"
-=======
-#include "../../../../../../Desktop/Bejeweled4-main/hoverbutton.h"
->>>>>>> Stashed changes
 #include <QtGui/qtextcursor.h>
 #include <QtCore/qmetatype.h>
 

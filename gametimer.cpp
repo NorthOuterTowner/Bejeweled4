@@ -1,5 +1,4 @@
 #include "gametimer.h"
-#include "ui_game.h"
 
 GameTimer::GameTimer(QObject *parent) : QObject(parent)
 {
