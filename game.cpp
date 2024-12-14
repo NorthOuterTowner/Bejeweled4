@@ -10,6 +10,8 @@
 #include <QPropertyAnimation>
 #include <QVector>
 #include <QProgressDialog>
+#include <QProgressBar>
+#include <QMessageBox>
 /*Space between Window and Labels*/
 #define upSpacer 80
 #define leftSpacer 100
@@ -65,6 +67,9 @@ Game::Game(QWidget *parent)
         progressDialog->setValue(100);
         progressDialog->hide();
     }
+    gameTimer->startCountdown(5);
+    ui->progressBar->setRange(0, gameTimer->getRemainingSeconds());  // 设置进度条范围与倒计时初始时间一致
+    ui->progressBar->setValue(gameTimer->getRemainingSeconds());  // 设置初始值为总时间
 }
 
 Game::~Game()
@@ -105,6 +110,14 @@ void Game::init(){
     }
     change=false;
     waitLabel=nullptr;
+
+
+    gameTimer = new GameTimer(this);
+    connect(gameTimer, &GameTimer::timeUpdated, this, &Game::updateTimerDisplay);
+    connect(gameTimer, &GameTimer::timeExpired, this, &Game::onTimeExpired);
+
+    ui->progressBar->setTextVisible(false);
+    ui->timerLabel->setText("--");
 
 }
 /**
@@ -400,6 +413,22 @@ void Game::resetMatchedFlags(){
             }
         }
     }
+}
+
+void Game::onTimeExpired()
+{
+    // 在这里可以添加游戏结束相关的逻辑，比如提示游戏结束、禁用操作等
+    ui->timerLabel->setText(QString::number(0) + "s");
+    ui->progressBar->setValue(0);  // 更新进度条当前值
+    // 示例：简单地弹出一个提示框告知游戏结束
+    QMessageBox::information(this, "游戏结束", "倒计时结束，游戏结束！");
+}
+
+void Game::updateTimerDisplay()
+{
+    int remainingSeconds = gameTimer->getRemainingSeconds();
+    ui->timerLabel->setText(QString::number(remainingSeconds+1) + "s");
+    ui->progressBar->setValue(remainingSeconds+1);  // 更新进度条当前值
 }
 
 void Game::on_pushButton_clicked()
