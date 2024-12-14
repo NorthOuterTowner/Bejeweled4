@@ -4,6 +4,7 @@
 #include "globalvalue.h"
 #include "stonelabel.h"
 #include "gametimer.h"
+#include "pausewidget.h"
 #include <QWidget>
 #include <QMouseEvent>
 #include <QLabel>
@@ -28,6 +29,7 @@ public:
      static void delInstance(){
         gameInstance=nullptr;
     }
+    bool isPaused=false;
 signals:
     void eliminateAgainSignal();
     void returnMainwindow();
@@ -65,8 +67,9 @@ private slots:
         }
     }
     void on_pushButton_clicked();
+    void on_pushButton_3_clicked();
+
 private:
-    GameTimer *gameTimer;//计时器
     explicit Game(QWidget *parent = nullptr);
     static Game* gameInstance;
     void mousePressEvent(QMouseEvent *event) override;
@@ -77,10 +80,12 @@ private:
     void resetMatchedFlags();//重置所有棋子为不可消除
     void generateNewStone(int row, int col);//创建一个新子
     void creatstones();//创建所有需要的子
-    QProgressBar *progressBar;  // 声明进度条成员变量
+    GameTimer *gameTimer;//计时器
+    QProgressBar *progressBar;  //计时进度条
     void onTimeExpired();//倒计时结束时的处理
     void updateTimerDisplay();//更新界面上显示倒计时的QLabel的文本内容
     int  animationsLeft;  // 重置动画计数器
+    PauseWidget *pauseWidget;  // 暂停界面指针
     bool change=false;
     bool eliminateAgain=true;
     std::vector<int> swapReturn;

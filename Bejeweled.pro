@@ -15,6 +15,7 @@ SOURCES += \
     hoverbutton.cpp \
     main.cpp \
     mainwindow.cpp \
+    pausewidget.cpp \
     stonelabel.cpp
 
 HEADERS += \
@@ -23,6 +24,7 @@ HEADERS += \
     globalvalue.h \
     hoverbutton.h \
     mainwindow.h \
+    pausewidget.h \
     stonelabel.h
 
 FORMS += \
