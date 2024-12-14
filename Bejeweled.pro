@@ -16,6 +16,7 @@ SOURCES += \
     hoverbutton.cpp \
     main.cpp \
     mainwindow.cpp \
+    pausewidget.cpp \
     signup.cpp \
     stonelabel.cpp
 
@@ -26,6 +27,7 @@ HEADERS += \
     globalvalue.h \
     hoverbutton.h \
     mainwindow.h \
+    pausewidget.h \
     signup.h \
     stonelabel.h
 
