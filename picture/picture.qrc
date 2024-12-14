@@ -1,10 +1,9 @@
 <RCC>
-<qresource prefix="/">
-
-    <file>mouse1.png</file>
-    <file>mouse2.png</file>
-    <file>mouse3.png</file>
-    <file>StartPage/background.png</file>
-
-</qresource>
+    <qresource prefix="/">
+        <file>mouse1.png</file>
+        <file>mouse2.png</file>
+        <file>mouse3.png</file>
+        <file>StartPage/background.png</file>
+        <file>title.png</file>
+    </qresource>
 </RCC>

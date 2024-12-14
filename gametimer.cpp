@@ -16,21 +16,29 @@ void GameTimer::startCountdown(int seconds)
 
 void GameTimer::stop()
 {
-    timer->stop();
+    if (timer->isActive()) {  // 先判断定时器是否正在运行
+        timer->stop();
+    }
 }
 
-// 实现获取剩余秒数的函数
+void GameTimer::start()
+{
+    if (!timer->isActive()) {  // 判断定时器当前是否未运行，避免重复启动
+        timer->start();
+    }
+}
+
 int GameTimer::getRemainingSeconds()
 {
     return remainingSeconds;
 }
+
 void GameTimer::updateTime()
 {
-    if (remainingSeconds > 0) {
+    if (timer->isActive() && remainingSeconds > 0) {  // 判断游戏是否暂停，只有未暂停且剩余时间大于0时才进行倒计时
         remainingSeconds--;
-        // 这里不再直接更新界面，改为发出信号通知外部（比如Game类）来更新界面（需要添加对应的信号定义和发射逻辑，这里暂未详细写）
         emit timeUpdated(remainingSeconds);
-    } else {
+    } else if (remainingSeconds == 0) {
         timer->stop();
         emit timeExpired();
     }

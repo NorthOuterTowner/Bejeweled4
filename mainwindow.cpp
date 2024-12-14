@@ -21,7 +21,9 @@ MainWindow::MainWindow(QWidget *parent)
     QPropertyAnimation *backgroundAnimation = ShowBackground();
     backgroundAnimation->start(QAbstractAnimation::DeleteWhenStopped);
 
-
+    // 启动标题动画
+    QPropertyAnimation *titleAnimation = ShowTitle();
+    titleAnimation->start(QAbstractAnimation::DeleteWhenStopped);  // 启动标题动画
     // 循环播放背景音乐
     sound = new QSoundEffect(this);
     sound->setSource(QUrl("qrc:/music/background/music-1.wav"));  // 使用 qrc 路径
@@ -35,7 +37,8 @@ MainWindow::MainWindow(QWidget *parent)
     // 使用 HoverButton 替换原有按钮
     HoverButton *startButton = new HoverButton(this);
     startButton->setImage(":/icons/start_normal.png", ":/icons/start_hover.png", 100, 25);
-    startButton->setLabel("Start Game", 13);
+    startButton->setLabel("Start", 13);
+    startButton->adjustSize();  // 自动调整按钮大小
     startButton->setSound(":/music/button/button_mouseover.wav", ":/music/button/button_mouseleave.wav", ":/music/button/button_press.wav", ":/music/button/button_release.wav");
     startButton->move(ui->pushButton->pos());  // 将新按钮放置在原按钮的位置
     connect(startButton, &QPushButton::clicked, this, &MainWindow::on_pushButton_clicked);
@@ -47,6 +50,7 @@ MainWindow::MainWindow(QWidget *parent)
     HoverButton *easyButton = new HoverButton(this);
     easyButton->setImage(":/icons/easy_normal.png", ":/icons/easy_hover.png", 100, 45);
     easyButton->setLabel("Easy", 13);
+
     easyButton->setSound(":/music/button/button_mouseover.wav", ":/music/button/button_mouseleave.wav", ":/music/button/button_press.wav", ":/music/button/button_release.wav");
     easyButton->move(ui->pushButton_2->pos());  // 设置位置与原按钮相同
     connect(easyButton, &QPushButton::clicked, this, &MainWindow::on_pushButton_2_clicked);
@@ -70,9 +74,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     HoverButton *jewelButton = new HoverButton(this);
     jewelButton->setImage(":/icons/hard_normal.png", ":/icons/hard_hover.png", 150, 50);
-    jewelButton->setLabel("Hard", 13);
+    jewelButton->setLabel("jewel", 13);
     jewelButton->setSound(":/music/button/button_mouseover.wav", ":/music/button/button_mouseleave.wav", ":/music/button/button_press.wav", ":/music/button/button_release.wav");
-    jewelButton->move(ui->pushButton_4->pos());
+    jewelButton->move(ui->pushButton_5->pos());
     connect(jewelButton, &QPushButton::clicked, this, &MainWindow::on_pushButton_5_clicked);
     ui->pushButton_5->hide();
 
@@ -119,6 +123,30 @@ QPropertyAnimation* MainWindow::ShowBackground() {
 
     return bkAnim;
 }
+QPropertyAnimation * MainWindow ::ShowTitle(){
+    QPixmap pix;
+    QLabel *title = new QLabel(this); // 创建一个 QLabel 来显示标题
+    title->setGeometry(this->width()/2-500/2,-title->height(),500,100); // 设置标题的初始位置，使其位于屏幕外
+    setAdaptedImg(":/title.png", title); // 设置标题图像作为 QLabel 的内容
+    title->show(); // 显示标题标签
+
+    // 创建标题的动画
+    QPropertyAnimation *animation = new QPropertyAnimation(title, "geometry",this);
+    animation->setDuration(2000); // 动画持续时间为 2000 毫秒 (2秒)
+    animation->setStartValue(QRect(title->x(), title->y(), title->width(), title->height())); // 设置动画起始位置
+    animation->setEndValue(QRect(title->x(), 100, title->width(), title->height())); // 设置动画结束位置，将标题移至 y = 100 处
+    animation->setEasingCurve(QEasingCurve::OutExpo); // 使用 OutExpo 缓动效果（平滑动画）
+    return animation; // 返回动画对象
+}
+//将path的图片放置到label上，自适应label大小
+void MainWindow ::setAdaptedImg(QString path,QLabel *label)
+{
+    QImage image(path);
+    QSize size=label->size();
+    QImage image2=image.scaled(size,Qt::IgnoreAspectRatio);//重新调整图像大小以适应label
+    label->setPixmap(QPixmap::fromImage(image2));//显示
+}
+
 
 void MainWindow::setBkImg(QString path, QLabel *label) {
     QImage image = QImage(path);
@@ -184,3 +212,4 @@ void MainWindow::on_pushButton_8_clicked()
 {
 
 }
+

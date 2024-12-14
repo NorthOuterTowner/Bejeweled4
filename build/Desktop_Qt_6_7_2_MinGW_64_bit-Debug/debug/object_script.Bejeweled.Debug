@@ -4,6 +4,7 @@ debug/globalvalue.o
 debug/hoverbutton.o
 debug/main.o
 debug/mainwindow.o
+debug/pausewidget.o
 debug/stonelabel.o
 debug/qrc_jewel.o
 debug/qrc_music.o
@@ -13,4 +14,5 @@ debug/moc_game.o
 debug/moc_gametimer.o
 debug/moc_hoverbutton.o
 debug/moc_mainwindow.o
+debug/moc_pausewidget.o
 debug/moc_stonelabel.o

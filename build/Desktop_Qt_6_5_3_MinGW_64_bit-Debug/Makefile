@@ -91,6 +91,10 @@ Makefile: ../../Bejeweled.pro ../../../../Qt/6.5.3/mingw_64/mkspecs/win32-g++/qm
 		../../../../Qt/6.5.3/mingw_64/mkspecs/modules/qt_lib_concurrent_private.pri \
 		../../../../Qt/6.5.3/mingw_64/mkspecs/modules/qt_lib_core.pri \
 		../../../../Qt/6.5.3/mingw_64/mkspecs/modules/qt_lib_core_private.pri \
+		../../../../Qt/6.5.3/mingw_64/mkspecs/modules/qt_lib_datavisualization.pri \
+		../../../../Qt/6.5.3/mingw_64/mkspecs/modules/qt_lib_datavisualization_private.pri \
+		../../../../Qt/6.5.3/mingw_64/mkspecs/modules/qt_lib_datavisualizationqml.pri \
+		../../../../Qt/6.5.3/mingw_64/mkspecs/modules/qt_lib_datavisualizationqml_private.pri \
 		../../../../Qt/6.5.3/mingw_64/mkspecs/modules/qt_lib_dbus.pri \
 		../../../../Qt/6.5.3/mingw_64/mkspecs/modules/qt_lib_dbus_private.pri \
 		../../../../Qt/6.5.3/mingw_64/mkspecs/modules/qt_lib_designer.pri \
@@ -246,6 +250,7 @@ Makefile: ../../Bejeweled.pro ../../../../Qt/6.5.3/mingw_64/mkspecs/win32-g++/qm
 		../../../../Qt/6.5.3/mingw_64/lib/Qt6Widgets.prl \
 		../../../../Qt/6.5.3/mingw_64/lib/Qt6Gui.prl \
 		../../../../Qt/6.5.3/mingw_64/lib/Qt6Network.prl \
+		../../../../Qt/6.5.3/mingw_64/lib/Qt6Sql.prl \
 		../../../../Qt/6.5.3/mingw_64/lib/Qt6Core.prl \
 		../../../../Qt/6.5.3/mingw_64/lib/Qt6EntryPoint.prl \
 		../../../../Qt/6.5.3/mingw_64/mkspecs/features/build_pass.prf \
@@ -276,6 +281,10 @@ Makefile: ../../Bejeweled.pro ../../../../Qt/6.5.3/mingw_64/mkspecs/win32-g++/qm
 ../../../../Qt/6.5.3/mingw_64/mkspecs/modules/qt_lib_concurrent_private.pri:
 ../../../../Qt/6.5.3/mingw_64/mkspecs/modules/qt_lib_core.pri:
 ../../../../Qt/6.5.3/mingw_64/mkspecs/modules/qt_lib_core_private.pri:
+../../../../Qt/6.5.3/mingw_64/mkspecs/modules/qt_lib_datavisualization.pri:
+../../../../Qt/6.5.3/mingw_64/mkspecs/modules/qt_lib_datavisualization_private.pri:
+../../../../Qt/6.5.3/mingw_64/mkspecs/modules/qt_lib_datavisualizationqml.pri:
+../../../../Qt/6.5.3/mingw_64/mkspecs/modules/qt_lib_datavisualizationqml_private.pri:
 ../../../../Qt/6.5.3/mingw_64/mkspecs/modules/qt_lib_dbus.pri:
 ../../../../Qt/6.5.3/mingw_64/mkspecs/modules/qt_lib_dbus_private.pri:
 ../../../../Qt/6.5.3/mingw_64/mkspecs/modules/qt_lib_designer.pri:
@@ -431,6 +440,7 @@ Makefile: ../../Bejeweled.pro ../../../../Qt/6.5.3/mingw_64/mkspecs/win32-g++/qm
 ../../../../Qt/6.5.3/mingw_64/lib/Qt6Widgets.prl:
 ../../../../Qt/6.5.3/mingw_64/lib/Qt6Gui.prl:
 ../../../../Qt/6.5.3/mingw_64/lib/Qt6Network.prl:
+../../../../Qt/6.5.3/mingw_64/lib/Qt6Sql.prl:
 ../../../../Qt/6.5.3/mingw_64/lib/Qt6Core.prl:
 ../../../../Qt/6.5.3/mingw_64/lib/Qt6EntryPoint.prl:
 ../../../../Qt/6.5.3/mingw_64/mkspecs/features/build_pass.prf:

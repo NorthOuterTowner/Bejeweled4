@@ -54,6 +54,9 @@ Game::Game(QWidget *parent)
     ui->setupUi(this);
     connect(this, &Game::eliminateAgainSignal, this, &Game::onEliminateAgain);
     connect(this, &Game::initEndSignal, this, &Game::initEnd);
+    gameTimer = new GameTimer(this);
+    connect(gameTimer, &GameTimer::timeUpdated, this, &Game::updateTimerDisplay);
+    connect(gameTimer, &GameTimer::timeExpired, this, &Game::onTimeExpired);
     init();
     initing=true;
     progressDialog = new QProgressDialog("正在初始化中，请稍后...", "取消", 0, 0, this);
@@ -67,9 +70,6 @@ Game::Game(QWidget *parent)
         progressDialog->setValue(100);
         progressDialog->hide();
     }
-    gameTimer->startCountdown(5);
-    ui->progressBar->setRange(0, gameTimer->getRemainingSeconds());  // 设置进度条范围与倒计时初始时间一致
-    ui->progressBar->setValue(gameTimer->getRemainingSeconds());  // 设置初始值为总时间
 }
 
 Game::~Game()
@@ -110,14 +110,16 @@ void Game::init(){
     }
     change=false;
     waitLabel=nullptr;
+    pauseWidget = nullptr;
 
-
-    gameTimer = new GameTimer(this);
-    connect(gameTimer, &GameTimer::timeUpdated, this, &Game::updateTimerDisplay);
-    connect(gameTimer, &GameTimer::timeExpired, this, &Game::onTimeExpired);
-
+    gameTimer->startCountdown(5);
+    ui->progressBar->setRange(0, gameTimer->getRemainingSeconds());  // 设置进度条范围与倒计时初始时间一致
+    ui->progressBar->setValue(gameTimer->getRemainingSeconds());  // 设置初始值为总时间
     ui->progressBar->setTextVisible(false);
     ui->timerLabel->setText("--");
+
+    connect(ui->pushButton_3, &QPushButton::clicked, this, &Game::on_pushButton_3_clicked);
+
 
 }
 /**
@@ -289,7 +291,6 @@ void Game::eliminateMatches() {
         }
     }
 
-
     dropStones();
     resetMatchedFlags();
 
@@ -434,4 +435,18 @@ void Game::updateTimerDisplay()
 void Game::on_pushButton_clicked()
 {
     emit returnMainwindow();
+}
+
+void Game::on_pushButton_3_clicked()
+{
+    if (!pauseWidget) {
+        pauseWidget = new PauseWidget(this);
+    }
+    pauseWidget->show();
+    //pauseWidget->raise();
+    //pauseWidget->activateWindow();
+
+    // 暂停游戏逻辑，停止计时器并设置暂停状态为true
+    gameTimer->stop();
+    isPaused = true;
 }
