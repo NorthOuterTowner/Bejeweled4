@@ -4,6 +4,7 @@
 #include "stonelabel.h"
 #include "globalvalue.h"
 #include "mainwindow.h"
+#include "Pause.h"
 #include <QLabel>
 #include <random>
 #include <vector>
@@ -119,7 +120,7 @@ void Game::init(){
     }
     change=false;
     waitLabel=nullptr;
-    pauseWidget = nullptr;
+    pause = nullptr;
 
     gameTimer->startCountdown(50);
     ui->progressBar->setRange(0, gameTimer->getRemainingSeconds());  // 设置进度条范围与倒计时初始时间一致
@@ -450,12 +451,12 @@ void Game::on_pushButton_clicked()
 //暂停
 void Game::on_pushButton_3_clicked()
 {
-    if (!pauseWidget) {
-        pauseWidget = new PauseWidget(this);
+    if (!pause) {
+        pause = new Pause(this);
     }
-    pauseWidget->show();
-    //pauseWidget->raise();
-    //pauseWidget->activateWindow();
+    pause->show();
+    //Pause->raise();
+    //Pause->activateWindow();
 
     // 暂停游戏逻辑，停止计时器并设置暂停状态为true
     gameTimer->stop();
