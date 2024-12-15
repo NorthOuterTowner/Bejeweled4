@@ -446,7 +446,12 @@ void Game::on_pushButton_3_clicked()
     isPaused = true;
 }
 
+<<<<<<< Updated upstream
 void Game::resume()
+=======
+//重新排布按键
+void Game::on_pushButton_5_clicked()
+>>>>>>> Stashed changes
 {
     if (isPaused) {
         gameTimer->start();  // 恢复计时器运行

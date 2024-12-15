@@ -70,6 +70,8 @@ private slots:
     void on_returnFromPauseToMainMenu();  //从暂停界面返回主菜单
     void resume();//解除暂停恢复游戏
 
+    void on_pushButton_5_clicked();
+
 private:
     explicit Game(QWidget *parent = nullptr);
     static Game* gameInstance;
