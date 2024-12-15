@@ -11,6 +11,7 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QLCDNumber>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QProgressBar>
 #include <QtWidgets/QPushButton>
@@ -26,6 +27,8 @@ public:
     QLabel *timerLabel;
     QProgressBar *progressBar;
     QPushButton *pushButton_3;
+    QLCDNumber *lcdNumber;
+    QLabel *label;
 
     void setupUi(QWidget *Game)
     {
@@ -73,6 +76,12 @@ public:
         pushButton_3 = new QPushButton(Game);
         pushButton_3->setObjectName("pushButton_3");
         pushButton_3->setGeometry(QRect(40, 80, 51, 18));
+        lcdNumber = new QLCDNumber(Game);
+        lcdNumber->setObjectName("lcdNumber");
+        lcdNumber->setGeometry(QRect(670, 230, 101, 41));
+        label = new QLabel(Game);
+        label->setObjectName("label");
+        label->setGeometry(QRect(690, 200, 69, 19));
 
         retranslateUi(Game);
 
@@ -86,6 +95,7 @@ public:
         pushButton_2->setText(QCoreApplication::translate("Game", "\346\216\222\350\241\214\346\246\234", nullptr));
         timerLabel->setText(QCoreApplication::translate("Game", "25s", nullptr));
         pushButton_3->setText(QCoreApplication::translate("Game", "PushButton", nullptr));
+        label->setText(QCoreApplication::translate("Game", "\345\210\206\346\225\260", nullptr));
     } // retranslateUi
 
 };

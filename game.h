@@ -30,6 +30,7 @@ public:
         gameInstance=nullptr;
     }
     bool isPaused=false;
+    static int jewelNum;
 signals:
     void eliminateAgainSignal();
     void returnMainwindow();
@@ -92,6 +93,8 @@ private:
     QProgressDialog *progressDialog;
     bool initing;
     Ui::Game *ui;
+    int score;
+    int winScore;
 };
 
 #endif // GAME_H

@@ -15,12 +15,11 @@
 /*Space between Window and Labels*/
 #define upSpacer 80
 #define leftSpacer 100
-
 /*The Widget of game district*/
 QGridLayout* mainWidget;
 StoneLabel* waitLabel;
 Game* Game::gameInstance = nullptr;
-
+int Game::jewelNum=8;
 /**
  * @brief generate random digit from 1 to 10
  * @return random digit
@@ -35,8 +34,8 @@ int genRandom(){
  * @brief Update the window by vector<vector<StoneLabel*>> stones
  */
 void Game::update(){
-    for (int i = 0; i < 8; i++) {
-        for (int j = 0; j < 8; j++) {
+    for (int i = 0; i < Game::jewelNum; i++) {
+        for (int j = 0; j < Game::jewelNum; j++) {
                 StoneLabel* pic = stones.at(i).at(j);
                 pic->resize(48,48);
                 std::string pixStr=":/"+StoneLabel::stoneMode+std::to_string(pic->getIndex())+".png";
@@ -52,6 +51,9 @@ Game::Game(QWidget *parent)
     , ui(new Ui::Game)
 {
     ui->setupUi(this);
+    Game::jewelNum=8;
+    this->score=0;
+    //this->ui->lcdNumber->set
     connect(this, &Game::eliminateAgainSignal, this, &Game::onEliminateAgain);
     connect(this, &Game::initEndSignal, this, &Game::initEnd);
     gameTimer = new GameTimer(this);
@@ -95,8 +97,8 @@ void Game::init(){
     centralWidget->setLayout(mainWidget);
     centralWidget->setGeometry(leftSpacer,upSpacer,384,384);
     centralWidget->setParent(this);
-    for (int row = 0; row < 8; row++) {
-        for (int col = 0; col < 8; col++) {
+    for (int row = 0; row < Game::jewelNum; row++) {
+        for (int col = 0; col < Game::jewelNum; col++) {
             StoneLabel* imgLabel = new StoneLabel(this);
             stones[row][col]=imgLabel;
             imgLabel->setrow(row);
@@ -112,7 +114,7 @@ void Game::init(){
     waitLabel=nullptr;
     pauseWidget = nullptr;
 
-    gameTimer->startCountdown(5);
+    gameTimer->startCountdown(50);
     ui->progressBar->setRange(0, gameTimer->getRemainingSeconds());  // 设置进度条范围与倒计时初始时间一致
     ui->progressBar->setValue(gameTimer->getRemainingSeconds());  // 设置初始值为总时间
     ui->progressBar->setTextVisible(false);
