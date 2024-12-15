@@ -5,7 +5,7 @@ release/globalvalue.o
 release/hoverbutton.o
 release/main.o
 release/mainwindow.o
-release/pausewidget.o
+release/pause.o
 release/signup.o
 release/stonelabel.o
 release/utils.o
@@ -18,6 +18,6 @@ release/moc_game.o
 release/moc_gametimer.o
 release/moc_hoverbutton.o
 release/moc_mainwindow.o
-release/moc_pausewidget.o
+release/moc_pause.o
 release/moc_signup.o
 release/moc_stonelabel.o
