@@ -122,7 +122,7 @@ void Game::init(){
     waitLabel=nullptr;
     pause = nullptr;
 
-    gameTimer->startCountdown(50);
+    gameTimer->startCountdown(5);
     ui->progressBar->setRange(0, gameTimer->getRemainingSeconds());  // 设置进度条范围与倒计时初始时间一致
     ui->progressBar->setValue(gameTimer->getRemainingSeconds());  // 设置初始值为总时间
     ui->progressBar->setTextVisible(false);
@@ -443,24 +443,44 @@ void Game::updateTimerDisplay()
     ui->progressBar->setValue(remainingSeconds+1);  // 更新进度条当前值
 }
 
-void Game::on_pushButton_clicked()
-{
-    emit returnMainwindow();
-}
-
 //暂停
 void Game::on_pushButton_3_clicked()
 {
     if (!pause) {
         pause = new Pause(this);
+        connect(pause, &Pause::resumeGame, this, &Game::resume);
+        connect(pause, &Pause::returnToMainMenu, this, &Game::on_returnFromPauseToMainMenu);
     }
     pause->show();
-    //Pause->raise();
-    //Pause->activateWindow();
 
     // 暂停游戏逻辑，停止计时器并设置暂停状态为true
     gameTimer->stop();
     isPaused = true;
+}
+
+void Game::resume()
+{
+    if (isPaused) {
+        gameTimer->start();  // 恢复计时器运行
+        isPaused = false;
+    }
+}
+
+void Game::resetGameState()
+{
+    if (gameTimer) {
+        gameTimer->stop();
+        delete gameTimer;
+        gameTimer = nullptr;
+    }
+    // 这里可以进一步添加对其他游戏相关变量的重置逻辑，比如：
+    // 重置棋子相关状态等，可根据实际需求完善
+}
+
+void Game::on_returnFromPauseToMainMenu()
+{
+    resetGameState();
+    emit returnMainwindow();
 }
 
 //重新排布按键

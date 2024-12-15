@@ -8,6 +8,7 @@ debug/mainwindow.o
 debug/pause.o
 debug/signup.o
 debug/stonelabel.o
+debug/utils.o
 debug/qrc_jewel.o
 debug/qrc_music.o
 debug/qrc_picture.o

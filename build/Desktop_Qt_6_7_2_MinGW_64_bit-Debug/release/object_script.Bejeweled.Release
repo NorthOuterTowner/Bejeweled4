@@ -8,6 +8,7 @@ release/mainwindow.o
 release/pause.o
 release/signup.o
 release/stonelabel.o
+release/utils.o
 release/qrc_jewel.o
 release/qrc_music.o
 release/qrc_picture.o
