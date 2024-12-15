@@ -4,7 +4,7 @@
 #include "globalvalue.h"
 #include "stonelabel.h"
 #include "gametimer.h"
-#include "pausewidget.h"
+#include "pause.h"
 #include <QWidget>
 #include <QMouseEvent>
 #include <QLabel>
@@ -93,7 +93,7 @@ private:
     void onTimeExpired();//倒计时结束时的处理
     void updateTimerDisplay();//更新界面上显示倒计时的QLabel的文本内容
     int  animationsLeft;  // 重置动画计数器
-    PauseWidget *pauseWidget;  // 暂停界面指针
+    Pause *pause;  // 暂停界面指针
     bool change=false;
     bool eliminateAgain=true;
     std::vector<int> swapReturn;

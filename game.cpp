@@ -119,7 +119,7 @@ void Game::init(){
     }
     change=false;
     waitLabel=nullptr;
-    pauseWidget = nullptr;
+    pause = nullptr;
 
     gameTimer->startCountdown(50);
     ui->progressBar->setRange(0, gameTimer->getRemainingSeconds());  // 设置进度条范围与倒计时初始时间一致
@@ -450,10 +450,10 @@ void Game::on_pushButton_clicked()
 //暂停
 void Game::on_pushButton_3_clicked()
 {
-    if (!pauseWidget) {
-        pauseWidget = new PauseWidget(this);
+    if (!pause) {
+        pause = new Pause(this);
     }
-    pauseWidget->show();
+    pause->show();
     //pauseWidget->raise();
     //pauseWidget->activateWindow();
 
