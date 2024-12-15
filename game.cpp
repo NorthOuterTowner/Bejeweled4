@@ -573,3 +573,20 @@ void Game::on_pushButton_4_clicked()
     emit returnMainwindow();
 }
 
+// 新增的函数，用于重置游戏状态，重点处理计时器相关状态
+void Game::resetGameState()
+{
+    if (gameTimer) {
+        gameTimer->stop();
+        delete gameTimer;
+        gameTimer = nullptr;
+    }
+    // 这里可以进一步添加对其他游戏相关变量的重置逻辑，比如：
+    // 重置棋子相关状态等，可根据实际需求完善
+}
+
+void Game::on_returnFromPauseToMainMenu()
+{
+    resetGameState();
+    emit returnMainwindow();
+}

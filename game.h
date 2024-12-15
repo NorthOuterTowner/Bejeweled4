@@ -32,6 +32,8 @@ public:
     bool isPaused=false;
     static int jewelNum;
     QWidget* parent;
+    void resetGameState();
+    void on_returnFromPauseToMainMenu();
 signals:
     void eliminateAgainSignal();
     void returnMainwindow();
