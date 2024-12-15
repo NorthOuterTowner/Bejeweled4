@@ -463,7 +463,7 @@ void Game::on_pushButton_3_clicked()
 }
 
 //重新排布按键
-void Game::on_pushButton_4_clicked()
+void Game::on_pushButton_5_clicked()
 {
     shuffleStones();
 }
