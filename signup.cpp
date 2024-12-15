@@ -4,7 +4,7 @@ void sqlite_Init();  // 在这里声明 sqlite_Init()
 #include "signup.h"
 #include "ui_signup.h"
 #include "Login.h"
-
+#include "utils.h"
 #include <QDebug>
 
 // 以下代码不变
@@ -36,8 +36,8 @@ void Signup::on_pushButton_2_clicked()
 {
     sqlite_Init();  // 正常调用 sqlite_Init()
     QString username = ui->lineEdit_username->text();
-    QString password = ui->lineEdit_passwd->text();
-    QString surepass = ui->lineEdit_surepasswd->text();
+    QString password = utils::hashPassword(ui->lineEdit_passwd->text());
+    QString surepass = utils::hashPassword(ui->lineEdit_surepasswd->text());
 
     if(password == surepass)
     {

@@ -11,6 +11,7 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
@@ -31,6 +32,8 @@ public:
     QPushButton *pushButton_5;
     QPushButton *pushButton_6;
     QPushButton *pushButton_7;
+    QPushButton *pushButton_9;
+    QLabel *label;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -49,13 +52,13 @@ public:
         pushButton_2->setGeometry(QRect(610, 130, 158, 18));
         pushButton_3 = new QPushButton(centralwidget);
         pushButton_3->setObjectName("pushButton_3");
-        pushButton_3->setGeometry(QRect(610, 180, 158, 18));
+        pushButton_3->setGeometry(QRect(610, 160, 158, 18));
         pushButton_4 = new QPushButton(centralwidget);
         pushButton_4->setObjectName("pushButton_4");
-        pushButton_4->setGeometry(QRect(610, 220, 158, 18));
+        pushButton_4->setGeometry(QRect(610, 200, 158, 18));
         pushButton_8 = new QPushButton(centralwidget);
         pushButton_8->setObjectName("pushButton_8");
-        pushButton_8->setGeometry(QRect(610, 260, 158, 18));
+        pushButton_8->setGeometry(QRect(610, 240, 158, 18));
         pushButton_5 = new QPushButton(centralwidget);
         pushButton_5->setObjectName("pushButton_5");
         pushButton_5->setGeometry(QRect(610, 320, 158, 18));
@@ -65,10 +68,16 @@ public:
         pushButton_7 = new QPushButton(centralwidget);
         pushButton_7->setObjectName("pushButton_7");
         pushButton_7->setGeometry(QRect(610, 400, 158, 18));
+        pushButton_9 = new QPushButton(centralwidget);
+        pushButton_9->setObjectName("pushButton_9");
+        pushButton_9->setGeometry(QRect(10, 150, 93, 28));
+        label = new QLabel(centralwidget);
+        label->setObjectName("label");
+        label->setGeometry(QRect(20, 120, 69, 19));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 800, 18));
+        menubar->setGeometry(QRect(0, 0, 800, 25));
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName("statusbar");
@@ -90,6 +99,8 @@ public:
         pushButton_5->setText(QCoreApplication::translate("MainWindow", "\345\256\235\347\237\263", nullptr));
         pushButton_6->setText(QCoreApplication::translate("MainWindow", "\350\224\254\350\217\234", nullptr));
         pushButton_7->setText(QCoreApplication::translate("MainWindow", "\346\260\264\346\236\234", nullptr));
+        pushButton_9->setText(QCoreApplication::translate("MainWindow", "\344\270\213\344\270\200\345\205\263", nullptr));
+        label->setText(QCoreApplication::translate("MainWindow", "\345\205\263\345\215\241\346\250\241\345\274\217", nullptr));
     } // retranslateUi
 
 };

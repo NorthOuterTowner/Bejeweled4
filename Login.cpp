@@ -3,7 +3,7 @@
 #include "signup.h"
 #include "mainwindow.h"
 #include "hoverbutton.h"  // 引入 HoverButton
-
+#include "utils.h"
 #include <QGraphicsDropShadowEffect>
 #include <QMessageBox>
 #include <QSqlQuery>
@@ -139,7 +139,7 @@ void Login::on_btn_signin_clicked()
 {
     sqlite_Init();
     QString username = ui->lineEdit_username->text();
-    QString password = ui->lineEdit_password->text();
+    QString password = utils::hashPassword(ui->lineEdit_password->text());
     QString sql = QString("select * from user where username='%1' and password='%2'")
                       .arg(username).arg(password);
     // 创建执行语句对象

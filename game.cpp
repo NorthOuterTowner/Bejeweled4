@@ -3,6 +3,7 @@
 #include "ui_game.h"
 #include "stonelabel.h"
 #include "globalvalue.h"
+#include "mainwindow.h"
 #include <QLabel>
 #include <random>
 #include <vector>
@@ -15,12 +16,11 @@
 /*Space between Window and Labels*/
 #define upSpacer 80
 #define leftSpacer 100
-
 /*The Widget of game district*/
 QGridLayout* mainWidget;
 StoneLabel* waitLabel;
 Game* Game::gameInstance = nullptr;
-
+int Game::jewelNum=8;
 /**
  * @brief generate random digit from 1 to 10
  * @return random digit
@@ -35,8 +35,8 @@ int genRandom(){
  * @brief Update the window by vector<vector<StoneLabel*>> stones
  */
 void Game::update(){
-    for (int i = 0; i < 8; i++) {
-        for (int j = 0; j < 8; j++) {
+    for (int i = 0; i < Game::jewelNum; i++) {
+        for (int j = 0; j < Game::jewelNum; j++) {
                 StoneLabel* pic = stones.at(i).at(j);
                 pic->resize(48,48);
                 std::string pixStr=":/"+StoneLabel::stoneMode+std::to_string(pic->getIndex())+".png";
@@ -52,8 +52,15 @@ Game::Game(QWidget *parent)
     , ui(new Ui::Game)
 {
     ui->setupUi(this);
+    Game::jewelNum=8;
+    this->parent=parent;
+    this->score=0;
+    //this->ui->lcdNumber->set
     connect(this, &Game::eliminateAgainSignal, this, &Game::onEliminateAgain);
     connect(this, &Game::initEndSignal, this, &Game::initEnd);
+    gameTimer = new GameTimer(this);
+    connect(gameTimer, &GameTimer::timeUpdated, this, &Game::updateTimerDisplay);
+    connect(gameTimer, &GameTimer::timeExpired, this, &Game::onTimeExpired);
     init();
     initing=true;
     progressDialog = new QProgressDialog("正在初始化中，请稍后...", "取消", 0, 0, this);
@@ -67,9 +74,6 @@ Game::Game(QWidget *parent)
         progressDialog->setValue(100);
         progressDialog->hide();
     }
-    gameTimer->startCountdown(5);
-    ui->progressBar->setRange(0, gameTimer->getRemainingSeconds());  // 设置进度条范围与倒计时初始时间一致
-    ui->progressBar->setValue(gameTimer->getRemainingSeconds());  // 设置初始值为总时间
 }
 
 Game::~Game()
@@ -78,6 +82,7 @@ Game::~Game()
 }
 Game* Game::instance(QWidget *parent){
     if(gameInstance==nullptr){
+        std::cout<<"new"<<std::endl;
         gameInstance=new Game(parent);
     }
     return gameInstance;
@@ -95,8 +100,8 @@ void Game::init(){
     centralWidget->setLayout(mainWidget);
     centralWidget->setGeometry(leftSpacer,upSpacer,384,384);
     centralWidget->setParent(this);
-    for (int row = 0; row < 8; row++) {
-        for (int col = 0; col < 8; col++) {
+    for (int row = 0; row < Game::jewelNum; row++) {
+        for (int col = 0; col < Game::jewelNum; col++) {
             StoneLabel* imgLabel = new StoneLabel(this);
             stones[row][col]=imgLabel;
             imgLabel->setrow(row);
@@ -110,14 +115,16 @@ void Game::init(){
     }
     change=false;
     waitLabel=nullptr;
+    pauseWidget = nullptr;
 
-
-    gameTimer = new GameTimer(this);
-    connect(gameTimer, &GameTimer::timeUpdated, this, &Game::updateTimerDisplay);
-    connect(gameTimer, &GameTimer::timeExpired, this, &Game::onTimeExpired);
-
+    gameTimer->startCountdown(50);
+    ui->progressBar->setRange(0, gameTimer->getRemainingSeconds());  // 设置进度条范围与倒计时初始时间一致
+    ui->progressBar->setValue(gameTimer->getRemainingSeconds());  // 设置初始值为总时间
     ui->progressBar->setTextVisible(false);
     ui->timerLabel->setText("--");
+
+    connect(ui->pushButton_3, &QPushButton::clicked, this, &Game::on_pushButton_3_clicked);
+
 
 }
 /**
@@ -289,7 +296,6 @@ void Game::eliminateMatches() {
         }
     }
 
-
     dropStones();
     resetMatchedFlags();
 
@@ -435,3 +441,45 @@ void Game::on_pushButton_clicked()
 {
     emit returnMainwindow();
 }
+
+void Game::on_pushButton_3_clicked()
+{
+    if (!pauseWidget) {
+        pauseWidget = new PauseWidget(this);
+    }
+    pauseWidget->show();
+    //pauseWidget->raise();
+    //pauseWidget->activateWindow();
+
+    // 暂停游戏逻辑，停止计时器并设置暂停状态为true
+    gameTimer->stop();
+    isPaused = true;
+}
+
+void Game::on_pushButton_4_clicked()
+{
+    difficulty+=1;
+    if(difficulty>10){
+        QMessageBox::information(this, "游戏结束", "恭喜你通过了全部关卡！");
+        emit returnMainwindow();
+        return;
+    }
+    QDialog dialog(this);
+    dialog.setWindowTitle("获得新宝石");
+    QVBoxLayout layout;
+    QLabel gemLabel;
+    QString pixStr=QString::fromStdString(":/"+StoneLabel::stoneMode+std::to_string(difficulty)+".png");
+    QPixmap gemPixmap(pixStr); // 替换为实际的宝石图片路径
+    gemLabel.setPixmap(gemPixmap);
+    gemLabel.setAlignment(Qt::AlignCenter);
+    gemLabel.setFixedSize(48, 48); // 设置 QLabel 大小
+    gemLabel.setScaledContents(true); // 使图片适应 QLabel 大小
+    layout.addWidget(&gemLabel);
+    QLabel textLabel("恭喜！你获得了一颗新的宝石。");
+    textLabel.setAlignment(Qt::AlignCenter);
+    layout.addWidget(&textLabel);
+    dialog.setLayout(&layout);
+    dialog.exec();
+    emit returnMainwindow();
+}
+
