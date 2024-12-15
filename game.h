@@ -4,7 +4,7 @@
 #include "globalvalue.h"
 #include "stonelabel.h"
 #include "gametimer.h"
-#include "pausewidget.h"
+#include "pause.h"
 #include <QWidget>
 #include <QMouseEvent>
 #include <QLabel>
@@ -25,15 +25,15 @@ public:
     static Game* instance(QWidget* parent = nullptr);
     void init();
     void update();
+    void resetGameState();  //返回主界面时重置游戏状态
     void handleStoneSwap(int row, int col, StoneLabel* curLabel);
      static void delInstance(){
         gameInstance=nullptr;
     }
-    bool isPaused=false;
 signals:
     void eliminateAgainSignal();
-    void returnMainwindow();
     void initEndSignal();
+    void returnMainwindow();
 private slots:
     void initEnd(){
         this->progressDialog->setValue(100);
@@ -66,8 +66,9 @@ private slots:
             }
         }
     }
-    void on_pushButton_clicked();
     void on_pushButton_3_clicked();
+    void on_returnFromPauseToMainMenu();  //从暂停界面返回主菜单
+    void resume();//解除暂停恢复游戏
 
 private:
     explicit Game(QWidget *parent = nullptr);
@@ -85,7 +86,8 @@ private:
     void onTimeExpired();//倒计时结束时的处理
     void updateTimerDisplay();//更新界面上显示倒计时的QLabel的文本内容
     int  animationsLeft;  // 重置动画计数器
-    PauseWidget *pauseWidget;  // 暂停界面指针
+    Pause *pause;  // 暂停界面指针
+    bool isPaused=false;
     bool change=false;
     bool eliminateAgain=true;
     std::vector<int> swapReturn;
