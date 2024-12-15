@@ -49,13 +49,13 @@ public:
         pushButton_2->setGeometry(QRect(610, 130, 158, 18));
         pushButton_3 = new QPushButton(centralwidget);
         pushButton_3->setObjectName("pushButton_3");
-        pushButton_3->setGeometry(QRect(610, 180, 158, 18));
+        pushButton_3->setGeometry(QRect(610, 160, 158, 18));
         pushButton_4 = new QPushButton(centralwidget);
         pushButton_4->setObjectName("pushButton_4");
-        pushButton_4->setGeometry(QRect(610, 220, 158, 18));
+        pushButton_4->setGeometry(QRect(610, 200, 158, 18));
         pushButton_8 = new QPushButton(centralwidget);
         pushButton_8->setObjectName("pushButton_8");
-        pushButton_8->setGeometry(QRect(610, 260, 158, 18));
+        pushButton_8->setGeometry(QRect(610, 240, 158, 18));
         pushButton_5 = new QPushButton(centralwidget);
         pushButton_5->setObjectName("pushButton_5");
         pushButton_5->setGeometry(QRect(610, 320, 158, 18));
