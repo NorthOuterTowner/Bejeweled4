@@ -31,6 +31,7 @@ public:
     }
     bool isPaused=false;
     static int jewelNum;
+    QWidget* parent;
 signals:
     void eliminateAgainSignal();
     void returnMainwindow();
