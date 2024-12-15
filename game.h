@@ -50,6 +50,7 @@ private slots:
             qDebug()<<"OK";
             creatstones();
             this->initing=false;
+
         }
     }
     void onEliminateAgain(){
@@ -84,6 +85,7 @@ private:
     void resetMatchedFlags();//重置所有棋子为不可消除
     void generateNewStone(int row, int col);//创建一个新子
     void creatstones();//创建所有需要的子
+    void shuffleStones();//重排布
     GameTimer *gameTimer;//计时器
     QProgressBar *progressBar;  //计时进度条
     void onTimeExpired();//倒计时结束时的处理
