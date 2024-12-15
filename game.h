@@ -26,7 +26,7 @@ public:
     void init();
     void update();
     void handleStoneSwap(int row, int col, StoneLabel* curLabel);
-     static void delInstance(){
+    static void delInstance(){
         gameInstance=nullptr;
     }
     bool isPaused=false;
@@ -69,11 +69,10 @@ private slots:
             }
         }
     }
-    void on_pushButton_clicked();
     void on_pushButton_3_clicked();
-
+    void resume();//处理继续游戏信号
+    void on_returnFromPauseToMainMenu();  //处理从暂停界面返回主菜单的信号
     void on_pushButton_4_clicked();
-
     void on_pushButton_5_clicked();
 
 private:
@@ -94,6 +93,7 @@ private:
     void updateTimerDisplay();//更新界面上显示倒计时的QLabel的文本内容
     int  animationsLeft;  // 重置动画计数器
     Pause *pause;  // 暂停界面指针
+    void resetGameState();//用于重置游戏状态
     bool change=false;
     bool eliminateAgain=true;
     std::vector<int> swapReturn;
