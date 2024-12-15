@@ -3,11 +3,14 @@
 
 #include "globalvalue.h"
 #include "stonelabel.h"
+#include "gametimer.h"
+#include "pausewidget.h"
 #include <QWidget>
-#include <Qt3DCore/QEntity>
 #include <QMouseEvent>
 #include <QLabel>
 #include <iostream>
+#include <QProgressDialog>
+#include <QProgressBar>
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class Game;
@@ -23,11 +26,20 @@ public:
     void init();
     void update();
     void handleStoneSwap(int row, int col, StoneLabel* curLabel);
+     static void delInstance(){
+        gameInstance=nullptr;
+    }
+    bool isPaused=false;
+    static int jewelNum;
 signals:
     void eliminateAgainSignal();
     void returnMainwindow();
+    void initEndSignal();
 private slots:
-    // 动画完成时调用此槽函数
+    void initEnd(){
+        this->progressDialog->setValue(100);
+        this->progressDialog->hide();
+    }
     void onDropAnimationFinished() {
         // 每完成一个动画，减小计数器
         animationsLeft--;
@@ -36,6 +48,7 @@ private slots:
         if (animationsLeft == 0) {
             qDebug()<<"OK";
             creatstones();
+            this->initing=false;
         }
     }
     void onEliminateAgain(){
@@ -50,10 +63,12 @@ private slots:
                 stones[row1][col1]->setcol(col1);
                 stones[row2][col2]->setrow(row2);
                 stones[row2][col2]->setcol(col2);
+                emit initEndSignal();
             }
         }
     }
     void on_pushButton_clicked();
+    void on_pushButton_3_clicked();
 
 private:
     explicit Game(QWidget *parent = nullptr);
@@ -66,11 +81,20 @@ private:
     void resetMatchedFlags();//重置所有棋子为不可消除
     void generateNewStone(int row, int col);//创建一个新子
     void creatstones();//创建所有需要的子
+    GameTimer *gameTimer;//计时器
+    QProgressBar *progressBar;  //计时进度条
+    void onTimeExpired();//倒计时结束时的处理
+    void updateTimerDisplay();//更新界面上显示倒计时的QLabel的文本内容
     int  animationsLeft;  // 重置动画计数器
+    PauseWidget *pauseWidget;  // 暂停界面指针
     bool change=false;
     bool eliminateAgain=true;
     std::vector<int> swapReturn;
+    QProgressDialog *progressDialog;
+    bool initing;
     Ui::Game *ui;
+    int score;
+    int winScore;
 };
 
 #endif // GAME_H

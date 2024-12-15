@@ -27,78 +27,96 @@
      <string>进入游戏</string>
     </property>
    </widget>
-   <widget class="QWidget" name="verticalLayoutWidget">
+   <widget class="QPushButton" name="pushButton_2">
     <property name="geometry">
      <rect>
-      <x>620</x>
-      <y>170</y>
-      <width>160</width>
-      <height>135</height>
+      <x>610</x>
+      <y>130</y>
+      <width>158</width>
+      <height>18</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="QPushButton" name="pushButton_2">
-       <property name="text">
-        <string>简单</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton_3">
-       <property name="text">
-        <string>中等</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton_4">
-       <property name="text">
-        <string>困难</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton_8">
-       <property name="text">
-        <string>炼狱</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
+    <property name="text">
+     <string>简单</string>
+    </property>
    </widget>
-   <widget class="QWidget" name="verticalLayoutWidget_2">
+   <widget class="QPushButton" name="pushButton_3">
     <property name="geometry">
      <rect>
-      <x>620</x>
-      <y>320</y>
-      <width>160</width>
-      <height>100</height>
+      <x>610</x>
+      <y>160</y>
+      <width>158</width>
+      <height>18</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout_2">
-     <item>
-      <widget class="QPushButton" name="pushButton_5">
-       <property name="text">
-        <string>宝石</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton_6">
-       <property name="text">
-        <string>蔬菜</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton_7">
-       <property name="text">
-        <string>水果</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
+    <property name="text">
+     <string>中等</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_4">
+    <property name="geometry">
+     <rect>
+      <x>610</x>
+      <y>200</y>
+      <width>158</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>困难</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_8">
+    <property name="geometry">
+     <rect>
+      <x>610</x>
+      <y>240</y>
+      <width>158</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>炼狱</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_5">
+    <property name="geometry">
+     <rect>
+      <x>610</x>
+      <y>320</y>
+      <width>158</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>宝石</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_6">
+    <property name="geometry">
+     <rect>
+      <x>610</x>
+      <y>360</y>
+      <width>158</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>蔬菜</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_7">
+    <property name="geometry">
+     <rect>
+      <x>610</x>
+      <y>400</y>
+      <width>158</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>水果</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -107,7 +125,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>25</height>
+     <height>18</height>
     </rect>
    </property>
   </widget>
