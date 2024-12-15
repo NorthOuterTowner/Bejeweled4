@@ -12,16 +12,18 @@ public:
     // 参数parent是父对象指针，默认为nullptr
     explicit GameTimer(QObject *parent = nullptr);
 
-    // 开始计时函数
-    // 参数seconds是倒计时的总秒数
-    void start(int seconds);
-
     // 停止计时函数
     void stop();
+    int getRemainingSeconds() const;  //获取剩余秒数的函数
+    void startCountdown(int seconds); //用于初始化倒计时的函数
+
+    int getRemainingSeconds();
 
 signals:
     // 自定义信号，当计时结束时发出
     void timeExpired();
+
+    void timeUpdated(int remainingSeconds);
 
 private slots:
     // 私有槽函数，用于更新剩余时间

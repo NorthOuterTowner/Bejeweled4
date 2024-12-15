@@ -9,7 +9,9 @@
 #include <QGridLayout>
 #include <QPropertyAnimation>
 #include <QVector>
-
+#include <QProgressDialog>
+#include <QProgressBar>
+#include <QMessageBox>
 /*Space between Window and Labels*/
 #define upSpacer 80
 #define leftSpacer 100
@@ -51,8 +53,23 @@ Game::Game(QWidget *parent)
 {
     ui->setupUi(this);
     connect(this, &Game::eliminateAgainSignal, this, &Game::onEliminateAgain);
+    connect(this, &Game::initEndSignal, this, &Game::initEnd);
     init();
+    initing=true;
+    progressDialog = new QProgressDialog("正在初始化中，请稍后...", "取消", 0, 0, this);
+    progressDialog->setWindowModality(Qt::WindowModal);
+    progressDialog->setValue(0);
+    progressDialog->show();
     this->swapReturn=std::vector<int>(4,0);
+    if (checkFormatches()) {
+        eliminateMatches();
+    }else{
+        progressDialog->setValue(100);
+        progressDialog->hide();
+    }
+    gameTimer->startCountdown(5);
+    ui->progressBar->setRange(0, gameTimer->getRemainingSeconds());  // 设置进度条范围与倒计时初始时间一致
+    ui->progressBar->setValue(gameTimer->getRemainingSeconds());  // 设置初始值为总时间
 }
 
 Game::~Game()
@@ -93,6 +110,14 @@ void Game::init(){
     }
     change=false;
     waitLabel=nullptr;
+
+
+    gameTimer = new GameTimer(this);
+    connect(gameTimer, &GameTimer::timeUpdated, this, &Game::updateTimerDisplay);
+    connect(gameTimer, &GameTimer::timeExpired, this, &Game::onTimeExpired);
+
+    ui->progressBar->setTextVisible(false);
+    ui->timerLabel->setText("--");
 
 }
 /**
@@ -306,8 +331,6 @@ void Game::creatstones(){
             if(stones[row][col]==nullptr){
                 generateNewStone(row,col);
                 int time=sum*200;
-                std::cout<<"TargetRow:"<<row<<"startRow"<<row-sum<<std::endl;
-                //std::cout<<row-sum<<std::endl;
                 dropLabel(stones[row][col],col*48,(row-sum)*48,col*48,row*48,time);
             }
         }
@@ -319,7 +342,8 @@ void Game::creatstones(){
 //棋子下落动画
 //duration should set to x/v
 void Game::dropLabel(StoneLabel* stoneLabel, int startX,int startY,int targetX, int targetY, int duration) {
-    duration=1000*(targetY-startY)/96;
+    this->initing=true;
+    duration=1000*(targetY-startY)/192;
     QPropertyAnimation* animation = new QPropertyAnimation(stoneLabel, "pos");
     animation->setStartValue(QPoint(startX,startY));// 起始位置NO
     animation->setEndValue(QPoint(targetX, targetY)); // 目标位置
@@ -391,8 +415,23 @@ void Game::resetMatchedFlags(){
     }
 }
 
+void Game::onTimeExpired()
+{
+    // 在这里可以添加游戏结束相关的逻辑，比如提示游戏结束、禁用操作等
+    ui->timerLabel->setText(QString::number(0) + "s");
+    ui->progressBar->setValue(0);  // 更新进度条当前值
+    // 示例：简单地弹出一个提示框告知游戏结束
+    QMessageBox::information(this, "游戏结束", "倒计时结束，游戏结束！");
+}
+
+void Game::updateTimerDisplay()
+{
+    int remainingSeconds = gameTimer->getRemainingSeconds();
+    ui->timerLabel->setText(QString::number(remainingSeconds+1) + "s");
+    ui->progressBar->setValue(remainingSeconds+1);  // 更新进度条当前值
+}
+
 void Game::on_pushButton_clicked()
 {
     emit returnMainwindow();
 }
-
