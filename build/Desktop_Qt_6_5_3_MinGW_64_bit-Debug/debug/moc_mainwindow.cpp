@@ -42,14 +42,14 @@ static constexpr auto qt_meta_stringdata_CLASSMainWindowENDCLASS = QtMocHelpers:
     "MainWindow",
     "on_pushButton_clicked",
     "",
-    "onReturnMainwindow",
     "on_pushButton_3_clicked",
     "on_pushButton_2_clicked",
     "on_pushButton_5_clicked",
     "on_pushButton_4_clicked",
     "on_pushButton_7_clicked",
     "on_pushButton_6_clicked",
-    "on_pushButton_8_clicked"
+    "on_pushButton_8_clicked",
+    "on_pushButton_9_clicked"
 );
 #else  // !QT_MOC_HAS_STRING_DATA
 struct qt_meta_stringdata_CLASSMainWindowENDCLASS_t {
@@ -57,7 +57,7 @@ struct qt_meta_stringdata_CLASSMainWindowENDCLASS_t {
     char stringdata0[11];
     char stringdata1[22];
     char stringdata2[1];
-    char stringdata3[19];
+    char stringdata3[24];
     char stringdata4[24];
     char stringdata5[24];
     char stringdata6[24];
@@ -73,26 +73,26 @@ Q_CONSTINIT static const qt_meta_stringdata_CLASSMainWindowENDCLASS_t qt_meta_st
         QT_MOC_LITERAL(0, 10),  // "MainWindow"
         QT_MOC_LITERAL(11, 21),  // "on_pushButton_clicked"
         QT_MOC_LITERAL(33, 0),  // ""
-        QT_MOC_LITERAL(34, 18),  // "onReturnMainwindow"
-        QT_MOC_LITERAL(53, 23),  // "on_pushButton_3_clicked"
-        QT_MOC_LITERAL(77, 23),  // "on_pushButton_2_clicked"
-        QT_MOC_LITERAL(101, 23),  // "on_pushButton_5_clicked"
-        QT_MOC_LITERAL(125, 23),  // "on_pushButton_4_clicked"
-        QT_MOC_LITERAL(149, 23),  // "on_pushButton_7_clicked"
-        QT_MOC_LITERAL(173, 23),  // "on_pushButton_6_clicked"
-        QT_MOC_LITERAL(197, 23)   // "on_pushButton_8_clicked"
+        QT_MOC_LITERAL(34, 23),  // "on_pushButton_3_clicked"
+        QT_MOC_LITERAL(58, 23),  // "on_pushButton_2_clicked"
+        QT_MOC_LITERAL(82, 23),  // "on_pushButton_5_clicked"
+        QT_MOC_LITERAL(106, 23),  // "on_pushButton_4_clicked"
+        QT_MOC_LITERAL(130, 23),  // "on_pushButton_7_clicked"
+        QT_MOC_LITERAL(154, 23),  // "on_pushButton_6_clicked"
+        QT_MOC_LITERAL(178, 23),  // "on_pushButton_8_clicked"
+        QT_MOC_LITERAL(202, 23)   // "on_pushButton_9_clicked"
     },
     "MainWindow",
     "on_pushButton_clicked",
     "",
-    "onReturnMainwindow",
     "on_pushButton_3_clicked",
     "on_pushButton_2_clicked",
     "on_pushButton_5_clicked",
     "on_pushButton_4_clicked",
     "on_pushButton_7_clicked",
     "on_pushButton_6_clicked",
-    "on_pushButton_8_clicked"
+    "on_pushButton_8_clicked",
+    "on_pushButton_9_clicked"
 };
 #undef QT_MOC_LITERAL
 #endif // !QT_MOC_HAS_STRING_DATA
@@ -147,8 +147,6 @@ Q_CONSTINIT const QMetaObject MainWindow::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<MainWindow, std::true_type>,
         // method 'on_pushButton_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'onReturnMainwindow'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'on_pushButton_3_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'on_pushButton_2_clicked'
@@ -162,6 +160,8 @@ Q_CONSTINIT const QMetaObject MainWindow::staticMetaObject = { {
         // method 'on_pushButton_6_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'on_pushButton_8_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_pushButton_9_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>
     >,
     nullptr
@@ -174,14 +174,14 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         (void)_t;
         switch (_id) {
         case 0: _t->on_pushButton_clicked(); break;
-        case 1: _t->onReturnMainwindow(); break;
-        case 2: _t->on_pushButton_3_clicked(); break;
-        case 3: _t->on_pushButton_2_clicked(); break;
-        case 4: _t->on_pushButton_5_clicked(); break;
-        case 5: _t->on_pushButton_4_clicked(); break;
-        case 6: _t->on_pushButton_7_clicked(); break;
-        case 7: _t->on_pushButton_6_clicked(); break;
-        case 8: _t->on_pushButton_8_clicked(); break;
+        case 1: _t->on_pushButton_3_clicked(); break;
+        case 2: _t->on_pushButton_2_clicked(); break;
+        case 3: _t->on_pushButton_5_clicked(); break;
+        case 4: _t->on_pushButton_4_clicked(); break;
+        case 5: _t->on_pushButton_7_clicked(); break;
+        case 6: _t->on_pushButton_6_clicked(); break;
+        case 7: _t->on_pushButton_8_clicked(); break;
+        case 8: _t->on_pushButton_9_clicked(); break;
         default: ;
         }
     }
