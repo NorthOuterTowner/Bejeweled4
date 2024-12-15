@@ -108,11 +108,11 @@ QProgressBar::chunk {
      <x>40</x>
      <y>80</y>
      <width>51</width>
-     <height>31</height>
+     <height>18</height>
     </rect>
    </property>
    <property name="text">
-    <string>暂停</string>
+    <string>PushButton</string>
    </property>
   </widget>
   <widget class="QLCDNumber" name="lcdNumber">
@@ -142,13 +142,6 @@ QProgressBar::chunk {
    <property name="geometry">
     <rect>
      <x>690</x>
-     <y>340</y>
-     <width>51</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>重新生成</string>
      <y>130</y>
      <width>93</width>
      <height>28</height>
