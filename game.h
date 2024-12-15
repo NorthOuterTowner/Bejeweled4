@@ -31,6 +31,7 @@ public:
     }
     bool isPaused=false;
     static int jewelNum;
+    QWidget* parent;
 signals:
     void eliminateAgainSignal();
     void returnMainwindow();
@@ -69,6 +70,8 @@ private slots:
     }
     void on_pushButton_clicked();
     void on_pushButton_3_clicked();
+
+    void on_pushButton_4_clicked();
 
 private:
     explicit Game(QWidget *parent = nullptr);
