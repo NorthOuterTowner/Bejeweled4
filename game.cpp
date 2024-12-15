@@ -545,7 +545,6 @@ void Game::shuffleStones() {
     });
 
 }
-=======
 void Game::on_pushButton_4_clicked()
 {
     difficulty+=1;

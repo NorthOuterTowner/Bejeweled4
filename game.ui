@@ -142,13 +142,6 @@ QProgressBar::chunk {
    <property name="geometry">
     <rect>
      <x>690</x>
-     <y>340</y>
-     <width>51</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>重新生成</string>
      <y>130</y>
      <width>93</width>
      <height>28</height>
