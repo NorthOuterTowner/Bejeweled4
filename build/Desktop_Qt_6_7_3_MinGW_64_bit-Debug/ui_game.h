@@ -29,6 +29,7 @@ public:
     QPushButton *pushButton_3;
     QLCDNumber *lcdNumber;
     QLabel *label;
+    QPushButton *pushButton_4;
 
     void setupUi(QWidget *Game)
     {
@@ -82,6 +83,9 @@ public:
         label = new QLabel(Game);
         label->setObjectName("label");
         label->setGeometry(QRect(690, 200, 69, 19));
+        pushButton_4 = new QPushButton(Game);
+        pushButton_4->setObjectName("pushButton_4");
+        pushButton_4->setGeometry(QRect(690, 130, 93, 28));
 
         retranslateUi(Game);
 
@@ -96,6 +100,7 @@ public:
         timerLabel->setText(QCoreApplication::translate("Game", "25s", nullptr));
         pushButton_3->setText(QCoreApplication::translate("Game", "PushButton", nullptr));
         label->setText(QCoreApplication::translate("Game", "\345\210\206\346\225\260", nullptr));
+        pushButton_4->setText(QCoreApplication::translate("Game", "\344\270\213\344\270\200\345\205\263", nullptr));
     } // retranslateUi
 
 };

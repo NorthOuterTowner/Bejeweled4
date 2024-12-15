@@ -149,6 +149,13 @@ QProgressBar::chunk {
    </property>
    <property name="text">
     <string>重新生成</string>
+     <y>130</y>
+     <width>93</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>下一关</string>
    </property>
   </widget>
  </widget>

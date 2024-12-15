@@ -10,7 +10,7 @@
 #include <QCursor>
 #include <QPropertyAnimation>
 #include <QGraphicsOpacityEffect>
-
+bool firstLevel=true;
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -175,6 +175,7 @@ void MainWindow::on_pushButton_clicked()
 
 void MainWindow::onReturnMainwindow()
 {
+    std::cout<<"Return slots work"<<std::endl;
     this->show();
     Game::instance()->hide();
     Game::delInstance();
@@ -211,5 +212,18 @@ void MainWindow::on_pushButton_8_clicked()
 }void MainWindow::on_pushButton_5_clicked()
 {
 
+}
+
+/*类似于自由模式时进入游戏的下一关*/
+void MainWindow::on_pushButton_9_clicked()
+{
+    if(firstLevel){
+        difficulty=4;
+        firstLevel=false;
+    }
+    Game* gameDlg = Game::instance();
+    connect(gameDlg, &Game::returnMainwindow, this, &MainWindow::onReturnMainwindow);
+    gameDlg->show();
+    this->hide();
 }
 
