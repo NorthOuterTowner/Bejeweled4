@@ -12,6 +12,9 @@
 #include <QProgressDialog>
 #include <QProgressBar>
 #include <QMessageBox>
+#include <QSequentialAnimationGroup>
+#include <QPropertyAnimation>
+#include <QParallelAnimationGroup>
 /*Space between Window and Labels*/
 #define upSpacer 80
 #define leftSpacer 100
@@ -106,6 +109,7 @@ void Game::init(){
             imgLabel->resize(48,48);
             imgLabel->setIndex(genRandom());
             std::string pixStr=":/"+StoneLabel::stoneMode+std::to_string(imgLabel->getIndex())+".png";
+            imgLabel->setpix(pixStr);
             imgLabel->setPixmap(QPixmap(QString::fromStdString(pixStr)).scaled(48,48));
             mainWidget->addWidget(imgLabel, row, col); // 使用addWidget()来将QLabel添加到布局中
         }
@@ -308,9 +312,10 @@ void Game::generateNewStone(int row, int col){
     imgLabel->setIndex(genRandom());
     std::string pixStr = ":/" + StoneLabel::stoneMode + std::to_string(imgLabel->getIndex()) + ".png";
     imgLabel->setPixmap(QPixmap(QString::fromStdString(pixStr)).scaled(48, 48));
+    imgLabel->setpix(pixStr);
 
     // 显示添加
-    mainWidget->addWidget(imgLabel, row, col);
+   // mainWidget->addWidget(imgLabel, row, col);
 
     // 逻辑添加
     stones[row][col] = imgLabel;
@@ -439,6 +444,7 @@ void Game::on_pushButton_clicked()
     emit returnMainwindow();
 }
 
+//暂停
 void Game::on_pushButton_3_clicked()
 {
     if (!pauseWidget) {
@@ -451,4 +457,88 @@ void Game::on_pushButton_3_clicked()
     // 暂停游戏逻辑，停止计时器并设置暂停状态为true
     gameTimer->stop();
     isPaused = true;
+}
+
+//重新排布按键
+void Game::on_pushButton_4_clicked()
+{
+    shuffleStones();
+}
+//重新排布逻辑方法
+void Game::shuffleStones() {
+    // 创建一个随机顺序的数组
+    std::vector<StoneLabel*> shuffledStones;
+    for (int row = 0; row < Game::jewelNum; row++) {
+        for (int col = 0; col < Game::jewelNum; col++) {
+            shuffledStones.push_back(stones[row][col]);
+        }
+    }
+
+    // 打乱数组中的元素
+    std::random_shuffle(shuffledStones.begin(), shuffledStones.end());
+
+    // 目标位置：屏幕中心
+    int targetRow = Game::jewelNum / 2;
+    int targetCol = Game::jewelNum / 2;
+
+    // 创建一个动画组来管理所有动画（并行动画组）
+    QParallelAnimationGroup* parallelGroup = new QParallelAnimationGroup(this);
+
+    // 将所有棋子同时聚集到目标位置
+    for (StoneLabel* stone : shuffledStones) {
+        int targetX = targetCol * stone->width();  // 目标位置的X坐标
+        int targetY = targetRow * stone->height(); // 目标位置的Y坐标
+
+        // 创建动画：让每个棋子同时移动到目标位置
+        QPropertyAnimation* animation = new QPropertyAnimation(stone, "pos");
+        animation->setDuration(500);  // 动画时长
+        animation->setStartValue(stone->pos());  // 起始位置
+        animation->setEndValue(QPoint(targetX, targetY));  // 目标位置
+
+        // 将每个动画添加到并行动画组中
+        parallelGroup->addAnimation(animation);
+    }
+
+    // 启动所有棋子的聚集动画
+    parallelGroup->start();
+
+    // 当聚集动画完成后，逐个移动每个棋子到其最终位置
+    connect(parallelGroup, &QParallelAnimationGroup::finished, this, [this, shuffledStones]() {
+        QSequentialAnimationGroup* finalAnimationGroup = new QSequentialAnimationGroup(this);
+
+        int index = 0;
+        for (int row = 0; row < Game::jewelNum; row++) {
+            for (int col = 0; col < Game::jewelNum; col++) {
+                StoneLabel* stone = shuffledStones[index];
+                stones[row][col]=shuffledStones[index];
+                stones[row][col]->setrow(row);
+                stones[row][col]->setcol(col);
+                stones[row][col]->resize(48,48);
+                stones[row][col]->setIndex(shuffledStones[index]->getIndex());
+                //stones[row][col]->setPixmap(QPixmap(QString::fromStdString(shuffledStones[index]->getpix())).scaled(48,48));
+                // 创建新的目标位置
+                int targetX = col * stone->width();
+                int targetY = row * stone->height();
+
+                // 创建新的动画
+                QPropertyAnimation* finalAnimation = new QPropertyAnimation(stone, "pos");
+                finalAnimation->setDuration(80);  // 新位置动画时长
+                finalAnimation->setStartValue(stone->pos());  // 起始位置（聚集位置）
+                finalAnimation->setEndValue(QPoint(targetX, targetY));  // 目标位置（新的随机位置）
+
+                // 将每个动画按顺序添加到最终动画组
+                finalAnimationGroup->addAnimation(finalAnimation);
+
+                index++;
+                 //mainWidget->addWidget(stones[row][col],row,col);
+            }
+        }
+
+        // 启动第二阶段动画（棋子从聚集点逐个移动到新位置）
+        finalAnimationGroup->start();
+        connect(finalAnimationGroup, &QSequentialAnimationGroup::finished, this, [this]() {
+            update();
+        });
+    });
+
 }

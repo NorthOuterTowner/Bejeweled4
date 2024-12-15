@@ -25,6 +25,12 @@ public:
     inline int getIndex(){
         return this->index;
     }
+    inline void setpix(std::string pix){
+        this->pix=pix;
+    }
+    inline std::string getpix(){
+        return pix;
+    }
     inline void setStyle(int mode=0){
         if(mode==1)
             this->setStyleSheet("background-color: lightblue;");
@@ -43,6 +49,7 @@ private:
     int row;
     int col;
     int index=0;
+    std::string pix;//保存图片信息
 
 
 };
