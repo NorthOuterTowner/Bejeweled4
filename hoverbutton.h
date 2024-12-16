@@ -9,6 +9,7 @@
 #include <QSoundEffect>
 #include <QCursor>
 #include <QLabel>
+#include<QPropertyAnimation>
 
 class HoverButton : public QPushButton
 {
@@ -27,6 +28,8 @@ protected:
     void leaveEvent(QEvent *event) override;
     void mousePressEvent(QMouseEvent *event) override;
     void mouseReleaseEvent(QMouseEvent *event) override;
+    void setCircle(int r, int x, int y, int width, int height, QString path, QString path2, QWidget *parent);
+     QPropertyAnimation* textAnim = new QPropertyAnimation;
 
 private:
     QIcon iconNormal;
