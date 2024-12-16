@@ -6,6 +6,7 @@ debug/hoverbutton.o
 debug/main.o
 debug/mainwindow.o
 debug/pausewidget.o
+debug/settingwidget.o
 debug/signup.o
 debug/stonelabel.o
 debug/utils.o
@@ -19,5 +20,6 @@ debug/moc_gametimer.o
 debug/moc_hoverbutton.o
 debug/moc_mainwindow.o
 debug/moc_pausewidget.o
+debug/moc_settingwidget.o
 debug/moc_signup.o
 debug/moc_stonelabel.o

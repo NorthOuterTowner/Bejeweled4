@@ -161,3 +161,17 @@ void HoverButton::mouseReleaseEvent(QMouseEvent *event)
     // 设置按钮大小为文本大小 + 一些额外的间距
     setFixedSize(textWidth + 80, textHeight + 50);
 }
+void HoverButton::setCircle(int r, int x, int y, int width, int height, QString path, QString path2, QWidget *parent)
+{
+    setParent(parent);
+    setGeometry(x - r, y - r, 2*r, 2*r);
+    setImage(path, path2, 2*r, 2*r);
+    textAnim->setParent(parent);
+    textAnim->setTargetObject(this);
+    textAnim->setDuration(2000);
+    textAnim->setPropertyName("geometry");
+    textAnim->setStartValue(QRect(x - r, height, 2*r, 2*r));
+    textAnim->setEndValue(QRect(x - r, y - r, 2*r, 2*r));
+    textAnim->setEasingCurve(QEasingCurve::InOutCubic);
+    setVisible(false);
+}

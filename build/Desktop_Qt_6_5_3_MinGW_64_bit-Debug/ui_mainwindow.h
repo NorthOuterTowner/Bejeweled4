@@ -16,6 +16,7 @@
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
+#include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -25,17 +26,13 @@ class Ui_MainWindow
 public:
     QWidget *centralwidget;
     QPushButton *pushButton;
-    QPushButton *pushButton_2;
-    QPushButton *pushButton_3;
-    QPushButton *pushButton_4;
-    QPushButton *pushButton_8;
-    QPushButton *pushButton_5;
-    QPushButton *pushButton_6;
-    QPushButton *pushButton_7;
     QPushButton *pushButton_9;
     QLabel *label;
+    QPushButton *pushButton_10;
     QMenuBar *menubar;
     QStatusBar *statusbar;
+    QToolBar *toolBar;
+    QToolBar *toolBar_2;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -47,41 +44,29 @@ public:
         pushButton = new QPushButton(centralwidget);
         pushButton->setObjectName("pushButton");
         pushButton->setGeometry(QRect(310, 390, 93, 28));
-        pushButton_2 = new QPushButton(centralwidget);
-        pushButton_2->setObjectName("pushButton_2");
-        pushButton_2->setGeometry(QRect(610, 130, 158, 18));
-        pushButton_3 = new QPushButton(centralwidget);
-        pushButton_3->setObjectName("pushButton_3");
-        pushButton_3->setGeometry(QRect(610, 160, 158, 18));
-        pushButton_4 = new QPushButton(centralwidget);
-        pushButton_4->setObjectName("pushButton_4");
-        pushButton_4->setGeometry(QRect(610, 200, 158, 18));
-        pushButton_8 = new QPushButton(centralwidget);
-        pushButton_8->setObjectName("pushButton_8");
-        pushButton_8->setGeometry(QRect(610, 240, 158, 18));
-        pushButton_5 = new QPushButton(centralwidget);
-        pushButton_5->setObjectName("pushButton_5");
-        pushButton_5->setGeometry(QRect(610, 320, 158, 18));
-        pushButton_6 = new QPushButton(centralwidget);
-        pushButton_6->setObjectName("pushButton_6");
-        pushButton_6->setGeometry(QRect(610, 360, 158, 18));
-        pushButton_7 = new QPushButton(centralwidget);
-        pushButton_7->setObjectName("pushButton_7");
-        pushButton_7->setGeometry(QRect(610, 400, 158, 18));
         pushButton_9 = new QPushButton(centralwidget);
         pushButton_9->setObjectName("pushButton_9");
         pushButton_9->setGeometry(QRect(10, 150, 93, 28));
         label = new QLabel(centralwidget);
         label->setObjectName("label");
         label->setGeometry(QRect(20, 120, 69, 19));
+        pushButton_10 = new QPushButton(centralwidget);
+        pushButton_10->setObjectName("pushButton_10");
+        pushButton_10->setGeometry(QRect(460, 210, 81, 41));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 800, 25));
+        menubar->setGeometry(QRect(0, 0, 800, 18));
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName("statusbar");
         MainWindow->setStatusBar(statusbar);
+        toolBar = new QToolBar(MainWindow);
+        toolBar->setObjectName("toolBar");
+        MainWindow->addToolBar(Qt::TopToolBarArea, toolBar);
+        toolBar_2 = new QToolBar(MainWindow);
+        toolBar_2->setObjectName("toolBar_2");
+        MainWindow->addToolBar(Qt::TopToolBarArea, toolBar_2);
 
         retranslateUi(MainWindow);
 
@@ -92,15 +77,11 @@ public:
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
         pushButton->setText(QCoreApplication::translate("MainWindow", "\350\277\233\345\205\245\346\270\270\346\210\217", nullptr));
-        pushButton_2->setText(QCoreApplication::translate("MainWindow", "\347\256\200\345\215\225", nullptr));
-        pushButton_3->setText(QCoreApplication::translate("MainWindow", "\344\270\255\347\255\211", nullptr));
-        pushButton_4->setText(QCoreApplication::translate("MainWindow", "\345\233\260\351\232\276", nullptr));
-        pushButton_8->setText(QCoreApplication::translate("MainWindow", "\347\202\274\347\213\261", nullptr));
-        pushButton_5->setText(QCoreApplication::translate("MainWindow", "\345\256\235\347\237\263", nullptr));
-        pushButton_6->setText(QCoreApplication::translate("MainWindow", "\350\224\254\350\217\234", nullptr));
-        pushButton_7->setText(QCoreApplication::translate("MainWindow", "\346\260\264\346\236\234", nullptr));
         pushButton_9->setText(QCoreApplication::translate("MainWindow", "\344\270\213\344\270\200\345\205\263", nullptr));
         label->setText(QCoreApplication::translate("MainWindow", "\345\205\263\345\215\241\346\250\241\345\274\217", nullptr));
+        pushButton_10->setText(QCoreApplication::translate("MainWindow", "Setting", nullptr));
+        toolBar->setWindowTitle(QCoreApplication::translate("MainWindow", "toolBar", nullptr));
+        toolBar_2->setWindowTitle(QCoreApplication::translate("MainWindow", "toolBar_2", nullptr));
     } // retranslateUi
 
 };

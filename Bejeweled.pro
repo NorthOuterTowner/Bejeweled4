@@ -17,6 +17,7 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     pausewidget.cpp \
+    settingwidget.cpp \
     signup.cpp \
     stonelabel.cpp \
     utils.cpp
@@ -29,6 +30,7 @@ HEADERS += \
     hoverbutton.h \
     mainwindow.h \
     pausewidget.h \
+    settingwidget.h \
     signup.h \
     stonelabel.h \
     utils.h
@@ -37,6 +39,7 @@ FORMS += \
     Login.ui \
     game.ui \
     mainwindow.ui \
+    settingwidget.ui \
     signup.ui
 
 TRANSLATIONS += \

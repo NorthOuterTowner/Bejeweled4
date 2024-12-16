@@ -29,6 +29,7 @@ public:
     void setAdaptedImg(QString path, QLabel *label);  // 设置自适应图像
     ~MainWindow();
     void onReturnMainwindow();    // 返回主界面
+    void SetButton();
 
 private:
     Ui::MainWindow *ui;
@@ -36,14 +37,15 @@ private:
 
 private slots:
     void on_pushButton_clicked();  // 开始游戏按钮
-    void on_pushButton_3_clicked();  // 中等难度按钮
+   /* void on_pushButton_3_clicked();  // 中等难度按钮
     void on_pushButton_2_clicked();  // 简单难度按钮
     void on_pushButton_5_clicked();  // 其他按钮
     void on_pushButton_4_clicked();  // 困难难度按钮
     void on_pushButton_7_clicked();  // 水果模式按钮
     void on_pushButton_6_clicked();  // 蔬菜模式按钮
-    void on_pushButton_8_clicked();  // 很困难难度按钮
+    void on_pushButton_8_clicked();  // 很困难难度按钮*/
     void on_pushButton_9_clicked();
+    void on_pushButton_10_clicked();
 };
 
 #endif // MAINWINDOW_H
