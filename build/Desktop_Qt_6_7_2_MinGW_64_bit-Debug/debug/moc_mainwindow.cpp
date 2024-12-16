@@ -39,14 +39,14 @@ constexpr auto qt_meta_stringdata_CLASSMainWindowENDCLASS = QtMocHelpers::string
     "MainWindow",
     "on_pushButton_clicked",
     "",
-    "onReturnMainwindow",
     "on_pushButton_3_clicked",
     "on_pushButton_2_clicked",
     "on_pushButton_5_clicked",
     "on_pushButton_4_clicked",
     "on_pushButton_7_clicked",
     "on_pushButton_6_clicked",
-    "on_pushButton_8_clicked"
+    "on_pushButton_8_clicked",
+    "on_pushButton_9_clicked"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
@@ -102,8 +102,6 @@ Q_CONSTINIT const QMetaObject MainWindow::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<MainWindow, std::true_type>,
         // method 'on_pushButton_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'onReturnMainwindow'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'on_pushButton_3_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'on_pushButton_2_clicked'
@@ -117,6 +115,8 @@ Q_CONSTINIT const QMetaObject MainWindow::staticMetaObject = { {
         // method 'on_pushButton_6_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'on_pushButton_8_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_pushButton_9_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>
     >,
     nullptr
@@ -129,14 +129,14 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         (void)_t;
         switch (_id) {
         case 0: _t->on_pushButton_clicked(); break;
-        case 1: _t->onReturnMainwindow(); break;
-        case 2: _t->on_pushButton_3_clicked(); break;
-        case 3: _t->on_pushButton_2_clicked(); break;
-        case 4: _t->on_pushButton_5_clicked(); break;
-        case 5: _t->on_pushButton_4_clicked(); break;
-        case 6: _t->on_pushButton_7_clicked(); break;
-        case 7: _t->on_pushButton_6_clicked(); break;
-        case 8: _t->on_pushButton_8_clicked(); break;
+        case 1: _t->on_pushButton_3_clicked(); break;
+        case 2: _t->on_pushButton_2_clicked(); break;
+        case 3: _t->on_pushButton_5_clicked(); break;
+        case 4: _t->on_pushButton_4_clicked(); break;
+        case 5: _t->on_pushButton_7_clicked(); break;
+        case 6: _t->on_pushButton_6_clicked(); break;
+        case 7: _t->on_pushButton_8_clicked(); break;
+        case 8: _t->on_pushButton_9_clicked(); break;
         default: ;
         }
     }

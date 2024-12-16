@@ -185,7 +185,11 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-    Game* gameDlg = Game::instance();
+    if(gameDlg){
+        Game::delInstance();
+    }
+
+    gameDlg = Game::instance();
     connect(gameDlg, &Game::returnMainwindow, this, &MainWindow::onReturnMainwindow);
     gameDlg->show();
     this->hide();
@@ -196,7 +200,6 @@ void MainWindow::onReturnMainwindow()
     std::cout<<"Return slots work"<<std::endl;
     this->show();
     Game::instance()->hide();
-    Game::delInstance();
 }
 /*
 void MainWindow::on_pushButton_2_clicked()
