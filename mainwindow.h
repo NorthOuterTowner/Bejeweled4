@@ -10,6 +10,7 @@
 #include <QCursor>
 #include <QGraphicsOpacityEffect>
 #include <QPropertyAnimation>  // 修正为正确的头文件
+#include "hoverbutton.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -35,6 +36,7 @@ private:
     Ui::MainWindow *ui;
     Game* gameDlg;
     QSoundEffect* sound;  // 背景音乐
+    HoverButton *nextLevelButton;
 
 private slots:
     void on_pushButton_clicked();  // 开始游戏按钮
