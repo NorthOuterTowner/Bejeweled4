@@ -16,12 +16,8 @@ SOURCES += \
     hoverbutton.cpp \
     main.cpp \
     mainwindow.cpp \
-
-    pausewidget.cpp \
     settingwidget.cpp \
-
     pause.cpp \
-
     signup.cpp \
     stonelabel.cpp \
     utils.cpp
@@ -33,12 +29,8 @@ HEADERS += \
     globalvalue.h \
     hoverbutton.h \
     mainwindow.h \
-
-    pausewidget.h \
     settingwidget.h \
-
     pause.h \
-
     signup.h \
     stonelabel.h \
     utils.h
@@ -47,11 +39,8 @@ FORMS += \
     Login.ui \
     game.ui \
     mainwindow.ui \
-
     settingwidget.ui \
-
     pause.ui \
-
     signup.ui
 
 TRANSLATIONS += \

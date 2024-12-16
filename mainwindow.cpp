@@ -13,7 +13,6 @@
 
 #include<settingwidget.h>
 bool firstLevel=true;
-=======
 int levelNum=0;
 
 MainWindow::MainWindow(QWidget *parent)

@@ -5,6 +5,7 @@ debug/globalvalue.o
 debug/hoverbutton.o
 debug/main.o
 debug/mainwindow.o
+debug/settingwidget.o
 debug/pause.o
 debug/signup.o
 debug/stonelabel.o
@@ -18,6 +19,7 @@ debug/moc_game.o
 debug/moc_gametimer.o
 debug/moc_hoverbutton.o
 debug/moc_mainwindow.o
+debug/moc_settingwidget.o
 debug/moc_pause.o
 debug/moc_signup.o
 debug/moc_stonelabel.o
