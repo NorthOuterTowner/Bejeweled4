@@ -10,8 +10,12 @@
 #include <QCursor>
 #include <QPropertyAnimation>
 #include <QGraphicsOpacityEffect>
+
 #include<settingwidget.h>
 bool firstLevel=true;
+=======
+int levelNum=0;
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -113,9 +117,10 @@ MainWindow::MainWindow(QWidget *parent)
     ui->pushButton_8->hide();*/
 
     // 在构造函数中添加以下代码，类似其他按钮的创建方式
-    HoverButton *nextLevelButton = new HoverButton(this);
+    nextLevelButton = new HoverButton(this);
     nextLevelButton->setImage(":/icons/next_normal.png", ":/icons/next_hover.png", 150, 50);
-    nextLevelButton->setLabel("Next Level", 13);
+    QString nextLevel=QString::fromStdString("下一关:"+std::to_string(levelNum/8)+"-"+std::to_string(levelNum%8));
+    nextLevelButton->setLabel(nextLevel, 13);
     nextLevelButton->setSound(":/music/button/button_mouseover.wav", ":/music/button/button_mouseleave.wav", ":/music/button/button_press.wav", ":/music/button/button_release.wav");
     nextLevelButton->move(ui->pushButton_9->pos());
     connect(nextLevelButton, &QPushButton::clicked, this, &MainWindow::on_pushButton_9_clicked);
@@ -238,10 +243,13 @@ void MainWindow::on_pushButton_8_clicked()
 /*类似于自由模式时进入游戏的下一关*/
 void MainWindow::on_pushButton_9_clicked()
 {
-    if(firstLevel){
+    if(levelNum%8==0){
         difficulty=4;
-        firstLevel=false;
     }
+    levelNum++;
+    QString nextLevel=QString::fromStdString("下一关:"+std::to_string(levelNum/8)+"-"+std::to_string(levelNum%8));
+    nextLevelButton->setLabel(nextLevel, 13);
+    Game::delInstance();
     Game* gameDlg = Game::instance();
     connect(gameDlg, &Game::returnMainwindow, this, &MainWindow::onReturnMainwindow);
     gameDlg->show();
