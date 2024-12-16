@@ -103,6 +103,16 @@ MainWindow::MainWindow(QWidget *parent)
     veryHardButton->move(ui->pushButton_8->pos());
     connect(veryHardButton, &QPushButton::clicked, this, &MainWindow::on_pushButton_8_clicked);
     ui->pushButton_8->hide();
+
+    // 在构造函数中添加以下代码，类似其他按钮的创建方式
+    HoverButton *nextLevelButton = new HoverButton(this);
+    nextLevelButton->setImage(":/icons/next_normal.png", ":/icons/next_hover.png", 150, 50);
+    nextLevelButton->setLabel("Next Level", 13);
+    nextLevelButton->setSound(":/music/button/button_mouseover.wav", ":/music/button/button_mouseleave.wav", ":/music/button/button_press.wav", ":/music/button/button_release.wav");
+    nextLevelButton->move(ui->pushButton_9->pos());
+    connect(nextLevelButton, &QPushButton::clicked, this, &MainWindow::on_pushButton_9_clicked);
+    ui->pushButton_9->hide(); // 隐藏原始按钮
+
 }
 
 void setBkImg(const char * str, QLabel * label);

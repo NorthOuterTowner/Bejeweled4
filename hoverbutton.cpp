@@ -63,7 +63,7 @@ void HoverButton::setLabel(QString text, int size)
     int textHeight = metrics.height();
 
     // 设置按钮大小为文本大小 + 一些额外的间距
-    setFixedSize(textWidth + 80, textHeight + 50);  // 20和10是额外的间距，可以根据需要调整
+    setFixedSize(textWidth + 80 , textHeight + 50);  // 20和10是额外的间距，可以根据需要调整
 }
 
 void HoverButton::enterEvent(QEnterEvent *event)
