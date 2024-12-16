@@ -4,7 +4,7 @@
 #include "globalvalue.h"
 #include "stonelabel.h"
 #include "gametimer.h"
-#include "pausewidget.h"
+#include "pause.h"
 #include <QWidget>
 #include <QMouseEvent>
 #include <QLabel>
@@ -26,12 +26,14 @@ public:
     void init();
     void update();
     void handleStoneSwap(int row, int col, StoneLabel* curLabel);
-     static void delInstance(){
+    static void delInstance(){
         gameInstance=nullptr;
     }
     bool isPaused=false;
     static int jewelNum;
     QWidget* parent;
+    /*void resetGameState();
+    void on_returnFromPauseToMainMenu();*/
 signals:
     void eliminateAgainSignal();
     void returnMainwindow();
@@ -50,6 +52,7 @@ private slots:
             qDebug()<<"OK";
             creatstones();
             this->initing=false;
+
         }
     }
     void onEliminateAgain(){
@@ -68,10 +71,11 @@ private slots:
             }
         }
     }
-    void on_pushButton_clicked();
     void on_pushButton_3_clicked();
-
+    void resume();//处理继续游戏信号
+    void on_returnFromPauseToMainMenu();  //处理从暂停界面返回主菜单的信号
     void on_pushButton_4_clicked();
+    void on_pushButton_5_clicked();
 
 private:
     explicit Game(QWidget *parent = nullptr);
@@ -84,12 +88,14 @@ private:
     void resetMatchedFlags();//重置所有棋子为不可消除
     void generateNewStone(int row, int col);//创建一个新子
     void creatstones();//创建所有需要的子
+    void shuffleStones();//重排布
     GameTimer *gameTimer;//计时器
     QProgressBar *progressBar;  //计时进度条
     void onTimeExpired();//倒计时结束时的处理
     void updateTimerDisplay();//更新界面上显示倒计时的QLabel的文本内容
     int  animationsLeft;  // 重置动画计数器
-    PauseWidget *pauseWidget;  // 暂停界面指针
+    Pause *pause;  // 暂停界面指针
+    void resetGameState();//用于重置游戏状态
     bool change=false;
     bool eliminateAgain=true;
     std::vector<int> swapReturn;

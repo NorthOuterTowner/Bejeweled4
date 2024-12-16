@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <game.h>
 #include <QMouseEvent>
 #include <QLabel>
 #include <QPushButton>
@@ -32,6 +33,7 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    Game* gameDlg;
     QSoundEffect* sound;  // 背景音乐
 
 private slots:
