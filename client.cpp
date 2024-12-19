@@ -45,9 +45,9 @@ void Client::onDisconnected() {
     ui->logText->append("与服务器断开连接");
 }
 */
-void QMainWindow::closeEvent(QCloseEvent *event){
+/*void QMainWindow::closeEvent(QCloseEvent *event){
 
-}
+}*/
 void Client::on_pushButton_clicked()
 {
     QString host = ui->hostEdit->text();
