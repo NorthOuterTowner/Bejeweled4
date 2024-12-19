@@ -4,14 +4,16 @@
 #include "mainwindow.h"
 #include "hoverbutton.h"  // 引入 HoverButton
 #include "utils.h"
+#include "client.h"
 #include <QGraphicsDropShadowEffect>
 #include <QMessageBox>
 #include <QSqlQuery>
 #include <QSqlDatabase>
 
-Login::Login(QWidget *parent)
+Login::Login(QTcpSocket *t,QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::Login)
+    , tcpSocket(t)
 {
     ui->setupUi(this);
     // // 设置背景并启动动画
