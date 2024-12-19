@@ -187,6 +187,11 @@ void Game::mousePressEvent(QMouseEvent *event) {
 
             update();
 
+            if (!hasStartedScoring)  // 如果还未开始计分，在这里标记为开始计分
+            {
+                hasStartedScoring = true;
+            }
+
             if (checkFormatches()) {
                 eliminateMatches();
             } else {
@@ -291,15 +296,29 @@ bool Game::checkFormatches(){
 }
 //消除
 void Game::eliminateMatches() {
+    int eliminatedCount = 0;  // 用于记录本次消除的棋子个数
+
     for (int row = 0; row < 8; ++row) {
         for (int col = 0; col < 8; ++col) {
             if (stones[row][col] != nullptr && stones[row][col]->isMatched()) {
                 //删除棋子
                 delete stones[row][col];
                 stones[row][col] = nullptr;  // 清空位置
+                eliminatedCount++;  // 统计消除的棋子个数
             }
         }
     }
+
+    if (hasStartedScoring)  // 根据计分标记判断是否计分
+    {
+        // 根据消除的棋子个数计算得分，按照2的被消除棋子个数次方规则
+        int scoreGain = std::pow(2, eliminatedCount);
+        score += scoreGain; // 将本次得分累加到总积分中
+    }
+
+    // 更新积分显示
+    ui->lcdNumber->display(score);
+
 
     dropStones();
     resetMatchedFlags();
@@ -463,7 +482,7 @@ void Game::resume()
     if (isPaused) {
         gameTimer->start();  // 恢复计时器运行
         isPaused = false;
-    }
+    } 
 }
 
 void Game::resetGameState()
@@ -593,20 +612,7 @@ void Game::on_pushButton_4_clicked()
     emit returnMainwindow();
 }
 
-// 新增的函数，用于重置游戏状态，重点处理计时器相关状态
-void Game::resetGameState()
+int Game::getScore() const
 {
-    if (gameTimer) {
-        gameTimer->stop();
-        delete gameTimer;
-        gameTimer = nullptr;
-    }
-    // 这里可以进一步添加对其他游戏相关变量的重置逻辑，比如：
-    // 重置棋子相关状态等，可根据实际需求完善
-}
-
-void Game::on_returnFromPauseToMainMenu()
-{
-    resetGameState();
-    emit returnMainwindow();
+    return score;
 }
