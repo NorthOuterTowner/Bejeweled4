@@ -96,6 +96,7 @@ private:
     int  animationsLeft;  // 重置动画计数器
     Pause *pause;  // 暂停界面指针
     void resetGameState();//用于重置游戏状态
+    bool initialized=false;//判断棋盘是否初始化完成，可以操作
     bool change=false;
     bool eliminateAgain=true;
     std::vector<int> swapReturn;

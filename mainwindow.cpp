@@ -32,7 +32,7 @@ MainWindow::MainWindow(QWidget *parent)
     sound = new QSoundEffect(this);
     sound->setSource(QUrl("qrc:/music/background/music-1.wav"));  // 使用 qrc 路径
     sound->setLoopCount(QSoundEffect::Infinite);
-    sound->setVolume(1.0f);  // 最大音量
+    sound->setVolume(0.5f);  // 最大音量
     sound->play();
 
     // 设置鼠标-普通

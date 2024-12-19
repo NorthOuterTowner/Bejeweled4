@@ -291,14 +291,44 @@ bool Game::checkFormatches(){
 }
 //消除
 void Game::eliminateMatches() {
+    int eliNum=0;//求消除个数
     for (int row = 0; row < 8; ++row) {
         for (int col = 0; col < 8; ++col) {
             if (stones[row][col] != nullptr && stones[row][col]->isMatched()) {
                 //删除棋子
                 delete stones[row][col];
                 stones[row][col] = nullptr;  // 清空位置
+                eliNum++;
             }
         }
+    }
+
+    if (initialized) {
+        QSoundEffect* soundEffect;
+        switch(eliNum){
+        case 3:{
+            soundEffect = new QSoundEffect(this);
+            soundEffect->setSource(QUrl::fromLocalFile(":/music/eliminate/triple.wav"));
+            soundEffect->setLoopCount(1);  // 只播放一次
+            soundEffect->setVolume(1.0f);
+            break;
+        }
+        case 4:{
+            soundEffect = new QSoundEffect(this);
+            soundEffect->setSource(QUrl::fromLocalFile(":/music/eliminate/quadruple.wav"));
+            soundEffect->setLoopCount(1);  // 只播放一次
+            soundEffect->setVolume(1.0f);
+            break;
+        }
+        default:{
+            soundEffect = new QSoundEffect(this);
+            soundEffect->setSource(QUrl::fromLocalFile(":/music/eliminate/penta.wav"));
+            soundEffect->setLoopCount(1);  // 只播放一次
+            soundEffect->setVolume(1.0f);
+            break;
+        }
+        }
+        soundEffect->play();//播放消除音效
     }
 
     dropStones();
