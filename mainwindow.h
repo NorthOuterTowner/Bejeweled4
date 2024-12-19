@@ -39,6 +39,7 @@ private:
     QSoundEffect* sound;  // 背景音乐
     HoverButton *nextLevelButton;
 
+
 private slots:
     void on_pushButton_clicked();  // 开始游戏按钮
    /* void on_pushButton_3_clicked();  // 中等难度按钮
