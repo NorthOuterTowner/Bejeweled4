@@ -105,9 +105,9 @@ QProgressBar::chunk {
   <widget class="QLCDNumber" name="lcdNumber">
    <property name="geometry">
     <rect>
-     <x>670</x>
+     <x>660</x>
      <y>230</y>
-     <width>101</width>
+     <width>111</width>
      <height>41</height>
     </rect>
    </property>
