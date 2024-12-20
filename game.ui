@@ -164,32 +164,6 @@ QProgressBar::chunk {
     <string>bomb</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="rainbowGemButton">
-   <property name="geometry">
-    <rect>
-     <x>680</x>
-     <y>260</y>
-     <width>56</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>rainbow</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="freezeTimeButton">
-   <property name="geometry">
-    <rect>
-     <x>680</x>
-     <y>300</y>
-     <width>56</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>freeze</string>
-   </property>
-  </widget>
  </widget>
  <resources/>
  <connections/>

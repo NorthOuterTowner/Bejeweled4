@@ -31,8 +31,6 @@ public:
     QPushButton *pushButton_4;
     QPushButton *pushButton_5;
     QPushButton *bombButton;
-    QPushButton *rainbowGemButton;
-    QPushButton *freezeTimeButton;
 
     void setupUi(QWidget *Game)
     {
@@ -92,12 +90,6 @@ public:
         bombButton = new QPushButton(Game);
         bombButton->setObjectName("bombButton");
         bombButton->setGeometry(QRect(680, 230, 56, 18));
-        rainbowGemButton = new QPushButton(Game);
-        rainbowGemButton->setObjectName("rainbowGemButton");
-        rainbowGemButton->setGeometry(QRect(680, 260, 56, 18));
-        freezeTimeButton = new QPushButton(Game);
-        freezeTimeButton->setObjectName("freezeTimeButton");
-        freezeTimeButton->setGeometry(QRect(680, 300, 56, 18));
 
         retranslateUi(Game);
 
@@ -114,8 +106,6 @@ public:
         pushButton_4->setText(QCoreApplication::translate("Game", "\344\270\213\344\270\200\345\205\263", nullptr));
         pushButton_5->setText(QCoreApplication::translate("Game", "\351\207\215\347\275\256", nullptr));
         bombButton->setText(QCoreApplication::translate("Game", "bomb", nullptr));
-        rainbowGemButton->setText(QCoreApplication::translate("Game", "rainbow", nullptr));
-        freezeTimeButton->setText(QCoreApplication::translate("Game", "freeze", nullptr));
     } // retranslateUi
 
 };
