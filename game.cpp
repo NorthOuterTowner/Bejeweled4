@@ -296,29 +296,45 @@ bool Game::checkFormatches(){
 }
 //消除
 void Game::eliminateMatches() {
-    int eliminatedCount = 0;  // 用于记录本次消除的棋子个数
-
+    int eliNum=0;//求消除个数
     for (int row = 0; row < 8; ++row) {
         for (int col = 0; col < 8; ++col) {
             if (stones[row][col] != nullptr && stones[row][col]->isMatched()) {
                 //删除棋子
                 delete stones[row][col];
                 stones[row][col] = nullptr;  // 清空位置
-                eliminatedCount++;  // 统计消除的棋子个数
+                eliNum++;
             }
         }
     }
 
-    if (hasStartedScoring)  // 根据计分标记判断是否计分
-    {
-        // 根据消除的棋子个数计算得分，按照2的被消除棋子个数次方规则
-        int scoreGain = std::pow(2, eliminatedCount);
-        score += scoreGain; // 将本次得分累加到总积分中
+    if (!progressDialog->isVisible()) {
+        QSoundEffect* soundEffect;
+        switch(eliNum){
+        case 3:{
+            soundEffect = new QSoundEffect(this);
+            soundEffect->setSource(QUrl::fromLocalFile(":/music/eliminate/triple.wav"));
+            soundEffect->setLoopCount(1);  // 只播放一次
+            soundEffect->setVolume(1.0f);
+            break;
+        }
+        case 4:{
+            soundEffect = new QSoundEffect(this);
+            soundEffect->setSource(QUrl::fromLocalFile(":/music/eliminate/quadruple.wav"));
+            soundEffect->setLoopCount(1);  // 只播放一次
+            soundEffect->setVolume(1.0f);
+            break;
+        }
+        default:{
+            soundEffect = new QSoundEffect(this);
+            soundEffect->setSource(QUrl::fromLocalFile(":/music/eliminate/penta.wav"));
+            soundEffect->setLoopCount(1);  // 只播放一次
+            soundEffect->setVolume(1.0f);
+            break;
+        }
+        }
+        soundEffect->play();//播放消除音效
     }
-
-    // 更新积分显示
-    ui->lcdNumber->display(score);
-
 
     dropStones();
     resetMatchedFlags();
