@@ -341,21 +341,21 @@ void Game::eliminateMatches() {
             soundEffect = new QSoundEffect(this);
             soundEffect->setSource(QUrl::fromLocalFile(":/music/eliminate/triple.wav"));
             soundEffect->setLoopCount(1);  // 只播放一次
-            soundEffect->setVolume(1.0f);
+            soundEffect->setVolume(volume);
             break;
         }
         case 4:{
             soundEffect = new QSoundEffect(this);
             soundEffect->setSource(QUrl::fromLocalFile(":/music/eliminate/quadruple.wav"));
             soundEffect->setLoopCount(1);  // 只播放一次
-            soundEffect->setVolume(1.0f);
+            soundEffect->setVolume(volume);
             break;
         }
         default:{
             soundEffect = new QSoundEffect(this);
             soundEffect->setSource(QUrl::fromLocalFile(":/music/eliminate/penta.wav"));
             soundEffect->setLoopCount(1);  // 只播放一次
-            soundEffect->setVolume(1.0f);
+            soundEffect->setVolume(volume);
             break;
         }
         }

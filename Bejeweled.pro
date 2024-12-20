@@ -1,4 +1,4 @@
-QT       += core gui network multimedia sql
+QT       += core gui widgets network multimedia sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -10,6 +10,7 @@ CONFIG += c++17
 
 SOURCES += \
     Login.cpp \
+    PixmapSlider.cpp \
     client.cpp \
     game.cpp \
     # gameitems.cpp \
@@ -26,6 +27,7 @@ SOURCES += \
 
 HEADERS += \
     Login.h \
+    PixmapSlider.h \
     client.h \
     game.h \
     # gameitems.h \
@@ -46,7 +48,8 @@ FORMS += \
     mainwindow.ui \
     settingwidget.ui \
     pause.ui \
-    signup.ui
+    signup.ui\
+    settingwidget.ui
 
 TRANSLATIONS += \
     Bejeweled_zh_CN.ts
