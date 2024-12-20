@@ -13,6 +13,7 @@ SOURCES += \
     PixmapSlider.cpp \
     client.cpp \
     game.cpp \
+    # gameitems.cpp \
     gametimer.cpp \
     globalvalue.cpp \
     hoverbutton.cpp \
@@ -29,6 +30,7 @@ HEADERS += \
     PixmapSlider.h \
     client.h \
     game.h \
+    # gameitems.h \
     gametimer.h \
     globalvalue.h \
     hoverbutton.h \
