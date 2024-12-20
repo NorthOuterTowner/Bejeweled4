@@ -11,7 +11,7 @@
 #include <QPropertyAnimation>
 #include <QGraphicsOpacityEffect>
 
-#include<settingwidget.h>
+#include <settingwidget.h>
 bool firstLevel=true;
 int levelNum=0;
 

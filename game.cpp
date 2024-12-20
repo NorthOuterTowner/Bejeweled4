@@ -303,7 +303,7 @@ void Game::eliminateMatches() {
         }
     }
 
-    if (initialized) {
+    if (!progressDialog->isVisible()) {
         QSoundEffect* soundEffect;
         switch(eliNum){
         case 3:{
