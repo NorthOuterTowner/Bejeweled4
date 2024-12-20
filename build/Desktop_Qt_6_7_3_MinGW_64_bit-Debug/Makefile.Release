@@ -366,7 +366,10 @@ release/qrc_music.cpp: ../../music.qrc \
 		../../music/button/button_press.wav \
 		../../music/button/button_mouseover.wav \
 		../../music/button/button_release.wav \
-		../../music/background/music-1.wav
+		../../music/background/music-1.wav \
+		../../music/eliminate/penta.wav \
+		../../music/eliminate/quadruple.wav \
+		../../music/eliminate/triple.wav
 	C:\Qt1\6.7.3\mingw_64\bin\rcc.exe -name music --no-zstd ..\..\music.qrc -o release\qrc_music.cpp
 
 release/qrc_picture.cpp: ../../picture/picture.qrc \
