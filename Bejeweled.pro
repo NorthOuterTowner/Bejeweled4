@@ -10,12 +10,14 @@ CONFIG += c++17
 
 SOURCES += \
     Login.cpp \
+    client.cpp \
     game.cpp \
     gametimer.cpp \
     globalvalue.cpp \
     hoverbutton.cpp \
     main.cpp \
     mainwindow.cpp \
+    settingwidget.cpp \
     pause.cpp \
     signup.cpp \
     stonelabel.cpp \
@@ -23,11 +25,13 @@ SOURCES += \
 
 HEADERS += \
     Login.h \
+    client.h \
     game.h \
     gametimer.h \
     globalvalue.h \
     hoverbutton.h \
     mainwindow.h \
+    settingwidget.h \
     pause.h \
     signup.h \
     stonelabel.h \
@@ -35,8 +39,10 @@ HEADERS += \
 
 FORMS += \
     Login.ui \
+    client.ui \
     game.ui \
     mainwindow.ui \
+    settingwidget.ui \
     pause.ui \
     signup.ui
 

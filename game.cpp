@@ -612,6 +612,7 @@ void Game::on_pushButton_4_clicked()
     emit returnMainwindow();
 }
 
+
 int Game::getScore() const
 {
     return score;

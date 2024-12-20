@@ -7,6 +7,7 @@
 #include <QMessageBox>  // 消息盒子
 #include <QDebug>       // 调试信息
 #include<QPropertyAnimation>
+#include <QTcpSocket>
 void sqlite_Init();
 QT_BEGIN_NAMESPACE
 namespace Ui { class Login; }  // 修改为 Login
@@ -23,7 +24,7 @@ public:
     void setAdaptedImg(QString path,QLabel *label);
     void setBkImg(QString path,QLabel *label);
  QPropertyAnimation *bkAnim;
-    Login(QWidget *parent = nullptr);  // 构造函数
+    Login(QTcpSocket *tcpSocket=nullptr,QWidget *parent = nullptr);  // 构造函数
     ~Login();  // 析构函数
 
 private slots:
@@ -32,7 +33,7 @@ private slots:
 
 private:
     Ui::Login *ui;  // 修改为 Login
-
+    QTcpSocket *tcpSocket;
     // 将 sqlite_Init() 函数声明为 Login 类的成员函数
 
 };

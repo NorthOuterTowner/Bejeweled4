@@ -10,7 +10,11 @@
 #include <QCursor>
 #include <QPropertyAnimation>
 #include <QGraphicsOpacityEffect>
+
+#include<settingwidget.h>
 bool firstLevel=true;
+int levelNum=0;
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -45,8 +49,15 @@ MainWindow::MainWindow(QWidget *parent)
 
     // 隐藏原始的 QPushButton
     ui->pushButton->hide();
+    HoverButton *settingButton = new HoverButton(this);
+    settingButton->setImage(":/icons/settings_normal.png", ":/icons/settings_hover.png", 100, 50);
+    settingButton->setLabel("Settings", 13);
+    settingButton->setSound(":/music/button/button_mouseover.wav", ":/music/button/button_mouseleave.wav", ":/music/button/button_press.wav", ":/music/button/button_release.wav");
+    settingButton->move(ui->pushButton_10->pos());  // 设置位置与原按钮相同
+    connect(settingButton, &QPushButton::clicked, this, &MainWindow::on_pushButton_10_clicked);
+    ui->pushButton_10->hide();  // 隐藏原按钮
 
-    // 创建其他 HoverButton 按钮
+   /* // 创建其他 HoverButton 按钮
     HoverButton *easyButton = new HoverButton(this);
     easyButton->setImage(":/icons/easy_normal.png", ":/icons/easy_hover.png", 100, 45);
     easyButton->setLabel("Easy", 13);
@@ -102,7 +113,18 @@ MainWindow::MainWindow(QWidget *parent)
     veryHardButton->setSound(":/music/button/button_mouseover.wav", ":/music/button/button_mouseleave.wav", ":/music/button/button_press.wav", ":/music/button/button_release.wav");
     veryHardButton->move(ui->pushButton_8->pos());
     connect(veryHardButton, &QPushButton::clicked, this, &MainWindow::on_pushButton_8_clicked);
-    ui->pushButton_8->hide();
+    ui->pushButton_8->hide();*/
+
+    // 在构造函数中添加以下代码，类似其他按钮的创建方式
+    nextLevelButton = new HoverButton(this);
+    nextLevelButton->setImage(":/icons/next_normal.png", ":/icons/next_hover.png", 150, 50);
+    QString nextLevel=QString::fromStdString("下一关:"+std::to_string(levelNum/8)+"-"+std::to_string(levelNum%8));
+    nextLevelButton->setLabel(nextLevel, 13);
+    nextLevelButton->setSound(":/music/button/button_mouseover.wav", ":/music/button/button_mouseleave.wav", ":/music/button/button_press.wav", ":/music/button/button_release.wav");
+    nextLevelButton->move(ui->pushButton_9->pos());
+    connect(nextLevelButton, &QPushButton::clicked, this, &MainWindow::on_pushButton_9_clicked);
+    ui->pushButton_9->hide(); // 隐藏原始按钮
+
 }
 
 void setBkImg(const char * str, QLabel * label);
@@ -183,7 +205,7 @@ void MainWindow::onReturnMainwindow()
     this->show();
     Game::instance()->hide();
 }
-
+/*
 void MainWindow::on_pushButton_2_clicked()
 {
     difficulty = 4;  // Easy difficulty
@@ -215,18 +237,40 @@ void MainWindow::on_pushButton_8_clicked()
 }void MainWindow::on_pushButton_5_clicked()
 {
 
-}
+}*/
 
 /*类似于自由模式时进入游戏的下一关*/
 void MainWindow::on_pushButton_9_clicked()
 {
-    if(firstLevel){
+    if(levelNum%8==0){
         difficulty=4;
-        firstLevel=false;
     }
+    levelNum++;
+    QString nextLevel=QString::fromStdString("下一关:"+std::to_string(levelNum/8)+"-"+std::to_string(levelNum%8));
+    nextLevelButton->setLabel(nextLevel, 13);
+    Game::delInstance();
     Game* gameDlg = Game::instance();
     connect(gameDlg, &Game::returnMainwindow, this, &MainWindow::onReturnMainwindow);
     gameDlg->show();
     this->hide();
 }
+
+
+void MainWindow::on_pushButton_10_clicked()
+{
+    // 创建并显示 Setting 对话框
+    settingwidget  settingDlg(this);  // 创建 settingwidget 对象
+    if (settingDlg.exec() == QDialog::Accepted) {  // 判断对话框是否被接受
+        // 获取设置后的难度和模式
+        int selectedDifficulty = settingDlg.getDifficulty();
+        std::string selectedMode = settingDlg.getMode();
+
+
+        // 在 MainWindow 中更新难度和模式
+        difficulty = selectedDifficulty;
+        StoneLabel::stoneMode = selectedMode;
+    }
+}
+
+
 
