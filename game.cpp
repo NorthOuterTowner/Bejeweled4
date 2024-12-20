@@ -669,12 +669,12 @@ void Game::clearStone(int row, int col) {
 }
 
 
-int Game::getScore() const
+int Game::getScore()
 {
 
     resetGameState();
     emit returnMainwindow();
-}*/
+}
 
 void Game::on_bombButton_clicked() {
 
@@ -710,10 +710,5 @@ void Game::triggerBomb(int row, int col) {
     // 结束炸弹模式
     isBombMode = false;
     // statusBar()->clearMessage();  // 清除提示信息
-}
-
-
-
-    return score;
 }
 

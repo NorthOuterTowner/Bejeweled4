@@ -1006,13 +1006,13 @@ release/moc_game.cpp: ../../game.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtGui/qguiapplication_platform.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtGui/qpicture.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtGui/qtextdocument.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/QMouseEvent \
 		../../gametimer.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/QTimer \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qtimer.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qbasictimer.h \
 		../../pause.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QWidget \
-		C:/Qt1/6.7.3/mingw_64/include/QtGui/QMouseEvent \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QProgressDialog \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qprogressdialog.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qdialog.h \
@@ -1537,13 +1537,13 @@ release/moc_mainwindow.cpp: ../../mainwindow.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qframe.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtGui/qpicture.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtGui/qtextdocument.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/QMouseEvent \
 		../../gametimer.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/QTimer \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qtimer.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qbasictimer.h \
 		../../pause.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QWidget \
-		C:/Qt1/6.7.3/mingw_64/include/QtGui/QMouseEvent \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QProgressDialog \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qprogressdialog.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qdialog.h \
@@ -1774,6 +1774,7 @@ release/moc_settingwidget.cpp: ../../settingwidget.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qframe.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtGui/qpicture.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtGui/qtextdocument.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/QMouseEvent \
 		../../globalValue.h \
 		release/moc_predefs.h \
 		C:/Qt1/6.7.3/mingw_64/bin/moc.exe
@@ -2380,6 +2381,7 @@ release/moc_stonelabel.cpp: ../../stonelabel.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtGui/qguiapplication_platform.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtGui/qpicture.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtGui/qtextdocument.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/QMouseEvent \
 		release/moc_predefs.h \
 		C:/Qt1/6.7.3/mingw_64/bin/moc.exe
 	C:\Qt1\6.7.3\mingw_64\bin\moc.exe $(DEFINES) --include C:/Users/86189/Desktop/Bejeweled/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/release/moc_predefs.h -IC:/Qt1/6.7.3/mingw_64/mkspecs/win32-g++ -IC:/Users/86189/Desktop/Bejeweled -IC:/Qt1/6.7.3/mingw_64/include -IC:/Qt1/6.7.3/mingw_64/include/QtMultimedia -IC:/Qt1/6.7.3/mingw_64/include/QtWidgets -IC:/Qt1/6.7.3/mingw_64/include/QtGui -IC:/Qt1/6.7.3/mingw_64/include/QtNetwork -IC:/Qt1/6.7.3/mingw_64/include/QtSql -IC:/Qt1/6.7.3/mingw_64/include/QtCore -I. -IC:/Qt1/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++ -IC:/Qt1/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32 -IC:/Qt1/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/backward -IC:/Qt1/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include -IC:/Qt1/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed -IC:/Qt1/Tools/mingw1120_64/x86_64-w64-mingw32/include ..\..\stonelabel.h -o release\moc_stonelabel.cpp
@@ -2688,12 +2690,12 @@ release/Login.o: ../../Login.cpp ../../login.h \
 		../../game.h \
 		../../globalvalue.h \
 		../../stonelabel.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/QMouseEvent \
 		../../gametimer.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/QTimer \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qtimer.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qbasictimer.h \
 		../../pause.h \
-		C:/Qt1/6.7.3/mingw_64/include/QtGui/QMouseEvent \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QProgressDialog \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qprogressdialog.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QProgressBar \
@@ -3136,13 +3138,13 @@ release/game.o: ../../game.cpp ../../game.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtGui/qguiapplication_platform.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtGui/qpicture.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtGui/qtextdocument.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/QMouseEvent \
 		../../gametimer.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/QTimer \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qtimer.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qbasictimer.h \
 		../../pause.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QWidget \
-		C:/Qt1/6.7.3/mingw_64/include/QtGui/QMouseEvent \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QProgressDialog \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qprogressdialog.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qdialog.h \
@@ -3492,6 +3494,7 @@ release/globalvalue.o: ../../globalvalue.cpp ../../globalvalue.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtGui/qguiapplication_platform.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtGui/qpicture.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtGui/qtextdocument.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/QMouseEvent \
 		../../StoneLabel.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\globalvalue.o ..\..\globalvalue.cpp
 
@@ -3903,13 +3906,13 @@ release/main.o: ../../main.cpp ../../mainwindow.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qframe.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtGui/qpicture.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtGui/qtextdocument.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/QMouseEvent \
 		../../gametimer.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/QTimer \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qtimer.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qbasictimer.h \
 		../../pause.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QWidget \
-		C:/Qt1/6.7.3/mingw_64/include/QtGui/QMouseEvent \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QProgressDialog \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qprogressdialog.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qdialog.h \
@@ -4145,13 +4148,13 @@ release/mainwindow.o: ../../mainwindow.cpp ../../mainwindow.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qframe.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtGui/qpicture.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtGui/qtextdocument.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/QMouseEvent \
 		../../gametimer.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/QTimer \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qtimer.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qbasictimer.h \
 		../../pause.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QWidget \
-		C:/Qt1/6.7.3/mingw_64/include/QtGui/QMouseEvent \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QProgressDialog \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qprogressdialog.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qdialog.h \
@@ -4398,6 +4401,7 @@ release/settingwidget.o: ../../settingwidget.cpp ../../settingwidget.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qframe.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtGui/qpicture.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtGui/qtextdocument.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/QMouseEvent \
 		../../globalValue.h \
 		../../hoverbutton.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtMultimedia/QSoundEffect \
@@ -5064,7 +5068,21 @@ release/stonelabel.o: ../../stonelabel.cpp ../../stonelabel.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qlocale.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtGui/qguiapplication_platform.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtGui/qpicture.h \
-		C:/Qt1/6.7.3/mingw_64/include/QtGui/qtextdocument.h
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/qtextdocument.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/QMouseEvent \
+		../../game.h \
+		../../globalvalue.h \
+		../../gametimer.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtCore/QTimer \
+		C:/Qt1/6.7.3/mingw_64/include/QtCore/qtimer.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtCore/qbasictimer.h \
+		../../pause.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QWidget \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QProgressDialog \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qprogressdialog.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qdialog.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QProgressBar \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qprogressbar.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\stonelabel.o ..\..\stonelabel.cpp
 
 release/utils.o: ../../utils.cpp ../../utils.h \
