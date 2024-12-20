@@ -25,7 +25,6 @@ class Ui_Login
 public:
     QWidget *centralwidget;
     QLabel *label_image;
-    QLabel *label;
     QLabel *label_2;
     QWidget *layoutWidget;
     QVBoxLayout *verticalLayout;
@@ -48,11 +47,6 @@ public:
         label_image->setObjectName("label_image");
         label_image->setGeometry(QRect(390, 0, 391, 521));
         label_image->setStyleSheet(QString::fromUtf8("border-radius:7px;padding:0px 0px;"));
-        label = new QLabel(centralwidget);
-        label->setObjectName("label");
-        label->setGeometry(QRect(30, 10, 151, 31));
-        label->setStyleSheet(QString::fromUtf8("color: rgb(41, 155, 255);\n"
-"font: 10pt \"Arial\";"));
         label_2 = new QLabel(centralwidget);
         label_2->setObjectName("label_2");
         label_2->setGeometry(QRect(30, 120, 191, 51));
@@ -121,7 +115,6 @@ public:
     {
         Login->setWindowTitle(QCoreApplication::translate("Login", "MainWindow", nullptr));
         label_image->setText(QString());
-        label->setText(QCoreApplication::translate("Login", "TaoDouDou", nullptr));
         label_2->setText(QCoreApplication::translate("Login", "Login Now", nullptr));
         lineEdit_username->setPlaceholderText(QCoreApplication::translate("Login", "Places input your Id", nullptr));
         lineEdit_password->setPlaceholderText(QCoreApplication::translate("Login", "Please input your password", nullptr));
