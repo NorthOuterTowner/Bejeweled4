@@ -52,7 +52,7 @@ public:
         label->setGeometry(QRect(20, 120, 69, 19));
         pushButton_10 = new QPushButton(centralwidget);
         pushButton_10->setObjectName("pushButton_10");
-        pushButton_10->setGeometry(QRect(610, 330, 81, 41));
+        pushButton_10->setGeometry(QRect(630, 330, 81, 41));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");

@@ -1,4 +1,4 @@
-#include "game.h"
+#include<game.h>
 #include "qevent.h"
 #include "ui_game.h"
 #include "stonelabel.h"
@@ -17,6 +17,8 @@
 #include <QSequentialAnimationGroup>
 #include <QPropertyAnimation>
 #include <QParallelAnimationGroup>
+
+
 /*Space between Window and Labels*/
 #define upSpacer 80
 #define leftSpacer 100
@@ -55,6 +57,7 @@ Game::Game(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::Game)
 {
+    // gameItems = new GameItems();  // 初始化 GameItems
     ui->setupUi(this);
     Game::jewelNum=8;
     this->parent=parent;
@@ -78,7 +81,13 @@ Game::Game(QWidget *parent)
         progressDialog->setValue(100);
         progressDialog->hide();
     }
-}
+    // 连接按钮的点击信号到对应的槽函数
+    connect(ui->bombButton, &QPushButton::clicked, this, &Game::on_bombButton_clicked);
+   // connect(ui->rainbowGemButton, &QPushButton::clicked, this, &Game::on_rainbowGemButton_clicked);
+    //connect(ui->freezeTimeButton, &QPushButton::clicked, this, &Game::on_freezeTimeButton_clicked);
+    // connect(ui->clearRowButton, &QPushButton::clicked, this, &Game::onActivateClearRow);
+    // connect(ui->clearColumnButton, &QPushButton::clicked, this, &Game::onActivateClearColumn);
+    }
 
 Game::~Game()
 {
@@ -145,6 +154,11 @@ void Game::mousePressEvent(QMouseEvent *event) {
     int col = (x - leftSpacer) / 48, row = (y - upSpacer) / 48;
     StoneLabel* curLabel = stones[row][col];
 
+    if (isBombMode) {
+        // 如果当前处于炸弹模式，触发炸弹效果
+        triggerBomb(row, col);
+        return;
+    }
     if (!change) {
         waitLabel = curLabel;
         waitLabel->setStyle(1);
@@ -592,6 +606,20 @@ void Game::on_pushButton_4_clicked()
     dialog.exec();
     emit returnMainwindow();
 }
+// 获取指定位置的宝石
+StoneLabel* Game::getStone(int row, int col) {
+    // 假设你已经有了 8x8 的 `stones` 数组
+    return stones[row][col];
+}
+
+// 清除指定位置的宝石
+void Game::clearStone(int row, int col) {
+    if (stones[row][col] != nullptr) {
+        stones[row][col]->hide();  // 隐藏宝石
+        delete stones[row][col];   // 删除宝石对象
+        stones[row][col] = nullptr;  // 将位置设置为空
+    }
+}
 
 // 新增的函数，用于重置游戏状态，重点处理计时器相关状态
 /*void Game::resetGameState()
@@ -610,3 +638,41 @@ void Game::on_returnFromPauseToMainMenu()
     resetGameState();
     emit returnMainwindow();
 }*/
+
+void Game::on_bombButton_clicked() {
+
+    // 激活炸弹模式
+    isBombMode = true;
+
+}
+
+#include <QMessageBox>  // 用于提示用户炸弹已激活
+
+
+
+void Game::triggerBomb(int row, int col) {
+    if (!isBombMode) {
+        return;  // 如果不处于炸弹模式，则不处理
+    }
+
+    // 触发炸弹效果，消除选中位置周围3x3区域的宝石
+    for (int r = row - 1; r <= row + 1; ++r) {
+        for (int c = col - 1; c <= col + 1; ++c) {
+            if (r >= 0 && r < Game::jewelNum && c >= 0 && c < Game::jewelNum) {
+                // 如果位置有效，消除该宝石
+                StoneLabel* targetStone = stones[r][c];
+                if (targetStone != nullptr) {
+                    targetStone->setMatched(true);  // 标记为待消除
+                }
+            }
+        }
+    }
+
+    eliminateMatches();  // 执行消除操作
+
+    // 结束炸弹模式
+    isBombMode = false;
+    // statusBar()->clearMessage();  // 清除提示信息
+}
+
+
