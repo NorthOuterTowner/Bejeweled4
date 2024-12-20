@@ -1,11 +1,13 @@
 #ifndef STONELABEL_H
 #define STONELABEL_H
 #include <QLabel>
+#include <QMouseEvent>  // 包含鼠标事件类
 class StoneLabel:public QLabel
 {
     Q_OBJECT
 public:
     StoneLabel(QWidget* parent);
+
     /*The mode of stone,such as jewellery,fruit and vegetable*/
     inline void setrow(int row){
         this->row=row;

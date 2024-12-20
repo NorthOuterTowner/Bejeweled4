@@ -22,7 +22,6 @@ QT_BEGIN_NAMESPACE
 class Ui_Game
 {
 public:
-    QPushButton *pushButton;
     QPushButton *pushButton_2;
     QLabel *timerLabel;
     QProgressBar *progressBar;
@@ -30,18 +29,17 @@ public:
     QLCDNumber *lcdNumber;
     QLabel *label;
     QPushButton *pushButton_4;
+    QPushButton *pushButton_5;
+    QPushButton *bombButton;
 
     void setupUi(QWidget *Game)
     {
         if (Game->objectName().isEmpty())
             Game->setObjectName("Game");
         Game->resize(800, 601);
-        pushButton = new QPushButton(Game);
-        pushButton->setObjectName("pushButton");
-        pushButton->setGeometry(QRect(690, 50, 93, 28));
         pushButton_2 = new QPushButton(Game);
         pushButton_2->setObjectName("pushButton_2");
-        pushButton_2->setGeometry(QRect(690, 90, 93, 28));
+        pushButton_2->setGeometry(QRect(670, 50, 93, 28));
         timerLabel = new QLabel(Game);
         timerLabel->setObjectName("timerLabel");
         timerLabel->setGeometry(QRect(480, 490, 41, 21));
@@ -76,16 +74,22 @@ public:
         progressBar->setValue(24);
         pushButton_3 = new QPushButton(Game);
         pushButton_3->setObjectName("pushButton_3");
-        pushButton_3->setGeometry(QRect(40, 80, 51, 18));
+        pushButton_3->setGeometry(QRect(40, 80, 51, 31));
         lcdNumber = new QLCDNumber(Game);
         lcdNumber->setObjectName("lcdNumber");
-        lcdNumber->setGeometry(QRect(670, 230, 101, 41));
+        lcdNumber->setGeometry(QRect(670, 170, 101, 41));
         label = new QLabel(Game);
         label->setObjectName("label");
-        label->setGeometry(QRect(690, 200, 69, 19));
+        label->setGeometry(QRect(680, 150, 69, 19));
         pushButton_4 = new QPushButton(Game);
         pushButton_4->setObjectName("pushButton_4");
-        pushButton_4->setGeometry(QRect(690, 130, 93, 28));
+        pushButton_4->setGeometry(QRect(670, 80, 93, 28));
+        pushButton_5 = new QPushButton(Game);
+        pushButton_5->setObjectName("pushButton_5");
+        pushButton_5->setGeometry(QRect(670, 110, 93, 28));
+        bombButton = new QPushButton(Game);
+        bombButton->setObjectName("bombButton");
+        bombButton->setGeometry(QRect(680, 230, 56, 18));
 
         retranslateUi(Game);
 
@@ -95,12 +99,13 @@ public:
     void retranslateUi(QWidget *Game)
     {
         Game->setWindowTitle(QCoreApplication::translate("Game", "GameDlg", nullptr));
-        pushButton->setText(QCoreApplication::translate("Game", "\350\277\224\345\233\236", nullptr));
         pushButton_2->setText(QCoreApplication::translate("Game", "\346\216\222\350\241\214\346\246\234", nullptr));
         timerLabel->setText(QCoreApplication::translate("Game", "25s", nullptr));
-        pushButton_3->setText(QCoreApplication::translate("Game", "PushButton", nullptr));
+        pushButton_3->setText(QCoreApplication::translate("Game", "\346\232\202\345\201\234", nullptr));
         label->setText(QCoreApplication::translate("Game", "\345\210\206\346\225\260", nullptr));
         pushButton_4->setText(QCoreApplication::translate("Game", "\344\270\213\344\270\200\345\205\263", nullptr));
+        pushButton_5->setText(QCoreApplication::translate("Game", "\351\207\215\347\275\256", nullptr));
+        bombButton->setText(QCoreApplication::translate("Game", "bomb", nullptr));
     } // retranslateUi
 
 };
