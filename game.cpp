@@ -201,6 +201,11 @@ void Game::mousePressEvent(QMouseEvent *event) {
 
             update();
 
+            if (!hasStartedScoring)  // 如果还未开始计分，在这里标记为开始计分
+            {
+                hasStartedScoring = true;
+            }
+
             if (checkFormatches()) {
                 eliminateMatches();
             } else {
@@ -305,14 +310,44 @@ bool Game::checkFormatches(){
 }
 //消除
 void Game::eliminateMatches() {
+    int eliNum=0;//求消除个数
     for (int row = 0; row < 8; ++row) {
         for (int col = 0; col < 8; ++col) {
             if (stones[row][col] != nullptr && stones[row][col]->isMatched()) {
                 //删除棋子
                 delete stones[row][col];
                 stones[row][col] = nullptr;  // 清空位置
+                eliNum++;
             }
         }
+    }
+
+    if (!progressDialog->isVisible()) {
+        QSoundEffect* soundEffect;
+        switch(eliNum){
+        case 3:{
+            soundEffect = new QSoundEffect(this);
+            soundEffect->setSource(QUrl::fromLocalFile(":/music/eliminate/triple.wav"));
+            soundEffect->setLoopCount(1);  // 只播放一次
+            soundEffect->setVolume(1.0f);
+            break;
+        }
+        case 4:{
+            soundEffect = new QSoundEffect(this);
+            soundEffect->setSource(QUrl::fromLocalFile(":/music/eliminate/quadruple.wav"));
+            soundEffect->setLoopCount(1);  // 只播放一次
+            soundEffect->setVolume(1.0f);
+            break;
+        }
+        default:{
+            soundEffect = new QSoundEffect(this);
+            soundEffect->setSource(QUrl::fromLocalFile(":/music/eliminate/penta.wav"));
+            soundEffect->setLoopCount(1);  // 只播放一次
+            soundEffect->setVolume(1.0f);
+            break;
+        }
+        }
+        soundEffect->play();//播放消除音效
     }
 
     dropStones();
@@ -477,7 +512,7 @@ void Game::resume()
     if (isPaused) {
         gameTimer->start();  // 恢复计时器运行
         isPaused = false;
-    }
+    } 
 }
 
 void Game::resetGameState()
@@ -621,20 +656,10 @@ void Game::clearStone(int row, int col) {
     }
 }
 
-// 新增的函数，用于重置游戏状态，重点处理计时器相关状态
-/*void Game::resetGameState()
-{
-    if (gameTimer) {
-        gameTimer->stop();
-        delete gameTimer;
-        gameTimer = nullptr;
-    }
-    // 这里可以进一步添加对其他游戏相关变量的重置逻辑，比如：
-    // 重置棋子相关状态等，可根据实际需求完善
-}
 
-void Game::on_returnFromPauseToMainMenu()
+int Game::getScore() const
 {
+
     resetGameState();
     emit returnMainwindow();
 }*/
@@ -675,4 +700,8 @@ void Game::triggerBomb(int row, int col) {
     // statusBar()->clearMessage();  // 清除提示信息
 }
 
+
+
+    return score;
+}
 

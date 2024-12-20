@@ -38,8 +38,11 @@ public:
     bool isPaused = false;
     static int jewelNum;
     QWidget* parent;
+
     GameTimer *gameTimer;  // 计时器
    //void setSelectedPosition(int row, int col);
+
+    int getScore() const;  //获取当前积分值
 
 signals:
     void eliminateAgainSignal();
@@ -113,7 +116,8 @@ private:
     QProgressDialog *progressDialog;
     bool initing;
     Ui::Game *ui;
-    int score;
+    int score=0;  //记录游戏当前积分
+    bool hasStartedScoring=false;  //标记是否可以开始计分，初始化为false，表示未开始计分
     int winScore;
     void triggerBomb(int row, int col);
     bool isBombMode = false;  // 标记是否处于炸弹模式

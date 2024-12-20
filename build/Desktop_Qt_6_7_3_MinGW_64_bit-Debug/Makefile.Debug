@@ -371,6 +371,7 @@ debug/qrc_music.cpp: ../../music.qrc \
 
 debug/qrc_picture.cpp: ../../picture/picture.qrc \
 		C:/Qt1/6.7.3/mingw_64/bin/rcc.exe \
+		../../picture/pause.png \
 		../../picture/mouse1.png \
 		../../picture/mouse3.png \
 		../../picture/mouse2.png \
@@ -2916,7 +2917,27 @@ debug/client.o: ../../client.cpp ../../client.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qvariantanimation.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qabstractanimation.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qeasingcurve.h \
-		ui_client.h
+		ui_client.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtCore/QVariant \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QApplication \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qapplication.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QLabel \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qlabel.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qframe.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/qpicture.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/qtextdocument.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QLineEdit \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qlineedit.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/qtextcursor.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/qtextformat.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/qpen.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/qtextoption.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QPushButton \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qpushbutton.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qabstractbutton.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QStatusBar \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qstatusbar.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QWidget
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\client.o ..\..\client.cpp
 
 debug/game.o: ../../game.cpp ../../game.h \
