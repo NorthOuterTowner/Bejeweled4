@@ -12,6 +12,7 @@ SOURCES += \
     Login.cpp \
     PixmapSlider.cpp \
     client.cpp \
+    end.cpp \
     game.cpp \
     # gameitems.cpp \
     gametimer.cpp \
@@ -19,6 +20,7 @@ SOURCES += \
     hoverbutton.cpp \
     main.cpp \
     mainwindow.cpp \
+    rankdialog.cpp \
     settingwidget.cpp \
     pause.cpp \
     signup.cpp \
@@ -29,12 +31,14 @@ HEADERS += \
     Login.h \
     PixmapSlider.h \
     client.h \
+    end.h \
     game.h \
     # gameitems.h \
     gametimer.h \
     globalvalue.h \
     hoverbutton.h \
     mainwindow.h \
+    rankdialog.h \
     settingwidget.h \
     pause.h \
     signup.h \
@@ -44,8 +48,10 @@ HEADERS += \
 FORMS += \
     Login.ui \
     client.ui \
+    end.ui \
     game.ui \
     mainwindow.ui \
+    rankdialog.ui \
     settingwidget.ui \
     pause.ui \
     signup.ui\

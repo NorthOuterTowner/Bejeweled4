@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "rankdialog.h"
 #include "ui_mainwindow.h"
 #include "game.h"
 #include "hoverbutton.h"  // 引入 HoverButton 类
@@ -10,7 +11,8 @@
 #include <QCursor>
 #include <QPropertyAnimation>
 #include <QGraphicsOpacityEffect>
-
+#include "rankdialog.h"
+#include "ui_rankdialog.h"
 #include<settingwidget.h>
 bool firstLevel=true;
 int levelNum=0;
@@ -49,6 +51,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     // 隐藏原始的 QPushButton
     ui->pushButton->hide();
+
     HoverButton *settingButton = new HoverButton(this);
     settingButton->setImage(":/icons/settings_normal.png", ":/icons/settings_hover.png", 100, 50);
     settingButton->setLabel("Settings", 13);
@@ -56,6 +59,15 @@ MainWindow::MainWindow(QWidget *parent)
     settingButton->move(ui->pushButton_10->pos());  // 设置位置与原按钮相同
     connect(settingButton, &QPushButton::clicked, this, &MainWindow::on_pushButton_10_clicked);
     ui->pushButton_10->hide();  // 隐藏原按钮
+
+    //排行榜按钮
+    HoverButton *rankButton=new HoverButton(this);
+    rankButton->setImage(":/icons/rank_normal.png", ":/icons/rank_hover.png", 100, 50);
+    rankButton->setLabel("rank List",13);
+    rankButton->setSound(":/music/button/button_mouseover.wav", ":/music/button/button_mouseleave.wav", ":/music/button/button_press.wav", ":/music/button/button_release.wav");
+    rankButton->move(ui->ranking->pos());
+    connect(rankButton, &QPushButton::clicked, this, &MainWindow::on_ranking_clicked);
+       ui->ranking->hide();
 
    /* // 创建其他 HoverButton 按钮
     HoverButton *easyButton = new HoverButton(this);
@@ -158,7 +170,11 @@ QPropertyAnimation * MainWindow ::ShowTitle(){
     animation->setStartValue(QRect(title->x(), title->y(), title->width(), title->height())); // 设置动画起始位置
     animation->setEndValue(QRect(title->x(), 100, title->width(), title->height())); // 设置动画结束位置，将标题移至 y = 100 处
     animation->setEasingCurve(QEasingCurve::OutExpo); // 使用 OutExpo 缓动效果（平滑动画）
-    return animation; // 返回动画对象
+    return animation; // 返回动画对象    // 新增枚举类型表示游戏模式
+    enum class GameMode {
+        CLASSIC_MODE,  // 经典模式
+        ADVENTURE_MODE  // 冒险模式
+    };
 }
 //将path的图片放置到label上，自适应label大小
 void MainWindow ::setAdaptedImg(QString path,QLabel *label)
@@ -193,7 +209,7 @@ void MainWindow::on_pushButton_clicked()
         Game::delInstance();
     }
 
-    gameDlg = Game::instance();
+    gameDlg = Game::instance(nullptr, Game::GameMode::CLASSIC_MODE); // 创建游戏，设置游戏模式为经典模式
     connect(gameDlg, &Game::returnMainwindow, this, &MainWindow::onReturnMainwindow);
     gameDlg->show();
     this->hide();
@@ -249,7 +265,7 @@ void MainWindow::on_pushButton_9_clicked()
     QString nextLevel=QString::fromStdString("下一关:"+std::to_string(levelNum/8)+"-"+std::to_string(levelNum%8));
     nextLevelButton->setLabel(nextLevel, 13);
     Game::delInstance();
-    Game* gameDlg = Game::instance();
+    gameDlg = Game::instance(nullptr, Game::GameMode::ADVENTURE_MODE); // 创建游戏，设置游戏模式为冒险模式
     connect(gameDlg, &Game::returnMainwindow, this, &MainWindow::onReturnMainwindow);
     gameDlg->show();
     this->hide();
@@ -274,4 +290,50 @@ void MainWindow::on_pushButton_10_clicked()
 }
 
 
+
+
+void MainWindow::on_ranking_clicked()
+{
+
+    RankDialog rank(this);
+
+    rank.resize(850,650);
+    QTableWidget* tableWidget = rank.ui->tableWidget;
+
+    // 设置行数和列数
+    tableWidget->setRowCount(20);
+    tableWidget->setColumnCount(2);
+
+    // 设置列头
+    tableWidget->setHorizontalHeaderLabels(QStringList() << "用户名" << "得分");
+
+    //逻辑添加真实数据
+    // 模拟
+    QVector<QPair<QString, int>> usersScores = {
+        {"Alice", 95},
+        {"Bob", 88},
+        {"Charlie", 72},
+        {"David", 80},
+        {"Eve", 91}
+    };
+    // 填充表格数据
+    for (int i = 0; i < usersScores.size(); ++i) {
+        // 设置每一行的用户名和得分
+        tableWidget->setItem(i, 0, new QTableWidgetItem(usersScores[i].first));
+        tableWidget->setItem(i, 1, new QTableWidgetItem(QString::number(usersScores[i].second)));
+    }
+
+    // 设置字体大小
+    QFont font = tableWidget->font();
+    font.setPointSize(12);
+    tableWidget->setFont(font);
+    tableWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    // 列标题的自动扩展
+    tableWidget->horizontalHeader()->setStretchLastSection(true);
+
+
+
+    rank.exec();
+
+}
 

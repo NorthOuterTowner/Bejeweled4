@@ -30,6 +30,8 @@ public:
     QLabel *label;
     QPushButton *pushButton_4;
     QPushButton *pushButton_5;
+    QPushButton *horizon;
+    QPushButton *vertical;
     QPushButton *bombButton;
 
     void setupUi(QWidget *Game)
@@ -87,6 +89,12 @@ public:
         pushButton_5 = new QPushButton(Game);
         pushButton_5->setObjectName("pushButton_5");
         pushButton_5->setGeometry(QRect(670, 110, 93, 28));
+        horizon = new QPushButton(Game);
+        horizon->setObjectName("horizon");
+        horizon->setGeometry(QRect(695, 457, 51, 41));
+        vertical = new QPushButton(Game);
+        vertical->setObjectName("vertical");
+        vertical->setGeometry(QRect(700, 520, 51, 41));
         bombButton = new QPushButton(Game);
         bombButton->setObjectName("bombButton");
         bombButton->setGeometry(QRect(680, 230, 56, 18));
@@ -105,6 +113,8 @@ public:
         label->setText(QCoreApplication::translate("Game", "\345\210\206\346\225\260", nullptr));
         pushButton_4->setText(QCoreApplication::translate("Game", "\344\270\213\344\270\200\345\205\263", nullptr));
         pushButton_5->setText(QCoreApplication::translate("Game", "\351\207\215\347\275\256", nullptr));
+        horizon->setText(QCoreApplication::translate("Game", "horizon", nullptr));
+        vertical->setText(QCoreApplication::translate("Game", "vertical", nullptr));
         bombButton->setText(QCoreApplication::translate("Game", "bomb", nullptr));
     } // retranslateUi
 
