@@ -181,6 +181,8 @@ QProgressBar::chunk {
    </property>
    <property name="text">
     <string>vertical</string>
+   </property>
+   </widget>
   <widget class="QPushButton" name="bombButton">
    <property name="geometry">
     <rect>
