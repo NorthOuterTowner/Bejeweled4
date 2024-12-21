@@ -11,6 +11,7 @@ CONFIG += c++17
 SOURCES += \
     Login.cpp \
     client.cpp \
+    end.cpp \
     game.cpp \
     gametimer.cpp \
     globalvalue.cpp \
@@ -26,6 +27,7 @@ SOURCES += \
 HEADERS += \
     Login.h \
     client.h \
+    end.h \
     game.h \
     gametimer.h \
     globalvalue.h \
@@ -40,6 +42,7 @@ HEADERS += \
 FORMS += \
     Login.ui \
     client.ui \
+    end.ui \
     game.ui \
     mainwindow.ui \
     settingwidget.ui \

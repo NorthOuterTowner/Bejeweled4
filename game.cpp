@@ -4,7 +4,8 @@
 #include "stonelabel.h"
 #include "globalvalue.h"
 #include "mainwindow.h"
-#include "Pause.h"
+#include "pause.h"
+#include "end.h"
 #include <QLabel>
 #include <random>
 #include <vector>
@@ -51,8 +52,9 @@ void Game::update(){
     }
 }
 
-Game::Game(QWidget *parent)
+Game::Game(QWidget *parent,Game::GameMode mode)
     : QWidget(parent)
+    , gameMode(mode)
     , ui(new Ui::Game)
 {
     ui->setupUi(this);
@@ -78,16 +80,25 @@ Game::Game(QWidget *parent)
         progressDialog->setValue(100);
         progressDialog->hide();
     }
+
+    if (getGameMode() == GameMode::CLASSIC_MODE) {// 根据游戏模式设置pushButton_4（下一关）的显示与隐藏
+        ui->pushButton_4->hide();
+    }
+    else {
+        ui->pushButton_4->show();
+    }
 }
 
 Game::~Game()
 {
     delete ui;
+    delete end;
 }
-Game* Game::instance(QWidget *parent){
+Game* Game::instance(QWidget *parent, Game::GameMode mode){
     if(gameInstance==nullptr){
         std::cout<<"new"<<std::endl;
-        gameInstance=new Game(parent);
+        gameInstance=new Game(parent,mode);
+        // 根据传入的模式参数设置实例的游戏模式
     }
     return gameInstance;
 }
@@ -129,8 +140,6 @@ void Game::init(){
     ui->timerLabel->setText("--");
 
     connect(ui->pushButton_3, &QPushButton::clicked, this, &Game::on_pushButton_3_clicked);
-
-
 }
 /**
  * @brief Game::mousePressEvent
@@ -446,13 +455,27 @@ void Game::resetMatchedFlags(){
     }
 }
 
+// 设置游戏模式的函数实现
+void Game::setGameMode(GameMode mode)
+{
+    gameMode = mode;
+}
+
+// 获取游戏模式的函数实现
+Game::GameMode Game::getGameMode() const
+{
+    return gameMode;
+}
+
 void Game::onTimeExpired()
 {
     // 在这里可以添加游戏结束相关的逻辑，比如提示游戏结束、禁用操作等
     ui->timerLabel->setText(QString::number(0) + "s");
     ui->progressBar->setValue(0);  // 更新进度条当前值
-    // 示例：简单地弹出一个提示框告知游戏结束
-    QMessageBox::information(this, "游戏结束", "倒计时结束，游戏结束！");
+
+    end = new End(this);  // 这里使用了End类的构造函数，所以需要包含end.h，让编译器知道End类的完整定义
+    end->showEndUI();
+
 }
 
 void Game::updateTimerDisplay()

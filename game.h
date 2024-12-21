@@ -1,6 +1,9 @@
 #ifndef GAME_H
 #define GAME_H
 
+// 前置声明End类，告知编译器有这样一个类存在，但暂不给出其具体定义
+class End;
+
 #include "globalvalue.h"
 #include "stonelabel.h"
 #include "gametimer.h"
@@ -22,7 +25,12 @@ class Game : public QWidget
 
 public:
     ~Game();
-    static Game* instance(QWidget* parent = nullptr);
+    // 新增枚举类型表示游戏模式
+    enum class GameMode {
+        CLASSIC_MODE,  // 经典模式
+        ADVENTURE_MODE  // 冒险模式
+    };
+    static Game* instance(QWidget* parent = nullptr,Game::GameMode mode = Game::GameMode::CLASSIC_MODE);
     void init();
     void update();
     void handleStoneSwap(int row, int col, StoneLabel* curLabel);
@@ -33,6 +41,11 @@ public:
     static int jewelNum;
     QWidget* parent;
     int getScore() const;  //获取当前积分值
+
+    // 设置游戏模式的函数
+    void setGameMode(GameMode mode);
+    GameMode getGameMode() const;
+
 signals:
     void eliminateAgainSignal();
     void returnMainwindow();
@@ -75,9 +88,10 @@ private slots:
     void on_returnFromPauseToMainMenu();  //处理从暂停界面返回主菜单的信号
     void on_pushButton_4_clicked();
     void on_pushButton_5_clicked();
+    void onTimeExpired();//倒计时结束时的处理
 
 private:
-    explicit Game(QWidget *parent = nullptr);
+    explicit Game(QWidget *parent = nullptr,Game::GameMode mode = Game::GameMode::CLASSIC_MODE);//传入游戏难度
     static Game* gameInstance;
     void mousePressEvent(QMouseEvent *event) override;
     bool checkFormatches();//判断哪些棋子将要被消去
@@ -90,11 +104,12 @@ private:
     void shuffleStones();//重排布
     GameTimer *gameTimer;//计时器
     QProgressBar *progressBar;  //计时进度条
-    void onTimeExpired();//倒计时结束时的处理
     void updateTimerDisplay();//更新界面上显示倒计时的QLabel的文本内容
     int  animationsLeft;  // 重置动画计数器
     Pause *pause;  // 暂停界面指针
     void resetGameState();//用于重置游戏状态
+    End *end;//结束界面指针
+    GameMode gameMode;//游戏模式
     bool change=false;
     bool eliminateAgain=true;
     std::vector<int> swapReturn;
