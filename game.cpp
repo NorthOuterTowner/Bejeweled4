@@ -700,10 +700,13 @@ void Game::clearStone(int row, int col) {
 }
 
 
+
+
 int Game::getScore()
 {
     return score;
 }
+
 
 void Game::on_bombButton_clicked() {
 
@@ -740,6 +743,10 @@ void Game::triggerBomb(int row, int col) {
     isBombMode = false;
     // statusBar()->clearMessage();  // 清除提示信息
 }
+
+
+
+
 
 //横向删除按钮
 void Game::on_horizon_clicked()

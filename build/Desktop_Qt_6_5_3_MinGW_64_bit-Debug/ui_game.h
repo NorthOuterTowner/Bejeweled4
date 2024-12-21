@@ -77,7 +77,7 @@ public:
         pushButton_3->setGeometry(QRect(40, 80, 51, 31));
         lcdNumber = new QLCDNumber(Game);
         lcdNumber->setObjectName("lcdNumber");
-        lcdNumber->setGeometry(QRect(670, 170, 101, 41));
+        lcdNumber->setGeometry(QRect(660, 230, 111, 41));
         label = new QLabel(Game);
         label->setObjectName("label");
         label->setGeometry(QRect(680, 150, 69, 19));
