@@ -3,36 +3,100 @@
 #include <hoverbutton.h>
 #include <stonelabel.h>
 #include<globalvalue.h>
-
-#include"mainwindow.h"
-#include <QPainter>
-
 #include "PixmapSlider.h"
-
 
 settingwidget::settingwidget(QSoundEffect* s,QWidget *parent) : QDialog(parent), difficulty(4), stoneMode("gemstone"),sound(s)
 {
     ui = new Ui::settingwidget();  // 使用 new 初始化 ui 指针
     ui->setupUi(this);
-    this->resize(600, 500);  // 设置窗口大小
 
-    // 设置背景图片
-    /* QPixmap pixmap(":/Settingpage/dialogbox.png");
-     if (pixmap.isNull()) {
-         qDebug() << "Failed to load image!";
-     }
-    pixmap = pixmap.scaled(this->size(), Qt::KeepAspectRatioByExpanding);  // 保持图片的纵横比并扩展填充整个窗口
+
+    QPixmap pixmap = QPixmap(":/picture/Settingpage/dialogbox.png").scaled(this->size());
     QPalette palette(this->palette());
     palette.setBrush(QPalette::Window, QBrush(pixmap));
-    this->setPalette(palette);*/
+    this->setPalette(palette);
 
-    // 使窗口无边框且不透明
-    this->setWindowFlags(Qt::FramelessWindowHint);
-    this->setAttribute(Qt::WA_TranslucentBackground);  // 去掉透明背景，看是否能显示图片
+    //去窗口边框
+    this->setWindowFlags(Qt::FramelessWindowHint | this->windowFlags());
+    //把窗口背景设置为透明
+    this->setAttribute(Qt::WA_TranslucentBackground);
 
 
-    // 创建并设置 HoverButton，直接设置位置
-    /*  HoverButton *easyButton = new HoverButton(this);
+    //设置标签对鼠标事件穿透
+    ui->label_2->setAttribute(Qt::WA_TransparentForMouseEvents);
+    ui->label_4->setAttribute(Qt::WA_TransparentForMouseEvents);
+    ui->label_7->setAttribute(Qt::WA_TransparentForMouseEvents);
+    ui->label_8->setAttribute(Qt::WA_TransparentForMouseEvents);
+    ui->label_9->setAttribute(Qt::WA_TransparentForMouseEvents);
+    ui->label_10->setAttribute(Qt::WA_TransparentForMouseEvents);
+ui->label_11->setAttribute(Qt::WA_TransparentForMouseEvents);
+
+
+    ui->Easy->setCursor(QCursor(Qt::PointingHandCursor));
+    ui->Medium->setCursor(QCursor(Qt::PointingHandCursor));
+    ui->Hard->setCursor(QCursor(Qt::PointingHandCursor));
+    ui->hell->setCursor(QCursor(Qt::PointingHandCursor));
+    ui->Jewel->setCursor(QCursor(Qt::PointingHandCursor));
+    ui->Fruit->setCursor(QCursor(Qt::PointingHandCursor));
+    ui->Vegetable->setCursor(QCursor(Qt::PointingHandCursor));
+
+    ui->Easy->setStyleSheet("border-image:url(:/Settingpage/dialogbutton.png)");
+    connect(ui->Easy, &QPushButton::pressed, [=](){
+        ui->Easy->setStyleSheet("border-image:url(:/Settingpage/DialogButtonGlow.png)");}
+            );
+    connect(ui->Easy, &QPushButton::released, [=](){
+        ui->Easy->setStyleSheet("border-image:url(:/Settingpage/dialogbutton.png)"); }
+            );
+
+    ui->Medium->setStyleSheet("border-image:url(:/Settingpage/dialogbutton.png)");
+    connect(ui->Medium, &QPushButton::pressed, [=](){
+        ui->Medium->setStyleSheet("border-image:url(:/Settingpage/DialogButtonGlow.png)");}
+            );
+    connect(ui->Medium, &QPushButton::released, [=](){
+        ui->Medium->setStyleSheet("border-image:url(:/Settingpage/dialogbutton.png)"); }
+            );
+
+    ui->Hard->setStyleSheet("border-image:url(:/Settingpage/dialogbutton.png)");
+    connect(ui->Hard, &QPushButton::pressed, [=](){
+        ui->Hard->setStyleSheet("border-image:url(:/Settingpage/DialogButtonGlow.png)");}
+            );
+    connect(ui->Hard, &QPushButton::released, [=](){
+        ui->Hard->setStyleSheet("border-image:url(:/Settingpage/dialogbutton.png)"); }
+            );
+
+    ui->hell->setStyleSheet("border-image:url(:/Settingpage/dialogbutton.png)");
+    connect(ui->hell, &QPushButton::pressed, [=](){
+        ui->hell->setStyleSheet("border-image:url(:/Settingpage/DialogButtonGlow.png)");}
+            );
+    connect(ui->hell, &QPushButton::released, [=](){
+        ui->hell->setStyleSheet("border-image:url(:/Settingpage/dialogbutton.png)"); }
+            );
+
+    ui->Jewel->setStyleSheet("border-image:url(:/Settingpage/dialogbutton.png)");
+    connect(ui->Jewel, &QPushButton::pressed, [=](){
+        ui->Jewel->setStyleSheet("border-image:url(:/Settingpage/DialogButtonGlow.png)");}
+            );
+    connect(ui->Jewel, &QPushButton::released, [=](){
+        ui->Jewel->setStyleSheet("border-image:url(:/Settingpage/dialogbutton.png)"); }
+            );
+
+    ui->Fruit->setStyleSheet("border-image:url(:/Settingpage/dialogbutton.png)");
+    connect(ui->Fruit, &QPushButton::pressed, [=](){
+        ui->Fruit->setStyleSheet("border-image:url(:/Settingpage/DialogButtonGlow.png)");}
+            );
+    connect(ui->Fruit, &QPushButton::released, [=](){
+        ui->Fruit->setStyleSheet("border-image:url(:/Settingpage/dialogbutton.png)"); }
+            );
+
+    ui->Vegetable->setStyleSheet("border-image:url(:/Settingpage/dialogbutton.png)");
+    connect(ui->Vegetable, &QPushButton::pressed, [=](){
+        ui->Vegetable->setStyleSheet("border-image:url(:/Settingpage/DialogButtonGlow.png)");}
+            );
+    connect(ui->Vegetable, &QPushButton::released, [=](){
+        ui->Vegetable->setStyleSheet("border-image:url(:/Settingpage/dialogbutton.png)"); }
+            );
+  /*  // 创建并设置 HoverButton，直接设置位置
+    HoverButton *easyButton = new HoverButton(this);
     easyButton->setImage(":/icons/easy_normal.png", ":/icons/easy_hover.png", 100, 45);
     easyButton->setLabel("Easy", 13);
     easyButton->setSound(":/music/button/button_mouseover.wav", ":/music/button/button_mouseleave.wav", ":/music/button/button_press.wav", ":/music/button/button_release.wav");
@@ -86,10 +150,7 @@ settingwidget::settingwidget(QSoundEffect* s,QWidget *parent) : QDialog(parent),
     vegetableButton->setSound(":/music/button/button_mouseover.wav", ":/music/button/button_mouseleave.wav", ":/music/button/button_press.wav", ":/music/button/button_release.wav");
     vegetableButton->move(ui->Vegetable->geometry().topLeft()); // 使用几何矩形的位置来设置
     connect(vegetableButton, &QPushButton::clicked, this, &settingwidget::on_Vegetable_clicked);
-
     ui->Vegetable->hide();  // 隐藏原按钮*/
-
-    ui->Vegetable->hide();  // 隐藏原按钮
 
     PixmapSlider* slider1=new PixmapSlider(this);
     slider1->setVisible(true);
@@ -101,7 +162,6 @@ settingwidget::settingwidget(QSoundEffect* s,QWidget *parent) : QDialog(parent),
     QObject::connect(slider1, SIGNAL(valueChanged(int)), this, SLOT(onVolumeValueChanged(int)));
     ui->Volume->hide();
     //设置音量的滑条
-
 }
 
 
@@ -149,41 +209,20 @@ void settingwidget::on_Vegetable_clicked()
     StoneLabel::stoneMode = "Vegetable";
 }
 
-
-void settingwidget::on_pushButton_clicked()
-{//设置返回游戏界面按钮
-    //gameDlg->show();
-    this->hide();
-}
-
-void settingwidget::paintEvent(QPaintEvent *)
-{
-    QPainter p(this);
-
-    // 获取窗口的大小
-    QSize windowSize = this->size();
-
-    // 计算要绘制的图片的大小，例如将其缩放到窗口的 80% 大小
-    QPixmap pixmap(":/Settingpage/dialogbox.png");
-    if (pixmap.isNull()) {
-        qDebug() << "Failed to load image!";
-        return;
-    }
-
-    // 缩放图片到新的大小
-    pixmap = pixmap.scaled(windowSize.width() * 0.9, windowSize.height() * 0.9, Qt::KeepAspectRatio);
-
-    // 计算绘制位置
-    int x = (windowSize.width() - pixmap.width()) / 2;  // 水平居中
-    int y = (windowSize.height() - pixmap.height()) / 2;  // 垂直居中
-
-    // 绘制图片
-    p.drawPixmap(x, y, pixmap);
-}
-
 void settingwidget::onVolumeValueChanged(int i)
 {
     ::volume=(double)i/100;
     sound->setVolume(volume);
 }//改变背景音量
 
+void settingwidget::paintEvent(QPaintEvent *)
+{
+    QPainter p(this);
+    QPixmap pixmap(":/Settingpage/dialogbox.png");
+    pixmap = pixmap.scaled(700, 600, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    // 计算居中位置
+    int x = (this->width() - pixmap.width()) / 2;
+    int y = (this->height() - pixmap.height()) / 2;
+
+    p.drawPixmap(x, y, pixmap);
+}
