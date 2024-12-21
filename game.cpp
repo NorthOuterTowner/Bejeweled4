@@ -143,6 +143,7 @@ void Game::mousePressEvent(QMouseEvent *event) {
         return;
 
     int col = (x - leftSpacer) / 48, row = (y - upSpacer) / 48;
+
     StoneLabel* curLabel = stones[row][col];
 
     if (!change) {
@@ -257,6 +258,18 @@ void Game::mousePressEvent(QMouseEvent *event) {
 
             change = false;
         });
+    }
+    if(horizon){
+        curLabel->setStyle(0);
+        horizondelete(row);
+        horizon=false;
+        change=false;
+    }
+    if(vertical){
+        curLabel->setStyle(1);
+        verticaldelete(col);
+        vertical=false;
+        change=false;
     }
 }
 
@@ -482,7 +495,7 @@ void Game::resume()
     if (isPaused) {
         gameTimer->start();  // 恢复计时器运行
         isPaused = false;
-    } 
+    }
 }
 
 void Game::resetGameState()
@@ -617,3 +630,42 @@ int Game::getScore() const
 {
     return score;
 }
+
+//横向删除按钮
+void Game::on_horizon_clicked()
+{
+    horizon=true;
+}
+void Game::horizondelete(int row){
+    for (int col = 0; col < 8; ++col) {
+            if (stones[row][col] != nullptr ) {
+                //删除棋子
+                delete stones[row][col];
+                stones[row][col] = nullptr;  // 清空位置
+            }
+        }
+    dropStones();
+
+    qDebug()<<"horizon"<<row;
+}
+
+//竖向消除
+void Game::on_vertical_clicked()
+{
+    vertical=true;
+}
+
+void Game::onAnimationFinished(){
+    dropStones();
+
+}
+void Game::verticaldelete(int col){
+    for(int row=0;row<8;++row){
+        if(stones[row][col]!=nullptr){
+            delete stones[row][col];
+            stones[row][col]=nullptr;
+        }
+    }
+    dropStones();
+}
+

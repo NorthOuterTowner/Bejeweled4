@@ -33,6 +33,9 @@ public:
     static int jewelNum;
     QWidget* parent;
     int getScore() const;  //获取当前积分值
+    void horizondelete(int row);
+    void verticaldelete(int col);
+    void onAnimationFinished();
 signals:
     void eliminateAgainSignal();
     void returnMainwindow();
@@ -76,6 +79,10 @@ private slots:
     void on_pushButton_4_clicked();
     void on_pushButton_5_clicked();
 
+    void on_horizon_clicked();
+
+    void on_vertical_clicked();
+
 private:
     explicit Game(QWidget *parent = nullptr);
     static Game* gameInstance;
@@ -104,6 +111,8 @@ private:
     int score=0;  //记录游戏当前积分
     bool hasStartedScoring=false;  //标记是否可以开始计分，初始化为false，表示未开始计分
     int winScore;
+    bool horizon=false;//是否要横向消除
+    bool vertical=false;//是否竖向消除
 };
 
 #endif // GAME_H
