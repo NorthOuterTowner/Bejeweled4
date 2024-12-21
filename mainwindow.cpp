@@ -43,7 +43,7 @@ MainWindow::MainWindow(QWidget *parent)
     // 使用 HoverButton 替换原有按钮
     HoverButton *startButton = new HoverButton(this);
     startButton->setImage(":/icons/start_normal.png", ":/icons/start_hover.png", 100, 25);
-    startButton->setLabel("Start", 13);
+    startButton->setLabel("开始游戏", 13);
     startButton->adjustSize();  // 自动调整按钮大小
     startButton->setSound(":/music/button/button_mouseover.wav", ":/music/button/button_mouseleave.wav", ":/music/button/button_press.wav", ":/music/button/button_release.wav");
     startButton->move(ui->pushButton->pos());  // 将新按钮放置在原按钮的位置
@@ -54,7 +54,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     HoverButton *settingButton = new HoverButton(this);
     settingButton->setImage(":/icons/settings_normal.png", ":/icons/settings_hover.png", 100, 50);
-    settingButton->setLabel("Settings", 13);
+    settingButton->setLabel("设置", 13);
     settingButton->setSound(":/music/button/button_mouseover.wav", ":/music/button/button_mouseleave.wav", ":/music/button/button_press.wav", ":/music/button/button_release.wav");
     settingButton->move(ui->pushButton_10->pos());  // 设置位置与原按钮相同
     connect(settingButton, &QPushButton::clicked, this, &MainWindow::on_pushButton_10_clicked);
@@ -63,7 +63,7 @@ MainWindow::MainWindow(QWidget *parent)
     //排行榜按钮
     HoverButton *rankButton=new HoverButton(this);
     rankButton->setImage(":/icons/rank_normal.png", ":/icons/rank_hover.png", 100, 50);
-    rankButton->setLabel("rank List",13);
+    rankButton->setLabel("排行榜",13);
     rankButton->setSound(":/music/button/button_mouseover.wav", ":/music/button/button_mouseleave.wav", ":/music/button/button_press.wav", ":/music/button/button_release.wav");
     rankButton->move(ui->ranking->pos());
     connect(rankButton, &QPushButton::clicked, this, &MainWindow::on_ranking_clicked);
