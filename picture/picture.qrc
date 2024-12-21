@@ -13,5 +13,8 @@
         <file>Settingpage/slider-track-2.png</file>
         <file>Settingpage/DialogButtonGlow.png</file>
         <file>Settingpage/dialogbutton.png</file>
+        <file>backdrop00.jpg</file>
+        <file>blueBar.png</file>
+        <file>arrow.png</file>
     </qresource>
 </RCC>

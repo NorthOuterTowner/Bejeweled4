@@ -105,15 +105,9 @@ QProgressBar::chunk {
   <widget class="QLCDNumber" name="lcdNumber">
    <property name="geometry">
     <rect>
-
-     <x>670</x>
-     <y>170</y>
-     <width>101</width>
-
      <x>660</x>
      <y>230</y>
      <width>111</width>
-
      <height>41</height>
     </rect>
    </property>
@@ -182,18 +176,44 @@ QProgressBar::chunk {
    <property name="text">
     <string>vertical</string>
    </property>
-   </widget>
+  </widget>
   <widget class="QPushButton" name="bombButton">
    <property name="geometry">
     <rect>
-     <x>680</x>
-     <y>230</y>
-     <width>56</width>
-     <height>18</height>
+     <x>660</x>
+     <y>280</y>
+     <width>91</width>
+     <height>31</height>
     </rect>
    </property>
    <property name="text">
     <string>bomb</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Tips">
+   <property name="geometry">
+    <rect>
+     <x>660</x>
+     <y>370</y>
+     <width>91</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Tips</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="hintRemain">
+   <property name="geometry">
+    <rect>
+     <x>670</x>
+     <y>340</y>
+     <width>81</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>剩余：3</string>
    </property>
   </widget>
  </widget>
