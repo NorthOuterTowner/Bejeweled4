@@ -50,7 +50,7 @@ public:
     void setGameMode(GameMode mode);
     GameMode getGameMode() const;
 
-    GameTimer *gameTimer;  // 计时器
+    //GameTimer *gameTimer;  // 计时器
 
     int getScore();  //获取当前积分值
 

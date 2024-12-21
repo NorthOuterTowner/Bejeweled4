@@ -1,6 +1,7 @@
 release/Login.o
 release/PixmapSlider.o
 release/client.o
+release/end.o
 release/game.o
 release/gametimer.o
 release/globalvalue.o
@@ -19,6 +20,7 @@ release/qrc_qmake_qmake_qm_files.o
 release/moc_Login.o
 release/moc_PixmapSlider.o
 release/moc_client.o
+release/moc_end.o
 release/moc_game.o
 release/moc_gametimer.o
 release/moc_hoverbutton.o
