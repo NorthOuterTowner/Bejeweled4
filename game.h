@@ -14,6 +14,8 @@ class End;
 #include <iostream>
 #include <QProgressDialog>
 #include <QProgressBar>
+#include <QSoundEffect>
+
 // 使用前向声明 GameItems 类，而不是包含完整的头文件
 class GameItems;
 
@@ -52,6 +54,12 @@ public:
     // 设置游戏模式的函数
     void setGameMode(GameMode mode);
     GameMode getGameMode() const;
+    bool canMatch(int row, int col);
+    QList<QPair<int, int>> findHint();
+    void highlightHints(const QList<QPair<int, int>>& hints);
+    void updateHintCountDisplay();
+    bool canSwapAndMatch(int row1, int col1, int row2, int col2);
+    bool checkMatch(int row, int col);
 
     //GameTimer *gameTimer;  // 计时器
 
@@ -108,6 +116,8 @@ private slots:
 
     void on_vertical_clicked();
 
+    void on_Tips_clicked();
+
 private:
     explicit Game(QWidget *parent = nullptr,Game::GameMode mode = Game::GameMode::CLASSIC_MODE);//传入游戏难度
     static Game* gameInstance;
@@ -141,6 +151,8 @@ private:
     bool vertical=false;//是否竖向消除
     void triggerBomb(int row, int col);
     bool isBombMode = false;  // 标记是否处于炸弹模式
+    QSoundEffect* sound;  // 背景音乐
+    int hintCount = 5;//提示的初始次数
 
 };
 

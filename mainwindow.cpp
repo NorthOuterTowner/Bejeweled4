@@ -145,7 +145,7 @@ QPropertyAnimation* MainWindow::ShowBackground() {
     QLabel *background = new QLabel(this);
     QPropertyAnimation *bkAnim = new QPropertyAnimation(background, "geometry", this);
 
-    // 设置背景图片
+    // 设置背景图片backdrop00.jpg
     setBkImg(":/StartPage/background.png", background);
     background->show();
 
@@ -209,6 +209,7 @@ void MainWindow::on_pushButton_clicked()
         Game::delInstance();
     }
 
+    sound->stop();  // 暂停背景音乐
     gameDlg = Game::instance(nullptr, Game::GameMode::CLASSIC_MODE); // 创建游戏，设置游戏模式为经典模式
     connect(gameDlg, &Game::returnMainwindow, this, &MainWindow::onReturnMainwindow);
     gameDlg->show();
@@ -220,6 +221,7 @@ void MainWindow::onReturnMainwindow()
     std::cout<<"Return slots work"<<std::endl;
     this->show();
     Game::instance()->hide();
+    sound->play();  // 恢复背景音乐
 }
 /*
 void MainWindow::on_pushButton_2_clicked()
