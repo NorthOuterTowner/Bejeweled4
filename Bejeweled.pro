@@ -12,6 +12,7 @@ SOURCES += \
     Login.cpp \
     PixmapSlider.cpp \
     client.cpp \
+    end.cpp \
     game.cpp \
     # gameitems.cpp \
     gametimer.cpp \
@@ -29,6 +30,7 @@ HEADERS += \
     Login.h \
     PixmapSlider.h \
     client.h \
+    end.h \
     game.h \
     # gameitems.h \
     gametimer.h \
@@ -44,6 +46,7 @@ HEADERS += \
 FORMS += \
     Login.ui \
     client.ui \
+    end.ui \
     game.ui \
     mainwindow.ui \
     settingwidget.ui \
