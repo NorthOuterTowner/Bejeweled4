@@ -399,6 +399,11 @@ release/qrc_picture.cpp: ../../picture/picture.qrc \
 		../../picture/title.png \
 		../../picture/Settingpage/thumb.png \
 		../../picture/Settingpage/slider-track-1.png \
+		../../picture/Settingpage/dialogbox.png \
+		../../picture/Settingpage/slider-track-2.png \
+		../../picture/Settingpage/dialogbutton.png \
+		../../picture/Settingpage/dialogtitle.png \
+		../../picture/Settingpage/DialogButtonGlow.png \
 		../../picture/StartPage/background.png
 	C:\Qt1\6.7.3\mingw_64\bin\rcc.exe -name picture --no-zstd ..\..\picture\picture.qrc -o release\qrc_picture.cpp
 
@@ -5259,6 +5264,25 @@ release/mainwindow.o: ../../mainwindow.cpp ../../mainwindow.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/QCoreApplication \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/QDebug \
 		ui_rankdialog.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QHeaderView \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qheaderview.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qabstractitemview.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qabstractscrollarea.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtCore/qabstractitemmodel.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtCore/qitemselectionmodel.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qabstractitemdelegate.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qstyleoption.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qabstractspinbox.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/qvalidator.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtCore/qregularexpression.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qslider.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qabstractslider.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qstyle.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qtabbar.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qrubberband.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QTableWidget \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qtablewidget.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qtableview.h \
 		../../settingwidget.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/QString \
 		ui_settingwidget.h \
@@ -5453,7 +5477,34 @@ release/rankdialog.o: ../../rankdialog.cpp ../../rankdialog.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtGui/qinputmethod.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qlocale.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtGui/qguiapplication_platform.h \
-		ui_rankdialog.h
+		ui_rankdialog.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtCore/QVariant \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QApplication \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qapplication.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QHeaderView \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qheaderview.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qabstractitemview.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qabstractscrollarea.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qframe.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtCore/qabstractitemmodel.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtCore/qitemselectionmodel.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qabstractitemdelegate.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qstyleoption.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qabstractspinbox.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/qvalidator.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtCore/qregularexpression.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qslider.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qabstractslider.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qstyle.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qtabbar.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qtabwidget.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qrubberband.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QPushButton \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qpushbutton.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qabstractbutton.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QTableWidget \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qtablewidget.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qtableview.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\rankdialog.o ..\..\rankdialog.cpp
 
 release/settingwidget.o: ../../settingwidget.cpp ../../settingwidget.h \
