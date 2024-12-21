@@ -6,6 +6,11 @@
         <file>StartPage/background.png</file>
         <file>title.png</file>
         <file>pause.png</file>
+
         <file>Settingpage/dialogbox.png</file>
+
+        <file>Settingpage/slider-track-1.png</file>
+        <file>Settingpage/thumb.png</file>
+
     </qresource>
 </RCC>

@@ -42,7 +42,7 @@ public:
     GameTimer *gameTimer;  // 计时器
    //void setSelectedPosition(int row, int col);
 
-    int getScore() const;  //获取当前积分值
+    int getScore();  //获取当前积分值
 
 signals:
     void eliminateAgainSignal();

@@ -131,7 +131,7 @@ void Game::init(){
     waitLabel=nullptr;
     pause = nullptr;
 
-    gameTimer->startCountdown(5);
+    gameTimer->startCountdown(60);
     ui->progressBar->setRange(0, gameTimer->getRemainingSeconds());  // 设置进度条范围与倒计时初始时间一致
     ui->progressBar->setValue(gameTimer->getRemainingSeconds());  // 设置初始值为总时间
     ui->progressBar->setTextVisible(false);
@@ -311,6 +311,7 @@ bool Game::checkFormatches(){
 //消除
 void Game::eliminateMatches() {
     int eliNum=0;//求消除个数
+    int eliminatedCount=0;
     for (int row = 0; row < 8; ++row) {
         for (int col = 0; col < 8; ++col) {
             if (stones[row][col] != nullptr && stones[row][col]->isMatched()) {
@@ -318,10 +319,21 @@ void Game::eliminateMatches() {
                 delete stones[row][col];
                 stones[row][col] = nullptr;  // 清空位置
                 eliNum++;
+                eliminatedCount++;  // 统计消除的棋子个数
             }
         }
     }
-
+    if (hasStartedScoring)  // 根据计分标记判断是否计分
+    {
+        // 根据消除的棋子个数计算得分，按照2的被消除棋子个数次方规则
+        int scoreGain = std::pow(2, eliminatedCount);
+        score += scoreGain; // 将本次得分累加到总积分中
+    }
+    // 更新积分显示
+    ui->lcdNumber->display(score);
+    /*if(score>100){
+        Game::on_pushButton_4_clicked();
+    }*/
     if (!progressDialog->isVisible()) {
         QSoundEffect* soundEffect;
         switch(eliNum){
@@ -329,21 +341,21 @@ void Game::eliminateMatches() {
             soundEffect = new QSoundEffect(this);
             soundEffect->setSource(QUrl::fromLocalFile(":/music/eliminate/triple.wav"));
             soundEffect->setLoopCount(1);  // 只播放一次
-            soundEffect->setVolume(1.0f);
+            soundEffect->setVolume(volume);
             break;
         }
         case 4:{
             soundEffect = new QSoundEffect(this);
             soundEffect->setSource(QUrl::fromLocalFile(":/music/eliminate/quadruple.wav"));
             soundEffect->setLoopCount(1);  // 只播放一次
-            soundEffect->setVolume(1.0f);
+            soundEffect->setVolume(volume);
             break;
         }
         default:{
             soundEffect = new QSoundEffect(this);
             soundEffect->setSource(QUrl::fromLocalFile(":/music/eliminate/penta.wav"));
             soundEffect->setLoopCount(1);  // 只播放一次
-            soundEffect->setVolume(1.0f);
+            soundEffect->setVolume(volume);
             break;
         }
         }
@@ -658,6 +670,15 @@ void Game::clearStone(int row, int col) {
 
 
 
+
+int Game::getScore()
+{
+
+    resetGameState();
+    emit returnMainwindow();
+}
+
+
 void Game::on_bombButton_clicked() {
 
     // 激活炸弹模式
@@ -693,6 +714,8 @@ void Game::triggerBomb(int row, int col) {
     isBombMode = false;
     // statusBar()->clearMessage();  // 清除提示信息
 }
+
+
 
 
 
