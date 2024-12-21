@@ -657,12 +657,6 @@ void Game::clearStone(int row, int col) {
 }
 
 
-int Game::getScore() const
-{
-
-    resetGameState();
-    emit returnMainwindow();
-}*/
 
 void Game::on_bombButton_clicked() {
 
@@ -702,6 +696,4 @@ void Game::triggerBomb(int row, int col) {
 
 
 
-    return score;
-}
 

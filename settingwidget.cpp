@@ -3,13 +3,33 @@
 #include <hoverbutton.h>
 #include <stonelabel.h>
 #include<globalvalue.h>
+#include"mainwindow.h"
+#include <QPainter>
+
 
 settingwidget::settingwidget(QWidget *parent) : QDialog(parent), difficulty(4), stoneMode("gemstone")
 {
     ui = new Ui::settingwidget();  // 使用 new 初始化 ui 指针
     ui->setupUi(this);
+    this->resize(600, 500);  // 设置窗口大小
+
+    // 设置背景图片
+    /* QPixmap pixmap(":/Settingpage/dialogbox.png");
+     if (pixmap.isNull()) {
+         qDebug() << "Failed to load image!";
+     }
+    pixmap = pixmap.scaled(this->size(), Qt::KeepAspectRatioByExpanding);  // 保持图片的纵横比并扩展填充整个窗口
+    QPalette palette(this->palette());
+    palette.setBrush(QPalette::Window, QBrush(pixmap));
+    this->setPalette(palette);*/
+
+    // 使窗口无边框且不透明
+    this->setWindowFlags(Qt::FramelessWindowHint);
+    this->setAttribute(Qt::WA_TranslucentBackground);  // 去掉透明背景，看是否能显示图片
+
+
     // 创建并设置 HoverButton，直接设置位置
-    HoverButton *easyButton = new HoverButton(this);
+    /*  HoverButton *easyButton = new HoverButton(this);
     easyButton->setImage(":/icons/easy_normal.png", ":/icons/easy_hover.png", 100, 45);
     easyButton->setLabel("Easy", 13);
     easyButton->setSound(":/music/button/button_mouseover.wav", ":/music/button/button_mouseleave.wav", ":/music/button/button_press.wav", ":/music/button/button_release.wav");
@@ -63,7 +83,7 @@ settingwidget::settingwidget(QWidget *parent) : QDialog(parent), difficulty(4), 
     vegetableButton->setSound(":/music/button/button_mouseover.wav", ":/music/button/button_mouseleave.wav", ":/music/button/button_press.wav", ":/music/button/button_release.wav");
     vegetableButton->move(ui->Vegetable->geometry().topLeft()); // 使用几何矩形的位置来设置
     connect(vegetableButton, &QPushButton::clicked, this, &settingwidget::on_Vegetable_clicked);
-    ui->Vegetable->hide();  // 隐藏原按钮
+    ui->Vegetable->hide();  // 隐藏原按钮*/
 }
 
 
@@ -74,26 +94,26 @@ settingwidget::~settingwidget()
 void settingwidget::on_Easy_clicked()
 {
     difficulty = 4;
-     ::difficulty = difficulty; // 更新全局变量
+    ::difficulty = difficulty; // 更新全局变量
     // StoneLabel::stoneMode = "Fruit"; // Easy difficulty
 }
 
 void settingwidget::on_Medium_clicked()
 {
     difficulty = 6;
-     ::difficulty = difficulty; // 更新全局变量
+    ::difficulty = difficulty; // 更新全局变量
 }
 
 void settingwidget::on_Hard_clicked()
 {
     difficulty = 8;
-     ::difficulty = difficulty; // 更新全局变量
+    ::difficulty = difficulty; // 更新全局变量
 }
 
 void settingwidget::on_hell_clicked()
 {
     difficulty = 10;
-     ::difficulty = difficulty; // 更新全局变量
+    ::difficulty = difficulty; // 更新全局变量
 }
 
 void settingwidget::on_Jewel_clicked()
@@ -109,4 +129,35 @@ void settingwidget::on_Fruit_clicked()
 void settingwidget::on_Vegetable_clicked()
 {
     StoneLabel::stoneMode = "Vegetable";
+}
+
+void settingwidget::on_pushButton_clicked()
+{//设置返回游戏界面按钮
+    //gameDlg->show();
+    this->hide();
+}
+
+void settingwidget::paintEvent(QPaintEvent *)
+{
+    QPainter p(this);
+
+    // 获取窗口的大小
+    QSize windowSize = this->size();
+
+    // 计算要绘制的图片的大小，例如将其缩放到窗口的 80% 大小
+    QPixmap pixmap(":/Settingpage/dialogbox.png");
+    if (pixmap.isNull()) {
+        qDebug() << "Failed to load image!";
+        return;
+    }
+
+    // 缩放图片到新的大小
+    pixmap = pixmap.scaled(windowSize.width() * 0.9, windowSize.height() * 0.9, Qt::KeepAspectRatio);
+
+    // 计算绘制位置
+    int x = (windowSize.width() - pixmap.width()) / 2;  // 水平居中
+    int y = (windowSize.height() - pixmap.height()) / 2;  // 垂直居中
+
+    // 绘制图片
+    p.drawPixmap(x, y, pixmap);
 }

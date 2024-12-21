@@ -42,9 +42,24 @@ private slots:
 
     void on_Vegetable_clicked();
 
+    void on_pushButton_clicked();
+
+    void paintEvent(QPaintEvent *);
+
 private:
     int difficulty;  // 选择的难度
     std::string stoneMode;    // 选择的模式
+
+    int imageX;
+    int imageY;
+    QSize imageSize;
+    QPixmap pixmap;
+
+    void updateImageSizeAndPosition();  // 更新图片位置和大小
+
+    // 保存窗体的大小和位置
+    QSize lastWindowSize;
+    int lastWindowX, lastWindowY;
 };
 
 #endif // SETTING_H

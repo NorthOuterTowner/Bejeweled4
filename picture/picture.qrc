@@ -6,5 +6,6 @@
         <file>StartPage/background.png</file>
         <file>title.png</file>
         <file>pause.png</file>
+        <file>Settingpage/dialogbox.png</file>
     </qresource>
 </RCC>

@@ -11,6 +11,7 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QWidget>
 
@@ -26,6 +27,8 @@ public:
     QPushButton *Fruit;
     QPushButton *Vegetable;
     QPushButton *hell;
+    QPushButton *pushButton;
+    QLabel *label_settings;
 
     void setupUi(QWidget *settingwidget)
     {
@@ -34,25 +37,33 @@ public:
         settingwidget->resize(1024, 768);
         Easy = new QPushButton(settingwidget);
         Easy->setObjectName("Easy");
-        Easy->setGeometry(QRect(120, 200, 56, 18));
+        Easy->setGeometry(QRect(120, 180, 56, 18));
         Medium = new QPushButton(settingwidget);
         Medium->setObjectName("Medium");
-        Medium->setGeometry(QRect(260, 200, 56, 18));
+        Medium->setGeometry(QRect(210, 180, 56, 18));
         Hard = new QPushButton(settingwidget);
         Hard->setObjectName("Hard");
-        Hard->setGeometry(QRect(390, 200, 56, 18));
+        Hard->setGeometry(QRect(300, 180, 56, 18));
         Jewel = new QPushButton(settingwidget);
         Jewel->setObjectName("Jewel");
-        Jewel->setGeometry(QRect(140, 300, 56, 18));
+        Jewel->setGeometry(QRect(160, 250, 56, 18));
         Fruit = new QPushButton(settingwidget);
         Fruit->setObjectName("Fruit");
-        Fruit->setGeometry(QRect(330, 300, 56, 18));
+        Fruit->setGeometry(QRect(260, 250, 56, 18));
         Vegetable = new QPushButton(settingwidget);
         Vegetable->setObjectName("Vegetable");
-        Vegetable->setGeometry(QRect(520, 300, 56, 18));
+        Vegetable->setGeometry(QRect(360, 250, 56, 18));
         hell = new QPushButton(settingwidget);
         hell->setObjectName("hell");
-        hell->setGeometry(QRect(520, 200, 56, 18));
+        hell->setGeometry(QRect(390, 180, 56, 18));
+        pushButton = new QPushButton(settingwidget);
+        pushButton->setObjectName("pushButton");
+        pushButton->setGeometry(QRect(210, 310, 101, 41));
+        label_settings = new QLabel(settingwidget);
+        label_settings->setObjectName("label_settings");
+        label_settings->setGeometry(QRect(210, 80, 131, 51));
+        label_settings->setStyleSheet(QString::fromUtf8("font: 18pt \"Broadway\";\n"
+"color: rgb(255, 255, 255);"));
 
         retranslateUi(settingwidget);
 
@@ -69,6 +80,8 @@ public:
         Fruit->setText(QCoreApplication::translate("settingwidget", "PushButton", nullptr));
         Vegetable->setText(QCoreApplication::translate("settingwidget", "PushButton", nullptr));
         hell->setText(QCoreApplication::translate("settingwidget", "PushButton", nullptr));
+        pushButton->setText(QCoreApplication::translate("settingwidget", "RETURN", nullptr));
+        label_settings->setText(QCoreApplication::translate("settingwidget", "Settings", nullptr));
     } // retranslateUi
 
 };
