@@ -104,6 +104,19 @@
     <string>PushButton</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="Volume">
+   <property name="geometry">
+    <rect>
+     <x>200</x>
+     <y>380</y>
+     <width>75</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>PushButton</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

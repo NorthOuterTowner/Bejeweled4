@@ -170,7 +170,11 @@ QPropertyAnimation * MainWindow ::ShowTitle(){
     animation->setStartValue(QRect(title->x(), title->y(), title->width(), title->height())); // 设置动画起始位置
     animation->setEndValue(QRect(title->x(), 100, title->width(), title->height())); // 设置动画结束位置，将标题移至 y = 100 处
     animation->setEasingCurve(QEasingCurve::OutExpo); // 使用 OutExpo 缓动效果（平滑动画）
-    return animation; // 返回动画对象
+    return animation; // 返回动画对象    // 新增枚举类型表示游戏模式
+    enum class GameMode {
+        CLASSIC_MODE,  // 经典模式
+        ADVENTURE_MODE  // 冒险模式
+    };
 }
 //将path的图片放置到label上，自适应label大小
 void MainWindow ::setAdaptedImg(QString path,QLabel *label)
@@ -205,7 +209,7 @@ void MainWindow::on_pushButton_clicked()
         Game::delInstance();
     }
 
-    gameDlg = Game::instance();
+    gameDlg = Game::instance(nullptr, Game::GameMode::CLASSIC_MODE); // 创建游戏，设置游戏模式为经典模式
     connect(gameDlg, &Game::returnMainwindow, this, &MainWindow::onReturnMainwindow);
     gameDlg->show();
     this->hide();
@@ -261,7 +265,7 @@ void MainWindow::on_pushButton_9_clicked()
     QString nextLevel=QString::fromStdString("下一关:"+std::to_string(levelNum/8)+"-"+std::to_string(levelNum%8));
     nextLevelButton->setLabel(nextLevel, 13);
     Game::delInstance();
-    Game* gameDlg = Game::instance();
+    gameDlg = Game::instance(nullptr, Game::GameMode::ADVENTURE_MODE); // 创建游戏，设置游戏模式为冒险模式
     connect(gameDlg, &Game::returnMainwindow, this, &MainWindow::onReturnMainwindow);
     gameDlg->show();
     this->hide();
@@ -271,11 +275,12 @@ void MainWindow::on_pushButton_9_clicked()
 void MainWindow::on_pushButton_10_clicked()
 {
     // 创建并显示 Setting 对话框
-    settingwidget  settingDlg(this);  // 创建 settingwidget 对象
+    settingwidget  settingDlg(sound,this);  // 创建 settingwidget 对象
     if (settingDlg.exec() == QDialog::Accepted) {  // 判断对话框是否被接受
         // 获取设置后的难度和模式
         int selectedDifficulty = settingDlg.getDifficulty();
         std::string selectedMode = settingDlg.getMode();
+
 
 
         // 在 MainWindow 中更新难度和模式

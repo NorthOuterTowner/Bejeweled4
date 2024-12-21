@@ -26,6 +26,7 @@ public:
     QPushButton *Fruit;
     QPushButton *Vegetable;
     QPushButton *hell;
+    QPushButton *Volume;
 
     void setupUi(QWidget *settingwidget)
     {
@@ -53,6 +54,9 @@ public:
         hell = new QPushButton(settingwidget);
         hell->setObjectName("hell");
         hell->setGeometry(QRect(520, 200, 56, 18));
+        Volume = new QPushButton(settingwidget);
+        Volume->setObjectName("Volume");
+        Volume->setGeometry(QRect(200, 380, 75, 24));
 
         retranslateUi(settingwidget);
 
@@ -69,6 +73,7 @@ public:
         Fruit->setText(QCoreApplication::translate("settingwidget", "PushButton", nullptr));
         Vegetable->setText(QCoreApplication::translate("settingwidget", "PushButton", nullptr));
         hell->setText(QCoreApplication::translate("settingwidget", "PushButton", nullptr));
+        Volume->setText(QCoreApplication::translate("settingwidget", "PushButton", nullptr));
     } // retranslateUi
 
 };

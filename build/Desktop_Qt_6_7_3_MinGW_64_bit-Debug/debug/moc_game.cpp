@@ -48,7 +48,9 @@ constexpr auto qt_meta_stringdata_CLASSGameENDCLASS = QtMocHelpers::stringData(
     "resume",
     "on_returnFromPauseToMainMenu",
     "on_pushButton_4_clicked",
-    "on_pushButton_5_clicked"
+    "on_pushButton_5_clicked",
+    "onTimeExpired",
+    "on_bombButton_clicked"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
@@ -61,7 +63,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSGameENDCLASS[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-      11,   14, // methods
+      13,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -69,19 +71,21 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSGameENDCLASS[] = {
        3,       // signalCount
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,   80,    2, 0x06,    1 /* Public */,
-       3,    0,   81,    2, 0x06,    2 /* Public */,
-       4,    0,   82,    2, 0x06,    3 /* Public */,
+       1,    0,   92,    2, 0x06,    1 /* Public */,
+       3,    0,   93,    2, 0x06,    2 /* Public */,
+       4,    0,   94,    2, 0x06,    3 /* Public */,
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       5,    0,   83,    2, 0x08,    4 /* Private */,
-       6,    0,   84,    2, 0x08,    5 /* Private */,
-       7,    0,   85,    2, 0x08,    6 /* Private */,
-       8,    0,   86,    2, 0x08,    7 /* Private */,
-       9,    0,   87,    2, 0x08,    8 /* Private */,
-      10,    0,   88,    2, 0x08,    9 /* Private */,
-      11,    0,   89,    2, 0x08,   10 /* Private */,
-      12,    0,   90,    2, 0x08,   11 /* Private */,
+       5,    0,   95,    2, 0x08,    4 /* Private */,
+       6,    0,   96,    2, 0x08,    5 /* Private */,
+       7,    0,   97,    2, 0x08,    6 /* Private */,
+       8,    0,   98,    2, 0x08,    7 /* Private */,
+       9,    0,   99,    2, 0x08,    8 /* Private */,
+      10,    0,  100,    2, 0x08,    9 /* Private */,
+      11,    0,  101,    2, 0x08,   10 /* Private */,
+      12,    0,  102,    2, 0x08,   11 /* Private */,
+      13,    0,  103,    2, 0x08,   12 /* Private */,
+      14,    0,  104,    2, 0x08,   13 /* Private */,
 
  // signals: parameters
     QMetaType::Void,
@@ -89,6 +93,8 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSGameENDCLASS[] = {
     QMetaType::Void,
 
  // slots: parameters
+    QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -131,6 +137,10 @@ Q_CONSTINIT const QMetaObject Game::staticMetaObject = { {
         // method 'on_pushButton_4_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'on_pushButton_5_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'onTimeExpired'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_bombButton_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>
     >,
     nullptr
@@ -153,6 +163,8 @@ void Game::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void *
         case 8: _t->on_returnFromPauseToMainMenu(); break;
         case 9: _t->on_pushButton_4_clicked(); break;
         case 10: _t->on_pushButton_5_clicked(); break;
+        case 11: _t->onTimeExpired(); break;
+        case 12: _t->on_bombButton_clicked(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -201,13 +213,13 @@ int Game::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 11)
+        if (_id < 13)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 11;
+        _id -= 13;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 11)
+        if (_id < 13)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 11;
+        _id -= 13;
     }
     return _id;
 }

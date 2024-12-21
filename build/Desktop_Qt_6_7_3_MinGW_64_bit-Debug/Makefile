@@ -308,8 +308,8 @@ Makefile: ../../Bejeweled.pro C:/Qt1/6.7.3/mingw_64/mkspecs/win32-g++/qmake.conf
 		C:/Qt1/6.7.3/mingw_64/mkspecs/features/yacc.prf \
 		C:/Qt1/6.7.3/mingw_64/mkspecs/features/lex.prf \
 		../../Bejeweled.pro \
-		C:/Qt1/6.7.3/mingw_64/lib/Qt6Multimedia.prl \
 		C:/Qt1/6.7.3/mingw_64/lib/Qt6Widgets.prl \
+		C:/Qt1/6.7.3/mingw_64/lib/Qt6Multimedia.prl \
 		C:/Qt1/6.7.3/mingw_64/lib/Qt6Gui.prl \
 		C:/Qt1/6.7.3/mingw_64/lib/Qt6Network.prl \
 		C:/Qt1/6.7.3/mingw_64/lib/Qt6Sql.prl \
@@ -560,8 +560,8 @@ C:/Qt1/6.7.3/mingw_64/mkspecs/features/exceptions.prf:
 C:/Qt1/6.7.3/mingw_64/mkspecs/features/yacc.prf:
 C:/Qt1/6.7.3/mingw_64/mkspecs/features/lex.prf:
 ../../Bejeweled.pro:
-C:/Qt1/6.7.3/mingw_64/lib/Qt6Multimedia.prl:
 C:/Qt1/6.7.3/mingw_64/lib/Qt6Widgets.prl:
+C:/Qt1/6.7.3/mingw_64/lib/Qt6Multimedia.prl:
 C:/Qt1/6.7.3/mingw_64/lib/Qt6Gui.prl:
 C:/Qt1/6.7.3/mingw_64/lib/Qt6Network.prl:
 C:/Qt1/6.7.3/mingw_64/lib/Qt6Sql.prl:

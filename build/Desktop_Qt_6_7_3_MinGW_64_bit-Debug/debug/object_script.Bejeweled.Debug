@@ -1,5 +1,7 @@
 debug/Login.o
+debug/PixmapSlider.o
 debug/client.o
+debug/end.o
 debug/game.o
 debug/gametimer.o
 debug/globalvalue.o
@@ -16,7 +18,9 @@ debug/qrc_music.o
 debug/qrc_picture.o
 debug/qrc_qmake_qmake_qm_files.o
 debug/moc_Login.o
+debug/moc_PixmapSlider.o
 debug/moc_client.o
+debug/moc_end.o
 debug/moc_game.o
 debug/moc_gametimer.o
 debug/moc_hoverbutton.o
