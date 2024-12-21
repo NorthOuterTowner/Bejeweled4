@@ -157,6 +157,30 @@ QProgressBar::chunk {
     <string>重置</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="horizon">
+   <property name="geometry">
+    <rect>
+     <x>695</x>
+     <y>457</y>
+     <width>51</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>horizon</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="vertical">
+   <property name="geometry">
+    <rect>
+     <x>700</x>
+     <y>520</y>
+     <width>51</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>vertical</string>
   <widget class="QPushButton" name="bombButton">
    <property name="geometry">
     <rect>

@@ -11,7 +11,7 @@
 #include <QGraphicsOpacityEffect>
 #include <QPropertyAnimation>  // 修正为正确的头文件
 #include "hoverbutton.h"
-
+#include "rankdialog.h"
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -51,6 +51,7 @@ private slots:
     void on_pushButton_8_clicked();  // 很困难难度按钮*/
     void on_pushButton_9_clicked();
     void on_pushButton_10_clicked();
+    void on_ranking_clicked();
 };
 
 #endif // MAINWINDOW_H

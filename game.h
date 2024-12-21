@@ -46,6 +46,9 @@ public:
     bool isPaused = false;
     static int jewelNum;
     QWidget* parent;
+    void horizondelete(int row);
+    void verticaldelete(int col);
+    void onAnimationFinished();
     // 设置游戏模式的函数
     void setGameMode(GameMode mode);
     GameMode getGameMode() const;
@@ -101,6 +104,10 @@ private slots:
   //  void on_rainbowGemButton_clicked();
     //void on_freezeTimeButton_clicked();
 
+    void on_horizon_clicked();
+
+    void on_vertical_clicked();
+
 private:
     explicit Game(QWidget *parent = nullptr,Game::GameMode mode = Game::GameMode::CLASSIC_MODE);//传入游戏难度
     static Game* gameInstance;
@@ -130,9 +137,10 @@ private:
     int score=0;  //记录游戏当前积分
     bool hasStartedScoring=false;  //标记是否可以开始计分，初始化为false，表示未开始计分
     int winScore;
+    bool horizon=false;//是否要横向消除
+    bool vertical=false;//是否竖向消除
     void triggerBomb(int row, int col);
     bool isBombMode = false;  // 标记是否处于炸弹模式
-
 
 };
 
