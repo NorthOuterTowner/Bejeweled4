@@ -55,6 +55,7 @@ public:
     void setGameMode(GameMode mode);
     GameMode getGameMode() const;
     bool canMatch(int row, int col);
+//提示部分函数
     QList<QPair<int, int>> findHint();
     void highlightHints(const QList<QPair<int, int>>& hints);
     void updateHintCountDisplay();
@@ -64,7 +65,26 @@ public:
     //GameTimer *gameTimer;  // 计时器
 
     int getScore();  //获取当前积分值
+    int getScoreToShop() const { return score; }  // 提供获取当前分数的函数，在商店中同步积分
+    // 设置分数
+    void setScore(int newScore);
+    //道具商店数据
+    int bombCount;
+    int horizonCount;
+    int verticalCount;
 
+    // 获取当前炸弹数量
+    int getBombCount() const { return bombCount; }
+    void setBombCount(int count) { bombCount = count; }
+
+    // 获取当前横向消除道具数量
+    int getHorizonCount() const { return horizonCount; }
+    void setHorizonCount(int count) { horizonCount = count; }
+
+    // 获取当前竖向消除道具数量
+    int getVerticalCount() const { return verticalCount; }
+    void setVerticalCount(int count) { verticalCount = count; }
+ Ui::Game *ui;
 signals:
     void eliminateAgainSignal();
     void returnMainwindow();
@@ -118,6 +138,8 @@ private slots:
 
     void on_Tips_clicked();
 
+    void on_Shop_clicked();
+
 private:
     explicit Game(QWidget *parent = nullptr,Game::GameMode mode = Game::GameMode::CLASSIC_MODE);//传入游戏难度
     static Game* gameInstance;
@@ -143,7 +165,7 @@ private:
     std::vector<int> swapReturn;
     QProgressDialog *progressDialog;
     bool initing;
-    Ui::Game *ui;
+
     int score=0;  //记录游戏当前积分
     bool hasStartedScoring=false;  //标记是否可以开始计分，初始化为false，表示未开始计分
     int winScore;

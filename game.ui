@@ -106,7 +106,7 @@ QProgressBar::chunk {
    <property name="geometry">
     <rect>
      <x>660</x>
-     <y>230</y>
+     <y>170</y>
      <width>111</width>
      <height>41</height>
     </rect>
@@ -116,7 +116,7 @@ QProgressBar::chunk {
    <property name="geometry">
     <rect>
      <x>680</x>
-     <y>150</y>
+     <y>140</y>
      <width>69</width>
      <height>19</height>
     </rect>
@@ -154,8 +154,8 @@ QProgressBar::chunk {
   <widget class="QPushButton" name="horizon">
    <property name="geometry">
     <rect>
-     <x>695</x>
-     <y>457</y>
+     <x>710</x>
+     <y>340</y>
      <width>51</width>
      <height>41</height>
     </rect>
@@ -167,8 +167,8 @@ QProgressBar::chunk {
   <widget class="QPushButton" name="vertical">
    <property name="geometry">
     <rect>
-     <x>700</x>
-     <y>520</y>
+     <x>710</x>
+     <y>390</y>
      <width>51</width>
      <height>41</height>
     </rect>
@@ -180,10 +180,10 @@ QProgressBar::chunk {
   <widget class="QPushButton" name="bombButton">
    <property name="geometry">
     <rect>
-     <x>660</x>
-     <y>280</y>
-     <width>91</width>
-     <height>31</height>
+     <x>710</x>
+     <y>290</y>
+     <width>51</width>
+     <height>41</height>
     </rect>
    </property>
    <property name="text">
@@ -193,8 +193,8 @@ QProgressBar::chunk {
   <widget class="QPushButton" name="Tips">
    <property name="geometry">
     <rect>
-     <x>660</x>
-     <y>370</y>
+     <x>670</x>
+     <y>240</y>
      <width>91</width>
      <height>31</height>
     </rect>
@@ -206,14 +206,66 @@ QProgressBar::chunk {
   <widget class="QLabel" name="hintRemain">
    <property name="geometry">
     <rect>
-     <x>670</x>
-     <y>340</y>
+     <x>680</x>
+     <y>220</y>
      <width>81</width>
      <height>21</height>
     </rect>
    </property>
    <property name="text">
-    <string>剩余：3</string>
+    <string>剩余：</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Shop">
+   <property name="geometry">
+    <rect>
+     <x>660</x>
+     <y>460</y>
+     <width>101</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Shop</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="bombLabel">
+   <property name="geometry">
+    <rect>
+     <x>630</x>
+     <y>290</y>
+     <width>71</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="horizonLabel">
+   <property name="geometry">
+    <rect>
+     <x>600</x>
+     <y>340</y>
+     <width>111</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="verticalLabel">
+   <property name="geometry">
+    <rect>
+     <x>600</x>
+     <y>390</y>
+     <width>111</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
    </property>
   </widget>
  </widget>

@@ -35,6 +35,10 @@ public:
     QPushButton *bombButton;
     QPushButton *Tips;
     QLabel *hintRemain;
+    QPushButton *Shop;
+    QLabel *bombLabel;
+    QLabel *horizonLabel;
+    QLabel *verticalLabel;
 
     void setupUi(QWidget *Game)
     {
@@ -81,10 +85,10 @@ public:
         pushButton_3->setGeometry(QRect(40, 80, 51, 31));
         lcdNumber = new QLCDNumber(Game);
         lcdNumber->setObjectName("lcdNumber");
-        lcdNumber->setGeometry(QRect(660, 230, 111, 41));
+        lcdNumber->setGeometry(QRect(660, 170, 111, 41));
         label = new QLabel(Game);
         label->setObjectName("label");
-        label->setGeometry(QRect(680, 150, 69, 19));
+        label->setGeometry(QRect(680, 140, 69, 19));
         pushButton_4 = new QPushButton(Game);
         pushButton_4->setObjectName("pushButton_4");
         pushButton_4->setGeometry(QRect(670, 80, 93, 28));
@@ -93,19 +97,31 @@ public:
         pushButton_5->setGeometry(QRect(670, 110, 93, 28));
         horizon = new QPushButton(Game);
         horizon->setObjectName("horizon");
-        horizon->setGeometry(QRect(695, 457, 51, 41));
+        horizon->setGeometry(QRect(710, 340, 51, 41));
         vertical = new QPushButton(Game);
         vertical->setObjectName("vertical");
-        vertical->setGeometry(QRect(700, 520, 51, 41));
+        vertical->setGeometry(QRect(710, 390, 51, 41));
         bombButton = new QPushButton(Game);
         bombButton->setObjectName("bombButton");
-        bombButton->setGeometry(QRect(660, 280, 91, 31));
+        bombButton->setGeometry(QRect(710, 290, 51, 41));
         Tips = new QPushButton(Game);
         Tips->setObjectName("Tips");
-        Tips->setGeometry(QRect(660, 370, 91, 31));
+        Tips->setGeometry(QRect(670, 240, 91, 31));
         hintRemain = new QLabel(Game);
         hintRemain->setObjectName("hintRemain");
-        hintRemain->setGeometry(QRect(670, 340, 81, 21));
+        hintRemain->setGeometry(QRect(680, 220, 81, 21));
+        Shop = new QPushButton(Game);
+        Shop->setObjectName("Shop");
+        Shop->setGeometry(QRect(660, 460, 101, 41));
+        bombLabel = new QLabel(Game);
+        bombLabel->setObjectName("bombLabel");
+        bombLabel->setGeometry(QRect(630, 290, 71, 41));
+        horizonLabel = new QLabel(Game);
+        horizonLabel->setObjectName("horizonLabel");
+        horizonLabel->setGeometry(QRect(600, 340, 111, 41));
+        verticalLabel = new QLabel(Game);
+        verticalLabel->setObjectName("verticalLabel");
+        verticalLabel->setGeometry(QRect(600, 390, 111, 41));
 
         retranslateUi(Game);
 
@@ -125,7 +141,11 @@ public:
         vertical->setText(QCoreApplication::translate("Game", "vertical", nullptr));
         bombButton->setText(QCoreApplication::translate("Game", "bomb", nullptr));
         Tips->setText(QCoreApplication::translate("Game", "Tips", nullptr));
-        hintRemain->setText(QCoreApplication::translate("Game", "\345\211\251\344\275\231\357\274\2323", nullptr));
+        hintRemain->setText(QCoreApplication::translate("Game", "\345\211\251\344\275\231\357\274\232", nullptr));
+        Shop->setText(QCoreApplication::translate("Game", "Shop", nullptr));
+        bombLabel->setText(QString());
+        horizonLabel->setText(QString());
+        verticalLabel->setText(QString());
     } // retranslateUi
 
 };
