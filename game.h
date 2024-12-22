@@ -88,6 +88,7 @@ private slots:
     void resume();//处理继续游戏信号
     void on_returnFromPauseToMainMenu();  //处理从暂停界面返回主菜单的信号
     void on_pushButton_4_clicked();
+    void onNextButtonClicked();
     void on_pushButton_5_clicked();
     void onTimeExpired();//倒计时结束时的处理
 

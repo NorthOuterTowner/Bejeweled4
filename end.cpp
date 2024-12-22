@@ -8,6 +8,8 @@ End::End(Game* game, QWidget* parent) : QWidget(parent), gameInfo(game)
 
     // 连接返回主菜单按钮的点击信号到对应的槽函数
     connect(ui.returnButton, &QPushButton::clicked, this, &End::onReturnButtonClicked);
+    // 连接下一关按钮的点击信号到对应的槽函数，在槽函数中发射自定义信号
+    connect(ui.nextButton, &QPushButton::clicked, this, &End::onNextButtonClicked);
 }
 
 // 析构函数，释放相关资源（这里如果有其他资源需要释放可添加代码）
@@ -23,6 +25,7 @@ void End::onReturnButtonClicked()
 
 void End::showEndUI()
 {
+    ui.nextButton->hide();
     // 获取游戏最终得分并设置到得分标签上显示
     int finalScore = gameInfo->getScore();
     ui.scoreLabel->setText(QString("游戏结束啦，你的最终得分是: %1").arg(finalScore));
@@ -43,10 +46,16 @@ void End::showAdventureWinUI()
 
 void End::showAdventureLoseUI()
 {
+    ui.nextButton->hide();
     // 设置不同的提示信息
     int finalScore = gameInfo->getScore();
     ui.scoreLabel->setText(QString("很遗憾，闯关失败！你的最终得分是: %1").arg(finalScore));
 
     // 显示结束界面
     show();
+}
+
+void End::onNextButtonClicked(){
+    close();
+    emit nextButtonClicked();
 }
