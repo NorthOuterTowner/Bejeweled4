@@ -81,12 +81,44 @@ Game::Game(QWidget *parent,Game::GameMode mode)
         progressDialog->hide();
     }
 
-    if (getGameMode() == GameMode::CLASSIC_MODE) {// 根据游戏模式设置pushButton_4（下一关）的显示与隐藏
-        ui->pushButton_4->hide();
+    //经典模式下相关显示与逻辑特殊处理
+    ui->pushButton_4->hide();
+    ui->label_2->hide();
+    ui->textBrowser->hide();
+}
+
+Game::Game(QWidget *parent,int levelNum,Game::GameMode mode)
+    : QWidget(parent)
+    , gameMode(mode)
+    , ui(new Ui::Game)
+{
+    ui->setupUi(this);
+    Game::jewelNum=8;
+    this->parent=parent;
+    this->score=0;
+    //this->ui->lcdNumber->set
+    connect(this, &Game::eliminateAgainSignal, this, &Game::onEliminateAgain);
+    connect(this, &Game::initEndSignal, this, &Game::initEnd);
+    gameTimer = new GameTimer(this);
+    connect(gameTimer, &GameTimer::timeUpdated, this, &Game::updateTimerDisplay);
+    connect(gameTimer, &GameTimer::timeExpired, this, &Game::onTimeExpired);
+    init();
+    initing=true;
+    progressDialog = new QProgressDialog("正在初始化中，请稍后...", "取消", 0, 0, this);
+    progressDialog->setWindowModality(Qt::WindowModal);
+    progressDialog->setValue(0);
+    progressDialog->show();
+    this->swapReturn=std::vector<int>(4,0);
+    if (checkFormatches()) {
+        eliminateMatches();
+    }else{
+        progressDialog->setValue(100);
+        progressDialog->hide();
     }
-    else {
-        ui->pushButton_4->show();
-    }
+
+    //冒险模式下相关显示与逻辑特殊处理
+    setWinScore(levelNum);
+
 }
 
 Game::~Game()
@@ -94,11 +126,14 @@ Game::~Game()
     delete ui;
     delete end;
 }
-Game* Game::instance(QWidget *parent, Game::GameMode mode){
-    if(gameInstance==nullptr){
-        std::cout<<"new"<<std::endl;
-        gameInstance=new Game(parent,mode);
-        // 根据传入的模式参数设置实例的游戏模式
+Game* Game::instance(QWidget *parent, Game::GameMode mode, int levelNum) {
+    if (gameInstance == nullptr) {
+        if (levelNum == -1) {
+            gameInstance = new Game(parent, mode);
+        }
+        else {
+            gameInstance = new Game(parent, levelNum, mode);
+        }
     }
     return gameInstance;
 }
@@ -133,7 +168,7 @@ void Game::init(){
     waitLabel=nullptr;
     pause = nullptr;
 
-    gameTimer->startCountdown(5);
+    gameTimer->startCountdown(initTime);
     ui->progressBar->setRange(0, gameTimer->getRemainingSeconds());  // 设置进度条范围与倒计时初始时间一致
     ui->progressBar->setValue(gameTimer->getRemainingSeconds());  // 设置初始值为总时间
     ui->progressBar->setTextVisible(false);
@@ -155,6 +190,7 @@ void Game::mousePressEvent(QMouseEvent *event) {
     StoneLabel* curLabel = stones[row][col];
 
     if (!change) {
+        isComboing = true;
         waitLabel = curLabel;
         waitLabel->setStyle(1);
         change = true;
@@ -271,7 +307,7 @@ void Game::mousePressEvent(QMouseEvent *event) {
 
 //判断
 bool Game::checkFormatches(){
-     bool hasMatch = false;
+    bool hasMatch = false;
     for (int row = 0; row < 8; ++row) {
         for (int col = 0; col < 6; ++col) {  // 检查每行的前6列
             if (stones[row][col]->getIndex() == stones[row][col + 1]->getIndex() &&
@@ -303,7 +339,7 @@ bool Game::checkFormatches(){
 
     return hasMatch;
 }
-//消除
+
 void Game::eliminateMatches() {
     int eliminatedCount = 0;  // 用于记录本次消除的棋子个数
 
@@ -328,10 +364,8 @@ void Game::eliminateMatches() {
     // 更新积分显示
     ui->lcdNumber->display(score);
 
-
-    dropStones();
-    resetMatchedFlags();
-
+    dropStones();// 执行棋子下落逻辑，用于填补因消除产生的空位
+    resetMatchedFlags();// 重置所有棋子的匹配标记，为下一轮检测做准备
 }
 //生成新子
 //生成一个新子
@@ -351,8 +385,42 @@ void Game::generateNewStone(int row, int col){
 
     // 逻辑添加
     stones[row][col] = imgLabel;
-
 }
+
+void Game::onEliminateAgain(){
+    {
+        if(checkFormatches()){
+            eliminateMatches();
+        }else{
+            isComboing = false;
+            int row1=swapReturn[0],col1=swapReturn[1],row2=swapReturn[2],col2=swapReturn[3];
+            std::cout<<"row1:"<<row1<<",row2:"<<row2<<",col1:"<<col1<<",col2:"<<col2<<std::endl;
+            std::swap(stones[row1][col1], stones[row2][col2]);
+            stones[row1][col1]->setrow(row1);
+            stones[row1][col1]->setcol(col1);
+            stones[row2][col2]->setrow(row2);
+            stones[row2][col2]->setcol(col2);
+            if(gameMode == GameMode::ADVENTURE_MODE){//冒险模式
+                if (checkAdventureWin() && !isComboing) {//胜利
+                    // 停止游戏相关的定时器等操作
+                    resetGameState();
+
+                    // 显示结束界面并提示闯关成功
+                    end = new End(this);
+                    end->showAdventureWinUI();
+                    return;
+                }
+                emit initEndSignal();
+            }
+        }
+    }
+}
+
+void Game::initEnd(){
+    this->progressDialog->setValue(100);
+    this->progressDialog->hide();
+}
+
 //遍历空白位置，生成全部新子
 void Game::creatstones(){
     int sum=0;
@@ -439,7 +507,7 @@ void Game::dropStones() {
         //         }
         //     }
         // }
-         //emit eliminateAgainSignal();
+        //emit eliminateAgainSignal();
     }
 
     resetMatchedFlags();
@@ -461,21 +529,25 @@ void Game::setGameMode(GameMode mode)
     gameMode = mode;
 }
 
-// 获取游戏模式的函数实现
-Game::GameMode Game::getGameMode() const
-{
-    return gameMode;
-}
-
 void Game::onTimeExpired()
 {
     // 在这里可以添加游戏结束相关的逻辑，比如提示游戏结束、禁用操作等
     ui->timerLabel->setText(QString::number(0) + "s");
     ui->progressBar->setValue(0);  // 更新进度条当前值
+    isTimeExpired = true;
+    // 停止游戏相关的定时器等操作
+    resetGameState();
 
-    end = new End(this);  // 这里使用了End类的构造函数，所以需要包含end.h，让编译器知道End类的完整定义
-    end->showEndUI();
-
+    if(gameMode == Game::GameMode::ADVENTURE_MODE){
+        if (isTimeExpired && !isComboing && !checkAdventureWin()){
+            // 显示结束界面并提示闯关成功
+            end = new End(this);
+            end->showAdventureLoseUI();
+        }
+    }else{
+        end = new End(this);
+        end->showEndUI();
+    }
 }
 
 void Game::updateTimerDisplay()
@@ -515,6 +587,7 @@ void Game::resetGameState()
         delete gameTimer;
         gameTimer = nullptr;
     }
+
     // 这里可以进一步添加对其他游戏相关变量的重置逻辑，比如：
     // 重置棋子相关状态等，可根据实际需求完善
 }
@@ -639,4 +712,17 @@ void Game::on_pushButton_4_clicked()
 int Game::getScore() const
 {
     return score;
+}
+
+void Game::setWinScore(int levelNum){
+    winScore = 200+(levelNum-1)*50;
+    ui->textBrowser->setText(QString::number(winScore));
+}
+
+bool Game::checkAdventureWin() const
+{
+    if (score >= winScore) {
+        return true;
+    }
+    return false;
 }

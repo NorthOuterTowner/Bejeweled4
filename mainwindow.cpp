@@ -12,8 +12,7 @@
 #include <QGraphicsOpacityEffect>
 
 #include<settingwidget.h>
-bool firstLevel=true;
-int levelNum=0;
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -243,7 +242,7 @@ void MainWindow::on_pushButton_8_clicked()
 
 }*/
 
-/*类似于自由模式时进入游戏的下一关*/
+/*冒险模式*/
 void MainWindow::on_pushButton_9_clicked()
 {
     if(levelNum%8==0){
@@ -252,8 +251,10 @@ void MainWindow::on_pushButton_9_clicked()
     levelNum++;
     QString nextLevel=QString::fromStdString("下一关:"+std::to_string(levelNum/8)+"-"+std::to_string(levelNum%8));
     nextLevelButton->setLabel(nextLevel, 13);
-    Game::delInstance();
-    gameDlg = Game::instance(nullptr, Game::GameMode::ADVENTURE_MODE); // 创建游戏，设置游戏模式为冒险模式
+    if(gameDlg){
+        Game::delInstance();
+    }
+    gameDlg = Game::instance(nullptr, Game::GameMode::ADVENTURE_MODE,levelNum); // 创建游戏，设置游戏模式为冒险模式
     connect(gameDlg, &Game::returnMainwindow, this, &MainWindow::onReturnMainwindow);
     gameDlg->show();
     this->hide();

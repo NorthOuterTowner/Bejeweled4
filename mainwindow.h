@@ -38,6 +38,8 @@ private:
     Game* gameDlg;
     QSoundEffect* sound;  // 背景音乐
     HoverButton *nextLevelButton;
+    bool firstLevel=true;
+    int levelNum = 0;//关卡数
 
 
 private slots:
