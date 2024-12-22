@@ -23,6 +23,7 @@ SOURCES += \
     rankdialog.cpp \
     settingwidget.cpp \
     pause.cpp \
+    shopwidget.cpp \
     signup.cpp \
     stonelabel.cpp \
     utils.cpp
@@ -41,6 +42,7 @@ HEADERS += \
     rankdialog.h \
     settingwidget.h \
     pause.h \
+    shopwidget.h \
     signup.h \
     stonelabel.h \
     utils.h
@@ -54,6 +56,7 @@ FORMS += \
     rankdialog.ui \
     settingwidget.ui \
     pause.ui \
+    shopwidget.ui \
     signup.ui\
     settingwidget.ui
 

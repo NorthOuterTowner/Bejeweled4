@@ -19,6 +19,9 @@
 #include <QPropertyAnimation>
 #include <QSoundEffect>
 #include <QParallelAnimationGroup>
+#include "ShopWidget.h"  // 引入 ShopWidget
+
+
 /*Space between Window and Labels*/
 #define upSpacer 80
 #define leftSpacer 100
@@ -58,6 +61,12 @@ Game::Game(QWidget *parent,Game::GameMode mode)
     , gameMode(mode)
     , ui(new Ui::Game)
 {
+    // 确保道具数量初始化为 0 或其他合理的初始值
+    bombCount = 0;
+    horizonCount = 0;
+    verticalCount = 0;
+
+    // gameItems = new GameItems();  // 初始化 GameItems
     ui->setupUi(this);
     // 循环播放背景音乐
     sound = new QSoundEffect(this);
@@ -158,6 +167,20 @@ void Game::init(){
     centralWidget->setLayout(mainWidget);
     centralWidget->setGeometry(leftSpacer,upSpacer,384,384);
     centralWidget->setParent(this);
+
+    // 获取道具数量
+    bombCount = this->getBombCount();
+    horizonCount = this->getHorizonCount();
+    verticalCount = this->getVerticalCount();
+
+    // 更新UI显示炸弹数量
+    ui->bombLabel->setText(QString("炸弹: %1").arg(bombCount));
+
+    // 更新UI显示横向数量
+    ui->horizonLabel->setText(QString("横向: %1").arg(horizonCount));
+    // 更新显示当前积分
+
+    ui->verticalLabel->setText(QString("竖向: %1").arg(verticalCount));
 
     updateHintCountDisplay();  // 显示初始提示次数
     for (int row = 0; row < Game::jewelNum; row++) {
@@ -1012,5 +1035,26 @@ void Game::updateHintCountDisplay() {
     ui->hintRemain->setStyleSheet("color: black; font-size: 9px;");  // 可选：设置文本样式
 }
 
+
+
+void Game::on_Shop_clicked()
+{
+    // 创建 ShopWidget 窗口实例
+    ShopWidget *shopWindow = new ShopWidget;
+    // 显示 ShopWidget 窗口
+    shopWindow->show();    // this 表示父窗口是当前游戏窗口
+    // 更新UI显示炸弹数量
+    ui->bombLabel->setText(QString("炸弹: %1").arg(bombCount));
+
+    ui->horizonLabel->setText(QString("横向消除: %1").arg(horizonCount));
+
+
+}
+
+void Game::setScore(int newScore) {
+    score = newScore;
+    // 更新积分显示
+    ui->lcdNumber->display(score);
+}
 
 
