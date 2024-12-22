@@ -30,7 +30,7 @@
    <property name="geometry">
     <rect>
      <x>320</x>
-     <y>190</y>
+     <y>210</y>
      <width>71</width>
      <height>31</height>
     </rect>
@@ -46,6 +46,28 @@
    </property>
    <property name="text">
     <string>返回主菜单</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="nextButton">
+   <property name="geometry">
+    <rect>
+     <x>320</x>
+     <y>160</y>
+     <width>71</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    color: rgb(255, 170, 0);             /* 文字颜色 */
+	font: 700 9pt &quot;Microsoft YaHei UI&quot;;
+    border: 2px solid #2980b9; /* 边框颜色 */
+    border-radius: 5px;       /* 圆角 */
+    font-size: 12px;          /* 字体大小 */
+}</string>
+   </property>
+   <property name="text">
+    <string>下一关</string>
    </property>
   </widget>
  </widget>
