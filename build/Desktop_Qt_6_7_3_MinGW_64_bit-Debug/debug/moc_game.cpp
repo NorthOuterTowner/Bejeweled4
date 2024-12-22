@@ -49,7 +49,11 @@ constexpr auto qt_meta_stringdata_CLASSGameENDCLASS = QtMocHelpers::stringData(
     "on_returnFromPauseToMainMenu",
     "on_pushButton_4_clicked",
     "on_pushButton_5_clicked",
-    "on_bombButton_clicked"
+    "onTimeExpired",
+    "on_bombButton_clicked",
+    "on_horizon_clicked",
+    "on_vertical_clicked",
+    "on_Tips_clicked"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
@@ -62,7 +66,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSGameENDCLASS[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-      12,   14, // methods
+      16,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -70,20 +74,24 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSGameENDCLASS[] = {
        3,       // signalCount
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,   86,    2, 0x06,    1 /* Public */,
-       3,    0,   87,    2, 0x06,    2 /* Public */,
-       4,    0,   88,    2, 0x06,    3 /* Public */,
+       1,    0,  110,    2, 0x06,    1 /* Public */,
+       3,    0,  111,    2, 0x06,    2 /* Public */,
+       4,    0,  112,    2, 0x06,    3 /* Public */,
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       5,    0,   89,    2, 0x08,    4 /* Private */,
-       6,    0,   90,    2, 0x08,    5 /* Private */,
-       7,    0,   91,    2, 0x08,    6 /* Private */,
-       8,    0,   92,    2, 0x08,    7 /* Private */,
-       9,    0,   93,    2, 0x08,    8 /* Private */,
-      10,    0,   94,    2, 0x08,    9 /* Private */,
-      11,    0,   95,    2, 0x08,   10 /* Private */,
-      12,    0,   96,    2, 0x08,   11 /* Private */,
-      13,    0,   97,    2, 0x08,   12 /* Private */,
+       5,    0,  113,    2, 0x08,    4 /* Private */,
+       6,    0,  114,    2, 0x08,    5 /* Private */,
+       7,    0,  115,    2, 0x08,    6 /* Private */,
+       8,    0,  116,    2, 0x08,    7 /* Private */,
+       9,    0,  117,    2, 0x08,    8 /* Private */,
+      10,    0,  118,    2, 0x08,    9 /* Private */,
+      11,    0,  119,    2, 0x08,   10 /* Private */,
+      12,    0,  120,    2, 0x08,   11 /* Private */,
+      13,    0,  121,    2, 0x08,   12 /* Private */,
+      14,    0,  122,    2, 0x08,   13 /* Private */,
+      15,    0,  123,    2, 0x08,   14 /* Private */,
+      16,    0,  124,    2, 0x08,   15 /* Private */,
+      17,    0,  125,    2, 0x08,   16 /* Private */,
 
  // signals: parameters
     QMetaType::Void,
@@ -91,6 +99,10 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSGameENDCLASS[] = {
     QMetaType::Void,
 
  // slots: parameters
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -135,7 +147,15 @@ Q_CONSTINIT const QMetaObject Game::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'on_pushButton_5_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'onTimeExpired'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'on_bombButton_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_horizon_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_vertical_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_Tips_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>
     >,
     nullptr
@@ -158,7 +178,11 @@ void Game::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void *
         case 8: _t->on_returnFromPauseToMainMenu(); break;
         case 9: _t->on_pushButton_4_clicked(); break;
         case 10: _t->on_pushButton_5_clicked(); break;
-        case 11: _t->on_bombButton_clicked(); break;
+        case 11: _t->onTimeExpired(); break;
+        case 12: _t->on_bombButton_clicked(); break;
+        case 13: _t->on_horizon_clicked(); break;
+        case 14: _t->on_vertical_clicked(); break;
+        case 15: _t->on_Tips_clicked(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -207,13 +231,13 @@ int Game::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 12)
+        if (_id < 16)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 12;
+        _id -= 16;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 12)
+        if (_id < 16)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 12;
+        _id -= 16;
     }
     return _id;
 }

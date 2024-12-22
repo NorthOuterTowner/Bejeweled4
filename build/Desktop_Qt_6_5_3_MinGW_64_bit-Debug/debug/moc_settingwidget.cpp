@@ -47,11 +47,13 @@ static constexpr auto qt_meta_stringdata_CLASSsettingwidgetENDCLASS = QtMocHelpe
     "on_hell_clicked",
     "on_Jewel_clicked",
     "on_Fruit_clicked",
-    "on_Vegetable_clicked"
+    "on_Vegetable_clicked",
+    "onVolumeValueChanged",
+    "i"
 );
 #else  // !QT_MOC_HAS_STRING_DATA
 struct qt_meta_stringdata_CLASSsettingwidgetENDCLASS_t {
-    uint offsetsAndSizes[18];
+    uint offsetsAndSizes[22];
     char stringdata0[14];
     char stringdata1[16];
     char stringdata2[1];
@@ -61,6 +63,8 @@ struct qt_meta_stringdata_CLASSsettingwidgetENDCLASS_t {
     char stringdata6[17];
     char stringdata7[17];
     char stringdata8[21];
+    char stringdata9[21];
+    char stringdata10[2];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(sizeof(qt_meta_stringdata_CLASSsettingwidgetENDCLASS_t::offsetsAndSizes) + ofs), len 
@@ -74,7 +78,9 @@ Q_CONSTINIT static const qt_meta_stringdata_CLASSsettingwidgetENDCLASS_t qt_meta
         QT_MOC_LITERAL(65, 15),  // "on_hell_clicked"
         QT_MOC_LITERAL(81, 16),  // "on_Jewel_clicked"
         QT_MOC_LITERAL(98, 16),  // "on_Fruit_clicked"
-        QT_MOC_LITERAL(115, 20)   // "on_Vegetable_clicked"
+        QT_MOC_LITERAL(115, 20),  // "on_Vegetable_clicked"
+        QT_MOC_LITERAL(136, 20),  // "onVolumeValueChanged"
+        QT_MOC_LITERAL(157, 1)   // "i"
     },
     "settingwidget",
     "on_Easy_clicked",
@@ -84,7 +90,9 @@ Q_CONSTINIT static const qt_meta_stringdata_CLASSsettingwidgetENDCLASS_t qt_meta
     "on_hell_clicked",
     "on_Jewel_clicked",
     "on_Fruit_clicked",
-    "on_Vegetable_clicked"
+    "on_Vegetable_clicked",
+    "onVolumeValueChanged",
+    "i"
 };
 #undef QT_MOC_LITERAL
 #endif // !QT_MOC_HAS_STRING_DATA
@@ -96,7 +104,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSsettingwidgetENDCLASS[] = {
       11,       // revision
        0,       // classname
        0,    0, // classinfo
-       7,   14, // methods
+       8,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -104,13 +112,14 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSsettingwidgetENDCLASS[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,   56,    2, 0x08,    1 /* Private */,
-       3,    0,   57,    2, 0x08,    2 /* Private */,
-       4,    0,   58,    2, 0x08,    3 /* Private */,
-       5,    0,   59,    2, 0x08,    4 /* Private */,
-       6,    0,   60,    2, 0x08,    5 /* Private */,
-       7,    0,   61,    2, 0x08,    6 /* Private */,
-       8,    0,   62,    2, 0x08,    7 /* Private */,
+       1,    0,   62,    2, 0x08,    1 /* Private */,
+       3,    0,   63,    2, 0x08,    2 /* Private */,
+       4,    0,   64,    2, 0x08,    3 /* Private */,
+       5,    0,   65,    2, 0x08,    4 /* Private */,
+       6,    0,   66,    2, 0x08,    5 /* Private */,
+       7,    0,   67,    2, 0x08,    6 /* Private */,
+       8,    0,   68,    2, 0x08,    7 /* Private */,
+       9,    1,   69,    2, 0x08,    8 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
@@ -120,6 +129,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSsettingwidgetENDCLASS[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
+    QMetaType::Void, QMetaType::Int,   10,
 
        0        // eod
 };
@@ -146,7 +156,10 @@ Q_CONSTINIT const QMetaObject settingwidget::staticMetaObject = { {
         // method 'on_Fruit_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'on_Vegetable_clicked'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'onVolumeValueChanged'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>
     >,
     nullptr
 } };
@@ -164,10 +177,10 @@ void settingwidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
         case 4: _t->on_Jewel_clicked(); break;
         case 5: _t->on_Fruit_clicked(); break;
         case 6: _t->on_Vegetable_clicked(); break;
+        case 7: _t->onVolumeValueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
         default: ;
         }
     }
-    (void)_a;
 }
 
 const QMetaObject *settingwidget::metaObject() const
@@ -189,13 +202,13 @@ int settingwidget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 7)
+        if (_id < 8)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 7;
+        _id -= 8;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 7)
+        if (_id < 8)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 7;
+        _id -= 8;
     }
     return _id;
 }

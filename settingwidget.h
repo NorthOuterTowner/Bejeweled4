@@ -19,7 +19,8 @@ public:
 
     int getDifficulty() const { return difficulty; }
     std::string getMode() const { return stoneMode; }
- Ui::settingwidget * ui;  // 实例化 Ui::settingwidget
+    Ui::settingwidget * ui;  // 实例化 Ui::settingwidget
+    void paintEvent(QPaintEvent *);
 private slots:
     // void onEasyClicked();
     // void onMediumClicked();

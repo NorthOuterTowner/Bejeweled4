@@ -14,6 +14,12 @@ class End;
 #include <iostream>
 #include <QProgressDialog>
 #include <QProgressBar>
+
+#include <QSoundEffect>
+
+// 使用前向声明 GameItems 类，而不是包含完整的头文件
+class GameItems;
+
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class Game;
@@ -41,10 +47,23 @@ public:
     bool isPaused=false;
     static int jewelNum;
     QWidget* parent;
-    int getScore() const;  //获取当前积分值
 
+    void horizondelete(int row);
+    void verticaldelete(int col);
+    void onAnimationFinished();
     // 设置游戏模式的函数
     void setGameMode(GameMode mode);
+    GameMode getGameMode() const;
+    bool canMatch(int row, int col);
+    QList<QPair<int, int>> findHint();
+    void highlightHints(const QList<QPair<int, int>>& hints);
+    void updateHintCountDisplay();
+    bool canSwapAndMatch(int row1, int col1, int row2, int col2);
+    bool checkMatch(int row, int col);
+
+    //GameTimer *gameTimer;  // 计时器
+
+    int getScore();  //获取当前积分值
 
 signals:
     void eliminateAgainSignal();
@@ -71,6 +90,17 @@ private slots:
     void on_pushButton_4_clicked();
     void on_pushButton_5_clicked();
     void onTimeExpired();//倒计时结束时的处理
+
+
+    void on_bombButton_clicked();
+  //  void on_rainbowGemButton_clicked();
+    //void on_freezeTimeButton_clicked();
+
+    void on_horizon_clicked();
+
+    void on_vertical_clicked();
+
+    void on_Tips_clicked();
 
 private:
     explicit Game(QWidget *parent = nullptr,Game::GameMode mode = Game::GameMode::CLASSIC_MODE);
@@ -101,12 +131,19 @@ private:
     QProgressDialog *progressDialog;
     bool initing;
     Ui::Game *ui;
-    int score = 0;  //记录游戏当前积分
-    bool hasStartedScoring = false;  //标记是否可以开始计分，初始化为false，表示未开始计分
     bool isComboing = false; // 判断此时是否处于连击combo状态
-    int winScore;//通关分数
     void setWinScore(int levelNum);//根据关卡数设置通关分数
     bool checkAdventureWin() const;//判断是否过关
+    int score=0;  //记录游戏当前积分
+    bool hasStartedScoring=false;  //标记是否可以开始计分，初始化为false，表示未开始计分
+    int winScore;
+    bool horizon=false;//是否要横向消除
+    bool vertical=false;//是否竖向消除
+    void triggerBomb(int row, int col);
+    bool isBombMode = false;  // 标记是否处于炸弹模式
+    QSoundEffect* sound;  // 背景音乐
+    int hintCount = 5;//提示的初始次数
+
 };
 
 #endif // GAME_H

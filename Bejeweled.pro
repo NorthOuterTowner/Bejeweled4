@@ -20,6 +20,7 @@ SOURCES += \
     hoverbutton.cpp \
     main.cpp \
     mainwindow.cpp \
+    rankdialog.cpp \
     settingwidget.cpp \
     pause.cpp \
     signup.cpp \
@@ -37,6 +38,7 @@ HEADERS += \
     globalvalue.h \
     hoverbutton.h \
     mainwindow.h \
+    rankdialog.h \
     settingwidget.h \
     pause.h \
     signup.h \
@@ -49,6 +51,7 @@ FORMS += \
     end.ui \
     game.ui \
     mainwindow.ui \
+    rankdialog.ui \
     settingwidget.ui \
     pause.ui \
     signup.ui\

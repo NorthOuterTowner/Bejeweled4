@@ -17,6 +17,7 @@
 #include <QMessageBox>
 #include <QSequentialAnimationGroup>
 #include <QPropertyAnimation>
+#include <QSoundEffect>
 #include <QParallelAnimationGroup>
 /*Space between Window and Labels*/
 #define upSpacer 80
@@ -58,6 +59,14 @@ Game::Game(QWidget *parent,Game::GameMode mode)
     , ui(new Ui::Game)
 {
     ui->setupUi(this);
+    // 循环播放背景音乐
+    sound = new QSoundEffect(this);
+    sound->setSource(QUrl("qrc:/music/background/music-2.wav"));  // 使用 qrc 路径
+    sound->setLoopCount(QSoundEffect::Infinite);
+    sound->setVolume(1.0f);  // 最大音量
+    sound->play();
+
+
     Game::jewelNum=8;
     this->parent=parent;
     this->score=0;
@@ -150,6 +159,8 @@ void Game::init(){
     centralWidget->setLayout(mainWidget);
     centralWidget->setGeometry(leftSpacer,upSpacer,384,384);
     centralWidget->setParent(this);
+
+    updateHintCountDisplay();  // 显示初始提示次数
     for (int row = 0; row < Game::jewelNum; row++) {
         for (int col = 0; col < Game::jewelNum; col++) {
             StoneLabel* imgLabel = new StoneLabel(this);
@@ -187,6 +198,7 @@ void Game::mousePressEvent(QMouseEvent *event) {
         return;
 
     int col = (x - leftSpacer) / 48, row = (y - upSpacer) / 48;
+
     StoneLabel* curLabel = stones[row][col];
 
     if (!change) {
@@ -302,6 +314,18 @@ void Game::mousePressEvent(QMouseEvent *event) {
 
             change = false;
         });
+    }
+    if(horizon){
+        curLabel->setStyle(0);
+        horizondelete(row);
+        horizon=false;
+        change=false;
+    }
+    if(vertical){
+        curLabel->setStyle(1);
+        verticaldelete(col);
+        vertical=false;
+        change=false;
     }
 }
 
@@ -577,7 +601,7 @@ void Game::resume()
     if (isPaused) {
         gameTimer->start();  // 恢复计时器运行
         isPaused = false;
-    } 
+    }
 }
 
 void Game::resetGameState()
@@ -596,6 +620,7 @@ void Game::on_returnFromPauseToMainMenu()
 {
     resetGameState();
     emit returnMainwindow();
+    sound->stop();
 }
 
 //重新排布按键
@@ -709,14 +734,27 @@ void Game::on_pushButton_4_clicked()
 }
 
 
-int Game::getScore() const
+
+
+
+int Game::getScore()
+
 {
     return score;
 }
 
+
 void Game::setWinScore(int levelNum){
     winScore = 200+(levelNum-1)*50;
     ui->textBrowser->setText(QString::number(winScore));
+
+
+void Game::on_bombButton_clicked() {
+
+    // 激活炸弹模式
+    isBombMode = true;
+
+
 }
 
 bool Game::checkAdventureWin() const
@@ -726,3 +764,231 @@ bool Game::checkAdventureWin() const
     }
     return false;
 }
+
+
+
+
+
+
+//横向删除按钮
+void Game::on_horizon_clicked()
+{
+    horizon=true;
+}
+void Game::horizondelete(int row){
+    for (int col = 0; col < 8; ++col) {
+            if (stones[row][col] != nullptr ) {
+                //删除棋子
+                delete stones[row][col];
+                stones[row][col] = nullptr;  // 清空位置
+            }
+        }
+    dropStones();
+
+    qDebug()<<"horizon"<<row;
+}
+
+//竖向消除
+void Game::on_vertical_clicked()
+{
+    vertical=true;
+}
+
+void Game::onAnimationFinished(){
+    dropStones();
+
+}
+void Game::verticaldelete(int col){
+    for(int row=0;row<8;++row){
+        if(stones[row][col]!=nullptr){
+            delete stones[row][col];
+            stones[row][col]=nullptr;
+        }
+    }
+    dropStones();
+}
+
+QList<QPair<int, int>> Game::findHint() {
+    QList<QPair<int, int>> hints;
+
+    // 遍历所有棋盘位置
+    for (int row = 0; row < Game::jewelNum; ++row) {
+        for (int col = 0; col < Game::jewelNum; ++col) {
+            if (canMatch(row, col)) {
+                hints.append(qMakePair(row, col));
+                return hints;  // 只返回第一个可以匹配的宝石
+            }
+        }
+    }
+
+    if (hints.isEmpty()) {
+        qDebug() << "没有找到匹配的宝石!";
+    }
+
+    return hints;
+}
+
+
+
+// 检查给定位置的宝石是否可以与相邻宝石交换形成匹配
+bool Game::canMatch(int row, int col) {
+    // 上下左右相邻的方向
+    const QVector<QPair<int, int>> directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+
+    // 遍历四个方向，检查交换后的匹配情况
+    for (const auto& dir : directions) {
+        int newRow = row + dir.first;
+        int newCol = col + dir.second;
+
+        if (newRow >= 0 && newRow < Game::jewelNum && newCol >= 0 && newCol < Game::jewelNum) {
+            // 交换位置，检查是否形成匹配
+            if (canSwapAndMatch(row, col, newRow, newCol)) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+// 检查交换后是否能形成匹配
+bool Game::canSwapAndMatch(int row1, int col1, int row2, int col2) {
+    // 交换两宝石
+    StoneLabel* temp = stones[row1][col1];
+    stones[row1][col1] = stones[row2][col2];
+    stones[row2][col2] = temp;
+
+    // 检查是否形成匹配
+    bool isMatch = checkMatch(row1, col1) || checkMatch(row2, col2);
+
+    // 交换回原位置
+    stones[row2][col2] = stones[row1][col1];
+    stones[row1][col1] = temp;
+
+    return isMatch;
+}
+
+
+void Game::highlightHints(const QList<QPair<int, int>>& hints) {
+    if (hints.isEmpty()) {
+        return;
+    }
+
+    // 获取第一个提示的宝石位置
+    int row = hints.first().first;
+    int col = hints.first().second;
+
+    StoneLabel* label = stones[row][col];  // 获取当前宝石的标签
+
+    // 检查是否已经有效果，避免重复添加
+    if (label->graphicsEffect() == nullptr) {
+        // 设置高亮效果
+        label->setStyleSheet("background-color: red; border: 3px solid yellow;");
+
+        // 设置定时器，在指定时间后移除高亮效果
+        QTimer::singleShot(3000, [label]() {
+            label->setStyleSheet("");  // 清除背景和边框
+        });
+
+        // 显示箭头图标
+        QLabel* hintArrowLabel = new QLabel(this);
+        hintArrowLabel->setPixmap(QPixmap(":/arrow.png"));  // 设置箭头图片
+        hintArrowLabel->setFixedSize(40, 40);  // 设置箭头图片的大小
+
+        // 获取宝石标签的位置
+        QRect labelRect = label->geometry();
+
+        // 箭头的水平位置为宝石标签的水平居中
+        int arrowX = labelRect.left() + (labelRect.width() - hintArrowLabel->width()) / 2 + 112;
+
+        // 箭头的垂直位置为宝石标签底部
+        int arrowY = labelRect.bottom() + 80;  // 箭头位于宝石下方
+
+        hintArrowLabel->move(arrowX, arrowY);  // 设置箭头位置
+        hintArrowLabel->show();
+
+        // 创建上下震动的动画
+        QPropertyAnimation* anim = new QPropertyAnimation(hintArrowLabel, "geometry");
+        anim->setDuration(600);  // 增加动画时长，使得上下运动更加平滑
+        anim->setStartValue(QRect(arrowX, arrowY, hintArrowLabel->width(), hintArrowLabel->height()));  // 起始位置
+        anim->setEndValue(QRect(arrowX, arrowY + 10, hintArrowLabel->width(), hintArrowLabel->height()));  // 向下移动10px
+        anim->setEasingCurve(QEasingCurve::InOutQuad);  // 使用平滑的缓动曲线
+        anim->setLoopCount(-1);  // 无限循环动画，使箭头持续上下震动
+        anim->start();
+
+        // 创建旋转动画
+        QPropertyAnimation* rotateAnim = new QPropertyAnimation(hintArrowLabel, "rotation");
+        rotateAnim->setDuration(600);  // 旋转动画的持续时间
+        rotateAnim->setStartValue(0);  // 从0度开始
+        rotateAnim->setEndValue(360);  // 旋转360度
+        rotateAnim->setLoopCount(-1);  // 无限循环旋转
+        rotateAnim->start();
+
+        // 动画结束后删除箭头图标
+        QTimer::singleShot(3000, hintArrowLabel, [hintArrowLabel]() {
+            hintArrowLabel->deleteLater();  // 删除箭头图标
+        });
+    }
+}
+
+
+
+
+
+
+
+// 检查某个位置的宝石是否和相邻的宝石匹配
+bool Game::checkMatch(int row, int col) {
+    // 这里假设你的棋盘是横竖均为3个或更多相同宝石组成一条直线
+    // 你可以根据你的实际匹配逻辑来修改
+
+    // 检查横向是否匹配
+    int count = 1;  // 当前宝石本身算一个
+    // 向右检查
+    for (int i = col + 1; i < Game::jewelNum && stones[row][i]->getIndex() == stones[row][col]->getIndex(); ++i) {
+        ++count;
+    }
+    // 向左检查
+    for (int i = col - 1; i >= 0 && stones[row][i]->getIndex() == stones[row][col]->getIndex(); --i) {
+        ++count;
+    }
+    if (count >= 3) return true;
+
+    // 检查纵向是否匹配
+    count = 1;
+    // 向下检查
+    for (int i = row + 1; i < Game::jewelNum && stones[i][col]->getIndex() == stones[row][col]->getIndex(); ++i) {
+        ++count;
+    }
+    // 向上检查
+    for (int i = row - 1; i >= 0 && stones[i][col]->getIndex() == stones[row][col]->getIndex(); --i) {
+        ++count;
+    }
+    if (count >= 3) return true;
+
+    return false;
+}
+
+
+void Game::on_Tips_clicked()
+{
+    if (hintCount > 0) {
+        QList<QPair<int, int>> hints = findHint();  // 查找可以匹配的宝石
+        if (!hints.isEmpty()) {
+            highlightHints(hints);  // 高亮显示提示的宝石
+            --hintCount;  // 减少提示次数
+            updateHintCountDisplay();  // 更新提示次数显示
+        } else {
+            QMessageBox::information(this, "没有更多匹配", "当前没有可以匹配的宝石!");
+        }
+    } else {
+        QMessageBox::warning(this, "提示已用尽", "您已用尽所有提示!");
+    }
+}
+
+void Game::updateHintCountDisplay() {
+    ui->hintRemain->setText(QString("剩余提示次数: %1").arg(hintCount));
+    ui->hintRemain->setStyleSheet("color: black; font-size: 9px;");  // 可选：设置文本样式
+}
+
+
+
