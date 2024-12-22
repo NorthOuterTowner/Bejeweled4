@@ -441,6 +441,7 @@ void Game::onEliminateAgain(){
 }
 
 void Game::initEnd(){
+    std::cout<<"initEnd"<<std::endl;
     this->progressDialog->setValue(100);
     this->progressDialog->hide();
 }
@@ -524,14 +525,6 @@ void Game::dropStones() {
    // 若无子下落，遍历前三行，找到空位生成新子
     if(!drop){
         creatstones();
-        // for(int row=0;row<=6;++row){
-        //     for(int col=0;col<=7;++col){
-        //         if(stones[row][col]==nullptr){
-        //             generateNewStone(row,col);
-        //         }
-        //     }
-        // }
-        //emit eliminateAgainSignal();
     }
 
     resetMatchedFlags();
@@ -772,7 +765,6 @@ void Game::setWinScore(int levelNum){
     winScore = 200+(levelNum-1)*50;
     ui->textBrowser->setText(QString::number(winScore));
 }
-
 
 void Game::on_bombButton_clicked() {
     // 激活炸弹模式
