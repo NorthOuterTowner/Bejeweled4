@@ -14,6 +14,7 @@ class End;
 #include <iostream>
 #include <QProgressDialog>
 #include <QProgressBar>
+
 #include <QSoundEffect>
 
 // 使用前向声明 GameItems 类，而不是包含完整的头文件
@@ -24,7 +25,6 @@ namespace Ui {
 class Game;
 }
 QT_END_NAMESPACE
-
 class Game : public QWidget
 {
     Q_OBJECT
@@ -36,18 +36,18 @@ public:
         CLASSIC_MODE,  // 经典模式
         ADVENTURE_MODE  // 冒险模式
     };
-    static Game* instance(QWidget* parent = nullptr,Game::GameMode mode = Game::GameMode::CLASSIC_MODE);
+    static Game* instance(QWidget* parent = nullptr,Game::GameMode mode = Game::GameMode::ADVENTURE_MODE,int levelNum = -1);
+
     void init();
     void update();
     void handleStoneSwap(int row, int col, StoneLabel* curLabel);
-    void clearStone(int row, int col);  // 清除指定位置的宝石
-    StoneLabel* getStone(int row, int col);  // 获取指定位置的宝石
     static void delInstance(){
-        gameInstance = nullptr;
+        gameInstance=nullptr;
     }
-    bool isPaused = false;
+    bool isPaused=false;
     static int jewelNum;
     QWidget* parent;
+
     void horizondelete(int row);
     void verticaldelete(int col);
     void onAnimationFinished();
@@ -69,44 +69,28 @@ signals:
     void eliminateAgainSignal();
     void returnMainwindow();
     void initEndSignal();
-
 private slots:
-    void initEnd(){
-        this->progressDialog->setValue(100);
-        this->progressDialog->hide();
-    }
-
+    void initEnd();
     void onDropAnimationFinished() {
+        // 每完成一个动画，减小计数器
         animationsLeft--;
 
+        // 所有动画完成后，执行 creatstones
         if (animationsLeft == 0) {
-            qDebug() << "OK";
+            qDebug()<<"OK";
             creatstones();
-            this->initing = false;
+            this->initing=false;
+
         }
     }
-
-    void onEliminateAgain() {
-        if (checkFormatches()) {
-            eliminateMatches();
-        } else {
-            int row1 = swapReturn[0], col1 = swapReturn[1], row2 = swapReturn[2], col2 = swapReturn[3];
-            std::cout << "row1:" << row1 << ", row2:" << row2 << ", col1:" << col1 << ", col2:" << col2 << std::endl;
-            std::swap(stones[row1][col1], stones[row2][col2]);
-            stones[row1][col1]->setrow(row1);
-            stones[row1][col1]->setcol(col1);
-            stones[row2][col2]->setrow(row2);
-            stones[row2][col2]->setcol(col2);
-            emit initEndSignal();
-        }
-    }
-
+    void onEliminateAgain();//判断新落下的棋子是否造成“连消”
     void on_pushButton_3_clicked();
-    void resume();  // 处理继续游戏信号
-    void on_returnFromPauseToMainMenu();  // 处理从暂停界面返回主菜单的信号
+    void resume();//处理继续游戏信号
+    void on_returnFromPauseToMainMenu();  //处理从暂停界面返回主菜单的信号
     void on_pushButton_4_clicked();
     void on_pushButton_5_clicked();
     void onTimeExpired();//倒计时结束时的处理
+
 
     void on_bombButton_clicked();
   //  void on_rainbowGemButton_clicked();
@@ -119,24 +103,27 @@ private slots:
     void on_Tips_clicked();
 
 private:
-    explicit Game(QWidget *parent = nullptr,Game::GameMode mode = Game::GameMode::CLASSIC_MODE);//传入游戏难度
+    explicit Game(QWidget *parent = nullptr,Game::GameMode mode = Game::GameMode::CLASSIC_MODE);
+    explicit Game(QWidget *parent = nullptr,int LevelNum = -1,Game::GameMode mode = Game::GameMode::CLASSIC_MODE);//传入游戏难度
     static Game* gameInstance;
     void mousePressEvent(QMouseEvent *event) override;
     bool checkFormatches();//判断哪些棋子将要被消去
-    void eliminateMatches() ;
+    void eliminateMatches() ;//消除
     void dropStones();//棋子下落，创建新子
     void dropLabel(StoneLabel* stoneLabel, int startX,int startY,int targetX, int targetY, int duration) ;//棋子下落动画
     void resetMatchedFlags();//重置所有棋子为不可消除
     void generateNewStone(int row, int col);//创建一个新子
     void creatstones();//创建所有需要的子
     void shuffleStones();//重排布
-    GameTimer *gameTimer;//计时器
-    QProgressBar *progressBar;  //计时进度条
+    int initTime = 20;//初始时间20s
+    GameTimer *gameTimer = nullptr;//计时器
+    bool isTimeExpired = false;//判断时间是否结束
+    QProgressBar *progressBar = nullptr;  //计时进度条
     void updateTimerDisplay();//更新界面上显示倒计时的QLabel的文本内容
-    int  animationsLeft;  // 重置动画计数器
-    Pause *pause;  // 暂停界面指针
+    int animationsLeft;  // 重置动画计数器
+    Pause *pause = nullptr;  // 暂停界面指针
     void resetGameState();//用于重置游戏状态
-    End *end;//结束界面指针
+    End *end = nullptr;//结束界面指针
     GameMode gameMode;//游戏模式
     bool change=false;
     bool eliminateAgain=true;
@@ -144,6 +131,9 @@ private:
     QProgressDialog *progressDialog;
     bool initing;
     Ui::Game *ui;
+    bool isComboing = false; // 判断此时是否处于连击combo状态
+    void setWinScore(int levelNum);//根据关卡数设置通关分数
+    bool checkAdventureWin() const;//判断是否过关
     int score=0;  //记录游戏当前积分
     bool hasStartedScoring=false;  //标记是否可以开始计分，初始化为false，表示未开始计分
     int winScore;

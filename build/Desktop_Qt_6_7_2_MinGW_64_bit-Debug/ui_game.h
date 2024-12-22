@@ -15,6 +15,7 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QProgressBar>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -30,6 +31,8 @@ public:
     QLabel *label;
     QPushButton *pushButton_4;
     QPushButton *pushButton_5;
+    QLabel *label_2;
+    QTextBrowser *textBrowser;
 
     void setupUi(QWidget *Game)
     {
@@ -76,16 +79,22 @@ public:
         pushButton_3->setGeometry(QRect(40, 80, 51, 31));
         lcdNumber = new QLCDNumber(Game);
         lcdNumber->setObjectName("lcdNumber");
-        lcdNumber->setGeometry(QRect(660, 230, 111, 41));
+        lcdNumber->setGeometry(QRect(670, 210, 111, 41));
         label = new QLabel(Game);
         label->setObjectName("label");
-        label->setGeometry(QRect(690, 200, 69, 19));
+        label->setGeometry(QRect(700, 180, 69, 19));
         pushButton_4 = new QPushButton(Game);
         pushButton_4->setObjectName("pushButton_4");
         pushButton_4->setGeometry(QRect(690, 130, 93, 28));
         pushButton_5 = new QPushButton(Game);
         pushButton_5->setObjectName("pushButton_5");
-        pushButton_5->setGeometry(QRect(680, 330, 93, 28));
+        pushButton_5->setGeometry(QRect(700, 370, 81, 28));
+        label_2 = new QLabel(Game);
+        label_2->setObjectName("label_2");
+        label_2->setGeometry(QRect(700, 270, 69, 19));
+        textBrowser = new QTextBrowser(Game);
+        textBrowser->setObjectName("textBrowser");
+        textBrowser->setGeometry(QRect(670, 300, 111, 41));
 
         retranslateUi(Game);
 
@@ -101,6 +110,15 @@ public:
         label->setText(QCoreApplication::translate("Game", "\345\210\206\346\225\260", nullptr));
         pushButton_4->setText(QCoreApplication::translate("Game", "\344\270\213\344\270\200\345\205\263", nullptr));
         pushButton_5->setText(QCoreApplication::translate("Game", "\351\207\215\347\275\256", nullptr));
+        label_2->setText(QCoreApplication::translate("Game", "\350\277\207\345\205\263\345\210\206\346\225\260", nullptr));
+        textBrowser->setHtml(QCoreApplication::translate("Game", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"hr { height: 1px; border-width: 0; }\n"
+"li.unchecked::marker { content: \"\\2610\"; }\n"
+"li.checked::marker { content: \"\\2612\"; }\n"
+"</style></head><body style=\" font-family:'Microsoft YaHei UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", nullptr));
     } // retranslateUi
 
 };
