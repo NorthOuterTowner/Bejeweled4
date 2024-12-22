@@ -43,6 +43,7 @@ public:
     QLabel *label_9;
     QLabel *label_10;
     QLabel *label_11;
+    QLabel *label_12;
 
     void setupUi(QWidget *settingwidget)
     {
@@ -152,6 +153,11 @@ public:
         label_11->setGeometry(QRect(640, 430, 51, 31));
         label_11->setStyleSheet(QString::fromUtf8("font: 12pt \"Elephant\";\n"
 "color: rgb(255, 255, 255);"));
+        label_12 = new QLabel(settingwidget);
+        label_12->setObjectName("label_12");
+        label_12->setGeometry(QRect(450, 560, 131, 31));
+        label_12->setStyleSheet(QString::fromUtf8("background-image: url(:/blueBar.png);\n"
+""));
         label_6->raise();
         label_volume_3->raise();
         label_5->raise();
@@ -175,6 +181,7 @@ public:
         label_9->raise();
         label_10->raise();
         label_11->raise();
+        label_12->raise();
 
         retranslateUi(settingwidget);
 
@@ -207,6 +214,7 @@ public:
         label_9->setText(QCoreApplication::translate("settingwidget", "Jewel", nullptr));
         label_10->setText(QCoreApplication::translate("settingwidget", "Fruit", nullptr));
         label_11->setText(QCoreApplication::translate("settingwidget", "Vegetable", nullptr));
+        label_12->setText(QString());
     } // retranslateUi
 
 };

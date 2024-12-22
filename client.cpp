@@ -1,6 +1,7 @@
 #include "client.h"
 #include "login.h"
 #include "ui_client.h"
+#include "mainwindow.h"
 #include <QDebug>
 #include <QMessageBox>
 Client::Client(QWidget *parent)
@@ -20,31 +21,21 @@ Client::~Client() {
     delete ui;
 }
 
-/*
-void Client::onSendData() {
-    QString username = ui->usernameEdit->text();
-    QString password = ui->passwordEdit->text();
 
-    if (username.isEmpty() || password.isEmpty()) {
-        ui->logText->append("用户名和密码不能为空");
-        return;
-    }
-
-    QString data = username + ";" + password;
+void Client::onSendData(QString data) {
     tcpSocket->write(data.toUtf8());
-    ui->logText->append("发送数据：" + data);
-}
+}//发送信息
 
 
-void Client::onReadyRead() {
+QString Client::onReadyRead() {
     QByteArray data = tcpSocket->readAll();
-    ui->logText->append("收到服务器消息：" + QString::fromUtf8(data));
-}
+    return QString::fromUtf8(data);
+}//接受信息
 
 void Client::onDisconnected() {
-    ui->logText->append("与服务器断开连接");
+
 }
-*/
+
 /*void QMainWindow::closeEvent(QCloseEvent *event){
 
 }*/
@@ -57,7 +48,7 @@ void Client::on_pushButton_clicked()
     connect(tcpSocket,&QTcpSocket::connected,[this]()
     {
         QMessageBox::information(this,"服务器连接成功","连接服务器成功");
-        Login *w=new Login(tcpSocket);
+        Login *w=new Login(this);
         w->show();
         this->close();
     });
@@ -81,7 +72,7 @@ void Client::on_pushButton_clicked()
 
 void Client::on_pushButton_2_clicked()
 {
-    Login *w=new Login(nullptr);
+    MainWindow *w=new MainWindow();
     w->show();
     this->close();
 }//进行离线游戏
