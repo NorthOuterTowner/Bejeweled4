@@ -10,10 +10,10 @@
 #include <QSqlQuery>
 #include <QSqlDatabase>
 
-Login::Login(QTcpSocket *t,QWidget *parent)
+Login::Login(Client* c,QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::Login)
-    , tcpSocket(t)
+    , client(c)
 {
     ui->setupUi(this);
     // // 设置背景并启动动画
@@ -38,9 +38,6 @@ Login::Login(QTcpSocket *t,QWidget *parent)
     shadow->setBlurRadius(30);
     ui->label_image->setGraphicsEffect(shadow);
 
-    // 初始化数据库
-    sqlite_Init();
-
     // 创建 HoverButton 按钮并设置属性
     HoverButton *signinButton = new HoverButton(this);
     signinButton->setImage(":/icons/signin_normal.png", ":/icons/signin_hover.png", 150, 40);
@@ -62,32 +59,14 @@ Login::Login(QTcpSocket *t,QWidget *parent)
 
     // 隐藏原有 QPushButton
     ui->btn_signup->hide();
+
+    //连接接受信息与登录页面
+    connect(client->tcpSocket, &QTcpSocket::readyRead, this, &Login::onDataReceived);
 }
 
 Login::~Login()
 {
     delete ui;
-}
-
-void sqlite_Init()
-{
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("user.db");
-    if (!db.open())
-    {
-        qDebug() << "打开数据库失败";
-    }
-    // 创建表格
-    QString createsql = QString("create table if not exists user(id integer primary key autoincrement,"
-                                "username ntext unique not NULL,"
-                                "password ntext not NULL)");
-    QSqlQuery query;
-    if (!query.exec(createsql)) {
-        qDebug() << "创建表格失败";
-    }
-    else {
-        qDebug() << "创建表格成功";
-    }
 }
 
 QPropertyAnimation *  Login::ShowBackground(){
@@ -139,30 +118,35 @@ void Login::setBkImg(QString path,QLabel *label)
 
 void Login::on_btn_signin_clicked()
 {
-    sqlite_Init();
     QString username = ui->lineEdit_username->text();
     QString password = utils::hashPassword(ui->lineEdit_password->text());
-    QString sql = QString("select * from user where username='%1' and password='%2'")
-                      .arg(username).arg(password);
-    // 创建执行语句对象
-    QSqlQuery query(sql);
-    // 判断执行结果
-    if (!query.next()) {
-        qDebug() << "登录失败";
-        QMessageBox::information(this, "登录认证", "登录失败,账户或者密码错误");
-    }
-    else {
-        qDebug() << "登录成功";
-        QMessageBox::information(this, "登录认证", "登录成功");
-        MainWindow *w = new MainWindow;
-        w->show();
-        this->close();
-    }
+    QString out="a "+username+" "+password;
+    client->onSendData(out);
 }
 
 void Login::on_btn_signup_clicked()
 {
     this->close();
-    Signup *s = new Signup;
+    disconnect(client->tcpSocket, &QTcpSocket::readyRead, this, &Login::onDataReceived);
+    Signup *s = new Signup(client);
     s->show();
 }
+
+void Login::onDataReceived(){
+    QString buffer;
+    buffer.append(client->tcpSocket->readAll()); // 将接收到的数据追加到缓冲区
+
+    // 按分隔符（如换行符）处理
+    QStringList messages = buffer.split(' ');
+    if(messages[1]=="1"){
+        qDebug() << "登录成功";
+        QMessageBox::information(this, "登录认证", "登录成功");
+        MainWindow *w = new MainWindow;
+        w->show();
+        this->close();
+        disconnect(client->tcpSocket, &QTcpSocket::readyRead, this, &Login::onDataReceived);
+    }else if(messages[1]=="0"){
+        qDebug() << "登录失败";
+        QMessageBox::information(this, "登录认证", "登录失败,账户或者密码错误");
+    }
+}//判断是否登录成功
