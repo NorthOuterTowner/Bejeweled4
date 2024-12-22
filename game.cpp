@@ -127,7 +127,6 @@ Game::Game(QWidget *parent,int levelNum,Game::GameMode mode)
 
     //冒险模式下相关显示与逻辑特殊处理
     setWinScore(levelNum);
-
 }
 
 Game::~Game()
@@ -431,11 +430,12 @@ void Game::onEliminateAgain(){
 
                     // 显示结束界面并提示闯关成功
                     end = new End(this);
+                    connect(end, &End::nextButtonClicked, this, &Game::onNextButtonClicked);
                     end->showAdventureWinUI();
                     return;
                 }
-                emit initEndSignal();
             }
+            emit initEndSignal();
         }
     }
 }
@@ -566,10 +566,12 @@ void Game::onTimeExpired()
         if (isTimeExpired && !isComboing && !checkAdventureWin()){
             // 显示结束界面并提示闯关成功
             end = new End(this);
+            connect(end, &End::nextButtonClicked, this, &Game::onNextButtonClicked);
             end->showAdventureLoseUI();
         }
     }else{
         end = new End(this);
+        connect(end, &End::nextButtonClicked, this, &Game::onNextButtonClicked);
         end->showEndUI();
     }
 }
@@ -706,6 +708,33 @@ void Game::shuffleStones() {
     });
 
 }
+void Game::onNextButtonClicked()
+{
+    difficulty+=1;
+    if(difficulty>10){
+        QMessageBox::information(this, "游戏结束", "恭喜你通过了全部关卡！");
+        emit returnMainwindow();
+        return;
+    }
+    QDialog dialog(this);
+    dialog.setWindowTitle("获得新宝石");
+    QVBoxLayout layout;
+    QLabel gemLabel;
+    QString pixStr=QString::fromStdString(":/"+StoneLabel::stoneMode+std::to_string(difficulty)+".png");
+    QPixmap gemPixmap(pixStr); // 替换为实际的宝石图片路径
+    gemLabel.setPixmap(gemPixmap);
+    gemLabel.setAlignment(Qt::AlignCenter);
+    gemLabel.setFixedSize(48, 48); // 设置 QLabel 大小
+    gemLabel.setScaledContents(true); // 使图片适应 QLabel 大小
+    layout.addWidget(&gemLabel);
+    QLabel textLabel("恭喜！你获得了一颗新的宝石。");
+    textLabel.setAlignment(Qt::AlignCenter);
+    layout.addWidget(&textLabel);
+    dialog.setLayout(&layout);
+    dialog.exec();
+    emit returnMainwindow();
+}
+
 void Game::on_pushButton_4_clicked()
 {
     difficulty+=1;
@@ -735,26 +764,19 @@ void Game::on_pushButton_4_clicked()
 
 
 
-
-
-int Game::getScore()
-
-{
+int Game::getScore(){
     return score;
 }
-
 
 void Game::setWinScore(int levelNum){
     winScore = 200+(levelNum-1)*50;
     ui->textBrowser->setText(QString::number(winScore));
+}
 
 
 void Game::on_bombButton_clicked() {
-
     // 激活炸弹模式
     isBombMode = true;
-
-
 }
 
 bool Game::checkAdventureWin() const
@@ -764,11 +786,6 @@ bool Game::checkAdventureWin() const
     }
     return false;
 }
-
-
-
-
-
 
 //横向删除按钮
 void Game::on_horizon_clicked()
@@ -827,8 +844,6 @@ QList<QPair<int, int>> Game::findHint() {
 
     return hints;
 }
-
-
 
 // 检查给定位置的宝石是否可以与相邻宝石交换形成匹配
 bool Game::canMatch(int row, int col) {
@@ -929,12 +944,6 @@ void Game::highlightHints(const QList<QPair<int, int>>& hints) {
         });
     }
 }
-
-
-
-
-
-
 
 // 检查某个位置的宝石是否和相邻的宝石匹配
 bool Game::checkMatch(int row, int col) {

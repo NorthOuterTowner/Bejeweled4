@@ -29,6 +29,7 @@ public:
     QPushButton *pushButton_9;
     QLabel *label;
     QPushButton *pushButton_10;
+    QPushButton *ranking;
     QMenuBar *menubar;
     QStatusBar *statusbar;
     QToolBar *toolBar;
@@ -43,16 +44,19 @@ public:
         centralwidget->setObjectName("centralwidget");
         pushButton = new QPushButton(centralwidget);
         pushButton->setObjectName("pushButton");
-        pushButton->setGeometry(QRect(310, 390, 93, 28));
+        pushButton->setGeometry(QRect(360, 350, 93, 28));
         pushButton_9 = new QPushButton(centralwidget);
         pushButton_9->setObjectName("pushButton_9");
-        pushButton_9->setGeometry(QRect(10, 150, 93, 28));
+        pushButton_9->setGeometry(QRect(10, 160, 93, 28));
         label = new QLabel(centralwidget);
         label->setObjectName("label");
         label->setGeometry(QRect(20, 120, 69, 19));
         pushButton_10 = new QPushButton(centralwidget);
         pushButton_10->setObjectName("pushButton_10");
-        pushButton_10->setGeometry(QRect(460, 210, 81, 41));
+        pushButton_10->setGeometry(QRect(630, 330, 81, 41));
+        ranking = new QPushButton(centralwidget);
+        ranking->setObjectName("ranking");
+        ranking->setGeometry(QRect(660, 420, 81, 31));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
@@ -80,6 +84,7 @@ public:
         pushButton_9->setText(QCoreApplication::translate("MainWindow", "\344\270\213\344\270\200\345\205\263", nullptr));
         label->setText(QCoreApplication::translate("MainWindow", "\345\205\263\345\215\241\346\250\241\345\274\217", nullptr));
         pushButton_10->setText(QCoreApplication::translate("MainWindow", "Setting", nullptr));
+        ranking->setText(QCoreApplication::translate("MainWindow", "\346\216\222\350\241\214\346\246\234", nullptr));
         toolBar->setWindowTitle(QCoreApplication::translate("MainWindow", "toolBar", nullptr));
         toolBar_2->setWindowTitle(QCoreApplication::translate("MainWindow", "toolBar_2", nullptr));
     } // retranslateUi

@@ -16,8 +16,8 @@
   <widget class="QPushButton" name="pushButton_2">
    <property name="geometry">
     <rect>
-     <x>690</x>
-     <y>90</y>
+     <x>670</x>
+     <y>50</y>
      <width>93</width>
      <height>28</height>
     </rect>
@@ -105,8 +105,8 @@ QProgressBar::chunk {
   <widget class="QLCDNumber" name="lcdNumber">
    <property name="geometry">
     <rect>
-     <x>670</x>
-     <y>210</y>
+     <x>660</x>
+     <y>150</y>
      <width>111</width>
      <height>41</height>
     </rect>
@@ -115,21 +115,21 @@ QProgressBar::chunk {
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>700</x>
-     <y>180</y>
+     <x>630</x>
+     <y>160</y>
      <width>69</width>
      <height>19</height>
     </rect>
    </property>
    <property name="text">
-    <string>分数</string>
+    <string>分数：</string>
    </property>
   </widget>
   <widget class="QPushButton" name="pushButton_4">
    <property name="geometry">
     <rect>
-     <x>690</x>
-     <y>130</y>
+     <x>670</x>
+     <y>80</y>
      <width>93</width>
      <height>28</height>
     </rect>
@@ -141,9 +141,9 @@ QProgressBar::chunk {
   <widget class="QPushButton" name="pushButton_5">
    <property name="geometry">
     <rect>
-     <x>700</x>
-     <y>370</y>
-     <width>81</width>
+     <x>670</x>
+     <y>110</y>
+     <width>93</width>
      <height>28</height>
     </rect>
    </property>
@@ -151,18 +151,11 @@ QProgressBar::chunk {
     <string>重置</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_2">
-   <property name="geometry">
-    <rect>
-     <x>700</x>
-     <y>270</y>
-     <width>69</width>
-     <height>19</height>
   <widget class="QPushButton" name="horizon">
    <property name="geometry">
     <rect>
-     <x>695</x>
-     <y>457</y>
+     <x>650</x>
+     <y>410</y>
      <width>51</width>
      <height>41</height>
     </rect>
@@ -174,8 +167,8 @@ QProgressBar::chunk {
   <widget class="QPushButton" name="vertical">
    <property name="geometry">
     <rect>
-     <x>700</x>
-     <y>520</y>
+     <x>720</x>
+     <y>410</y>
      <width>51</width>
      <height>41</height>
     </rect>
@@ -194,27 +187,7 @@ QProgressBar::chunk {
     </rect>
    </property>
    <property name="text">
-    <string>过关分数</string>
-   </property>
-  </widget>
-  <widget class="QTextBrowser" name="textBrowser">
-   <property name="geometry">
-    <rect>
-     <x>670</x>
-     <y>300</y>
-     <width>111</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="html">
-    <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-hr { height: 1px; border-width: 0; }
-li.unchecked::marker { content: &quot;\2610&quot;; }
-li.checked::marker { content: &quot;\2612&quot;; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Microsoft YaHei UI'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    <string>bomb</string>
    </property>
   </widget>
   <widget class="QPushButton" name="Tips">
@@ -240,7 +213,53 @@ li.checked::marker { content: &quot;\2612&quot;; }
     </rect>
    </property>
    <property name="text">
-    <string>剩余：3</string>
+    <string>剩余：</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Shop">
+   <property name="geometry">
+    <rect>
+     <x>660</x>
+     <y>490</y>
+     <width>101</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Shop</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>620</x>
+     <y>220</y>
+     <width>51</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>目标得分</string>
+   </property>
+  </widget>
+  <widget class="QTextBrowser" name="textBrowser">
+   <property name="geometry">
+    <rect>
+     <x>660</x>
+     <y>210</y>
+     <width>111</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="html">
+    <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+hr { height: 1px; border-width: 0; }
+li.unchecked::marker { content: &quot;\2610&quot;; }
+li.checked::marker { content: &quot;\2612&quot;; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Microsoft YaHei UI'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
  </widget>
