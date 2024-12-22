@@ -366,11 +366,15 @@ debug/qrc_music.cpp: ../../music.qrc \
 		../../music/button/button_press.wav \
 		../../music/button/button_mouseover.wav \
 		../../music/button/button_release.wav \
-		../../music/background/music-1.wav
+		../../music/background/music-1.wav \
+		../../music/eliminate/penta.wav \
+		../../music/eliminate/quadruple.wav \
+		../../music/eliminate/triple.wav
 	C:\Qt1\6.7.3\mingw_64\bin\rcc.exe -name music --no-zstd ..\..\music.qrc -o debug\qrc_music.cpp
 
 debug/qrc_picture.cpp: ../../picture/picture.qrc \
 		C:/Qt1/6.7.3/mingw_64/bin/rcc.exe \
+		../../picture/pause.png \
 		../../picture/mouse1.png \
 		../../picture/mouse3.png \
 		../../picture/mouse2.png \
@@ -1002,13 +1006,13 @@ debug/moc_game.cpp: ../../game.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtGui/qguiapplication_platform.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtGui/qpicture.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtGui/qtextdocument.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/QMouseEvent \
 		../../gametimer.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/QTimer \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qtimer.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qbasictimer.h \
 		../../pause.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QWidget \
-		C:/Qt1/6.7.3/mingw_64/include/QtGui/QMouseEvent \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QProgressDialog \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qprogressdialog.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qdialog.h \
@@ -1533,13 +1537,13 @@ debug/moc_mainwindow.cpp: ../../mainwindow.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qframe.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtGui/qpicture.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtGui/qtextdocument.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/QMouseEvent \
 		../../gametimer.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/QTimer \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qtimer.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qbasictimer.h \
 		../../pause.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QWidget \
-		C:/Qt1/6.7.3/mingw_64/include/QtGui/QMouseEvent \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QProgressDialog \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qprogressdialog.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qdialog.h \
@@ -1770,6 +1774,7 @@ debug/moc_settingwidget.cpp: ../../settingwidget.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qframe.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtGui/qpicture.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtGui/qtextdocument.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/QMouseEvent \
 		../../globalValue.h \
 		debug/moc_predefs.h \
 		C:/Qt1/6.7.3/mingw_64/bin/moc.exe
@@ -2376,6 +2381,7 @@ debug/moc_stonelabel.cpp: ../../stonelabel.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtGui/qguiapplication_platform.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtGui/qpicture.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtGui/qtextdocument.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/QMouseEvent \
 		debug/moc_predefs.h \
 		C:/Qt1/6.7.3/mingw_64/bin/moc.exe
 	C:\Qt1\6.7.3\mingw_64\bin\moc.exe $(DEFINES) --include C:/Users/86189/Desktop/Bejeweled/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/debug/moc_predefs.h -IC:/Qt1/6.7.3/mingw_64/mkspecs/win32-g++ -IC:/Users/86189/Desktop/Bejeweled -IC:/Qt1/6.7.3/mingw_64/include -IC:/Qt1/6.7.3/mingw_64/include/QtMultimedia -IC:/Qt1/6.7.3/mingw_64/include/QtWidgets -IC:/Qt1/6.7.3/mingw_64/include/QtGui -IC:/Qt1/6.7.3/mingw_64/include/QtNetwork -IC:/Qt1/6.7.3/mingw_64/include/QtSql -IC:/Qt1/6.7.3/mingw_64/include/QtCore -I. -IC:/Qt1/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++ -IC:/Qt1/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32 -IC:/Qt1/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/backward -IC:/Qt1/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include -IC:/Qt1/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed -IC:/Qt1/Tools/mingw1120_64/x86_64-w64-mingw32/include ..\..\stonelabel.h -o debug\moc_stonelabel.cpp
@@ -2684,12 +2690,12 @@ debug/Login.o: ../../Login.cpp ../../login.h \
 		../../game.h \
 		../../globalvalue.h \
 		../../stonelabel.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/QMouseEvent \
 		../../gametimer.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/QTimer \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qtimer.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qbasictimer.h \
 		../../pause.h \
-		C:/Qt1/6.7.3/mingw_64/include/QtGui/QMouseEvent \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QProgressDialog \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qprogressdialog.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QProgressBar \
@@ -2916,7 +2922,27 @@ debug/client.o: ../../client.cpp ../../client.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qvariantanimation.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qabstractanimation.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qeasingcurve.h \
-		ui_client.h
+		ui_client.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtCore/QVariant \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QApplication \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qapplication.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QLabel \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qlabel.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qframe.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/qpicture.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/qtextdocument.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QLineEdit \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qlineedit.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/qtextcursor.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/qtextformat.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/qpen.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/qtextoption.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QPushButton \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qpushbutton.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qabstractbutton.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QStatusBar \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qstatusbar.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QWidget
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\client.o ..\..\client.cpp
 
 debug/game.o: ../../game.cpp ../../game.h \
@@ -3112,13 +3138,13 @@ debug/game.o: ../../game.cpp ../../game.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtGui/qguiapplication_platform.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtGui/qpicture.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtGui/qtextdocument.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/QMouseEvent \
 		../../gametimer.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/QTimer \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qtimer.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qbasictimer.h \
 		../../pause.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QWidget \
-		C:/Qt1/6.7.3/mingw_64/include/QtGui/QMouseEvent \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QProgressDialog \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qprogressdialog.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qdialog.h \
@@ -3468,6 +3494,7 @@ debug/globalvalue.o: ../../globalvalue.cpp ../../globalvalue.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtGui/qguiapplication_platform.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtGui/qpicture.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtGui/qtextdocument.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/QMouseEvent \
 		../../StoneLabel.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\globalvalue.o ..\..\globalvalue.cpp
 
@@ -3879,13 +3906,13 @@ debug/main.o: ../../main.cpp ../../mainwindow.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qframe.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtGui/qpicture.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtGui/qtextdocument.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/QMouseEvent \
 		../../gametimer.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/QTimer \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qtimer.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qbasictimer.h \
 		../../pause.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QWidget \
-		C:/Qt1/6.7.3/mingw_64/include/QtGui/QMouseEvent \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QProgressDialog \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qprogressdialog.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qdialog.h \
@@ -4121,13 +4148,13 @@ debug/mainwindow.o: ../../mainwindow.cpp ../../mainwindow.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qframe.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtGui/qpicture.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtGui/qtextdocument.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/QMouseEvent \
 		../../gametimer.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/QTimer \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qtimer.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qbasictimer.h \
 		../../pause.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QWidget \
-		C:/Qt1/6.7.3/mingw_64/include/QtGui/QMouseEvent \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QProgressDialog \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qprogressdialog.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qdialog.h \
@@ -4374,6 +4401,7 @@ debug/settingwidget.o: ../../settingwidget.cpp ../../settingwidget.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qframe.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtGui/qpicture.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtGui/qtextdocument.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/QMouseEvent \
 		../../globalValue.h \
 		../../hoverbutton.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtMultimedia/QSoundEffect \
@@ -5040,7 +5068,21 @@ debug/stonelabel.o: ../../stonelabel.cpp ../../stonelabel.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qlocale.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtGui/qguiapplication_platform.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtGui/qpicture.h \
-		C:/Qt1/6.7.3/mingw_64/include/QtGui/qtextdocument.h
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/qtextdocument.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/QMouseEvent \
+		../../game.h \
+		../../globalvalue.h \
+		../../gametimer.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtCore/QTimer \
+		C:/Qt1/6.7.3/mingw_64/include/QtCore/qtimer.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtCore/qbasictimer.h \
+		../../pause.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QWidget \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QProgressDialog \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qprogressdialog.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qdialog.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QProgressBar \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qprogressbar.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\stonelabel.o ..\..\stonelabel.cpp
 
 debug/utils.o: ../../utils.cpp ../../utils.h \

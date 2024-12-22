@@ -3,8 +3,9 @@
 #include <hoverbutton.h>
 #include <stonelabel.h>
 #include<globalvalue.h>
+#include "PixmapSlider.h"
 
-settingwidget::settingwidget(QWidget *parent) : QDialog(parent), difficulty(4), stoneMode("gemstone")
+settingwidget::settingwidget(QSoundEffect* s,QWidget *parent) : QDialog(parent), difficulty(4), stoneMode("gemstone"),sound(s)
 {
     ui = new Ui::settingwidget();  // 使用 new 初始化 ui 指针
     ui->setupUi(this);
@@ -64,6 +65,17 @@ settingwidget::settingwidget(QWidget *parent) : QDialog(parent), difficulty(4), 
     vegetableButton->move(ui->Vegetable->geometry().topLeft()); // 使用几何矩形的位置来设置
     connect(vegetableButton, &QPushButton::clicked, this, &settingwidget::on_Vegetable_clicked);
     ui->Vegetable->hide();  // 隐藏原按钮
+
+    PixmapSlider* slider1=new PixmapSlider(this);
+    slider1->setVisible(true);
+    slider1->move(ui->Volume->geometry().topLeft()); // 使用几何矩形的位置来设置
+    slider1->SetChannelImage(":/Settingpage/slider-track-1.png","");
+    slider1->SetThumbImage(":/Settingpage/thumb.png",":/picture/Settingpage/thumb.png");
+    slider1->SetRange(0, 99);
+    slider1->SetPos(99,false);
+    QObject::connect(slider1, SIGNAL(valueChanged(int)), this, SLOT(onVolumeValueChanged(int)));
+    ui->Volume->hide();
+    //设置音量的滑条
 }
 
 
@@ -110,3 +122,9 @@ void settingwidget::on_Vegetable_clicked()
 {
     StoneLabel::stoneMode = "Vegetable";
 }
+
+void settingwidget::onVolumeValueChanged(int i)
+{
+    ::volume=(double)i/100;
+    sound->setVolume(volume);
+}//改变背景音量
