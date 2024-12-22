@@ -31,13 +31,14 @@ public:
     QLabel *label;
     QPushButton *pushButton_4;
     QPushButton *pushButton_5;
-    QLabel *label_2;
     QPushButton *horizon;
     QPushButton *vertical;
     QPushButton *bombButton;
-    QTextBrowser *textBrowser;
     QPushButton *Tips;
     QLabel *hintRemain;
+    QPushButton *Shop;
+    QLabel *label_2;
+    QTextBrowser *textBrowser;
 
     void setupUi(QWidget *Game)
     {
@@ -46,7 +47,7 @@ public:
         Game->resize(800, 601);
         pushButton_2 = new QPushButton(Game);
         pushButton_2->setObjectName("pushButton_2");
-        pushButton_2->setGeometry(QRect(690, 90, 93, 28));
+        pushButton_2->setGeometry(QRect(670, 50, 93, 28));
         timerLabel = new QLabel(Game);
         timerLabel->setObjectName("timerLabel");
         timerLabel->setGeometry(QRect(480, 490, 41, 21));
@@ -84,37 +85,40 @@ public:
         pushButton_3->setGeometry(QRect(40, 80, 51, 31));
         lcdNumber = new QLCDNumber(Game);
         lcdNumber->setObjectName("lcdNumber");
-        lcdNumber->setGeometry(QRect(670, 210, 111, 41));
+        lcdNumber->setGeometry(QRect(660, 150, 111, 41));
         label = new QLabel(Game);
         label->setObjectName("label");
-        label->setGeometry(QRect(700, 180, 69, 19));
+        label->setGeometry(QRect(630, 160, 69, 19));
         pushButton_4 = new QPushButton(Game);
         pushButton_4->setObjectName("pushButton_4");
-        pushButton_4->setGeometry(QRect(690, 130, 93, 28));
+        pushButton_4->setGeometry(QRect(670, 80, 93, 28));
         pushButton_5 = new QPushButton(Game);
         pushButton_5->setObjectName("pushButton_5");
-        pushButton_5->setGeometry(QRect(700, 370, 81, 28));
-        label_2 = new QLabel(Game);
-        label_2->setObjectName("label_2");
-        label_2->setGeometry(QRect(700, 270, 69, 19));
+        pushButton_5->setGeometry(QRect(670, 110, 93, 28));
         horizon = new QPushButton(Game);
         horizon->setObjectName("horizon");
-        horizon->setGeometry(QRect(695, 457, 51, 41));
+        horizon->setGeometry(QRect(650, 410, 51, 41));
         vertical = new QPushButton(Game);
         vertical->setObjectName("vertical");
-        vertical->setGeometry(QRect(700, 520, 51, 41));
+        vertical->setGeometry(QRect(720, 410, 51, 41));
         bombButton = new QPushButton(Game);
         bombButton->setObjectName("bombButton");
         bombButton->setGeometry(QRect(660, 280, 91, 31));
-        textBrowser = new QTextBrowser(Game);
-        textBrowser->setObjectName("textBrowser");
-        textBrowser->setGeometry(QRect(670, 300, 111, 41));
         Tips = new QPushButton(Game);
         Tips->setObjectName("Tips");
         Tips->setGeometry(QRect(660, 370, 91, 31));
         hintRemain = new QLabel(Game);
         hintRemain->setObjectName("hintRemain");
         hintRemain->setGeometry(QRect(670, 340, 81, 21));
+        Shop = new QPushButton(Game);
+        Shop->setObjectName("Shop");
+        Shop->setGeometry(QRect(660, 490, 101, 41));
+        label_2 = new QLabel(Game);
+        label_2->setObjectName("label_2");
+        label_2->setGeometry(QRect(620, 220, 51, 20));
+        textBrowser = new QTextBrowser(Game);
+        textBrowser->setObjectName("textBrowser");
+        textBrowser->setGeometry(QRect(660, 210, 111, 41));
 
         retranslateUi(Game);
 
@@ -127,12 +131,16 @@ public:
         pushButton_2->setText(QCoreApplication::translate("Game", "\346\216\222\350\241\214\346\246\234", nullptr));
         timerLabel->setText(QCoreApplication::translate("Game", "25s", nullptr));
         pushButton_3->setText(QCoreApplication::translate("Game", "\346\232\202\345\201\234", nullptr));
-        label->setText(QCoreApplication::translate("Game", "\345\210\206\346\225\260", nullptr));
+        label->setText(QCoreApplication::translate("Game", "\345\210\206\346\225\260\357\274\232", nullptr));
         pushButton_4->setText(QCoreApplication::translate("Game", "\344\270\213\344\270\200\345\205\263", nullptr));
         pushButton_5->setText(QCoreApplication::translate("Game", "\351\207\215\347\275\256", nullptr));
         horizon->setText(QCoreApplication::translate("Game", "horizon", nullptr));
         vertical->setText(QCoreApplication::translate("Game", "vertical", nullptr));
-        bombButton->setText(QCoreApplication::translate("Game", "\350\277\207\345\205\263\345\210\206\346\225\260", nullptr));
+        bombButton->setText(QCoreApplication::translate("Game", "bomb", nullptr));
+        Tips->setText(QCoreApplication::translate("Game", "Tips", nullptr));
+        hintRemain->setText(QCoreApplication::translate("Game", "\345\211\251\344\275\231\357\274\232", nullptr));
+        Shop->setText(QCoreApplication::translate("Game", "Shop", nullptr));
+        label_2->setText(QCoreApplication::translate("Game", "\347\233\256\346\240\207\345\276\227\345\210\206", nullptr));
         textBrowser->setHtml(QCoreApplication::translate("Game", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
@@ -141,8 +149,6 @@ public:
 "li.checked::marker { content: \"\\2612\"; }\n"
 "</style></head><body style=\" font-family:'Microsoft YaHei UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
 "<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", nullptr));
-        Tips->setText(QCoreApplication::translate("Game", "Tips", nullptr));
-        hintRemain->setText(QCoreApplication::translate("Game", "\345\211\251\344\275\231\357\274\2323", nullptr));
     } // retranslateUi
 
 };

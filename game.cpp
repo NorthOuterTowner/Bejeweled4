@@ -199,7 +199,11 @@ void Game::mousePressEvent(QMouseEvent *event) {
     int col = (x - leftSpacer) / 48, row = (y - upSpacer) / 48;
 
     StoneLabel* curLabel = stones[row][col];
-
+    if (isBombMode) {
+        // 如果当前处于炸弹模式，触发炸弹效果
+        triggerBomb(row, col);
+        return;
+    }
     if (!change) {
         isComboing = true;
         waitLabel = curLabel;
@@ -778,7 +782,30 @@ bool Game::checkAdventureWin() const
     }
     return false;
 }
+void Game::triggerBomb(int row, int col) {
+    if (!isBombMode) {
+        return;  // 如果不处于炸弹模式，则不处理
+    }
 
+    // 触发炸弹效果，消除选中位置周围3x3区域的宝石
+    for (int r = row - 1; r <= row + 1; ++r) {
+        for (int c = col - 1; c <= col + 1; ++c) {
+            if (r >= 0 && r < Game::jewelNum && c >= 0 && c < Game::jewelNum) {
+                // 如果位置有效，消除该宝石
+                StoneLabel* targetStone = stones[r][c];
+                if (targetStone != nullptr) {
+                    targetStone->setMatched(true);  // 标记为待消除
+                }
+            }
+        }
+    }
+
+    eliminateMatches();  // 执行消除操作
+
+    // 结束炸弹模式
+    isBombMode = false;
+    // statusBar()->clearMessage();  // 清除提示信息
+}
 //横向删除按钮
 void Game::on_horizon_clicked()
 {
@@ -892,7 +919,7 @@ void Game::highlightHints(const QList<QPair<int, int>>& hints) {
         label->setStyleSheet("background-color: red; border: 3px solid yellow;");
 
         // 设置定时器，在指定时间后移除高亮效果
-        QTimer::singleShot(3000, [label]() {
+        QTimer::singleShot(1500, [label]() {
             label->setStyleSheet("");  // 清除背景和边框
         });
 
@@ -922,16 +949,10 @@ void Game::highlightHints(const QList<QPair<int, int>>& hints) {
         anim->setLoopCount(-1);  // 无限循环动画，使箭头持续上下震动
         anim->start();
 
-        // 创建旋转动画
-        QPropertyAnimation* rotateAnim = new QPropertyAnimation(hintArrowLabel, "rotation");
-        rotateAnim->setDuration(600);  // 旋转动画的持续时间
-        rotateAnim->setStartValue(0);  // 从0度开始
-        rotateAnim->setEndValue(360);  // 旋转360度
-        rotateAnim->setLoopCount(-1);  // 无限循环旋转
-        rotateAnim->start();
+
 
         // 动画结束后删除箭头图标
-        QTimer::singleShot(3000, hintArrowLabel, [hintArrowLabel]() {
+        QTimer::singleShot(1500, hintArrowLabel, [hintArrowLabel]() {
             hintArrowLabel->deleteLater();  // 删除箭头图标
         });
     }
