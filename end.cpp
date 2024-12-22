@@ -30,3 +30,23 @@ void End::showEndUI()
     // 显示结束界面
     show();
 }
+
+void End::showAdventureWinUI()
+{
+    // 设置不同的提示信息
+    int finalScore = gameInfo->getScore();
+    ui.scoreLabel->setText(QString("恭喜你，闯关成功！你的最终得分是: %1").arg(finalScore));
+
+    // 显示结束界面
+    show();
+}
+
+void End::showAdventureLoseUI()
+{
+    // 设置不同的提示信息
+    int finalScore = gameInfo->getScore();
+    ui.scoreLabel->setText(QString("很遗憾，闯关失败！你的最终得分是: %1").arg(finalScore));
+
+    // 显示结束界面
+    show();
+}
