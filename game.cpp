@@ -747,7 +747,7 @@ int Game::getScore()
 void Game::setWinScore(int levelNum){
     winScore = 200+(levelNum-1)*50;
     ui->textBrowser->setText(QString::number(winScore));
-
+}
 
 void Game::on_bombButton_clicked() {
 

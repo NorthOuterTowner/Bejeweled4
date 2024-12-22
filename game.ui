@@ -158,6 +158,9 @@ QProgressBar::chunk {
      <y>270</y>
      <width>69</width>
      <height>19</height>
+    </rect>
+   </property>
+  </widget>
   <widget class="QPushButton" name="horizon">
    <property name="geometry">
     <rect>
