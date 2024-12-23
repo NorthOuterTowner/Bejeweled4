@@ -31,6 +31,8 @@ public:
     void setAdaptedImg(QString path, QLabel *label);  // 设置自适应图像
     ~MainWindow();
     void onReturnMainwindow();    // 返回主界面
+    void onDirectToNextLevel(); //直接转到下一关
+    void onAdventureLostBackToMain();// 冒险模式失败
     void SetButton();
 
 private:
@@ -54,6 +56,8 @@ private slots:
     void on_pushButton_9_clicked();
     void on_pushButton_10_clicked();
     void on_ranking_clicked();
+    void onRetryAdventure();
+    void onRetryClassic();
 };
 
 #endif // MAINWINDOW_H

@@ -5,6 +5,7 @@
 #include "hoverbutton.h"  // 引入 HoverButton 类
 #include <QLabel>
 #include <QPushButton>
+#include <QVBoxLayout>
 #include <QSoundEffect>
 #include <QCoreApplication>
 #include <QDebug>
@@ -158,7 +159,7 @@ MainWindow::MainWindow(QWidget *parent)
     // 在构造函数中添加以下代码，类似其他按钮的创建方式
     nextLevelButton = new HoverButton(this);
     nextLevelButton->setImage(":/icons/next_normal.png", ":/icons/next_hover.png", 150, 50);
-    QString nextLevel=QString::fromStdString("下一关:"+std::to_string(levelNum/8)+"-"+std::to_string(levelNum%8));
+    QString nextLevel=QString::fromStdString("下一关:"+std::to_string(levelNum/8+1)+"-"+std::to_string(levelNum%8+1));
     nextLevelButton->setLabel(nextLevel, 13);
     nextLevelButton->setSound(":/music/button/button_mouseover.wav", ":/music/button/button_mouseleave.wav", ":/music/button/button_press.wav", ":/music/button/button_release.wav");
     nextLevelButton->move(ui->pushButton_9->pos());
@@ -240,16 +241,39 @@ void MainWindow::on_pushButton_clicked()
     sound->stop();  // 暂停背景音乐
     gameDlg = Game::instance(nullptr, Game::GameMode::CLASSIC_MODE); // 创建游戏，设置游戏模式为经典模式
     connect(gameDlg, &Game::returnMainwindow, this, &MainWindow::onReturnMainwindow);
+    connect(gameDlg, &Game::retryClassic, this, &MainWindow::onRetryClassic);
     gameDlg->show();
     this->hide();
 }
 
 void MainWindow::onReturnMainwindow()
 {
-    std::cout<<"Return slots work"<<std::endl;
-    this->show();
+    QString nextLevel=QString::fromStdString("下一关:"+std::to_string(levelNum/8+1)+"-"+std::to_string(levelNum%8+1));
+    nextLevelButton->setLabel(nextLevel, 13);
     Game::instance()->hide();
+    this->show();
     sound->play();  // 恢复背景音乐
+}
+
+void MainWindow::onDirectToNextLevel(){
+    onReturnMainwindow();
+    on_pushButton_9_clicked();
+    QDialog dialog(this);
+    dialog.setWindowTitle("获得新宝石");
+    QVBoxLayout layout;
+    QLabel gemLabel;
+    QString pixStr=QString::fromStdString(":/"+StoneLabel::stoneMode+std::to_string(difficulty)+".png");
+    QPixmap gemPixmap(pixStr); // 替换为实际的宝石图片路径
+    gemLabel.setPixmap(gemPixmap);
+    gemLabel.setAlignment(Qt::AlignCenter);
+    gemLabel.setFixedSize(48, 48); // 设置 QLabel 大小
+    gemLabel.setScaledContents(true); // 使图片适应 QLabel 大小
+    layout.addWidget(&gemLabel);
+    QLabel textLabel("恭喜！你获得了一颗新的宝石。");
+    textLabel.setAlignment(Qt::AlignCenter);
+    layout.addWidget(&textLabel);
+    dialog.setLayout(&layout);
+    dialog.exec();
 }
 /*
 void MainWindow::on_pushButton_2_clicked()
@@ -285,6 +309,10 @@ void MainWindow::on_pushButton_8_clicked()
 
 }*/
 
+void MainWindow::onAdventureLostBackToMain(){
+    --levelNum;
+}
+
 /*冒险模式*/
 void MainWindow::on_pushButton_9_clicked()
 {
@@ -292,13 +320,16 @@ void MainWindow::on_pushButton_9_clicked()
         difficulty=4;
     }
     levelNum++;
-    QString nextLevel=QString::fromStdString("下一关:"+std::to_string(levelNum/8)+"-"+std::to_string(levelNum%8));
+    QString nextLevel=QString::fromStdString("下一关:"+std::to_string(levelNum/8+1)+"-"+std::to_string(levelNum%8+1));
     nextLevelButton->setLabel(nextLevel, 13);
     if(gameDlg){
         Game::delInstance();
     }
     gameDlg = Game::instance(nullptr, Game::GameMode::ADVENTURE_MODE,levelNum); // 创建游戏，设置游戏模式为冒险模式
     connect(gameDlg, &Game::returnMainwindow, this, &MainWindow::onReturnMainwindow);
+    connect(gameDlg, &Game::directToNextLevel, this, &MainWindow::onDirectToNextLevel);
+    connect(gameDlg, &Game::retryAdventure, this, &MainWindow::onRetryAdventure);
+    connect(gameDlg, &Game::adventureLostBackToMain, this, &MainWindow::onAdventureLostBackToMain);
     gameDlg->show();
     this->hide();
 }
@@ -367,5 +398,14 @@ void MainWindow::on_ranking_clicked()
 
     rank.exec();
 
+}
+
+void MainWindow::onRetryAdventure(){
+    levelNum--;
+    on_pushButton_9_clicked();
+}
+
+void MainWindow::onRetryClassic(){
+    on_pushButton_clicked();
 }
 

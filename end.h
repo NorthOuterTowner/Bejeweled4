@@ -16,14 +16,16 @@ public:
     void showAdventureLoseUI();//显示冒险模式失败界面
 
 signals:
-    void nextButtonClicked();
+    void nextButtonClicked(); //通知外部需要开始下一关
+    void retryGame();  // 通知外部需要重新开始游戏
 
 private slots:
     void onReturnButtonClicked();// 处理返回主菜单按钮点击的槽函数，发送返回主菜单信号给游戏类，并关闭当前结束界面
     void onNextButtonClicked();// 下一关
+    void onRetryButtonClicked();//再次挑战
 
 private:
-    Ui::End ui;
+    Ui::End *ui;
     Game* gameInfo;
 };
 
