@@ -155,7 +155,7 @@ private:
     bool initing;
 
 
-    Ui::Game *ui;
+    //Ui::Game *ui;
     bool isComboing = false; // 判断此时是否处于连击combo状态
     void setWinScore(int levelNum);//根据关卡数设置通关分数
     bool checkAdventureWin() const;//判断是否过关
