@@ -3,6 +3,11 @@
 #include <QPixmap>
 #include<QKeyEvent>
 #include <QLabel>  // 引入 QLabel 用于显示图片和文本
+#include<globalvalue.h>
+// 定义静态成员变量
+int ShopWidget::bombCount = 1;    // 炸弹数量
+int ShopWidget::horizonCount = 1; // 横向消除道具数量
+int ShopWidget::verticalCount = 1; // 竖向消除道具数量
 
 
 
@@ -22,10 +27,7 @@ ShopWidget::ShopWidget(QWidget *parent) :
     //把窗口背景设置为透明
     this->setAttribute(Qt::WA_TranslucentBackground);
 
-    // 获取道具数量
-    bombCount = game->getBombCount();
-    horizonCount = game->getHorizonCount();
-    verticalCount = game->getVerticalCount();
+
 
     // 更新UI显示炸弹数量
     ui->bombLabel->setText(QString("炸弹: %1").arg(bombCount));
@@ -106,21 +108,23 @@ void ShopWidget::on_Buy_clicked()
         switch (currentItemType) {
         case ItemType::BOMB:
             bombCount++;
-            game->setBombCount(bombCount);  // 更新 Game 中的炸弹数量
+            // 更新 Game 中的炸弹数量
             ui->bombLabel->setText(QString("炸弹: %1").arg(bombCount));
               break;
         case ItemType::HORIZON:
             horizonCount++;
-            game->setHorizonCount(horizonCount);  // 更新 Game 中的横向消除数量
+            // 更新 Game 中的横向消除数量
             ui->horizonLabel->setText(QString("横向消除: %1").arg(horizonCount));
             break;
         case ItemType::VERTICAL:
             verticalCount++;
-            game->setVerticalCount(verticalCount);  // 更新 Game 中的竖向消除数量
+           // 更新 Game 中的竖向消除数量
             ui->verticalLabel->setText(QString("竖向消除: %1").arg(verticalCount));
             break;
         }
 
+        // 更新游戏界面中的道具数量标签
+        game->updateItemCountLabels();
         // 更新显示当前积分
         ui->score->setText(QString("当前积分: %1").arg(game->getScoreToShop()));
 
@@ -167,4 +171,16 @@ void ShopWidget::on_vertical_clicked()
     ui->introduction->setText("竖向消除道具：消除一整列的宝石\n价格：30积分");
     ui->picture->show();
     ui->introduction->show();
+}
+
+// 重置道具数量
+void ShopWidget::resetItemCounts() {
+    bombCount = 1;   // 重置炸弹数量
+    horizonCount = 1; // 重置横向消除道具数量
+    verticalCount = 1; // 重置竖向消除道具数量
+
+    // 更新 UI 显示
+    ui->bombLabel->setText(QString("炸弹: %1").arg(bombCount));
+    ui->horizonLabel->setText(QString("横向: %1").arg(horizonCount));
+    ui->verticalLabel->setText(QString("竖向: %1").arg(verticalCount));
 }

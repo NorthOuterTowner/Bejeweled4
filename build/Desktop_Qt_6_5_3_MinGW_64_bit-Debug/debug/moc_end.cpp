@@ -40,27 +40,35 @@ namespace {
 struct qt_meta_stringdata_CLASSEndENDCLASS_t {};
 static constexpr auto qt_meta_stringdata_CLASSEndENDCLASS = QtMocHelpers::stringData(
     "End",
+    "nextButtonClicked",
+    "",
     "onReturnButtonClicked",
-    ""
+    "onNextButtonClicked"
 );
 #else  // !QT_MOC_HAS_STRING_DATA
 struct qt_meta_stringdata_CLASSEndENDCLASS_t {
-    uint offsetsAndSizes[6];
+    uint offsetsAndSizes[10];
     char stringdata0[4];
-    char stringdata1[22];
+    char stringdata1[18];
     char stringdata2[1];
+    char stringdata3[22];
+    char stringdata4[20];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(sizeof(qt_meta_stringdata_CLASSEndENDCLASS_t::offsetsAndSizes) + ofs), len 
 Q_CONSTINIT static const qt_meta_stringdata_CLASSEndENDCLASS_t qt_meta_stringdata_CLASSEndENDCLASS = {
     {
         QT_MOC_LITERAL(0, 3),  // "End"
-        QT_MOC_LITERAL(4, 21),  // "onReturnButtonClicked"
-        QT_MOC_LITERAL(26, 0)   // ""
+        QT_MOC_LITERAL(4, 17),  // "nextButtonClicked"
+        QT_MOC_LITERAL(22, 0),  // ""
+        QT_MOC_LITERAL(23, 21),  // "onReturnButtonClicked"
+        QT_MOC_LITERAL(45, 19)   // "onNextButtonClicked"
     },
     "End",
+    "nextButtonClicked",
+    "",
     "onReturnButtonClicked",
-    ""
+    "onNextButtonClicked"
 };
 #undef QT_MOC_LITERAL
 #endif // !QT_MOC_HAS_STRING_DATA
@@ -72,17 +80,25 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSEndENDCLASS[] = {
       11,       // revision
        0,       // classname
        0,    0, // classinfo
-       1,   14, // methods
+       3,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       0,       // signalCount
+       1,       // signalCount
+
+ // signals: name, argc, parameters, tag, flags, initial metatype offsets
+       1,    0,   32,    2, 0x06,    1 /* Public */,
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,   20,    2, 0x08,    1 /* Private */,
+       3,    0,   33,    2, 0x08,    2 /* Private */,
+       4,    0,   34,    2, 0x08,    3 /* Private */,
+
+ // signals: parameters
+    QMetaType::Void,
 
  // slots: parameters
+    QMetaType::Void,
     QMetaType::Void,
 
        0        // eod
@@ -97,7 +113,11 @@ Q_CONSTINIT const QMetaObject End::staticMetaObject = { {
     qt_incomplete_metaTypeArray<qt_meta_stringdata_CLASSEndENDCLASS_t,
         // Q_OBJECT / Q_GADGET
         QtPrivate::TypeAndForceComplete<End, std::true_type>,
+        // method 'nextButtonClicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'onReturnButtonClicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'onNextButtonClicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>
     >,
     nullptr
@@ -109,8 +129,19 @@ void End::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **
         auto *_t = static_cast<End *>(_o);
         (void)_t;
         switch (_id) {
-        case 0: _t->onReturnButtonClicked(); break;
+        case 0: _t->nextButtonClicked(); break;
+        case 1: _t->onReturnButtonClicked(); break;
+        case 2: _t->onNextButtonClicked(); break;
         default: ;
+        }
+    } else if (_c == QMetaObject::IndexOfMethod) {
+        int *result = reinterpret_cast<int *>(_a[0]);
+        {
+            using _t = void (End::*)();
+            if (_t _q_method = &End::nextButtonClicked; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+                *result = 0;
+                return;
+            }
         }
     }
     (void)_a;
@@ -135,14 +166,20 @@ int End::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 1)
+        if (_id < 3)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 1;
+        _id -= 3;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 1)
+        if (_id < 3)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 1;
+        _id -= 3;
     }
     return _id;
+}
+
+// SIGNAL 0
+void End::nextButtonClicked()
+{
+    QMetaObject::activate(this, &staticMetaObject, 0, nullptr);
 }
 QT_WARNING_POP

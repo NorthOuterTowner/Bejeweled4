@@ -615,6 +615,7 @@ release/moc_Login.cpp: ../../Login.h \
 		../../../../../../Qt/6.5.3/mingw_64/include/QtNetwork/qtnetworkexports.h \
 		../../../../../../Qt/6.5.3/mingw_64/include/QtNetwork/qabstractsocket.h \
 		../../../../../../Qt/6.5.3/mingw_64/include/QtNetwork/qhostaddress.h \
+		../../client.h \
 		release/moc_predefs.h \
 		../../../../Qt/6.5.3/mingw_64/bin/moc.exe
 	D:\Qt\6.5.3\mingw_64\bin\moc.exe $(DEFINES) --include D:/GitTest/Bejeweled4/build/Desktop_Qt_6_5_3_MinGW_64_bit-Debug/release/moc_predefs.h -ID:/Qt/6.5.3/mingw_64/mkspecs/win32-g++ -ID:/GitTest/Bejeweled4 -ID:/Qt/6.5.3/mingw_64/include -ID:/Qt/6.5.3/mingw_64/include/QtWidgets -ID:/Qt/6.5.3/mingw_64/include/QtMultimedia -ID:/Qt/6.5.3/mingw_64/include/QtGui -ID:/Qt/6.5.3/mingw_64/include/QtNetwork -ID:/Qt/6.5.3/mingw_64/include/QtSql -ID:/Qt/6.5.3/mingw_64/include/QtCore -I. -ID:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++ -ID:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32 -ID:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/backward -ID:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include -ID:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed -ID:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include ..\..\Login.h -o release\moc_Login.cpp
@@ -2488,6 +2489,31 @@ release/moc_shopwidget.cpp: ../../shopwidget.h \
 		../../../../../../Qt/6.5.3/mingw_64/include/QtGui/qpen.h \
 		../../../../../../Qt/6.5.3/mingw_64/include/QtGui/QPixmap \
 		ui_shopwidget.h \
+		../../game.h \
+		../../globalvalue.h \
+		../../stonelabel.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/QLabel \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/qlabel.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/qframe.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtGui/qpicture.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtGui/qtextdocument.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtGui/QMouseEvent \
+		../../gametimer.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtCore/QTimer \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtCore/qtimer.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtCore/qbasictimer.h \
+		../../pause.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/QProgressDialog \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/qprogressdialog.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/qdialog.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/QProgressBar \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/qprogressbar.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtMultimedia/QSoundEffect \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtMultimedia/qsoundeffect.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtMultimedia/qtmultimediaglobal.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtMultimedia/qtmultimedia-config.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtMultimedia/qtmultimediaexports.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtMultimedia/qaudio.h \
 		release/moc_predefs.h \
 		../../../../Qt/6.5.3/mingw_64/bin/moc.exe
 	D:\Qt\6.5.3\mingw_64\bin\moc.exe $(DEFINES) --include D:/GitTest/Bejeweled4/build/Desktop_Qt_6_5_3_MinGW_64_bit-Debug/release/moc_predefs.h -ID:/Qt/6.5.3/mingw_64/mkspecs/win32-g++ -ID:/GitTest/Bejeweled4 -ID:/Qt/6.5.3/mingw_64/include -ID:/Qt/6.5.3/mingw_64/include/QtWidgets -ID:/Qt/6.5.3/mingw_64/include/QtMultimedia -ID:/Qt/6.5.3/mingw_64/include/QtGui -ID:/Qt/6.5.3/mingw_64/include/QtNetwork -ID:/Qt/6.5.3/mingw_64/include/QtSql -ID:/Qt/6.5.3/mingw_64/include/QtCore -I. -ID:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++ -ID:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32 -ID:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/backward -ID:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include -ID:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed -ID:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include ..\..\shopwidget.h -o release\moc_shopwidget.cpp
@@ -2679,6 +2705,17 @@ release/moc_signup.cpp: ../../signup.h \
 		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/qframe.h \
 		../../../../../../Qt/6.5.3/mingw_64/include/QtGui/qpicture.h \
 		../../../../../../Qt/6.5.3/mingw_64/include/QtGui/qtextdocument.h \
+		../../client.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/QMainWindow \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/qmainwindow.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/qtabwidget.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtNetwork/QTcpSocket \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtNetwork/qtcpsocket.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtNetwork/qtnetworkglobal.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtNetwork/qtnetwork-config.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtNetwork/qtnetworkexports.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtNetwork/qabstractsocket.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtNetwork/qhostaddress.h \
 		release/moc_predefs.h \
 		../../../../Qt/6.5.3/mingw_64/bin/moc.exe
 	D:\Qt\6.5.3\mingw_64\bin\moc.exe $(DEFINES) --include D:/GitTest/Bejeweled4/build/Desktop_Qt_6_5_3_MinGW_64_bit-Debug/release/moc_predefs.h -ID:/Qt/6.5.3/mingw_64/mkspecs/win32-g++ -ID:/GitTest/Bejeweled4 -ID:/Qt/6.5.3/mingw_64/include -ID:/Qt/6.5.3/mingw_64/include/QtWidgets -ID:/Qt/6.5.3/mingw_64/include/QtMultimedia -ID:/Qt/6.5.3/mingw_64/include/QtGui -ID:/Qt/6.5.3/mingw_64/include/QtNetwork -ID:/Qt/6.5.3/mingw_64/include/QtSql -ID:/Qt/6.5.3/mingw_64/include/QtCore -I. -ID:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++ -ID:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32 -ID:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/backward -ID:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include -ID:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed -ID:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include ..\..\signup.h -o release\moc_signup.cpp
@@ -3096,6 +3133,7 @@ release/Login.o: ../../Login.cpp ../../login.h \
 		../../../../../../Qt/6.5.3/mingw_64/include/QtNetwork/qtnetworkexports.h \
 		../../../../../../Qt/6.5.3/mingw_64/include/QtNetwork/qabstractsocket.h \
 		../../../../../../Qt/6.5.3/mingw_64/include/QtNetwork/qhostaddress.h \
+		../../client.h \
 		../../signup.h \
 		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/QWidget \
 		../../../../../../Qt/6.5.3/mingw_64/include/QtCore/QParallelAnimationGroup \
@@ -3142,7 +3180,6 @@ release/Login.o: ../../Login.cpp ../../login.h \
 		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/QDialog \
 		../../utils.h \
 		../../../../../../Qt/6.5.3/mingw_64/include/QtCore/QString \
-		../../client.h \
 		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/QGraphicsDropShadowEffect
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\Login.o ..\..\Login.cpp
 
@@ -3498,7 +3535,42 @@ release/client.o: ../../client.cpp ../../client.h \
 		../../../../../../Qt/6.5.3/mingw_64/include/QtCore/qvariantanimation.h \
 		../../../../../../Qt/6.5.3/mingw_64/include/QtCore/qabstractanimation.h \
 		../../../../../../Qt/6.5.3/mingw_64/include/QtCore/qeasingcurve.h \
-		ui_client.h
+		ui_client.h \
+		../../mainwindow.h \
+		../../game.h \
+		../../globalvalue.h \
+		../../stonelabel.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/QLabel \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/qlabel.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/qframe.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtGui/qpicture.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtGui/qtextdocument.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtGui/QMouseEvent \
+		../../gametimer.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtCore/QTimer \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtCore/qtimer.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtCore/qbasictimer.h \
+		../../pause.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/QWidget \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/QProgressDialog \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/qprogressdialog.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/QProgressBar \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/qprogressbar.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtMultimedia/QSoundEffect \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtMultimedia/qsoundeffect.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtMultimedia/qtmultimediaglobal.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtMultimedia/qtmultimedia-config.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtMultimedia/qtmultimediaexports.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtMultimedia/qaudio.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/QPushButton \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/qpushbutton.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/qabstractbutton.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtGui/QCursor \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/QGraphicsOpacityEffect \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/qgraphicseffect.h \
+		../../hoverbutton.h \
+		../../rankdialog.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/QDialog
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\client.o ..\..\client.cpp
 
 release/end.o: ../../end.cpp ../../end.h \
@@ -5502,12 +5574,34 @@ release/shopwidget.o: ../../shopwidget.cpp ../../ShopWidget.h \
 		../../../../../../Qt/6.5.3/mingw_64/include/QtGui/qpen.h \
 		../../../../../../Qt/6.5.3/mingw_64/include/QtGui/QPixmap \
 		ui_shopwidget.h \
-		../../../../../../Qt/6.5.3/mingw_64/include/QtGui/QKeyEvent \
+		../../game.h \
+		../../globalvalue.h \
+		../../stonelabel.h \
 		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/QLabel \
 		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/qlabel.h \
 		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/qframe.h \
 		../../../../../../Qt/6.5.3/mingw_64/include/QtGui/qpicture.h \
-		../../../../../../Qt/6.5.3/mingw_64/include/QtGui/qtextdocument.h
+		../../../../../../Qt/6.5.3/mingw_64/include/QtGui/qtextdocument.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtGui/QMouseEvent \
+		../../gametimer.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtCore/QTimer \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtCore/qtimer.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtCore/qbasictimer.h \
+		../../pause.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/QProgressDialog \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/qprogressdialog.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/qdialog.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/QProgressBar \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/qprogressbar.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtMultimedia/QSoundEffect \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtMultimedia/qsoundeffect.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtMultimedia/qtmultimediaglobal.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtMultimedia/qtmultimedia-config.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtMultimedia/qtmultimediaexports.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtMultimedia/qaudio.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtGui/QKeyEvent \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/QMessageBox \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/qmessagebox.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\shopwidget.o ..\..\shopwidget.cpp
 
 release/signup.o: ../../signup.cpp ../../signup.h \
@@ -5697,11 +5791,19 @@ release/signup.o: ../../signup.cpp ../../signup.h \
 		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/qframe.h \
 		../../../../../../Qt/6.5.3/mingw_64/include/QtGui/qpicture.h \
 		../../../../../../Qt/6.5.3/mingw_64/include/QtGui/qtextdocument.h \
-		ui_signup.h \
-		../../Login.h \
+		../../client.h \
 		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/QMainWindow \
 		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/qmainwindow.h \
 		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/qtabwidget.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtNetwork/QTcpSocket \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtNetwork/qtcpsocket.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtNetwork/qtnetworkglobal.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtNetwork/qtnetwork-config.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtNetwork/qtnetworkexports.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtNetwork/qabstractsocket.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtNetwork/qhostaddress.h \
+		ui_signup.h \
+		../../Login.h \
 		../../../../../../Qt/6.5.3/mingw_64/include/QtSql/QSqlDatabase \
 		../../../../../../Qt/6.5.3/mingw_64/include/QtSql/qsqldatabase.h \
 		../../../../../../Qt/6.5.3/mingw_64/include/QtSql/qtsqlglobal.h \
@@ -5713,13 +5815,6 @@ release/signup.o: ../../signup.cpp ../../signup.h \
 		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/qmessagebox.h \
 		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/qdialog.h \
 		../../../../../../Qt/6.5.3/mingw_64/include/QtCore/QDebug \
-		../../../../../../Qt/6.5.3/mingw_64/include/QtNetwork/QTcpSocket \
-		../../../../../../Qt/6.5.3/mingw_64/include/QtNetwork/qtcpsocket.h \
-		../../../../../../Qt/6.5.3/mingw_64/include/QtNetwork/qtnetworkglobal.h \
-		../../../../../../Qt/6.5.3/mingw_64/include/QtNetwork/qtnetwork-config.h \
-		../../../../../../Qt/6.5.3/mingw_64/include/QtNetwork/qtnetworkexports.h \
-		../../../../../../Qt/6.5.3/mingw_64/include/QtNetwork/qabstractsocket.h \
-		../../../../../../Qt/6.5.3/mingw_64/include/QtNetwork/qhostaddress.h \
 		../../utils.h \
 		../../../../../../Qt/6.5.3/mingw_64/include/QtCore/QString
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\signup.o ..\..\signup.cpp

@@ -20,6 +20,13 @@ public:
     ~ShopWidget();  // 析构函数
     void keyPressEvent(QKeyEvent *event);
 
+    // 静态成员变量，所有实例共享
+    static int bombCount;    // 炸弹数量
+    static int horizonCount; // 横向消除道具数量
+    static int verticalCount; // 竖向消除道具数量
+    // 重置道具数量
+    void resetItemCounts();
+
 protected:
     void paintEvent(QPaintEvent *event) override;  // 绘制事件
 
@@ -40,11 +47,8 @@ private:
         VERTICAL     // 竖向消除
     };
 
+ ItemType currentItemType;  // 当前选中的道具类型
 
-    ItemType currentItemType;  // 当前选中的道具类型
-    int bombCount;          // 炸弹数量
-    int horizonCount = 0;   // 横向消除道具数量
-    int verticalCount = 0;  // 竖向消除道具数量
 };
 
 #endif // SHOPWIDGET_H
