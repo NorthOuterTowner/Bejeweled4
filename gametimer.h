@@ -30,7 +30,7 @@ private slots:
 private:
     // QTimer对象指针，用于实现计时功能
     QTimer *timer;
-    int remainingSeconds;
+    int remainingSeconds = -1;//剩余时间
 };
 
 #endif // GAMETIMER_H

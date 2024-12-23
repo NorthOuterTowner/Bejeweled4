@@ -70,16 +70,32 @@ public:
     // 设置分数
     void setScore(int newScore);
     //道具商店数据
-    int getBombCount() const; // 获取炸弹数量
-    int getHorizonCount() const; // 获取横向消除数量
-    int getVerticalCount() const; // 获取竖向消除数量
+    int bombCount;
+    int horizonCount;
+    int verticalCount;
+
+    // 获取当前炸弹数量
+    int getBombCount() const { return bombCount; }
+    void setBombCount(int count) { bombCount = count; }
+
+    // 获取当前横向消除道具数量
+    int getHorizonCount() const { return horizonCount; }
+    void setHorizonCount(int count) { horizonCount = count; }
+
+    // 获取当前竖向消除道具数量
+    int getVerticalCount() const { return verticalCount; }
+    void setVerticalCount(int count) { verticalCount = count; }
     void updateItemCountLabels();  // 更新道具数量标签的函数
 
     Ui::Game *ui;
 signals:
     void eliminateAgainSignal();
     void returnMainwindow();
+    void directToNextLevel();
     void initEndSignal();
+    void adventureLostBackToMain();
+    void retryAdventure();
+    void retryClassic();
 private slots:
     void initEnd();
     void onDropAnimationFinished() {
@@ -95,11 +111,11 @@ private slots:
         }
     }
     void onEliminateAgain();//判断新落下的棋子是否造成“连消”
-    void on_pushButton_3_clicked();
+    void on_pushButton_3_clicked();//暂停
     void resume();//处理继续游戏信号
     void on_returnFromPauseToMainMenu();  //处理从暂停界面返回主菜单的信号
-    void on_pushButton_4_clicked();
-    void onNextButtonClicked();
+    void onNextButtonClicked();//下一关
+    void onRetryGame();//重新挑战
     void on_pushButton_5_clicked();
     void onTimeExpired();//倒计时结束时的处理
 
@@ -134,7 +150,7 @@ private:
     bool isTimeExpired = false;//判断时间是否结束
     QProgressBar *progressBar = nullptr;  //计时进度条
     void updateTimerDisplay();//更新界面上显示倒计时的QLabel的文本内容
-    int animationsLeft;  // 重置动画计数器
+    int animationsLeft = 0;  // 重置动画计数器
     Pause *pause = nullptr;  // 暂停界面指针
     void resetGameState();//用于重置游戏状态
     End *end = nullptr;//结束界面指针
@@ -152,7 +168,7 @@ private:
     bool checkAdventureWin() const;//判断是否过关
     int score=0;  //记录游戏当前积分
     bool hasStartedScoring=false;  //标记是否可以开始计分，初始化为false，表示未开始计分
-    int levelNum = -1;//关卡难度
+    int levelNumber = -1;//关卡难度
     int winScore;//目标分数
     bool horizon=false;//是否要横向消除
     bool vertical=false;//是否竖向消除

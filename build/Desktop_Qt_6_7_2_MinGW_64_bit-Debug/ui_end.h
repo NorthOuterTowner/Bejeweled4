@@ -23,6 +23,7 @@ public:
     QLabel *scoreLabel;
     QPushButton *returnButton;
     QPushButton *nextButton;
+    QPushButton *retryButton;
 
     void setupUi(QWidget *End)
     {
@@ -52,6 +53,16 @@ public:
 "    border-radius: 5px;       /* \345\234\206\350\247\222 */\n"
 "    font-size: 12px;          /* \345\255\227\344\275\223\345\244\247\345\260\217 */\n"
 "}"));
+        retryButton = new QPushButton(End);
+        retryButton->setObjectName("retryButton");
+        retryButton->setGeometry(QRect(320, 160, 71, 31));
+        retryButton->setStyleSheet(QString::fromUtf8("QPushButton {\n"
+"    color: rgb(255, 170, 0);             /* \346\226\207\345\255\227\351\242\234\350\211\262 */\n"
+"	font: 700 9pt \"Microsoft YaHei UI\";\n"
+"    border: 2px solid #2980b9; /* \350\276\271\346\241\206\351\242\234\350\211\262 */\n"
+"    border-radius: 5px;       /* \345\234\206\350\247\222 */\n"
+"    font-size: 12px;          /* \345\255\227\344\275\223\345\244\247\345\260\217 */\n"
+"}"));
 
         retranslateUi(End);
 
@@ -64,6 +75,7 @@ public:
         scoreLabel->setText(QCoreApplication::translate("End", "\346\270\270\346\210\217\347\273\223\346\235\237", nullptr));
         returnButton->setText(QCoreApplication::translate("End", "\350\277\224\345\233\236\344\270\273\350\217\234\345\215\225", nullptr));
         nextButton->setText(QCoreApplication::translate("End", "\344\270\213\344\270\200\345\205\263", nullptr));
+        retryButton->setText(QCoreApplication::translate("End", "\351\207\215\346\226\260\346\214\221\346\210\230", nullptr));
     } // retranslateUi
 
 };

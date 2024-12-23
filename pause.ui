@@ -16,56 +16,6 @@
   <property name="styleSheet">
    <string notr="true"/>
   </property>
-  <widget class="QPushButton" name="returnButton">
-   <property name="geometry">
-    <rect>
-     <x>290</x>
-     <y>290</y>
-     <width>121</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QPushButton {
-    color: rgb(255, 170, 0);             /* 文字颜色 */
-    border: 2px solid #2980b9; /* 边框颜色 */
-    border-radius: 5px;       /* 圆角 */
-    font-size:12px;          /* 字体大小 */
-}
-
-QPushButton:hover {
-    background-color: rgb(170, 170, 127)/* 悬停时背景颜色 */
-}</string>
-   </property>
-   <property name="text">
-    <string>返回主菜单</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="resumeButton">
-   <property name="geometry">
-    <rect>
-     <x>290</x>
-     <y>230</y>
-     <width>121</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QPushButton {
-    color: rgb(255, 170, 0);             /* 文字颜色 */
-    border: 2px solid #2980b9; /* 边框颜色 */
-    border-radius: 5px;       /* 圆角 */
-    font-size:12px;          /* 字体大小 */
-}
-
-QPushButton:hover {
-    background-color: rgb(170, 170, 127)/* 悬停时背景颜色 */
-}</string>
-   </property>
-   <property name="text">
-    <string>恢复游戏</string>
-   </property>
-  </widget>
   <widget class="QPushButton" name="background">
    <property name="geometry">
     <rect>
@@ -131,11 +81,81 @@ QLabel[alignment=&quot;center&quot;] {
     <string/>
    </property>
   </widget>
-  <zorder>background</zorder>
-  <zorder>label</zorder>
-  <zorder>resumeButton</zorder>
-  <zorder>returnButton</zorder>
-  <zorder>levelInfo</zorder>
+  <widget class="QPushButton" name="resumeButton">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>220</y>
+     <width>121</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    color: rgb(255, 170, 0);             /* 文字颜色 */
+    border: 2px solid #2980b9; /* 边框颜色 */
+    border-radius: 5px;       /* 圆角 */
+    font-size:12px;          /* 字体大小 */
+}
+
+QPushButton:hover {
+    background-color: rgb(170, 170, 127)/* 悬停时背景颜色 */
+}</string>
+   </property>
+   <property name="text">
+    <string>恢复游戏</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="renewButton">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>280</y>
+     <width>121</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    color: rgb(255, 170, 0);             /* 文字颜色 */
+    border: 2px solid #2980b9; /* 边框颜色 */
+    border-radius: 5px;       /* 圆角 */
+    font-size:12px;          /* 字体大小 */
+}
+
+QPushButton:hover {
+    background-color: rgb(170, 170, 127)/* 悬停时背景颜色 */
+}</string>
+   </property>
+   <property name="text">
+    <string>再次挑战</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="returnButton">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>340</y>
+     <width>121</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    color: rgb(255, 170, 0);             /* 文字颜色 */
+    border: 2px solid #2980b9; /* 边框颜色 */
+    border-radius: 5px;       /* 圆角 */
+    font-size:12px;          /* 字体大小 */
+}
+
+QPushButton:hover {
+    background-color: rgb(170, 170, 127)/* 悬停时背景颜色 */
+}</string>
+   </property>
+   <property name="text">
+    <string>返回主菜单</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

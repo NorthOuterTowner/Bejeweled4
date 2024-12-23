@@ -53,7 +53,7 @@ QLabel[alignment=&quot;center&quot;] {
 }</string>
    </property>
    <property name="text">
-    <string>25s</string>
+    <string>--</string>
    </property>
    <property name="scaledContents">
     <bool>true</bool>
@@ -86,7 +86,10 @@ QProgressBar::chunk {
 }</string>
    </property>
    <property name="value">
-    <number>24</number>
+    <number>100</number>
+   </property>
+   <property name="format">
+    <string/>
    </property>
   </widget>
   <widget class="QPushButton" name="pushButton_3">
@@ -106,7 +109,7 @@ QProgressBar::chunk {
    <property name="geometry">
     <rect>
      <x>660</x>
-     <y>170</y>
+     <y>120</y>
      <width>111</width>
      <height>41</height>
     </rect>
@@ -115,8 +118,8 @@ QProgressBar::chunk {
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>680</x>
-     <y>140</y>
+     <x>630</x>
+     <y>120</y>
      <width>69</width>
      <height>19</height>
     </rect>
@@ -125,24 +128,11 @@ QProgressBar::chunk {
     <string>分数：</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_4">
-   <property name="geometry">
-    <rect>
-     <x>670</x>
-     <y>80</y>
-     <width>93</width>
-     <height>28</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>下一关</string>
-   </property>
-  </widget>
   <widget class="QPushButton" name="pushButton_5">
    <property name="geometry">
     <rect>
      <x>670</x>
-     <y>110</y>
+     <y>80</y>
      <width>93</width>
      <height>28</height>
     </rect>
@@ -271,21 +261,21 @@ QProgressBar::chunk {
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>620</x>
-     <y>220</y>
+     <x>610</x>
+     <y>180</y>
      <width>51</width>
      <height>20</height>
     </rect>
    </property>
    <property name="text">
-    <string>目标得分</string>
+    <string>目标得分：</string>
    </property>
   </widget>
   <widget class="QTextBrowser" name="textBrowser">
    <property name="geometry">
     <rect>
      <x>660</x>
-     <y>210</y>
+     <y>170</y>
      <width>111</width>
      <height>41</height>
     </rect>
