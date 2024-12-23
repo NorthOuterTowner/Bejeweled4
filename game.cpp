@@ -62,10 +62,7 @@ Game::Game(QWidget *parent,Game::GameMode mode)
     , gameMode(mode)
     , ui(new Ui::Game)
 {
-    // 确保道具数量初始化为 0 或其他合理的初始值
-    bombCount = 0;
-    horizonCount = 0;
-    verticalCount = 0;
+
 
     // gameItems = new GameItems();  // 初始化 GameItems
     ui->setupUi(this);
@@ -170,19 +167,16 @@ void Game::init(){
     centralWidget->setGeometry(leftSpacer,upSpacer,384,384);
     centralWidget->setParent(this);
 
-    // 获取道具数量
-    bombCount = this->getBombCount();
-    horizonCount = this->getHorizonCount();
-    verticalCount = this->getVerticalCount();
 
-    // 更新UI显示炸弹数量
-    ui->bombLabel->setText(QString("炸弹: %1").arg(bombCount));
+    // 更新炸弹道具数量标签
+    ui->bombLabel->setText(QString("炸弹: %1").arg(ShopWidget::bombCount));
 
-    // 更新UI显示横向数量
-    ui->horizonLabel->setText(QString("横向: %1").arg(horizonCount));
-    // 更新显示当前积分
+    // 更新横向消除道具数量标签
+    ui->horizonLabel->setText(QString("横向消除: %1").arg(ShopWidget::horizonCount));
 
-    ui->verticalLabel->setText(QString("竖向: %1").arg(verticalCount));
+    // 更新竖向消除道具数量标签
+    ui->verticalLabel->setText(QString("竖向消除: %1").arg(ShopWidget::verticalCount));
+
 
     updateHintCountDisplay();  // 显示初始提示次数
     for (int row = 0; row < Game::jewelNum; row++) {
@@ -852,8 +846,18 @@ void Game::setWinScore(int levelNum){
 }
 
 void Game::on_bombButton_clicked() {
-    // 激活炸弹模式
-    isBombMode = true;
+
+
+    if(ShopWidget::bombCount > 0){
+        ShopWidget::bombCount--;  // 减少炸弹数量
+        // 激活炸弹模式
+        isBombMode = true;
+        this->updateItemCountLabels();
+    }
+    else{
+        QMessageBox::information(nullptr, "没有炸弹", "您没有炸弹道具了！");
+    }
+
 }
 
 bool Game::checkAdventureWin() const
@@ -890,7 +894,15 @@ void Game::triggerBomb(int row, int col) {
 //横向删除按钮
 void Game::on_horizon_clicked()
 {
-    horizon=true;
+    if(ShopWidget::horizonCount > 0){
+        ShopWidget::horizonCount--;  // 减少炸弹数量
+        horizon=true;
+        this->updateItemCountLabels();
+    }
+    else{
+        QMessageBox::information(nullptr, "没有horizon", "您没有horizon道具了！");
+    }
+
 }
 void Game::horizondelete(int row){
     for (int col = 0; col < 8; ++col) {
@@ -908,7 +920,15 @@ void Game::horizondelete(int row){
 //竖向消除
 void Game::on_vertical_clicked()
 {
-    vertical=true;
+    if(ShopWidget::verticalCount > 0){
+        ShopWidget::verticalCount--;  // 减少炸弹数量
+        vertical=true;
+        this->updateItemCountLabels();
+    }
+    else{
+         QMessageBox::information(nullptr, "没有vertical", "您没有vertical道具了！");
+    }
+
 }
 
 void Game::onAnimationFinished(){
@@ -1102,9 +1122,9 @@ void Game::on_Shop_clicked()
     // 显示 ShopWidget 窗口
     shopWindow->show();    // this 表示父窗口是当前游戏窗口
     // 更新UI显示炸弹数量
-    ui->bombLabel->setText(QString("炸弹: %1").arg(bombCount));
+    ui->bombLabel->setText(QString("炸弹: %1").arg(ShopWidget::bombCount));
 
-    ui->horizonLabel->setText(QString("横向消除: %1").arg(horizonCount));
+    ui->horizonLabel->setText(QString("横向消除: %1").arg(ShopWidget::horizonCount));
 
 
 }
@@ -1115,4 +1135,29 @@ void Game::setScore(int newScore) {
     ui->lcdNumber->display(score);
 }
 
+// 获取炸弹数量
+int Game::getBombCount() const {
+    return ShopWidget::bombCount;  // 直接访问 ShopWidget 中的静态变量
+}
 
+// 获取横向消除数量
+int Game::getHorizonCount() const {
+    return ShopWidget::horizonCount;  // 直接访问 ShopWidget 中的静态变量
+}
+
+// 获取竖向消除数量
+int Game::getVerticalCount() const {
+    return ShopWidget::verticalCount;  // 直接访问 ShopWidget 中的静态变量
+}
+
+// Game.cpp
+void Game::updateItemCountLabels() {
+    // 更新炸弹道具数量标签
+    ui->bombLabel->setText(QString("炸弹: %1").arg(ShopWidget::bombCount));
+
+    // 更新横向消除道具数量标签
+    ui->horizonLabel->setText(QString("横向消除: %1").arg(ShopWidget::horizonCount));
+
+    // 更新竖向消除道具数量标签
+    ui->verticalLabel->setText(QString("竖向消除: %1").arg(ShopWidget::verticalCount));
+}

@@ -7,3 +7,5 @@ int difficulty=6;
 double volume=1.0;
 std::vector<int> clickDistrict(4,0);
 globalValue::globalValue() {}
+
+

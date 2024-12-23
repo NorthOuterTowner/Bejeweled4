@@ -55,7 +55,7 @@ public:
     void setGameMode(GameMode mode);
     GameMode getGameMode() const;
     bool canMatch(int row, int col);
-//提示部分函数
+    //提示部分函数
     QList<QPair<int, int>> findHint();
     void highlightHints(const QList<QPair<int, int>>& hints);
     void updateHintCountDisplay();
@@ -69,22 +69,12 @@ public:
     // 设置分数
     void setScore(int newScore);
     //道具商店数据
-    int bombCount;
-    int horizonCount;
-    int verticalCount;
+    int getBombCount() const; // 获取炸弹数量
+    int getHorizonCount() const; // 获取横向消除数量
+    int getVerticalCount() const; // 获取竖向消除数量
+    void updateItemCountLabels();  // 更新道具数量标签的函数
 
-    // 获取当前炸弹数量
-    int getBombCount() const { return bombCount; }
-    void setBombCount(int count) { bombCount = count; }
-
-    // 获取当前横向消除道具数量
-    int getHorizonCount() const { return horizonCount; }
-    void setHorizonCount(int count) { horizonCount = count; }
-
-    // 获取当前竖向消除道具数量
-    int getVerticalCount() const { return verticalCount; }
-    void setVerticalCount(int count) { verticalCount = count; }
- Ui::Game *ui;
+    Ui::Game *ui;
 signals:
     void eliminateAgainSignal();
     void returnMainwindow();
@@ -114,7 +104,7 @@ private slots:
 
 
     void on_bombButton_clicked();
-  //  void on_rainbowGemButton_clicked();
+    //  void on_rainbowGemButton_clicked();
     //void on_freezeTimeButton_clicked();
 
     void on_horizon_clicked();

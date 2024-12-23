@@ -43,7 +43,7 @@
    </property>
    <property name="styleSheet">
     <string notr="true">QLabel {
-	font: italic 18pt &quot;Monotype Corsiva&quot;;
+        font: italic 18pt &quot;Monotype Corsiva&quot;;
     border: 1px solid #ddd;         /* 边框颜色 */
     border-radius: 5px;             /* 边框圆角 */
 }
