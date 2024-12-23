@@ -3,13 +3,14 @@
 
 #include <QWidget>
 #include "game.h"
+#include "client.h"
 #include "ui_end.h"
 
 class End : public QWidget
 {
     Q_OBJECT
 public:
-    explicit End(Game* game, QWidget* parent = nullptr);
+    explicit End(Game* game,Client* client, QWidget* parent = nullptr);
     ~End();
     void showEndUI();// 外部可调用的函数，用于更新并显示结束界面，设置得分等信息
     void showAdventureWinUI();//显示冒险模式胜利界面
@@ -27,6 +28,7 @@ private slots:
 private:
     Ui::End *ui;
     Game* gameInfo;
+    Client *client;
 };
 
 #endif // END_H

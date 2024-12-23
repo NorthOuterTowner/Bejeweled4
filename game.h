@@ -7,6 +7,7 @@ class End;
 #include "globalvalue.h"
 #include "stonelabel.h"
 #include "gametimer.h"
+#include "client.h"
 #include "pause.h"
 #include <QWidget>
 #include <QMouseEvent>
@@ -36,7 +37,7 @@ public:
         CLASSIC_MODE,  // 经典模式
         ADVENTURE_MODE  // 冒险模式
     };
-    static Game* instance(QWidget* parent = nullptr,Game::GameMode mode = Game::GameMode::ADVENTURE_MODE,int levelNum = -1);
+    static Game* instance(QWidget* parent = nullptr,Game::GameMode mode = Game::GameMode::ADVENTURE_MODE,int levelNum = -1,Client* client=nullptr);
 
     void init();
     void update();
@@ -55,7 +56,7 @@ public:
     void setGameMode(GameMode mode);
     GameMode getGameMode() const;
     bool canMatch(int row, int col);
-//提示部分函数
+    //提示部分函数
     QList<QPair<int, int>> findHint();
     void highlightHints(const QList<QPair<int, int>>& hints);
     void updateHintCountDisplay();
@@ -84,6 +85,8 @@ public:
     // 获取当前竖向消除道具数量
     int getVerticalCount() const { return verticalCount; }
     void setVerticalCount(int count) { verticalCount = count; }
+    void updateItemCountLabels();  // 更新道具数量标签的函数
+
     Ui::Game *ui;
 signals:
     void eliminateAgainSignal();
@@ -118,7 +121,7 @@ private slots:
 
 
     void on_bombButton_clicked();
-  //  void on_rainbowGemButton_clicked();
+    //  void on_rainbowGemButton_clicked();
     //void on_freezeTimeButton_clicked();
 
     void on_horizon_clicked();
@@ -130,8 +133,8 @@ private slots:
     void on_Shop_clicked();
 
 private:
-    explicit Game(QWidget *parent = nullptr,Game::GameMode mode = Game::GameMode::CLASSIC_MODE);//经典模式构造器
-    explicit Game(QWidget *parent = nullptr,int LevelNum = -1,Game::GameMode mode = Game::GameMode::ADVENTURE_MODE);//冒险模式构造器
+    explicit Game(QWidget *parent = nullptr,Game::GameMode mode = Game::GameMode::CLASSIC_MODE,Client* client=nullptr);//经典模式构造器
+    explicit Game(QWidget *parent = nullptr,int LevelNum = -1,Game::GameMode mode = Game::GameMode::ADVENTURE_MODE,Client* client=nullptr);//冒险模式构造器
     static Game* gameInstance;
     void mousePressEvent(QMouseEvent *event) override;
     bool checkFormatches();//判断哪些棋子将要被消去
@@ -173,6 +176,7 @@ private:
     bool isBombMode = false;  // 标记是否处于炸弹模式
     QSoundEffect* sound;  // 背景音乐
     int hintCount = 5;//提示的初始次数
+    Client* client;
 
 };
 

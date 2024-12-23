@@ -105,6 +105,19 @@
      <string>帮助</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="Heat">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>0</y>
+      <width>93</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>热力图</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

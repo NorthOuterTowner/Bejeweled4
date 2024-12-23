@@ -6,6 +6,7 @@ release/end.o
 release/game.o
 release/gametimer.o
 release/globalvalue.o
+release/heatmap.o
 release/help.o
 release/hoverbutton.o
 release/main.o
@@ -18,6 +19,7 @@ release/signup.o
 release/stonelabel.o
 release/utils.o
 release/qrc_jewel.o
+release/qrc_rank.o
 release/qrc_music.o
 release/qrc_picture.o
 release/qrc_qmake_qmake_qm_files.o
@@ -28,6 +30,7 @@ release/moc_client.o
 release/moc_end.o
 release/moc_game.o
 release/moc_gametimer.o
+release/moc_heatmap.o
 release/moc_help.o
 release/moc_hoverbutton.o
 release/moc_mainwindow.o
