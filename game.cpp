@@ -57,10 +57,11 @@ void Game::update(){
     }
 }
 
-Game::Game(QWidget *parent,Game::GameMode mode)
+Game::Game(QWidget *parent,Game::GameMode mode,Client* c)
     : QWidget(parent)
     , gameMode(mode)
     , ui(new Ui::Game)
+    ,client(c)
 {
 
 
@@ -103,11 +104,12 @@ Game::Game(QWidget *parent,Game::GameMode mode)
     ui->textBrowser->hide();
 }
 
-Game::Game(QWidget *parent,int levelNumber,Game::GameMode mode)
+Game::Game(QWidget *parent,int levelNumber,Game::GameMode mode,Client* c)
     : QWidget(parent)
     , gameMode(mode)
     , levelNum(levelNumber)
     , ui(new Ui::Game)
+    ,client(c)
 {
     ui->setupUi(this);
     Game::jewelNum=8;
@@ -142,13 +144,13 @@ Game::~Game()
     delete ui;
     delete end;
 }
-Game* Game::instance(QWidget *parent, Game::GameMode mode, int levelNum) {
+Game* Game::instance(QWidget *parent, Game::GameMode mode, int levelNum,Client* c) {
     if (gameInstance == nullptr) {
         if (levelNum == -1) {
-            gameInstance = new Game(parent, mode);
+            gameInstance = new Game(parent, mode,c);
         }
         else {
-            gameInstance = new Game(parent, levelNum, mode);
+            gameInstance = new Game(parent, levelNum, mode,c);
         }
     }
     return gameInstance;
@@ -502,7 +504,7 @@ void Game::onEliminateAgain(){
                     resetGameState();
 
                     // 显示结束界面并提示闯关成功
-                    end = new End(this);
+                    end = new End(this,client);
                     connect(end, &End::nextButtonClicked, this, &Game::onNextButtonClicked);
                     end->showAdventureWinUI();
                     return;
@@ -631,12 +633,12 @@ void Game::onTimeExpired()
     if(gameMode == Game::GameMode::ADVENTURE_MODE){
         if (isTimeExpired && !isComboing && !checkAdventureWin()){
             // 显示结束界面并提示闯关成功
-            end = new End(this);
+            end = new End(this,client);
             connect(end, &End::nextButtonClicked, this, &Game::onNextButtonClicked);
             end->showAdventureLoseUI();
         }
     }else{
-        end = new End(this);
+        end = new End(this,client);
         connect(end, &End::nextButtonClicked, this, &Game::onNextButtonClicked);
         end->showEndUI();
     }

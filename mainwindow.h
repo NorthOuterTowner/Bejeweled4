@@ -12,6 +12,7 @@
 #include <QPropertyAnimation>  // 修正为正确的头文件
 #include "hoverbutton.h"
 #include"shopwidget.h"
+#include"client.h"
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -23,7 +24,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = nullptr);
+    explicit MainWindow(Client* client=nullptr,QWidget *parent = nullptr);
 
     QPropertyAnimation *ShowBackground();  // 显示背景动画
     QPropertyAnimation *ShowTitle();      // 显示标题动画
@@ -41,6 +42,7 @@ private:
     bool firstLevel=true;
     int levelNum = 0;//关卡数
     ShopWidget* shopWidget;  // 指向 ShopWidget 的指针
+    Client* client;//通信用
 
 
 private slots:
@@ -55,6 +57,8 @@ private slots:
     void on_pushButton_9_clicked();
     void on_pushButton_10_clicked();
     void on_ranking_clicked();
+    void onDataReceived();//处理传输数据
+
 };
 
 #endif // MAINWINDOW_H

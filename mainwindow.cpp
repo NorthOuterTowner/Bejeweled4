@@ -15,17 +15,17 @@
 #include "ui_rankdialog.h"
 #include<settingwidget.h>
 #include"shopwidget.h"
-
+#include<QMessageBox.h>
 #include "about.h"
 #include "help.h"
 #include "heatmap.h"
 
 
-MainWindow::MainWindow(QWidget *parent)
+MainWindow::MainWindow(Client* c,QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
-
 {
+    client=c;
     // 初始化其他成员
     shopWidget = new ShopWidget();
     ui->setupUi(this);
@@ -188,6 +188,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(nextLevelButton, &QPushButton::clicked, this, &MainWindow::on_pushButton_9_clicked);
     ui->pushButton_9->hide(); // 隐藏原始按钮
 
+    //连接接受信息与登录页面
+    connect(client->tcpSocket, &QTcpSocket::readyRead, this, &MainWindow::onDataReceived);
 }
 
 void setBkImg(const char * str, QLabel * label);
@@ -261,7 +263,7 @@ void MainWindow::on_pushButton_clicked()
     }
 
     sound->stop();  // 暂停背景音乐
-    gameDlg = Game::instance(nullptr, Game::GameMode::CLASSIC_MODE); // 创建游戏，设置游戏模式为经典模式
+    gameDlg = Game::instance(nullptr, Game::GameMode::CLASSIC_MODE,-1,client); // 创建游戏，设置游戏模式为经典模式
     connect(gameDlg, &Game::returnMainwindow, this, &MainWindow::onReturnMainwindow);
      shopWidget->resetItemCounts();
     // 更新游戏界面中的道具数量标签
@@ -323,7 +325,7 @@ void MainWindow::on_pushButton_9_clicked()
     if(gameDlg){
         Game::delInstance();
     }
-    gameDlg = Game::instance(nullptr, Game::GameMode::ADVENTURE_MODE,levelNum); // 创建游戏，设置游戏模式为冒险模式
+    gameDlg = Game::instance(nullptr, Game::GameMode::ADVENTURE_MODE,levelNum,client); // 创建游戏，设置游戏模式为冒险模式
     connect(gameDlg, &Game::returnMainwindow, this, &MainWindow::onReturnMainwindow);
     gameDlg->show();
     this->hide();
@@ -352,6 +354,21 @@ void MainWindow::on_pushButton_10_clicked()
 
 void MainWindow::on_ranking_clicked()
 {
+    if(client==nullptr){
+        QMessageBox::information(this, "排名", "离线模式无法查看排名");
+    }else{
+        client->onSendData("d");
+    }
+}//获取排行榜数据
+
+void MainWindow::onDataReceived(){
+    QString buffer;
+    buffer.append(client->tcpSocket->readAll()); // 将接收到的数据追加到缓冲区
+
+    // 按分隔符（如换行符）处理
+    QStringList messages = buffer.split(' ');
+    int index=2;
+    int num=messages[1].toInt();
 
     RankDialog rank(this);
 
@@ -359,7 +376,7 @@ void MainWindow::on_ranking_clicked()
     QTableWidget* tableWidget = rank.ui->tableWidget;
 
     // 设置行数和列数
-    tableWidget->setRowCount(20);
+    tableWidget->setRowCount(num);
     tableWidget->setColumnCount(2);
 
     // 设置列头
@@ -367,13 +384,15 @@ void MainWindow::on_ranking_clicked()
 
     //逻辑添加真实数据
     // 模拟
-    QVector<QPair<QString, int>> usersScores = {
-        {"Alice", 95},
-        {"Bob", 88},
-        {"Charlie", 72},
-        {"David", 80},
-        {"Eve", 91}
-    };
+    QVector<QPair<QString, int>> usersScores;
+    for(int i = 0; i < num; ++i){
+        usersScores.append({messages[index],messages[index+1].toInt()});
+        index+=2;
+    }//将数据输入数组
+    std::sort(usersScores.begin(), usersScores.end(),
+              [](const QPair<QString, int>& a, const QPair<QString, int>& b) {
+                  return a.second > b.second; // 比较第二项，从大到小排序
+              });//按大小排序
     // 填充表格数据
     for (int i = 0; i < usersScores.size(); ++i) {
         // 设置每一行的用户名和得分
@@ -393,5 +412,5 @@ void MainWindow::on_ranking_clicked()
 
     rank.exec();
 
-}
+}//显示排行榜
 
