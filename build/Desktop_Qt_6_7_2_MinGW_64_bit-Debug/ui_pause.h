@@ -24,6 +24,7 @@ public:
     QPushButton *resumeButton;
     QPushButton *background;
     QLabel *label;
+    QLabel *levelInfo;
 
     void setupUi(QWidget *Pause)
     {
@@ -65,10 +66,30 @@ public:
         label = new QLabel(Pause);
         label->setObjectName("label");
         label->setGeometry(QRect(260, 90, 181, 51));
+        label->setStyleSheet(QString::fromUtf8("QLabel {\n"
+"    border: 1px solid #ddd;         /* \350\276\271\346\241\206\351\242\234\350\211\262 */\n"
+"    border-radius: 5px;             /* \350\276\271\346\241\206\345\234\206\350\247\222 */\n"
+"}"));
+        levelInfo = new QLabel(Pause);
+        levelInfo->setObjectName("levelInfo");
+        levelInfo->setGeometry(QRect(190, 170, 81, 31));
+        levelInfo->setStyleSheet(QString::fromUtf8("QLabel {\n"
+"    color: rgb(255, 170, 0);                    /* \346\226\207\345\255\227\351\242\234\350\211\262 */\n"
+"    font-size: 11px;                /* \345\255\227\344\275\223\345\244\247\345\260\217 */\n"
+"    border: 1px solid #ddd;         /* \350\276\271\346\241\206\351\242\234\350\211\262 */\n"
+"    border-radius: 5px;             /* \350\276\271\346\241\206\345\234\206\350\247\222 */\n"
+"   \n"
+"}\n"
+"\n"
+"QLabel[alignment=\"center\"] {\n"
+"    text-align: center;             /* \346\226\207\346\234\254\345\261\205\344\270\255\345\257\271\351\275\220 */\n"
+"}\n"
+""));
         background->raise();
         label->raise();
         resumeButton->raise();
         returnButton->raise();
+        levelInfo->raise();
 
         retranslateUi(Pause);
 
@@ -82,6 +103,7 @@ public:
         resumeButton->setText(QCoreApplication::translate("Pause", "\346\201\242\345\244\215\346\270\270\346\210\217", nullptr));
         background->setText(QString());
         label->setText(QString());
+        levelInfo->setText(QString());
     } // retranslateUi
 
 };
