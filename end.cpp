@@ -1,7 +1,7 @@
 #include "end.h"
 
 // 构造函数，初始化界面相关元素并设置布局
-End::End(Game* game, QWidget* parent) : QWidget(parent), gameInfo(game)
+End::End(Game* game,Client* c, QWidget* parent) : QWidget(parent), gameInfo(game),client(c)
 {
     ui.setupUi(this);
     setWindowTitle("游戏结束");
@@ -28,6 +28,9 @@ void End::showEndUI()
     ui.nextButton->hide();
     // 获取游戏最终得分并设置到得分标签上显示
     int finalScore = gameInfo->getScore();
+    if(client!=nullptr){
+        client->onSendData("c "+QString::number(finalScore));
+    }
     ui.scoreLabel->setText(QString("游戏结束啦，你的最终得分是: %1").arg(finalScore));
 
     // 显示结束界面

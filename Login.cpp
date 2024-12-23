@@ -141,7 +141,7 @@ void Login::onDataReceived(){
     if(messages[1]=="1"){
         qDebug() << "登录成功";
         QMessageBox::information(this, "登录认证", "登录成功");
-        MainWindow *w = new MainWindow;
+        MainWindow *w = new MainWindow(client);
         w->show();
         this->close();
         disconnect(client->tcpSocket, &QTcpSocket::readyRead, this, &Login::onDataReceived);
