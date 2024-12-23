@@ -307,7 +307,7 @@ void MainWindow::on_pushButton_9_clicked()
 void MainWindow::on_pushButton_10_clicked()
 {
     // 创建并显示 Setting 对话框
-    settingwidget  settingDlg(sound,this);  // 创建 settingwidget 对象
+    settingwidget settingDlg(sound,this);  // 创建 settingwidget 对象
     if (settingDlg.exec() == QDialog::Accepted) {  // 判断对话框是否被接受
         // 获取设置后的难度和模式
         int selectedDifficulty = settingDlg.getDifficulty();

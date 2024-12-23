@@ -126,8 +126,8 @@ private slots:
     void on_Shop_clicked();
 
 private:
-    explicit Game(QWidget *parent = nullptr,Game::GameMode mode = Game::GameMode::CLASSIC_MODE);
-    explicit Game(QWidget *parent = nullptr,int LevelNum = -1,Game::GameMode mode = Game::GameMode::CLASSIC_MODE);//传入游戏难度
+    explicit Game(QWidget *parent = nullptr,Game::GameMode mode = Game::GameMode::CLASSIC_MODE);//经典模式构造器
+    explicit Game(QWidget *parent = nullptr,int LevelNum = -1,Game::GameMode mode = Game::GameMode::ADVENTURE_MODE);//冒险模式构造器
     static Game* gameInstance;
     void mousePressEvent(QMouseEvent *event) override;
     bool checkFormatches();//判断哪些棋子将要被消去
@@ -161,7 +161,8 @@ private:
     bool checkAdventureWin() const;//判断是否过关
     int score=0;  //记录游戏当前积分
     bool hasStartedScoring=false;  //标记是否可以开始计分，初始化为false，表示未开始计分
-    int winScore;
+    int levelNum = -1;//关卡难度
+    int winScore;//目标分数
     bool horizon=false;//是否要横向消除
     bool vertical=false;//是否竖向消除
     void triggerBomb(int row, int col);

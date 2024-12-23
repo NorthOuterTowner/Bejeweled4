@@ -13,6 +13,7 @@ class Pause : public QWidget
 public:
     explicit Pause(QWidget *parent = nullptr);
     ~Pause();
+    Ui::Pause *ui;
 
 signals:
     void resumeGame();  // 新增的信号，用于通知恢复游戏
@@ -23,7 +24,7 @@ private slots:
     void on_background_clicked();   //实现锁屏效果的空槽函数
 
 private:
-    Ui::Pause *ui;
+
 };
 
 #endif // PAUSE_H

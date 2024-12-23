@@ -94,6 +94,39 @@ QPushButton:hover {
      <height>51</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel {
+    border: 1px solid #ddd;         /* 边框颜色 */
+    border-radius: 5px;             /* 边框圆角 */
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="levelInfo">
+   <property name="geometry">
+    <rect>
+     <x>190</x>
+     <y>170</y>
+     <width>81</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel {
+    color: rgb(255, 170, 0);                    /* 文字颜色 */
+    font-size: 11px;                /* 字体大小 */
+    border: 1px solid #ddd;         /* 边框颜色 */
+    border-radius: 5px;             /* 边框圆角 */
+   
+}
+
+QLabel[alignment=&quot;center&quot;] {
+    text-align: center;             /* 文本居中对齐 */
+}
+</string>
+   </property>
    <property name="text">
     <string/>
    </property>
@@ -102,6 +135,7 @@ QPushButton:hover {
   <zorder>label</zorder>
   <zorder>resumeButton</zorder>
   <zorder>returnButton</zorder>
+  <zorder>levelInfo</zorder>
  </widget>
  <resources/>
  <connections/>
