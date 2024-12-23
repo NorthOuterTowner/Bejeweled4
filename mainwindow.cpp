@@ -14,6 +14,8 @@
 #include "rankdialog.h"
 #include "ui_rankdialog.h"
 #include<settingwidget.h>
+#include "about.h"
+#include "help.h"
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -39,6 +41,33 @@ MainWindow::MainWindow(QWidget *parent)
     // 设置鼠标-普通
     setCursor(QCursor(QPixmap(":/mouse1.png")));
 
+    HoverButton *AboutButton = new HoverButton(this);
+    AboutButton->setImage(":/icons/start_normal.png", ":/icons/start_hover.png", 100, 25);
+    AboutButton->setLabel("关于", 10);
+    AboutButton->adjustSize();  // 自动调整按钮大小
+    AboutButton->setSound(":/music/button/button_mouseover.wav", ":/music/button/button_mouseleave.wav", ":/music/button/button_press.wav", ":/music/button/button_release.wav");
+    AboutButton->move(ui->About->pos());  // 将新按钮放置在原按钮的位置
+    connect(AboutButton, &QPushButton::clicked, this, []{
+        About* dlg=new About();
+        dlg->show();
+    });
+
+    // 隐藏原始的 QPushButton
+    ui->About->hide();
+
+    HoverButton *HelpButton = new HoverButton(this);
+    HelpButton->setImage(":/icons/start_normal.png", ":/icons/start_hover.png", 100, 25);
+    HelpButton->setLabel("帮助", 10);
+    HelpButton->adjustSize();  // 自动调整按钮大小
+    HelpButton->setSound(":/music/button/button_mouseover.wav", ":/music/button/button_mouseleave.wav", ":/music/button/button_press.wav", ":/music/button/button_release.wav");
+    HelpButton->move(ui->Help->pos());  // 将新按钮放置在原按钮的位置
+    connect(HelpButton, &QPushButton::clicked, this, []{
+        Help* dlg=new Help();
+        dlg->show();
+    });
+
+    // 隐藏原始的 QPushButton
+    ui->About->hide();
     // 使用 HoverButton 替换原有按钮
     HoverButton *startButton = new HoverButton(this);
     startButton->setImage(":/icons/start_normal.png", ":/icons/start_hover.png", 100, 25);
