@@ -414,6 +414,33 @@ void Game::eliminateMatches() {
     // 更新积分显示
     ui->lcdNumber->display(score);
 
+    if (!progressDialog->isVisible()) {
+        QSoundEffect* soundEffect;
+        switch(eliminatedCount){
+        case 3:{
+            soundEffect = new QSoundEffect(this);
+            soundEffect->setSource(QUrl::fromLocalFile(":/music/eliminate/triple.wav"));
+            soundEffect->setLoopCount(1);  // 只播放一次
+            soundEffect->setVolume(volume);
+            break;
+        }
+        case 4:{
+            soundEffect = new QSoundEffect(this);
+            soundEffect->setSource(QUrl::fromLocalFile(":/music/eliminate/quadruple.wav"));
+            soundEffect->setLoopCount(1);  // 只播放一次
+            soundEffect->setVolume(volume);
+            break;
+        }
+        default:{
+            soundEffect = new QSoundEffect(this);
+            soundEffect->setSource(QUrl::fromLocalFile(":/music/eliminate/penta.wav"));
+            soundEffect->setLoopCount(1);  // 只播放一次
+            soundEffect->setVolume(volume);
+            break;
+        }
+        }
+        soundEffect->play();//播放消除音效
+    }
     dropStones();// 执行棋子下落逻辑，用于填补因消除产生的空位
     resetMatchedFlags();// 重置所有棋子的匹配标记，为下一轮检测做准备
 }
