@@ -222,7 +222,30 @@ void Game::mousePressEvent(QMouseEvent *event) {
         return;
 
     int col = (x - leftSpacer) / 48, row = (y - upSpacer) / 48;
-
+    /*左上*/
+    if(row>=1 && row<=4){
+        if(col>=1 && col<=4){
+            clickDistrict[0]++;
+        }
+    }
+    /*右上*/
+    if(row>=1 && row<=4){
+        if(col>=4 && col<=8){
+            clickDistrict[1]++;
+        }
+    }
+    /*左下*/
+    if(row>=4 && row<=8){
+        if(col>=1 && col<=4){
+            clickDistrict[2]++;
+        }
+    }
+    /*右下*/
+    if(row>=4 && row<=8){
+        if(col>=4 && col<=8){
+            clickDistrict[3]++;
+        }
+    }
     StoneLabel* curLabel = stones[row][col];
     if (isBombMode) {
         // 如果当前处于炸弹模式，触发炸弹效果

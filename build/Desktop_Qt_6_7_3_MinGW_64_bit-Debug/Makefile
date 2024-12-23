@@ -83,6 +83,10 @@ Makefile: ../../Bejeweled.pro C:/Qt1/6.7.3/mingw_64/mkspecs/win32-g++/qmake.conf
 		C:/Qt1/6.7.3/mingw_64/mkspecs/modules/qt_ext_freetype.pri \
 		C:/Qt1/6.7.3/mingw_64/mkspecs/modules/qt_ext_libjpeg.pri \
 		C:/Qt1/6.7.3/mingw_64/mkspecs/modules/qt_ext_libpng.pri \
+		C:/Qt1/6.7.3/mingw_64/mkspecs/modules/qt_lib_charts.pri \
+		C:/Qt1/6.7.3/mingw_64/mkspecs/modules/qt_lib_charts_private.pri \
+		C:/Qt1/6.7.3/mingw_64/mkspecs/modules/qt_lib_chartsqml.pri \
+		C:/Qt1/6.7.3/mingw_64/mkspecs/modules/qt_lib_chartsqml_private.pri \
 		C:/Qt1/6.7.3/mingw_64/mkspecs/modules/qt_lib_concurrent.pri \
 		C:/Qt1/6.7.3/mingw_64/mkspecs/modules/qt_lib_concurrent_private.pri \
 		C:/Qt1/6.7.3/mingw_64/mkspecs/modules/qt_lib_core.pri \
@@ -308,8 +312,11 @@ Makefile: ../../Bejeweled.pro C:/Qt1/6.7.3/mingw_64/mkspecs/win32-g++/qmake.conf
 		C:/Qt1/6.7.3/mingw_64/mkspecs/features/yacc.prf \
 		C:/Qt1/6.7.3/mingw_64/mkspecs/features/lex.prf \
 		../../Bejeweled.pro \
+		C:/Qt1/6.7.3/mingw_64/lib/Qt6Charts.prl \
+		C:/Qt1/6.7.3/mingw_64/lib/Qt6OpenGLWidgets.prl \
 		C:/Qt1/6.7.3/mingw_64/lib/Qt6Widgets.prl \
 		C:/Qt1/6.7.3/mingw_64/lib/Qt6Multimedia.prl \
+		C:/Qt1/6.7.3/mingw_64/lib/Qt6OpenGL.prl \
 		C:/Qt1/6.7.3/mingw_64/lib/Qt6Gui.prl \
 		C:/Qt1/6.7.3/mingw_64/lib/Qt6Network.prl \
 		C:/Qt1/6.7.3/mingw_64/lib/Qt6Sql.prl \
@@ -317,6 +324,7 @@ Makefile: ../../Bejeweled.pro C:/Qt1/6.7.3/mingw_64/mkspecs/win32-g++/qmake.conf
 		C:/Qt1/6.7.3/mingw_64/lib/Qt6EntryPoint.prl \
 		C:/Qt1/6.7.3/mingw_64/mkspecs/features/build_pass.prf \
 		../Gems/jewel.qrc \
+		../rankback/rank.qrc \
 		../../music.qrc \
 		../../picture/picture.qrc \
 		debug/qmake_qmake_qm_files.qrc \
@@ -335,6 +343,10 @@ C:/Qt1/6.7.3/mingw_64/mkspecs/qconfig.pri:
 C:/Qt1/6.7.3/mingw_64/mkspecs/modules/qt_ext_freetype.pri:
 C:/Qt1/6.7.3/mingw_64/mkspecs/modules/qt_ext_libjpeg.pri:
 C:/Qt1/6.7.3/mingw_64/mkspecs/modules/qt_ext_libpng.pri:
+C:/Qt1/6.7.3/mingw_64/mkspecs/modules/qt_lib_charts.pri:
+C:/Qt1/6.7.3/mingw_64/mkspecs/modules/qt_lib_charts_private.pri:
+C:/Qt1/6.7.3/mingw_64/mkspecs/modules/qt_lib_chartsqml.pri:
+C:/Qt1/6.7.3/mingw_64/mkspecs/modules/qt_lib_chartsqml_private.pri:
 C:/Qt1/6.7.3/mingw_64/mkspecs/modules/qt_lib_concurrent.pri:
 C:/Qt1/6.7.3/mingw_64/mkspecs/modules/qt_lib_concurrent_private.pri:
 C:/Qt1/6.7.3/mingw_64/mkspecs/modules/qt_lib_core.pri:
@@ -560,8 +572,11 @@ C:/Qt1/6.7.3/mingw_64/mkspecs/features/exceptions.prf:
 C:/Qt1/6.7.3/mingw_64/mkspecs/features/yacc.prf:
 C:/Qt1/6.7.3/mingw_64/mkspecs/features/lex.prf:
 ../../Bejeweled.pro:
+C:/Qt1/6.7.3/mingw_64/lib/Qt6Charts.prl:
+C:/Qt1/6.7.3/mingw_64/lib/Qt6OpenGLWidgets.prl:
 C:/Qt1/6.7.3/mingw_64/lib/Qt6Widgets.prl:
 C:/Qt1/6.7.3/mingw_64/lib/Qt6Multimedia.prl:
+C:/Qt1/6.7.3/mingw_64/lib/Qt6OpenGL.prl:
 C:/Qt1/6.7.3/mingw_64/lib/Qt6Gui.prl:
 C:/Qt1/6.7.3/mingw_64/lib/Qt6Network.prl:
 C:/Qt1/6.7.3/mingw_64/lib/Qt6Sql.prl:
@@ -569,6 +584,7 @@ C:/Qt1/6.7.3/mingw_64/lib/Qt6Core.prl:
 C:/Qt1/6.7.3/mingw_64/lib/Qt6EntryPoint.prl:
 C:/Qt1/6.7.3/mingw_64/mkspecs/features/build_pass.prf:
 ../Gems/jewel.qrc:
+../rankback/rank.qrc:
 ../../music.qrc:
 ../../picture/picture.qrc:
 debug/qmake_qmake_qm_files.qrc:

@@ -16,6 +16,7 @@
 #include<settingwidget.h>
 #include "about.h"
 #include "help.h"
+#include "heatmap.h"
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -68,6 +69,23 @@ MainWindow::MainWindow(QWidget *parent)
 
     // 隐藏原始的 QPushButton
     ui->About->hide();
+
+    HoverButton *HeatButton = new HoverButton(this);
+    HeatButton->setImage(":/icons/start_normal.png", ":/icons/start_hover.png", 100, 25);
+    HeatButton->setLabel("热力图", 10);
+    HeatButton->adjustSize();  // 自动调整按钮大小
+    HeatButton->setSound(":/music/button/button_mouseover.wav", ":/music/button/button_mouseleave.wav", ":/music/button/button_press.wav", ":/music/button/button_release.wav");
+    HeatButton->move(ui->Heat->pos());  // 将新按钮放置在原按钮的位置
+    connect(HeatButton, &QPushButton::clicked, this, []{
+        HeatMap heatmapDialog;
+        //std::vector<int> clickDistrict = {10, 20, 15, 5};
+        heatmapDialog.setClickData(clickDistrict);
+        heatmapDialog.exec();
+    });
+
+    // 隐藏原始的 QPushButton
+    ui->About->hide();
+
     // 使用 HoverButton 替换原有按钮
     HoverButton *startButton = new HoverButton(this);
     startButton->setImage(":/icons/start_normal.png", ":/icons/start_hover.png", 100, 25);

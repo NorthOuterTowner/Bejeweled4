@@ -1,4 +1,4 @@
-QT       += core gui widgets network multimedia sql
+QT       += core gui widgets network multimedia sql charts
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -18,6 +18,7 @@ SOURCES += \
     # gameitems.cpp \
     gametimer.cpp \
     globalvalue.cpp \
+    heatmap.cpp \
     help.cpp \
     hoverbutton.cpp \
     main.cpp \
@@ -40,6 +41,7 @@ HEADERS += \
     # gameitems.h \
     gametimer.h \
     globalvalue.h \
+    heatmap.h \
     help.h \
     hoverbutton.h \
     mainwindow.h \
@@ -57,6 +59,7 @@ FORMS += \
     client.ui \
     end.ui \
     game.ui \
+    heatmap.ui \
     help.ui \
     mainwindow.ui \
     rankdialog.ui \
