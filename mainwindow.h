@@ -11,7 +11,7 @@
 #include <QGraphicsOpacityEffect>
 #include <QPropertyAnimation>  // 修正为正确的头文件
 #include "hoverbutton.h"
-#include "rankdialog.h"
+#include"shopwidget.h"
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -40,6 +40,7 @@ private:
     HoverButton *nextLevelButton;
     bool firstLevel=true;
     int levelNum = 0;//关卡数
+    ShopWidget* shopWidget;  // 指向 ShopWidget 的指针
 
 
 private slots:

@@ -14,6 +14,8 @@
 #include "rankdialog.h"
 #include "ui_rankdialog.h"
 #include<settingwidget.h>
+#include"shopwidget.h"
+
 #include "about.h"
 #include "help.h"
 
@@ -21,7 +23,10 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
+
 {
+    // 初始化其他成员
+    shopWidget = new ShopWidget();
     ui->setupUi(this);
     StoneLabel::stoneMode = "gemstone";
     // 设置背景并启动动画
@@ -240,7 +245,10 @@ void MainWindow::on_pushButton_clicked()
     sound->stop();  // 暂停背景音乐
     gameDlg = Game::instance(nullptr, Game::GameMode::CLASSIC_MODE); // 创建游戏，设置游戏模式为经典模式
     connect(gameDlg, &Game::returnMainwindow, this, &MainWindow::onReturnMainwindow);
-    gameDlg->show();
+     shopWidget->resetItemCounts();
+    // 更新游戏界面中的道具数量标签
+    gameDlg->updateItemCountLabels();
+     gameDlg->show();
     this->hide();
 }
 
