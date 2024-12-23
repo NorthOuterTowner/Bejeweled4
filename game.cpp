@@ -9,6 +9,7 @@
 #include "end.h"
 #include <QLabel>
 #include <random>
+#include <cmath>
 #include <vector>
 #include <QGridLayout>
 #include <QPropertyAnimation>
@@ -82,6 +83,7 @@ Game::Game(QWidget *parent,Game::GameMode mode,Client* c)
     connect(this, &Game::eliminateAgainSignal, this, &Game::onEliminateAgain);
     connect(this, &Game::initEndSignal, this, &Game::initEnd);
     gameTimer = new GameTimer(this);
+    connect(this, &Game::startGameTimer, this, &Game::onStartGameTimer);
     connect(gameTimer, &GameTimer::timeUpdated, this, &Game::updateTimerDisplay);
     connect(gameTimer, &GameTimer::timeExpired, this, &Game::onTimeExpired);
     init();
@@ -96,11 +98,13 @@ Game::Game(QWidget *parent,Game::GameMode mode,Client* c)
     }else{
         progressDialog->setValue(100);
         progressDialog->hide();
+        emit startGameTimer();
     }
 
     //经典模式下相关显示与逻辑特殊处理
-    ui->label_2->hide();
+    ui->passScoreLabel->hide();
     ui->textBrowser->hide();
+    ui->levelNumLabel->hide();
 
 
 }
@@ -111,7 +115,7 @@ Game::Game(QWidget *parent,int levelNumber,Game::GameMode mode,Client* c)
     , ui(new Ui::Game)
     , gameMode(mode)
     , levelNumber(levelNumber)
-    ,client(c)
+    , client(c)
 {
     ui->setupUi(this);
     Game::jewelNum=8;
@@ -121,6 +125,7 @@ Game::Game(QWidget *parent,int levelNumber,Game::GameMode mode,Client* c)
     connect(this, &Game::eliminateAgainSignal, this, &Game::onEliminateAgain);
     connect(this, &Game::initEndSignal, this, &Game::initEnd);
     gameTimer = new GameTimer(this);
+    connect(this, &Game::startGameTimer, this, &Game::onStartGameTimer);
     connect(gameTimer, &GameTimer::timeUpdated, this, &Game::updateTimerDisplay);
     connect(gameTimer, &GameTimer::timeExpired, this, &Game::onTimeExpired);
     init();
@@ -135,11 +140,13 @@ Game::Game(QWidget *parent,int levelNumber,Game::GameMode mode,Client* c)
     }else{
         progressDialog->setValue(100);
         progressDialog->hide();
+        emit startGameTimer();
     }
 
     //冒险模式下相关显示与逻辑特殊处理
-    setWinScore(levelNum);
-
+    setWinScore(levelNumber);
+    QString levelInfo=QString::fromStdString("关卡:"+std::to_string(levelNumber/8+1)+"-"+std::to_string((levelNumber-1)%8+1));
+    ui->levelNumLabel->setText(levelInfo);
 
 }
 
@@ -203,12 +210,16 @@ void Game::init(){
     waitLabel=nullptr;
     pause = nullptr;
 
-    connect(ui->pushButton_3, &QPushButton::clicked, this, &Game::on_pushButton_3_clicked);
+    connect(ui->pauseButton, &QPushButton::clicked, this, &Game::on_pushButton_3_clicked);
 }
 /**
  * @brief Game::mousePressEvent
  * @param event
  */
+bool Game::arePositionsAdjacent(int row1, int col1, int row2, int col2) {
+    return std::abs(row1 - row2) + std::abs(col1 - col2) == 1;
+}
+
 void Game::mousePressEvent(QMouseEvent *event) {
     QPoint clickPoint = event->pos();
     int x = clickPoint.x(), y = clickPoint.y();
@@ -255,8 +266,15 @@ void Game::mousePressEvent(QMouseEvent *event) {
         int row1 = waitLabel->getrow(), col1 = waitLabel->getcol();
         int row2 = curLabel->getrow(), col2 = curLabel->getcol();
 
-        if (std::abs(row1 + col1 - row2 - col2) != 1)
+        if (!arePositionsAdjacent(row1, col1, row2, col2)) {// 判断两次点击的位置是否相邻,若不则跟随移动
+            // 如果不相邻，忽视第一次点击，将此次点击视为第一次点击
+            waitLabel->setStyle();
+            isComboing = true;
+            waitLabel = stones[row][col];
+            waitLabel->setStyle(1);
+            change = true;
             return;
+        }
 
         // 创建动画
         QPropertyAnimation *animation1 = new QPropertyAnimation(stones[row1][col1], "pos");
@@ -425,9 +443,8 @@ void Game::eliminateMatches() {
 
     if (hasStartedScoring)  // 根据计分标记判断是否计分
     {
-        // 根据消除的棋子个数计算得分，按照2的被消除棋子个数次方规则
-        int scoreGain = std::pow(2, eliminatedCount);
-        score += scoreGain; // 将本次得分累加到总积分中
+        // 根据消除的棋子个数计算得分，计分规则见calGainScore()
+        score += calGainScore(eliminatedCount); // 将本次得分累加到总积分中
     }
 
     // 更新积分显示
@@ -517,11 +534,7 @@ void Game::initEnd(){
     std::cout<<"initEnd"<<std::endl;
     this->progressDialog->setValue(100);
     this->progressDialog->hide();
-    gameTimer->startCountdown(initTime);
-    ui->progressBar->setRange(0, gameTimer->getRemainingSeconds());  // 设置进度条范围与倒计时初始时间一致
-    ui->progressBar->setValue(gameTimer->getRemainingSeconds());  // 设置初始值为总时间
-    ui->progressBar->setTextVisible(false);
-    ui->timerLabel->setText("--");
+    emit startGameTimer();
 }
 
 //遍历空白位置，生成全部新子
@@ -624,6 +637,25 @@ void Game::setGameMode(GameMode mode)
     gameMode = mode;
 }
 
+void Game::onStartGameTimer(){
+    gameTimer->startCountdown(initTime);
+    ui->progressBar->setRange(0, gameTimer->getRemainingSeconds());  // 设置进度条范围与倒计时初始时间一致
+    ui->progressBar->setValue(gameTimer->getRemainingSeconds());  // 设置初始值为总时间
+    ui->progressBar->setTextVisible(false);
+    ui->timerLabel->setText("--");
+
+    disconnect(this, &Game::startGameTimer, this, &Game::onStartGameTimer);
+}
+
+int Game::calGainScore(int eliminatedCount){
+    // k是调节系数，offset是偏移量，用于保证积分值在合理范围且为正整数等
+    int k = 10;
+    int offset = 8;
+    // 例如设置k = 20，offset = 5
+    int scoreGain = static_cast<int>(std::log(eliminatedCount + 1) * k + offset);
+    return scoreGain;
+}
+
 void Game::onTimeExpired()
 {
     // 在这里可以添加游戏结束相关的逻辑，比如提示游戏结束、禁用操作等
@@ -633,7 +665,7 @@ void Game::onTimeExpired()
 
     if(gameMode == Game::GameMode::ADVENTURE_MODE){
         if (isTimeExpired && !isComboing && !checkAdventureWin()){
-            // 显示结束界面并提示闯关成功
+            // 显示结束界面并提示闯关失败
             end = new End(this,client);
             connect(end, &End::nextButtonClicked, this, &Game::onNextButtonClicked);
             connect(end, &End::retryGame, this, &Game::onRetryGame);
@@ -667,8 +699,8 @@ void Game::on_pushButton_3_clicked()
         connect(pause, &Pause::returnToMainMenu, this, &Game::on_returnFromPauseToMainMenu);
         connect(pause, &Pause::renewGame, this, &Game::onRetryGame);
         if(gameMode == Game::GameMode::ADVENTURE_MODE){
-            QString nextLevel=QString::fromStdString("关卡:"+std::to_string(levelNumber/8)+"-"+std::to_string(levelNumber%8));
-            pause->ui->levelInfo->setText(nextLevel);
+            QString levelInfo=QString::fromStdString("关卡:"+std::to_string(levelNumber/8+1)+"-"+std::to_string((levelNumber-1)%8+1));
+            pause->ui->levelInfo->setText(levelInfo);
         }else{
             pause->ui->levelInfo->hide();
         }
@@ -1093,6 +1125,8 @@ void Game::updateHintCountDisplay() {
 
 void Game::on_Shop_clicked()
 {
+    gameTimer->stop();
+    isPaused = true;
     // 创建 ShopWidget 窗口实例
     ShopWidget *shopWindow = new ShopWidget;
     // 显示 ShopWidget 窗口

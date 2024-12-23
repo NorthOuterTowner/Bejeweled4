@@ -26,9 +26,9 @@ public:
     QPushButton *pushButton_2;
     QLabel *timerLabel;
     QProgressBar *progressBar;
-    QPushButton *pushButton_3;
+    QPushButton *pauseButton;
     QLCDNumber *lcdNumber;
-    QLabel *label;
+    QLabel *scoreLabel;
     QPushButton *pushButton_5;
     QPushButton *horizon;
     QPushButton *vertical;
@@ -39,8 +39,9 @@ public:
     QLabel *bombLabel;
     QLabel *horizonLabel;
     QLabel *verticalLabel;
-    QLabel *label_2;
+    QLabel *passScoreLabel;
     QTextBrowser *textBrowser;
+    QLabel *levelNumLabel;
 
     void setupUi(QWidget *Game)
     {
@@ -56,7 +57,7 @@ public:
         timerLabel->setTabletTracking(false);
         timerLabel->setFocusPolicy(Qt::FocusPolicy::NoFocus);
         timerLabel->setStyleSheet(QString::fromUtf8("QLabel {\n"
-"	font: italic 18pt \"Monotype Corsiva\";\n"
+"        font: italic 18pt \"Monotype Corsiva\";\n"
 "    border: 1px solid #ddd;         /* \350\276\271\346\241\206\351\242\234\350\211\262 */\n"
 "    border-radius: 5px;             /* \350\276\271\346\241\206\345\234\206\350\247\222 */\n"
 "}\n"
@@ -82,15 +83,15 @@ public:
 "    border-radius: 5px;             /* \345\241\253\345\205\205\345\235\227\345\234\206\350\247\222 */\n"
 "}"));
         progressBar->setValue(100);
-        pushButton_3 = new QPushButton(Game);
-        pushButton_3->setObjectName("pushButton_3");
-        pushButton_3->setGeometry(QRect(40, 80, 51, 31));
+        pauseButton = new QPushButton(Game);
+        pauseButton->setObjectName("pauseButton");
+        pauseButton->setGeometry(QRect(40, 80, 51, 31));
         lcdNumber = new QLCDNumber(Game);
         lcdNumber->setObjectName("lcdNumber");
         lcdNumber->setGeometry(QRect(660, 120, 111, 41));
-        label = new QLabel(Game);
-        label->setObjectName("label");
-        label->setGeometry(QRect(630, 120, 69, 19));
+        scoreLabel = new QLabel(Game);
+        scoreLabel->setObjectName("scoreLabel");
+        scoreLabel->setGeometry(QRect(630, 120, 69, 19));
         pushButton_5 = new QPushButton(Game);
         pushButton_5->setObjectName("pushButton_5");
         pushButton_5->setGeometry(QRect(670, 80, 93, 28));
@@ -121,12 +122,17 @@ public:
         verticalLabel = new QLabel(Game);
         verticalLabel->setObjectName("verticalLabel");
         verticalLabel->setGeometry(QRect(600, 390, 111, 41));
-        label_2 = new QLabel(Game);
-        label_2->setObjectName("label_2");
-        label_2->setGeometry(QRect(610, 180, 51, 20));
+        passScoreLabel = new QLabel(Game);
+        passScoreLabel->setObjectName("passScoreLabel");
+        passScoreLabel->setGeometry(QRect(610, 180, 51, 20));
         textBrowser = new QTextBrowser(Game);
         textBrowser->setObjectName("textBrowser");
         textBrowser->setGeometry(QRect(660, 170, 111, 41));
+        textBrowser->setStyleSheet(QString::fromUtf8("font: 700 12pt \"Microsoft YaHei UI\";"));
+        levelNumLabel = new QLabel(Game);
+        levelNumLabel->setObjectName("levelNumLabel");
+        levelNumLabel->setGeometry(QRect(90, 20, 71, 31));
+        levelNumLabel->setStyleSheet(QString::fromUtf8("font: 700 12pt \"Microsoft YaHei UI\";"));
 
         retranslateUi(Game);
 
@@ -139,8 +145,8 @@ public:
         pushButton_2->setText(QCoreApplication::translate("Game", "\346\216\222\350\241\214\346\246\234", nullptr));
         timerLabel->setText(QCoreApplication::translate("Game", "--", nullptr));
         progressBar->setFormat(QString());
-        pushButton_3->setText(QCoreApplication::translate("Game", "\346\232\202\345\201\234", nullptr));
-        label->setText(QCoreApplication::translate("Game", "\345\210\206\346\225\260\357\274\232", nullptr));
+        pauseButton->setText(QCoreApplication::translate("Game", "\346\232\202\345\201\234", nullptr));
+        scoreLabel->setText(QCoreApplication::translate("Game", "\345\210\206\346\225\260\357\274\232", nullptr));
         pushButton_5->setText(QCoreApplication::translate("Game", "\351\207\215\347\275\256", nullptr));
         horizon->setText(QCoreApplication::translate("Game", "horizon", nullptr));
         vertical->setText(QCoreApplication::translate("Game", "vertical", nullptr));
@@ -151,15 +157,17 @@ public:
         bombLabel->setText(QString());
         horizonLabel->setText(QString());
         verticalLabel->setText(QString());
-        label_2->setText(QCoreApplication::translate("Game", "\347\233\256\346\240\207\345\276\227\345\210\206\357\274\232", nullptr));
+        passScoreLabel->setText(QCoreApplication::translate("Game", "\347\233\256\346\240\207\345\276\227\345\210\206\357\274\232", nullptr));
         textBrowser->setHtml(QCoreApplication::translate("Game", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "hr { height: 1px; border-width: 0; }\n"
 "li.unchecked::marker { content: \"\\2610\"; }\n"
 "li.checked::marker { content: \"\\2612\"; }\n"
-"</style></head><body style=\" font-family:'Microsoft YaHei UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", nullptr));
+"</style></head><body style=\" font-family:'Microsoft YaHei UI'; font-size:12pt; font-weight:700; font-style:normal;\">\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:9pt; font-weight:400;\">\342\200\224\342\200\224 \342\200\224\342\200\224</span></p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", nullptr));
+        levelNumLabel->setText(QCoreApplication::translate("Game", "\345\205\263\345\215\241 -- --", nullptr));
     } // retranslateUi
 
 };

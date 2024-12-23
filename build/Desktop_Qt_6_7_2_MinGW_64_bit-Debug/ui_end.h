@@ -24,6 +24,7 @@ public:
     QPushButton *returnButton;
     QPushButton *nextButton;
     QPushButton *retryButton;
+    QPushButton *background;
 
     void setupUi(QWidget *End)
     {
@@ -63,6 +64,15 @@ public:
 "    border-radius: 5px;       /* \345\234\206\350\247\222 */\n"
 "    font-size: 12px;          /* \345\255\227\344\275\223\345\244\247\345\260\217 */\n"
 "}"));
+        background = new QPushButton(End);
+        background->setObjectName("background");
+        background->setGeometry(QRect(0, 0, 800, 600));
+        background->setFlat(true);
+        background->raise();
+        scoreLabel->raise();
+        returnButton->raise();
+        nextButton->raise();
+        retryButton->raise();
 
         retranslateUi(End);
 
@@ -76,6 +86,7 @@ public:
         returnButton->setText(QCoreApplication::translate("End", "\350\277\224\345\233\236\344\270\273\350\217\234\345\215\225", nullptr));
         nextButton->setText(QCoreApplication::translate("End", "\344\270\213\344\270\200\345\205\263", nullptr));
         retryButton->setText(QCoreApplication::translate("End", "\351\207\215\346\226\260\346\214\221\346\210\230", nullptr));
+        background->setText(QString());
     } // retranslateUi
 
 };

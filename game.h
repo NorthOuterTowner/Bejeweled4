@@ -63,7 +63,7 @@ public:
     bool canSwapAndMatch(int row1, int col1, int row2, int col2);
     bool checkMatch(int row, int col);
 
-    //GameTimer *gameTimer;  // 计时器
+    void resume();//处理继续游戏信号
 
     int getScore();  //获取当前积分值
     int getScoreToShop() const { return score; }  // 提供获取当前分数的函数，在商店中同步积分
@@ -75,16 +75,16 @@ public:
     int verticalCount;
 
     // 获取当前炸弹数量
-    int getBombCount() const { return bombCount; }
-    void setBombCount(int count) { bombCount = count; }
+    int getBombCount() const;
+    void setBombCount(int count);
 
     // 获取当前横向消除道具数量
-    int getHorizonCount() const { return horizonCount; }
-    void setHorizonCount(int count) { horizonCount = count; }
+    int getHorizonCount() const;
+    void setHorizonCount(int count);
 
     // 获取当前竖向消除道具数量
-    int getVerticalCount() const { return verticalCount; }
-    void setVerticalCount(int count) { verticalCount = count; }
+    int getVerticalCount() const;
+    void setVerticalCount(int count);
     void updateItemCountLabels();  // 更新道具数量标签的函数
 
     Ui::Game *ui;
@@ -96,6 +96,7 @@ signals:
     void adventureLostBackToMain();
     void retryAdventure();
     void retryClassic();
+    void startGameTimer();
 private slots:
     void initEnd();
     void onDropAnimationFinished() {
@@ -107,12 +108,11 @@ private slots:
             qDebug()<<"OK";
             creatstones();
             this->initing=false;
-
         }
     }
     void onEliminateAgain();//判断新落下的棋子是否造成“连消”
     void on_pushButton_3_clicked();//暂停
-    void resume();//处理继续游戏信号
+    void onStartGameTimer();//开始计时
     void on_returnFromPauseToMainMenu();  //处理从暂停界面返回主菜单的信号
     void onNextButtonClicked();//下一关
     void onRetryGame();//重新挑战
@@ -136,6 +136,7 @@ private:
     explicit Game(QWidget *parent = nullptr,Game::GameMode mode = Game::GameMode::CLASSIC_MODE,Client* client=nullptr);//经典模式构造器
     explicit Game(QWidget *parent = nullptr,int LevelNum = -1,Game::GameMode mode = Game::GameMode::ADVENTURE_MODE,Client* client=nullptr);//冒险模式构造器
     static Game* gameInstance;
+    bool arePositionsAdjacent(int row1, int col1, int row2, int col2);//判断两次鼠标点击位置是否相邻
     void mousePressEvent(QMouseEvent *event) override;
     bool checkFormatches();//判断哪些棋子将要被消去
     void eliminateMatches() ;//消除
@@ -145,6 +146,7 @@ private:
     void generateNewStone(int row, int col);//创建一个新子
     void creatstones();//创建所有需要的子
     void shuffleStones();//重排布
+    int calGainScore(int scoreGain = 0);//计分规则
     int initTime = 20;//初始时间20s
     GameTimer *gameTimer = nullptr;//计时器
     bool isTimeExpired = false;//判断时间是否结束

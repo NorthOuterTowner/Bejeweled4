@@ -6,7 +6,6 @@ Pause::Pause(QWidget *parent) :
     ui(new Ui::Pause)
 {
     ui->setupUi(this);
-
     // 使用样式表设置背景图片
     this->setStyleSheet("background-image: url(:/StartPage/background.png); background-repeat: no-repeat; background-position: center; background-size: cover;");
 

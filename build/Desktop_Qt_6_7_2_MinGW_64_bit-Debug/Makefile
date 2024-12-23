@@ -422,8 +422,11 @@ Makefile: ../../Bejeweled.pro C:/Qt/6.7.2/mingw_64/mkspecs/win32-g++/qmake.conf 
 		C:/Qt/6.7.2/mingw_64/mkspecs/features/yacc.prf \
 		C:/Qt/6.7.2/mingw_64/mkspecs/features/lex.prf \
 		../../Bejeweled.pro \
+		C:/Qt/6.7.2/mingw_64/lib/Qt6Charts.prl \
+		C:/Qt/6.7.2/mingw_64/lib/Qt6OpenGLWidgets.prl \
 		C:/Qt/6.7.2/mingw_64/lib/Qt6Widgets.prl \
 		C:/Qt/6.7.2/mingw_64/lib/Qt6Multimedia.prl \
+		C:/Qt/6.7.2/mingw_64/lib/Qt6OpenGL.prl \
 		C:/Qt/6.7.2/mingw_64/lib/Qt6Gui.prl \
 		C:/Qt/6.7.2/mingw_64/lib/Qt6Network.prl \
 		C:/Qt/6.7.2/mingw_64/lib/Qt6Sql.prl \
@@ -789,8 +792,11 @@ C:/Qt/6.7.2/mingw_64/mkspecs/features/exceptions.prf:
 C:/Qt/6.7.2/mingw_64/mkspecs/features/yacc.prf:
 C:/Qt/6.7.2/mingw_64/mkspecs/features/lex.prf:
 ../../Bejeweled.pro:
+C:/Qt/6.7.2/mingw_64/lib/Qt6Charts.prl:
+C:/Qt/6.7.2/mingw_64/lib/Qt6OpenGLWidgets.prl:
 C:/Qt/6.7.2/mingw_64/lib/Qt6Widgets.prl:
 C:/Qt/6.7.2/mingw_64/lib/Qt6Multimedia.prl:
+C:/Qt/6.7.2/mingw_64/lib/Qt6OpenGL.prl:
 C:/Qt/6.7.2/mingw_64/lib/Qt6Gui.prl:
 C:/Qt/6.7.2/mingw_64/lib/Qt6Network.prl:
 C:/Qt/6.7.2/mingw_64/lib/Qt6Sql.prl:
