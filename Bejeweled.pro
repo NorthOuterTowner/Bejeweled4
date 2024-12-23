@@ -72,6 +72,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     build/Gems/jewel.qrc \
+    build/rankback/rank.qrc \
     music.qrc \
     picture/picture.qrc
 
