@@ -20,6 +20,9 @@
 #include <QPropertyAnimation>
 #include <QSoundEffect>
 #include <QParallelAnimationGroup>
+#include "ShopWidget.h"  // 引入 ShopWidget
+
+
 /*Space between Window and Labels*/
 #define upSpacer 80
 #define leftSpacer 100
@@ -59,6 +62,12 @@ Game::Game(QWidget *parent,Game::GameMode mode)
     , gameMode(mode)
     , ui(new Ui::Game)
 {
+    // 确保道具数量初始化为 0 或其他合理的初始值
+    bombCount = 0;
+    horizonCount = 0;
+    verticalCount = 0;
+
+    // gameItems = new GameItems();  // 初始化 GameItems
     ui->setupUi(this);
     // 循环播放背景音乐
     sound = new QSoundEffect(this);
@@ -161,6 +170,20 @@ void Game::init(){
     centralWidget->setGeometry(leftSpacer,upSpacer,384,384);
     centralWidget->setParent(this);
 
+    // 获取道具数量
+    bombCount = this->getBombCount();
+    horizonCount = this->getHorizonCount();
+    verticalCount = this->getVerticalCount();
+
+    // 更新UI显示炸弹数量
+    ui->bombLabel->setText(QString("炸弹: %1").arg(bombCount));
+
+    // 更新UI显示横向数量
+    ui->horizonLabel->setText(QString("横向: %1").arg(horizonCount));
+    // 更新显示当前积分
+
+    ui->verticalLabel->setText(QString("竖向: %1").arg(verticalCount));
+
     updateHintCountDisplay();  // 显示初始提示次数
     for (int row = 0; row < Game::jewelNum; row++) {
         for (int col = 0; col < Game::jewelNum; col++) {
@@ -201,7 +224,11 @@ void Game::mousePressEvent(QMouseEvent *event) {
     int col = (x - leftSpacer) / 48, row = (y - upSpacer) / 48;
 
     StoneLabel* curLabel = stones[row][col];
-
+    if (isBombMode) {
+        // 如果当前处于炸弹模式，触发炸弹效果
+        triggerBomb(row, col);
+        return;
+    }
     if (!change) {
         isComboing = true;
         waitLabel = curLabel;
@@ -389,6 +416,33 @@ void Game::eliminateMatches() {
     // 更新积分显示
     ui->lcdNumber->display(score);
 
+    if (!progressDialog->isVisible()) {
+        QSoundEffect* soundEffect;
+        switch(eliminatedCount){
+        case 3:{
+            soundEffect = new QSoundEffect(this);
+            soundEffect->setSource(QUrl::fromLocalFile(":/music/eliminate/triple.wav"));
+            soundEffect->setLoopCount(1);  // 只播放一次
+            soundEffect->setVolume(volume);
+            break;
+        }
+        case 4:{
+            soundEffect = new QSoundEffect(this);
+            soundEffect->setSource(QUrl::fromLocalFile(":/music/eliminate/quadruple.wav"));
+            soundEffect->setLoopCount(1);  // 只播放一次
+            soundEffect->setVolume(volume);
+            break;
+        }
+        default:{
+            soundEffect = new QSoundEffect(this);
+            soundEffect->setSource(QUrl::fromLocalFile(":/music/eliminate/penta.wav"));
+            soundEffect->setLoopCount(1);  // 只播放一次
+            soundEffect->setVolume(volume);
+            break;
+        }
+        }
+        soundEffect->play();//播放消除音效
+    }
     dropStones();// 执行棋子下落逻辑，用于填补因消除产生的空位
     resetMatchedFlags();// 重置所有棋子的匹配标记，为下一轮检测做准备
 }
@@ -786,7 +840,30 @@ bool Game::checkAdventureWin() const
     }
     return false;
 }
+void Game::triggerBomb(int row, int col) {
+    if (!isBombMode) {
+        return;  // 如果不处于炸弹模式，则不处理
+    }
 
+    // 触发炸弹效果，消除选中位置周围3x3区域的宝石
+    for (int r = row - 1; r <= row + 1; ++r) {
+        for (int c = col - 1; c <= col + 1; ++c) {
+            if (r >= 0 && r < Game::jewelNum && c >= 0 && c < Game::jewelNum) {
+                // 如果位置有效，消除该宝石
+                StoneLabel* targetStone = stones[r][c];
+                if (targetStone != nullptr) {
+                    targetStone->setMatched(true);  // 标记为待消除
+                }
+            }
+        }
+    }
+
+    eliminateMatches();  // 执行消除操作
+
+    // 结束炸弹模式
+    isBombMode = false;
+    // statusBar()->clearMessage();  // 清除提示信息
+}
 //横向删除按钮
 void Game::on_horizon_clicked()
 {
@@ -900,7 +977,7 @@ void Game::highlightHints(const QList<QPair<int, int>>& hints) {
         label->setStyleSheet("background-color: red; border: 3px solid yellow;");
 
         // 设置定时器，在指定时间后移除高亮效果
-        QTimer::singleShot(3000, [label]() {
+        QTimer::singleShot(1500, [label]() {
             label->setStyleSheet("");  // 清除背景和边框
         });
 
@@ -930,16 +1007,10 @@ void Game::highlightHints(const QList<QPair<int, int>>& hints) {
         anim->setLoopCount(-1);  // 无限循环动画，使箭头持续上下震动
         anim->start();
 
-        // 创建旋转动画
-        QPropertyAnimation* rotateAnim = new QPropertyAnimation(hintArrowLabel, "rotation");
-        rotateAnim->setDuration(600);  // 旋转动画的持续时间
-        rotateAnim->setStartValue(0);  // 从0度开始
-        rotateAnim->setEndValue(360);  // 旋转360度
-        rotateAnim->setLoopCount(-1);  // 无限循环旋转
-        rotateAnim->start();
+
 
         // 动画结束后删除箭头图标
-        QTimer::singleShot(3000, hintArrowLabel, [hintArrowLabel]() {
+        QTimer::singleShot(1500, hintArrowLabel, [hintArrowLabel]() {
             hintArrowLabel->deleteLater();  // 删除箭头图标
         });
     }
@@ -999,5 +1070,26 @@ void Game::updateHintCountDisplay() {
     ui->hintRemain->setStyleSheet("color: black; font-size: 9px;");  // 可选：设置文本样式
 }
 
+
+
+void Game::on_Shop_clicked()
+{
+    // 创建 ShopWidget 窗口实例
+    ShopWidget *shopWindow = new ShopWidget;
+    // 显示 ShopWidget 窗口
+    shopWindow->show();    // this 表示父窗口是当前游戏窗口
+    // 更新UI显示炸弹数量
+    ui->bombLabel->setText(QString("炸弹: %1").arg(bombCount));
+
+    ui->horizonLabel->setText(QString("横向消除: %1").arg(horizonCount));
+
+
+}
+
+void Game::setScore(int newScore) {
+    score = newScore;
+    // 更新积分显示
+    ui->lcdNumber->display(score);
+}
 
 

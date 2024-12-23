@@ -11,18 +11,21 @@ CONFIG += c++17
 SOURCES += \
     Login.cpp \
     PixmapSlider.cpp \
+    about.cpp \
     client.cpp \
     end.cpp \
     game.cpp \
     # gameitems.cpp \
     gametimer.cpp \
     globalvalue.cpp \
+    help.cpp \
     hoverbutton.cpp \
     main.cpp \
     mainwindow.cpp \
     rankdialog.cpp \
     settingwidget.cpp \
     pause.cpp \
+    shopwidget.cpp \
     signup.cpp \
     stonelabel.cpp \
     utils.cpp
@@ -30,30 +33,36 @@ SOURCES += \
 HEADERS += \
     Login.h \
     PixmapSlider.h \
+    about.h \
     client.h \
     end.h \
     game.h \
     # gameitems.h \
     gametimer.h \
     globalvalue.h \
+    help.h \
     hoverbutton.h \
     mainwindow.h \
     rankdialog.h \
     settingwidget.h \
     pause.h \
+    shopwidget.h \
     signup.h \
     stonelabel.h \
     utils.h
 
 FORMS += \
     Login.ui \
+    about.ui \
     client.ui \
     end.ui \
     game.ui \
+    help.ui \
     mainwindow.ui \
     rankdialog.ui \
     settingwidget.ui \
     pause.ui \
+    shopwidget.ui \
     signup.ui\
     settingwidget.ui
 
@@ -69,6 +78,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     build/Gems/jewel.qrc \
+    build/rankback/rank.qrc \
     music.qrc \
     picture/picture.qrc
 

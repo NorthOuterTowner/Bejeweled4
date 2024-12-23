@@ -11,6 +11,7 @@ debug/mainwindow.o
 debug/rankdialog.o
 debug/settingwidget.o
 debug/pause.o
+debug/shopwidget.o
 debug/signup.o
 debug/stonelabel.o
 debug/utils.o
@@ -29,5 +30,6 @@ debug/moc_mainwindow.o
 debug/moc_rankdialog.o
 debug/moc_settingwidget.o
 debug/moc_pause.o
+debug/moc_shopwidget.o
 debug/moc_signup.o
 debug/moc_stonelabel.o

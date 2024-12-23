@@ -16,5 +16,7 @@
         <file>backdrop00.jpg</file>
         <file>blueBar.png</file>
         <file>arrow.png</file>
+        <file>button/Level_back.png</file>
+        <file>Level.png</file>
     </qresource>
 </RCC>

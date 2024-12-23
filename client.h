@@ -14,20 +14,19 @@ class Client : public QMainWindow {
 public:
     explicit Client(QWidget *parent = nullptr);
     ~Client();
+    void onSendData(QString);         // 发送
+    QString onReadyRead();        // 接收服务器消息
+    void onDisconnected();     // 服务器断开
 
 private slots:
-    /*
-    void onSendData();         // 发送账户和密码
-    void onReadyRead();        // 接收服务器消息
-    void onDisconnected();     // 服务器断开
-*/
     void on_pushButton_clicked();
 
     void on_pushButton_2_clicked();
 
+public:
+    QTcpSocket *tcpSocket;
 private:
     Ui::Client *ui;
-    QTcpSocket *tcpSocket;
     QString username;
 };
 
