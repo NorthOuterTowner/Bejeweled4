@@ -5,6 +5,7 @@
 #include "globalvalue.h"
 #include "mainwindow.h"
 #include "pause.h"
+#include "ui_pause.h"
 #include "end.h"
 #include <QLabel>
 #include <random>
@@ -96,9 +97,10 @@ Game::Game(QWidget *parent,Game::GameMode mode)
     ui->textBrowser->hide();
 }
 
-Game::Game(QWidget *parent,int levelNum,Game::GameMode mode)
+Game::Game(QWidget *parent,int levelNumber,Game::GameMode mode)
     : QWidget(parent)
     , gameMode(mode)
+    , levelNum(levelNumber)
     , ui(new Ui::Game)
 {
     ui->setupUi(this);
@@ -583,6 +585,12 @@ void Game::on_pushButton_3_clicked()
         pause = new Pause(this);
         connect(pause, &Pause::resumeGame, this, &Game::resume);
         connect(pause, &Pause::returnToMainMenu, this, &Game::on_returnFromPauseToMainMenu);
+        if(gameMode == Game::GameMode::ADVENTURE_MODE){
+            QString nextLevel=QString::fromStdString("关卡:"+std::to_string(levelNum/8)+"-"+std::to_string(levelNum%8));
+            pause->ui->levelInfo->setText(nextLevel);
+        }else{
+            pause->ui->levelInfo->hide();
+        }
     }
     pause->show();
 
