@@ -189,7 +189,9 @@ MainWindow::MainWindow(Client* c,QWidget *parent)
     ui->pushButton_9->hide(); // 隐藏原始按钮
 
     //连接接受信息与登录页面
-    connect(client->tcpSocket, &QTcpSocket::readyRead, this, &MainWindow::onDataReceived);
+    if(client){
+        connect(client->tcpSocket, &QTcpSocket::readyRead, this, &MainWindow::onDataReceived);
+    }
 }
 
 void setBkImg(const char * str, QLabel * label);
