@@ -146,7 +146,7 @@ private:
     void generateNewStone(int row, int col);//创建一个新子
     void creatstones();//创建所有需要的子
     void shuffleStones();//重排布
-    int calGainScore(int scoreGain = 0);//计分规则
+    int calGainScore(int scoreGain = 0,int iceKilledNum = 0);//计分规则
     int initTime = 20;//初始时间20s
     GameTimer *gameTimer = nullptr;//计时器
     bool isTimeExpired = false;//判断时间是否结束
