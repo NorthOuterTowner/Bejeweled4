@@ -9,6 +9,7 @@
 #include "end.h"
 #include <QLabel>
 #include <random>
+#include <cmath>
 #include <vector>
 #include <QGridLayout>
 #include <QPropertyAnimation>
@@ -47,23 +48,22 @@ int genRandom(){
 void Game::update(){
     for (int i = 0; i < Game::jewelNum; i++) {
         for (int j = 0; j < Game::jewelNum; j++) {
-                StoneLabel* pic = stones.at(i).at(j);
-                pic->resize(48,48);
-                std::string pixStr=":/"+StoneLabel::stoneMode+std::to_string(pic->getIndex())+".png";
-                pic->setPixmap(QPixmap(QString::fromStdString(pixStr)).scaled(48,48));
-                pic->setAlignment(Qt::AlignCenter);
-                mainWidget->addWidget(pic, i, j);
+            StoneLabel* pic = stones.at(i).at(j);
+            pic->resize(48,48);
+            std::string pixStr=":/"+StoneLabel::stoneMode+std::to_string(pic->getIndex())+".png";
+            pic->setPixmap(QPixmap(QString::fromStdString(pixStr)).scaled(48,48));
+            pic->setAlignment(Qt::AlignCenter);
+            mainWidget->addWidget(pic, i, j);
         }
     }
 }
 
-Game::Game(QWidget *parent,Game::GameMode mode)
+Game::Game(QWidget *parent,Game::GameMode mode,Client* c)
     : QWidget(parent)
-    , gameMode(mode)
     , ui(new Ui::Game)
+    , gameMode(mode)
+    , client(c)
 {
-
-
     // gameItems = new GameItems();  // 初始化 GameItems
     ui->setupUi(this);
     // 循环播放背景音乐
@@ -81,6 +81,7 @@ Game::Game(QWidget *parent,Game::GameMode mode)
     connect(this, &Game::eliminateAgainSignal, this, &Game::onEliminateAgain);
     connect(this, &Game::initEndSignal, this, &Game::initEnd);
     gameTimer = new GameTimer(this);
+    connect(this, &Game::startGameTimer, this, &Game::onStartGameTimer);
     connect(gameTimer, &GameTimer::timeUpdated, this, &Game::updateTimerDisplay);
     connect(gameTimer, &GameTimer::timeExpired, this, &Game::onTimeExpired);
     init();
@@ -95,19 +96,24 @@ Game::Game(QWidget *parent,Game::GameMode mode)
     }else{
         progressDialog->setValue(100);
         progressDialog->hide();
+        emit startGameTimer();
     }
 
     //经典模式下相关显示与逻辑特殊处理
-    ui->pushButton_4->hide();
-    ui->label_2->hide();
+    ui->passScoreLabel->hide();
     ui->textBrowser->hide();
+    ui->levelNumLabel->hide();
+
+
 }
 
-Game::Game(QWidget *parent,int levelNumber,Game::GameMode mode)
+
+Game::Game(QWidget *parent,int levelNumber,Game::GameMode mode,Client* c)
     : QWidget(parent)
-    , gameMode(mode)
-    , levelNum(levelNumber)
     , ui(new Ui::Game)
+    , gameMode(mode)
+    , levelNumber(levelNumber)
+    , client(c)
 {
     ui->setupUi(this);
     Game::jewelNum=8;
@@ -117,6 +123,7 @@ Game::Game(QWidget *parent,int levelNumber,Game::GameMode mode)
     connect(this, &Game::eliminateAgainSignal, this, &Game::onEliminateAgain);
     connect(this, &Game::initEndSignal, this, &Game::initEnd);
     gameTimer = new GameTimer(this);
+    connect(this, &Game::startGameTimer, this, &Game::onStartGameTimer);
     connect(gameTimer, &GameTimer::timeUpdated, this, &Game::updateTimerDisplay);
     connect(gameTimer, &GameTimer::timeExpired, this, &Game::onTimeExpired);
     init();
@@ -131,10 +138,14 @@ Game::Game(QWidget *parent,int levelNumber,Game::GameMode mode)
     }else{
         progressDialog->setValue(100);
         progressDialog->hide();
+        emit startGameTimer();
     }
 
     //冒险模式下相关显示与逻辑特殊处理
-    setWinScore(levelNum);
+    setWinScore(levelNumber);
+    QString levelInfo=QString::fromStdString("关卡:"+std::to_string(levelNumber/8+1)+"-"+std::to_string((levelNumber-1)%8+1));
+    ui->levelNumLabel->setText(levelInfo);
+
 }
 
 Game::~Game()
@@ -142,13 +153,13 @@ Game::~Game()
     delete ui;
     delete end;
 }
-Game* Game::instance(QWidget *parent, Game::GameMode mode, int levelNum) {
+Game* Game::instance(QWidget *parent, Game::GameMode mode, int levelNum,Client* c) {
     if (gameInstance == nullptr) {
         if (levelNum == -1) {
-            gameInstance = new Game(parent, mode);
+            gameInstance = new Game(parent, mode,c);
         }
         else {
-            gameInstance = new Game(parent, levelNum, mode);
+            gameInstance = new Game(parent, levelNum, mode,c);
         }
     }
     return gameInstance;
@@ -182,7 +193,8 @@ void Game::init(){
     for (int row = 0; row < Game::jewelNum; row++) {
         for (int col = 0; col < Game::jewelNum; col++) {
             StoneLabel* imgLabel = new StoneLabel(this);
-            stones[row][col]=imgLabel;
+
+            imgLabel->isFrozen = false;
             imgLabel->setrow(row);
             imgLabel->setcol(col);
             imgLabel->resize(48,48);
@@ -190,6 +202,11 @@ void Game::init(){
             std::string pixStr=":/"+StoneLabel::stoneMode+std::to_string(imgLabel->getIndex())+".png";
             imgLabel->setpix(pixStr);
             imgLabel->setPixmap(QPixmap(QString::fromStdString(pixStr)).scaled(48,48));
+            // 根据冰冻状态设置初始外观样式
+            if (imgLabel->isFrozen) {
+                imgLabel->setStyleSheetForFrozen();
+            }
+            stones[row][col]=imgLabel;
             mainWidget->addWidget(imgLabel, row, col); // 使用addWidget()来将QLabel添加到布局中
         }
     }
@@ -197,18 +214,16 @@ void Game::init(){
     waitLabel=nullptr;
     pause = nullptr;
 
-    gameTimer->startCountdown(initTime);
-    ui->progressBar->setRange(0, gameTimer->getRemainingSeconds());  // 设置进度条范围与倒计时初始时间一致
-    ui->progressBar->setValue(gameTimer->getRemainingSeconds());  // 设置初始值为总时间
-    ui->progressBar->setTextVisible(false);
-    ui->timerLabel->setText("--");
-
-    connect(ui->pushButton_3, &QPushButton::clicked, this, &Game::on_pushButton_3_clicked);
+    connect(ui->pauseButton, &QPushButton::clicked, this, &Game::on_pushButton_3_clicked);
 }
 /**
  * @brief Game::mousePressEvent
  * @param event
  */
+bool Game::arePositionsAdjacent(int row1, int col1, int row2, int col2) {
+    return std::abs(row1 - row2) + std::abs(col1 - col2) == 1;
+}
+
 void Game::mousePressEvent(QMouseEvent *event) {
     QPoint clickPoint = event->pos();
     int x = clickPoint.x(), y = clickPoint.y();
@@ -216,8 +231,34 @@ void Game::mousePressEvent(QMouseEvent *event) {
         return;
 
     int col = (x - leftSpacer) / 48, row = (y - upSpacer) / 48;
-
+    /*左上*/
+    if(row>=1 && row<=4){
+        if(col>=1 && col<=4){
+            clickDistrict[0]++;
+        }
+    }
+    /*右上*/
+    if(row>=1 && row<=4){
+        if(col>=4 && col<=8){
+            clickDistrict[1]++;
+        }
+    }
+    /*左下*/
+    if(row>=4 && row<=8){
+        if(col>=1 && col<=4){
+            clickDistrict[2]++;
+        }
+    }
+    /*右下*/
+    if(row>=4 && row<=8){
+        if(col>=4 && col<=8){
+            clickDistrict[3]++;
+        }
+    }
     StoneLabel* curLabel = stones[row][col];
+    if (curLabel->isFrozen) {  // 如果当前点击的棋子处于冰冻状态，直接返回，不做任何操作
+        return;
+    }
     if (isBombMode) {
         // 如果当前处于炸弹模式，触发炸弹效果
         triggerBomb(row, col);
@@ -232,8 +273,15 @@ void Game::mousePressEvent(QMouseEvent *event) {
         int row1 = waitLabel->getrow(), col1 = waitLabel->getcol();
         int row2 = curLabel->getrow(), col2 = curLabel->getcol();
 
-        if (std::abs(row1 + col1 - row2 - col2) != 1)
+        if (!arePositionsAdjacent(row1, col1, row2, col2)) {// 判断两次点击的位置是否相邻,若不则跟随移动
+            // 如果不相邻，忽视第一次点击，将此次点击视为第一次点击
+            waitLabel->setStyle();
+            isComboing = true;
+            waitLabel = stones[row][col];
+            waitLabel->setStyle(1);
+            change = true;
             return;
+        }
 
         // 创建动画
         QPropertyAnimation *animation1 = new QPropertyAnimation(stones[row1][col1], "pos");
@@ -388,23 +436,30 @@ bool Game::checkFormatches(){
 
 void Game::eliminateMatches() {
     int eliminatedCount = 0;  // 用于记录本次消除的棋子个数
+    int iceKilledNum = 0;   // 用于记录本次消除的冰块个数
 
     for (int row = 0; row < 8; ++row) {
         for (int col = 0; col < 8; ++col) {
-            if (stones[row][col] != nullptr && stones[row][col]->isMatched()) {
+            if (stones[row][col] != nullptr && stones[row][col]->isMatched() && !stones[row][col]->isFrozen) {//未冰冻的棋子，直接消除即可
                 //删除棋子
                 delete stones[row][col];
                 stones[row][col] = nullptr;  // 清空位置
                 eliminatedCount++;  // 统计消除的棋子个数
+            }else if (stones[row][col] != nullptr && stones[row][col]->isMatched() && stones[row][col]->isFrozen) { // 如果是冰冻棋子，清除匹配标记并恢复正常外观
+                stones[row][col]->setMatched(false);
+                stones[row][col]->isFrozen = false;
+                stones[row][col]->setStyleSheetForNormal();
+                std::string pixStr = ":/" + StoneLabel::stoneMode + std::to_string(stones[row][col]->getIndex()) + ".png";
+                stones[row][col]->setPixmap(QPixmap(QString::fromStdString(pixStr)).scaled(48, 48));
+                iceKilledNum++;
             }
         }
     }
 
     if (hasStartedScoring)  // 根据计分标记判断是否计分
     {
-        // 根据消除的棋子个数计算得分，按照2的被消除棋子个数次方规则
-        int scoreGain = std::pow(2, eliminatedCount);
-        score += scoreGain; // 将本次得分累加到总积分中
+        // 根据消除的棋子个数计算得分，计分规则见calGainScore()
+        score += calGainScore(eliminatedCount,iceKilledNum); // 将本次得分累加到总积分中
     }
 
     // 更新积分显示
@@ -456,6 +511,13 @@ void Game::generateNewStone(int row, int col){
     // 显示添加
    // mainWidget->addWidget(imgLabel, row, col);
 
+    if (genRandom() < 3) {
+        imgLabel->isFrozen = true;
+        imgLabel->setStyleSheetForFrozen();  // 设置为白色填充样式，代表冰冻状态
+    } else {
+        imgLabel->isFrozen = false;
+    }
+
     // 逻辑添加
     stones[row][col] = imgLabel;
 }
@@ -475,13 +537,13 @@ void Game::onEliminateAgain(){
             stones[row2][col2]->setcol(col2);
             if(gameMode == GameMode::ADVENTURE_MODE){//冒险模式
                 if (checkAdventureWin() && !isComboing) {//胜利
-                    // 停止游戏相关的定时器等操作
-                    resetGameState();
-
                     // 显示结束界面并提示闯关成功
-                    end = new End(this);
+                    end = new End(this,client);
                     connect(end, &End::nextButtonClicked, this, &Game::onNextButtonClicked);
                     end->showAdventureWinUI();
+
+                    // 停止游戏相关的定时器等操作
+                    resetGameState();
                     return;
                 }
             }
@@ -494,6 +556,7 @@ void Game::initEnd(){
     std::cout<<"initEnd"<<std::endl;
     this->progressDialog->setValue(100);
     this->progressDialog->hide();
+    emit startGameTimer();
 }
 
 //遍历空白位置，生成全部新子
@@ -596,26 +659,51 @@ void Game::setGameMode(GameMode mode)
     gameMode = mode;
 }
 
+void Game::onStartGameTimer(){
+    gameTimer->startCountdown(initTime);
+    ui->progressBar->setRange(0, gameTimer->getRemainingSeconds());  // 设置进度条范围与倒计时初始时间一致
+    ui->progressBar->setValue(gameTimer->getRemainingSeconds());  // 设置初始值为总时间
+    ui->progressBar->setTextVisible(false);
+    ui->timerLabel->setText("--");
+
+    disconnect(this, &Game::startGameTimer, this, &Game::onStartGameTimer);
+}
+
+int Game::calGainScore(int eliminatedCount,int iceKilledNum){
+    // k是对数调节系数，offset是偏移量，用于保证积分值在合理范围且为正整数等
+    // 例如设置k = 20，offset = 5
+    int k = 10;
+    int offset = 8;
+    // n为破冰数线性系数
+    int n = 15;
+    int scoreGain = static_cast<int>(std::log(eliminatedCount + 1) * k + offset + iceKilledNum * n);
+    return scoreGain;
+}
+
 void Game::onTimeExpired()
 {
     // 在这里可以添加游戏结束相关的逻辑，比如提示游戏结束、禁用操作等
     ui->timerLabel->setText(QString::number(0) + "s");
     ui->progressBar->setValue(0);  // 更新进度条当前值
     isTimeExpired = true;
-    // 停止游戏相关的定时器等操作
-    resetGameState();
 
     if(gameMode == Game::GameMode::ADVENTURE_MODE){
         if (isTimeExpired && !isComboing && !checkAdventureWin()){
-            // 显示结束界面并提示闯关成功
-            end = new End(this);
+            // 显示结束界面并提示闯关失败
+            end = new End(this,client);
             connect(end, &End::nextButtonClicked, this, &Game::onNextButtonClicked);
+            connect(end, &End::retryGame, this, &Game::onRetryGame);
             end->showAdventureLoseUI();
+            // 停止游戏相关的定时器等操作
+            resetGameState();
+            emit adventureLostBackToMain();// 发射信号通知 MainWindow 进行 levelNum 自减一操作
         }
     }else{
-        end = new End(this);
+        end = new End(this,client);
         connect(end, &End::nextButtonClicked, this, &Game::onNextButtonClicked);
         end->showEndUI();
+        // 停止游戏相关的定时器等操作
+        resetGameState();
     }
 }
 
@@ -633,9 +721,10 @@ void Game::on_pushButton_3_clicked()
         pause = new Pause(this);
         connect(pause, &Pause::resumeGame, this, &Game::resume);
         connect(pause, &Pause::returnToMainMenu, this, &Game::on_returnFromPauseToMainMenu);
+        connect(pause, &Pause::renewGame, this, &Game::onRetryGame);
         if(gameMode == Game::GameMode::ADVENTURE_MODE){
-            QString nextLevel=QString::fromStdString("关卡:"+std::to_string(levelNum/8)+"-"+std::to_string(levelNum%8));
-            pause->ui->levelInfo->setText(nextLevel);
+            QString levelInfo=QString::fromStdString("关卡:"+std::to_string(levelNumber/8+1)+"-"+std::to_string((levelNumber-1)%8+1));
+            pause->ui->levelInfo->setText(levelInfo);
         }else{
             pause->ui->levelInfo->hide();
         }
@@ -662,7 +751,7 @@ void Game::resetGameState()
         delete gameTimer;
         gameTimer = nullptr;
     }
-
+    score = 0;
     // 这里可以进一步添加对其他游戏相关变量的重置逻辑，比如：
     // 重置棋子相关状态等，可根据实际需求完善
 }
@@ -670,8 +759,9 @@ void Game::resetGameState()
 void Game::on_returnFromPauseToMainMenu()
 {
     resetGameState();
+    emit adventureLostBackToMain();
+    //sound->stop();
     emit returnMainwindow();
-    sound->stop();
 }
 
 //重新排布按键
@@ -755,8 +845,8 @@ void Game::shuffleStones() {
             update();
         });
     });
-
 }
+
 void Game::onNextButtonClicked()
 {
     difficulty+=1;
@@ -765,53 +855,18 @@ void Game::onNextButtonClicked()
         emit returnMainwindow();
         return;
     }
-    QDialog dialog(this);
-    dialog.setWindowTitle("获得新宝石");
-    QVBoxLayout layout;
-    QLabel gemLabel;
-    QString pixStr=QString::fromStdString(":/"+StoneLabel::stoneMode+std::to_string(difficulty)+".png");
-    QPixmap gemPixmap(pixStr); // 替换为实际的宝石图片路径
-    gemLabel.setPixmap(gemPixmap);
-    gemLabel.setAlignment(Qt::AlignCenter);
-    gemLabel.setFixedSize(48, 48); // 设置 QLabel 大小
-    gemLabel.setScaledContents(true); // 使图片适应 QLabel 大小
-    layout.addWidget(&gemLabel);
-    QLabel textLabel("恭喜！你获得了一颗新的宝石。");
-    textLabel.setAlignment(Qt::AlignCenter);
-    layout.addWidget(&textLabel);
-    dialog.setLayout(&layout);
-    dialog.exec();
-    emit returnMainwindow();
+    emit directToNextLevel();
 }
 
-void Game::on_pushButton_4_clicked()
-{
-    difficulty+=1;
-    if(difficulty>10){
-        QMessageBox::information(this, "游戏结束", "恭喜你通过了全部关卡！");
-        emit returnMainwindow();
-        return;
+void Game::onRetryGame(){
+    close();
+    resetGameState();
+    if(gameMode == Game::GameMode::ADVENTURE_MODE){
+        emit retryAdventure();
+    }else{
+        emit retryClassic();
     }
-    QDialog dialog(this);
-    dialog.setWindowTitle("获得新宝石");
-    QVBoxLayout layout;
-    QLabel gemLabel;
-    QString pixStr=QString::fromStdString(":/"+StoneLabel::stoneMode+std::to_string(difficulty)+".png");
-    QPixmap gemPixmap(pixStr); // 替换为实际的宝石图片路径
-    gemLabel.setPixmap(gemPixmap);
-    gemLabel.setAlignment(Qt::AlignCenter);
-    gemLabel.setFixedSize(48, 48); // 设置 QLabel 大小
-    gemLabel.setScaledContents(true); // 使图片适应 QLabel 大小
-    layout.addWidget(&gemLabel);
-    QLabel textLabel("恭喜！你获得了一颗新的宝石。");
-    textLabel.setAlignment(Qt::AlignCenter);
-    layout.addWidget(&textLabel);
-    dialog.setLayout(&layout);
-    dialog.exec();
-    emit returnMainwindow();
 }
-
-
 
 int Game::getScore(){
     return score;
@@ -857,6 +912,7 @@ void Game::triggerBomb(int row, int col) {
                 StoneLabel* targetStone = stones[r][c];
                 if (targetStone != nullptr) {
                     targetStone->setMatched(true);  // 标记为待消除
+                    score+=4;
                 }
             }
         }
@@ -884,12 +940,12 @@ void Game::on_horizon_clicked()
 void Game::horizondelete(int row){
     for (int col = 0; col < 8; ++col) {
             if (stones[row][col] != nullptr ) {
-                //删除棋子
-                delete stones[row][col];
-                stones[row][col] = nullptr;  // 清空位置
+            score+=4;
+            stones[row][col]->setMatched(true);
             }
         }
-    dropStones();
+    eliminateMatches();
+
 
     qDebug()<<"horizon"<<row;
 }
@@ -915,11 +971,11 @@ void Game::onAnimationFinished(){
 void Game::verticaldelete(int col){
     for(int row=0;row<8;++row){
         if(stones[row][col]!=nullptr){
-            delete stones[row][col];
-            stones[row][col]=nullptr;
+            score+=4;
+            stones[row][col]->setMatched(true);
         }
     }
-    dropStones();
+    eliminateMatches();
 }
 
 QList<QPair<int, int>> Game::findHint() {
@@ -1094,6 +1150,8 @@ void Game::updateHintCountDisplay() {
 
 void Game::on_Shop_clicked()
 {
+    gameTimer->stop();
+    isPaused = true;
     // 创建 ShopWidget 窗口实例
     ShopWidget *shopWindow = new ShopWidget;
     // 显示 ShopWidget 窗口

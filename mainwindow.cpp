@@ -5,6 +5,7 @@
 #include "hoverbutton.h"  // 引入 HoverButton 类
 #include <QLabel>
 #include <QPushButton>
+#include <QVBoxLayout>
 #include <QSoundEffect>
 #include <QCoreApplication>
 #include <QDebug>
@@ -15,18 +16,18 @@
 #include "ui_rankdialog.h"
 #include<settingwidget.h>
 #include"shopwidget.h"
-
+#include<QMessageBox.h>
 #include "about.h"
 #include "help.h"
+#include "heatmap.h"
 
 
-MainWindow::MainWindow(QWidget *parent)
+MainWindow::MainWindow(Client* c,QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
-
 {
+    client=c;
     // 初始化其他成员
-    shopWidget = new ShopWidget();
     ui->setupUi(this);
     StoneLabel::stoneMode = "gemstone";
     // 设置背景并启动动画
@@ -73,6 +74,23 @@ MainWindow::MainWindow(QWidget *parent)
 
     // 隐藏原始的 QPushButton
     ui->About->hide();
+
+    HoverButton *HeatButton = new HoverButton(this);
+    HeatButton->setImage(":/icons/start_normal.png", ":/icons/start_hover.png", 100, 25);
+    HeatButton->setLabel("热力图", 10);
+    HeatButton->adjustSize();  // 自动调整按钮大小
+    HeatButton->setSound(":/music/button/button_mouseover.wav", ":/music/button/button_mouseleave.wav", ":/music/button/button_press.wav", ":/music/button/button_release.wav");
+    HeatButton->move(ui->Heat->pos());  // 将新按钮放置在原按钮的位置
+    connect(HeatButton, &QPushButton::clicked, this, []{
+        HeatMap heatmapDialog;
+        //std::vector<int> clickDistrict = {10, 20, 15, 5};
+        heatmapDialog.setClickData(clickDistrict);
+        heatmapDialog.exec();
+    });
+
+    // 隐藏原始的 QPushButton
+    ui->About->hide();
+
     // 使用 HoverButton 替换原有按钮
     HoverButton *startButton = new HoverButton(this);
     startButton->setImage(":/icons/start_normal.png", ":/icons/start_hover.png", 100, 25);
@@ -163,13 +181,17 @@ MainWindow::MainWindow(QWidget *parent)
     // 在构造函数中添加以下代码，类似其他按钮的创建方式
     nextLevelButton = new HoverButton(this);
     nextLevelButton->setImage(":/icons/next_normal.png", ":/icons/next_hover.png", 150, 50);
-    QString nextLevel=QString::fromStdString("下一关:"+std::to_string(levelNum/8)+"-"+std::to_string(levelNum%8));
+    QString nextLevel=QString::fromStdString("下一关:"+std::to_string(levelNum/8+1)+"-"+std::to_string(levelNum%8+1));
     nextLevelButton->setLabel(nextLevel, 13);
     nextLevelButton->setSound(":/music/button/button_mouseover.wav", ":/music/button/button_mouseleave.wav", ":/music/button/button_press.wav", ":/music/button/button_release.wav");
     nextLevelButton->move(ui->pushButton_9->pos());
     connect(nextLevelButton, &QPushButton::clicked, this, &MainWindow::on_pushButton_9_clicked);
     ui->pushButton_9->hide(); // 隐藏原始按钮
 
+    //连接接受信息与登录页面
+    if(client){
+        connect(client->tcpSocket, &QTcpSocket::readyRead, this, &MainWindow::onDataReceived);
+    }
 }
 
 void setBkImg(const char * str, QLabel * label);
@@ -243,21 +265,45 @@ void MainWindow::on_pushButton_clicked()
     }
 
     sound->stop();  // 暂停背景音乐
-    gameDlg = Game::instance(nullptr, Game::GameMode::CLASSIC_MODE); // 创建游戏，设置游戏模式为经典模式
+    gameDlg = Game::instance(nullptr, Game::GameMode::CLASSIC_MODE,-1,client); // 创建游戏，设置游戏模式为经典模式
     connect(gameDlg, &Game::returnMainwindow, this, &MainWindow::onReturnMainwindow);
-     shopWidget->resetItemCounts();
+    connect(gameDlg, &Game::retryClassic, this, &MainWindow::onRetryClassic);
+    shopWidget = new ShopWidget();
+    shopWidget->resetItemCounts();
     // 更新游戏界面中的道具数量标签
     gameDlg->updateItemCountLabels();
-     gameDlg->show();
+    gameDlg->show();
     this->hide();
 }
 
 void MainWindow::onReturnMainwindow()
 {
-    std::cout<<"Return slots work"<<std::endl;
-    this->show();
+    QString nextLevel=QString::fromStdString("下一关:"+std::to_string(levelNum/8+1)+"-"+std::to_string(levelNum%8+1));
+    nextLevelButton->setLabel(nextLevel, 13);
     Game::instance()->hide();
+    this->show();
     sound->play();  // 恢复背景音乐
+}
+
+void MainWindow::onDirectToNextLevel(){
+    onReturnMainwindow();
+    on_pushButton_9_clicked();
+    QDialog dialog(this);
+    dialog.setWindowTitle("获得新宝石");
+    QVBoxLayout layout;
+    QLabel gemLabel;
+    QString pixStr=QString::fromStdString(":/"+StoneLabel::stoneMode+std::to_string(difficulty)+".png");
+    QPixmap gemPixmap(pixStr); // 替换为实际的宝石图片路径
+    gemLabel.setPixmap(gemPixmap);
+    gemLabel.setAlignment(Qt::AlignCenter);
+    gemLabel.setFixedSize(48, 48); // 设置 QLabel 大小
+    gemLabel.setScaledContents(true); // 使图片适应 QLabel 大小
+    layout.addWidget(&gemLabel);
+    QLabel textLabel("恭喜！你获得了一颗新的宝石。");
+    textLabel.setAlignment(Qt::AlignCenter);
+    layout.addWidget(&textLabel);
+    dialog.setLayout(&layout);
+    dialog.exec();
 }
 /*
 void MainWindow::on_pushButton_2_clicked()
@@ -293,6 +339,10 @@ void MainWindow::on_pushButton_8_clicked()
 
 }*/
 
+void MainWindow::onAdventureLostBackToMain(){
+    --levelNum;
+}
+
 /*冒险模式*/
 void MainWindow::on_pushButton_9_clicked()
 {
@@ -300,17 +350,20 @@ void MainWindow::on_pushButton_9_clicked()
         difficulty=4;
     }
     levelNum++;
-    QString nextLevel=QString::fromStdString("下一关:"+std::to_string(levelNum/8)+"-"+std::to_string(levelNum%8));
+    QString nextLevel=QString::fromStdString("下一关:"+std::to_string(levelNum/8+1)+"-"+std::to_string(levelNum%8+1));
     nextLevelButton->setLabel(nextLevel, 13);
     if(gameDlg){
         Game::delInstance();
     }
-    gameDlg = Game::instance(nullptr, Game::GameMode::ADVENTURE_MODE,levelNum); // 创建游戏，设置游戏模式为冒险模式
+    gameDlg = Game::instance(nullptr, Game::GameMode::ADVENTURE_MODE,levelNum,client); // 创建游戏，设置游戏模式为冒险模式
     connect(gameDlg, &Game::returnMainwindow, this, &MainWindow::onReturnMainwindow);
+    connect(gameDlg, &Game::directToNextLevel, this, &MainWindow::onDirectToNextLevel);
+    connect(gameDlg, &Game::retryAdventure, this, &MainWindow::onRetryAdventure);
+    connect(gameDlg, &Game::adventureLostBackToMain, this, &MainWindow::onAdventureLostBackToMain);
+    shopWidget = new ShopWidget();
     gameDlg->show();
     this->hide();
 }
-
 
 void MainWindow::on_pushButton_10_clicked()
 {
@@ -329,11 +382,23 @@ void MainWindow::on_pushButton_10_clicked()
     }
 }
 
-
-
-
 void MainWindow::on_ranking_clicked()
 {
+    if(client==nullptr){
+        QMessageBox::information(this, "排名", "离线模式无法查看排名");
+    }else{
+        client->onSendData("d");
+    }
+}//获取排行榜数据
+
+void MainWindow::onDataReceived(){
+    QString buffer;
+    buffer.append(client->tcpSocket->readAll()); // 将接收到的数据追加到缓冲区
+
+    // 按分隔符（如换行符）处理
+    QStringList messages = buffer.split(' ');
+    int index=2;
+    int num=messages[1].toInt();
 
     RankDialog rank(this);
 
@@ -341,7 +406,7 @@ void MainWindow::on_ranking_clicked()
     QTableWidget* tableWidget = rank.ui->tableWidget;
 
     // 设置行数和列数
-    tableWidget->setRowCount(20);
+    tableWidget->setRowCount(num);
     tableWidget->setColumnCount(2);
 
     // 设置列头
@@ -349,13 +414,15 @@ void MainWindow::on_ranking_clicked()
 
     //逻辑添加真实数据
     // 模拟
-    QVector<QPair<QString, int>> usersScores = {
-        {"Alice", 95},
-        {"Bob", 88},
-        {"Charlie", 72},
-        {"David", 80},
-        {"Eve", 91}
-    };
+    QVector<QPair<QString, int>> usersScores;
+    for(int i = 0; i < num; ++i){
+        usersScores.append({messages[index],messages[index+1].toInt()});
+        index+=2;
+    }//将数据输入数组
+    std::sort(usersScores.begin(), usersScores.end(),
+              [](const QPair<QString, int>& a, const QPair<QString, int>& b) {
+                  return a.second > b.second; // 比较第二项，从大到小排序
+              });//按大小排序
     // 填充表格数据
     for (int i = 0; i < usersScores.size(); ++i) {
         // 设置每一行的用户名和得分
@@ -375,5 +442,14 @@ void MainWindow::on_ranking_clicked()
 
     rank.exec();
 
+}//显示排行榜
+
+void MainWindow::onRetryAdventure(){
+    levelNum--;
+    on_pushButton_9_clicked();
+}
+
+void MainWindow::onRetryClassic(){
+    on_pushButton_clicked();
 }
 

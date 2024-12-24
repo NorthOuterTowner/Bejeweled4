@@ -19,7 +19,7 @@ ShopWidget::ShopWidget(QWidget *parent) :
 {
     ui->setupUi(this);
 
-
+    connect(this, &ShopWidget::resumeGame, game, &Game::resume);
     // 初始化当前选择道具为 NONE
     currentItemType = ItemType::NONE;
     //去窗口边框
@@ -66,6 +66,7 @@ void ShopWidget::keyPressEvent(QKeyEvent *event)
     if (event->key() == Qt::Key_Escape) {
         // 按下 Esc 键时，关闭窗口或执行其他返回操作
         this->close();  // 关闭当前窗口
+        emit resumeGame();
     } else {
         // 其他键处理，可以调用父类的 keyPressEvent 进行默认处理
         QWidget::keyPressEvent(event);

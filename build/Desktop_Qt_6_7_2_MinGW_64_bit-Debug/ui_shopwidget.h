@@ -23,43 +23,36 @@ public:
     QPushButton *bomb;
     QPushButton *horizon;
     QPushButton *vertical;
-    QLabel *label;
     QPushButton *Buy;
     QLabel *label_2;
-    QLabel *label_3;
     QLabel *label_4;
+    QLabel *introduction;
+    QLabel *picture;
+    QLabel *score;
+    QLabel *bombLabel;
+    QLabel *horizonLabel;
+    QLabel *verticalLabel;
 
     void setupUi(QWidget *ShopWidget)
     {
         if (ShopWidget->objectName().isEmpty())
             ShopWidget->setObjectName("ShopWidget");
-        ShopWidget->resize(614, 551);
+        ShopWidget->resize(764, 666);
         bomb = new QPushButton(ShopWidget);
         bomb->setObjectName("bomb");
-        bomb->setGeometry(QRect(100, 170, 61, 61));
+        bomb->setGeometry(QRect(70, 140, 61, 61));
         horizon = new QPushButton(ShopWidget);
         horizon->setObjectName("horizon");
-        horizon->setGeometry(QRect(80, 240, 91, 71));
+        horizon->setGeometry(QRect(70, 230, 61, 61));
         vertical = new QPushButton(ShopWidget);
         vertical->setObjectName("vertical");
-        vertical->setGeometry(QRect(90, 320, 91, 71));
-        label = new QLabel(ShopWidget);
-        label->setObjectName("label");
-        label->setGeometry(QRect(0, 110, 521, 301));
-        label->setStyleSheet(QString::fromUtf8("QLabel {\n"
-"    background-image: url(:/button/Level_back.png);  /* \350\256\276\347\275\256\350\203\214\346\231\257\345\233\276\347\211\207 */\n"
-"    background-position: center;  /* \345\233\276\347\211\207\345\261\205\344\270\255 */\n"
-"    background-repeat: no-repeat;  /* \347\246\201\346\255\242\351\207\215\345\244\215 */\n"
-"    background-size: cover;  /* \347\241\256\344\277\235\350\203\214\346\231\257\345\233\276\347\211\207\350\246\206\347\233\226\346\225\264\344\270\252\346\240\207\347\255\276\357\274\214\350\243\201\345\211\252\345\244\232\344\275\231\351\203\250\345\210\206 */\n"
-"    border: none;  /* \345\217\257\351\200\211\357\274\232\345\216\273\351\231\244\350\276\271\346\241\206 */\n"
-"}\n"
-""));
+        vertical->setGeometry(QRect(70, 320, 61, 61));
         Buy = new QPushButton(ShopWidget);
         Buy->setObjectName("Buy");
-        Buy->setGeometry(QRect(290, 280, 91, 61));
+        Buy->setGeometry(QRect(440, 370, 141, 51));
         label_2 = new QLabel(ShopWidget);
         label_2->setObjectName("label_2");
-        label_2->setGeometry(QRect(40, 410, 431, 41));
+        label_2->setGeometry(QRect(10, 0, 751, 51));
         label_2->setStyleSheet(QString::fromUtf8("\n"
 "\n"
 "\n"
@@ -81,21 +74,27 @@ public:
                         "\271\345\207\273\346\227\266\350\276\271\346\241\206\351\242\234\350\211\262\345\217\230\346\267\261 */\n"
 "}\n"
 ""));
-        label_3 = new QLabel(ShopWidget);
-        label_3->setObjectName("label_3");
-        label_3->setGeometry(QRect(90, 10, 331, 101));
-        label_3->setStyleSheet(QString::fromUtf8("background-image: url(:/Level.png);"));
         label_4 = new QLabel(ShopWidget);
         label_4->setObjectName("label_4");
-        label_4->setGeometry(QRect(49, 31, 41, 81));
-        label->raise();
-        bomb->raise();
-        horizon->raise();
-        vertical->raise();
-        Buy->raise();
-        label_2->raise();
-        label_3->raise();
-        label_4->raise();
+        label_4->setGeometry(QRect(20, 40, 111, 51));
+        introduction = new QLabel(ShopWidget);
+        introduction->setObjectName("introduction");
+        introduction->setGeometry(QRect(400, 230, 191, 91));
+        picture = new QLabel(ShopWidget);
+        picture->setObjectName("picture");
+        picture->setGeometry(QRect(409, 131, 171, 71));
+        score = new QLabel(ShopWidget);
+        score->setObjectName("score");
+        score->setGeometry(QRect(140, 70, 171, 31));
+        bombLabel = new QLabel(ShopWidget);
+        bombLabel->setObjectName("bombLabel");
+        bombLabel->setGeometry(QRect(140, 150, 71, 41));
+        horizonLabel = new QLabel(ShopWidget);
+        horizonLabel->setObjectName("horizonLabel");
+        horizonLabel->setGeometry(QRect(140, 240, 111, 41));
+        verticalLabel = new QLabel(ShopWidget);
+        verticalLabel->setObjectName("verticalLabel");
+        verticalLabel->setGeometry(QRect(140, 330, 111, 41));
 
         retranslateUi(ShopWidget);
 
@@ -108,11 +107,15 @@ public:
         bomb->setText(QCoreApplication::translate("ShopWidget", "bomb", nullptr));
         horizon->setText(QCoreApplication::translate("ShopWidget", "horizon", nullptr));
         vertical->setText(QCoreApplication::translate("ShopWidget", "vertical", nullptr));
-        label->setText(QString());
         Buy->setText(QCoreApplication::translate("ShopWidget", "Buy", nullptr));
         label_2->setText(QCoreApplication::translate("ShopWidget", "<html><head/><body><p align=\"center\">SHOP</p></body></html>", nullptr));
-        label_3->setText(QString());
-        label_4->setText(QCoreApplication::translate("ShopWidget", "TextLabel", nullptr));
+        label_4->setText(QCoreApplication::translate("ShopWidget", "\346\214\211esc\350\277\224\345\233\236\346\270\270\346\210\217", nullptr));
+        introduction->setText(QCoreApplication::translate("ShopWidget", "TextLabel", nullptr));
+        picture->setText(QCoreApplication::translate("ShopWidget", "TextLabel", nullptr));
+        score->setText(QString());
+        bombLabel->setText(QString());
+        horizonLabel->setText(QString());
+        verticalLabel->setText(QString());
     } // retranslateUi
 
 };

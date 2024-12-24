@@ -18,5 +18,6 @@
         <file>arrow.png</file>
         <file>button/Level_back.png</file>
         <file>Level.png</file>
+        <file>end.png</file>
     </qresource>
 </RCC>
