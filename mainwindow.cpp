@@ -28,7 +28,6 @@ MainWindow::MainWindow(Client* c,QWidget *parent)
 {
     client=c;
     // 初始化其他成员
-    shopWidget = new ShopWidget();
     ui->setupUi(this);
     StoneLabel::stoneMode = "gemstone";
     // 设置背景并启动动画
@@ -269,10 +268,11 @@ void MainWindow::on_pushButton_clicked()
     gameDlg = Game::instance(nullptr, Game::GameMode::CLASSIC_MODE,-1,client); // 创建游戏，设置游戏模式为经典模式
     connect(gameDlg, &Game::returnMainwindow, this, &MainWindow::onReturnMainwindow);
     connect(gameDlg, &Game::retryClassic, this, &MainWindow::onRetryClassic);
-     shopWidget->resetItemCounts();
+    shopWidget = new ShopWidget();
+    shopWidget->resetItemCounts();
     // 更新游戏界面中的道具数量标签
     gameDlg->updateItemCountLabels();
-     gameDlg->show();
+    gameDlg->show();
     this->hide();
 }
 
@@ -360,10 +360,10 @@ void MainWindow::on_pushButton_9_clicked()
     connect(gameDlg, &Game::directToNextLevel, this, &MainWindow::onDirectToNextLevel);
     connect(gameDlg, &Game::retryAdventure, this, &MainWindow::onRetryAdventure);
     connect(gameDlg, &Game::adventureLostBackToMain, this, &MainWindow::onAdventureLostBackToMain);
+    shopWidget = new ShopWidget();
     gameDlg->show();
     this->hide();
 }
-
 
 void MainWindow::on_pushButton_10_clicked()
 {
@@ -381,9 +381,6 @@ void MainWindow::on_pushButton_10_clicked()
         StoneLabel::stoneMode = selectedMode;
     }
 }
-
-
-
 
 void MainWindow::on_ranking_clicked()
 {

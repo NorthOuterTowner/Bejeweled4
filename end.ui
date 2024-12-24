@@ -92,6 +92,27 @@
     <string>重新挑战</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="background">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>600</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="flat">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <zorder>background</zorder>
+  <zorder>scoreLabel</zorder>
+  <zorder>returnButton</zorder>
+  <zorder>nextButton</zorder>
+  <zorder>retryButton</zorder>
  </widget>
  <resources/>
  <connections/>

@@ -45,11 +45,12 @@ constexpr auto qt_meta_stringdata_CLASSGameENDCLASS = QtMocHelpers::stringData(
     "adventureLostBackToMain",
     "retryAdventure",
     "retryClassic",
+    "startGameTimer",
     "initEnd",
     "onDropAnimationFinished",
     "onEliminateAgain",
     "on_pushButton_3_clicked",
-    "resume",
+    "onStartGameTimer",
     "on_returnFromPauseToMainMenu",
     "onNextButtonClicked",
     "onRetryGame",
@@ -72,40 +73,42 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSGameENDCLASS[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-      22,   14, // methods
+      23,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       7,       // signalCount
+       8,       // signalCount
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,  146,    2, 0x06,    1 /* Public */,
-       3,    0,  147,    2, 0x06,    2 /* Public */,
-       4,    0,  148,    2, 0x06,    3 /* Public */,
-       5,    0,  149,    2, 0x06,    4 /* Public */,
-       6,    0,  150,    2, 0x06,    5 /* Public */,
-       7,    0,  151,    2, 0x06,    6 /* Public */,
-       8,    0,  152,    2, 0x06,    7 /* Public */,
+       1,    0,  152,    2, 0x06,    1 /* Public */,
+       3,    0,  153,    2, 0x06,    2 /* Public */,
+       4,    0,  154,    2, 0x06,    3 /* Public */,
+       5,    0,  155,    2, 0x06,    4 /* Public */,
+       6,    0,  156,    2, 0x06,    5 /* Public */,
+       7,    0,  157,    2, 0x06,    6 /* Public */,
+       8,    0,  158,    2, 0x06,    7 /* Public */,
+       9,    0,  159,    2, 0x06,    8 /* Public */,
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       9,    0,  153,    2, 0x08,    8 /* Private */,
-      10,    0,  154,    2, 0x08,    9 /* Private */,
-      11,    0,  155,    2, 0x08,   10 /* Private */,
-      12,    0,  156,    2, 0x08,   11 /* Private */,
-      13,    0,  157,    2, 0x08,   12 /* Private */,
-      14,    0,  158,    2, 0x08,   13 /* Private */,
-      15,    0,  159,    2, 0x08,   14 /* Private */,
-      16,    0,  160,    2, 0x08,   15 /* Private */,
-      17,    0,  161,    2, 0x08,   16 /* Private */,
-      18,    0,  162,    2, 0x08,   17 /* Private */,
-      19,    0,  163,    2, 0x08,   18 /* Private */,
-      20,    0,  164,    2, 0x08,   19 /* Private */,
-      21,    0,  165,    2, 0x08,   20 /* Private */,
-      22,    0,  166,    2, 0x08,   21 /* Private */,
-      23,    0,  167,    2, 0x08,   22 /* Private */,
+      10,    0,  160,    2, 0x08,    9 /* Private */,
+      11,    0,  161,    2, 0x08,   10 /* Private */,
+      12,    0,  162,    2, 0x08,   11 /* Private */,
+      13,    0,  163,    2, 0x08,   12 /* Private */,
+      14,    0,  164,    2, 0x08,   13 /* Private */,
+      15,    0,  165,    2, 0x08,   14 /* Private */,
+      16,    0,  166,    2, 0x08,   15 /* Private */,
+      17,    0,  167,    2, 0x08,   16 /* Private */,
+      18,    0,  168,    2, 0x08,   17 /* Private */,
+      19,    0,  169,    2, 0x08,   18 /* Private */,
+      20,    0,  170,    2, 0x08,   19 /* Private */,
+      21,    0,  171,    2, 0x08,   20 /* Private */,
+      22,    0,  172,    2, 0x08,   21 /* Private */,
+      23,    0,  173,    2, 0x08,   22 /* Private */,
+      24,    0,  174,    2, 0x08,   23 /* Private */,
 
  // signals: parameters
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -157,6 +160,8 @@ Q_CONSTINIT const QMetaObject Game::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'retryClassic'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'startGameTimer'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'initEnd'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'onDropAnimationFinished'
@@ -165,7 +170,7 @@ Q_CONSTINIT const QMetaObject Game::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'on_pushButton_3_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'resume'
+        // method 'onStartGameTimer'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'on_returnFromPauseToMainMenu'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
@@ -204,21 +209,22 @@ void Game::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void *
         case 4: _t->adventureLostBackToMain(); break;
         case 5: _t->retryAdventure(); break;
         case 6: _t->retryClassic(); break;
-        case 7: _t->initEnd(); break;
-        case 8: _t->onDropAnimationFinished(); break;
-        case 9: _t->onEliminateAgain(); break;
-        case 10: _t->on_pushButton_3_clicked(); break;
-        case 11: _t->resume(); break;
-        case 12: _t->on_returnFromPauseToMainMenu(); break;
-        case 13: _t->onNextButtonClicked(); break;
-        case 14: _t->onRetryGame(); break;
-        case 15: _t->on_pushButton_5_clicked(); break;
-        case 16: _t->onTimeExpired(); break;
-        case 17: _t->on_bombButton_clicked(); break;
-        case 18: _t->on_horizon_clicked(); break;
-        case 19: _t->on_vertical_clicked(); break;
-        case 20: _t->on_Tips_clicked(); break;
-        case 21: _t->on_Shop_clicked(); break;
+        case 7: _t->startGameTimer(); break;
+        case 8: _t->initEnd(); break;
+        case 9: _t->onDropAnimationFinished(); break;
+        case 10: _t->onEliminateAgain(); break;
+        case 11: _t->on_pushButton_3_clicked(); break;
+        case 12: _t->onStartGameTimer(); break;
+        case 13: _t->on_returnFromPauseToMainMenu(); break;
+        case 14: _t->onNextButtonClicked(); break;
+        case 15: _t->onRetryGame(); break;
+        case 16: _t->on_pushButton_5_clicked(); break;
+        case 17: _t->onTimeExpired(); break;
+        case 18: _t->on_bombButton_clicked(); break;
+        case 19: _t->on_horizon_clicked(); break;
+        case 20: _t->on_vertical_clicked(); break;
+        case 21: _t->on_Tips_clicked(); break;
+        case 22: _t->on_Shop_clicked(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -272,6 +278,13 @@ void Game::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void *
                 return;
             }
         }
+        {
+            using _t = void (Game::*)();
+            if (_t _q_method = &Game::startGameTimer; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+                *result = 7;
+                return;
+            }
+        }
     }
     (void)_a;
 }
@@ -295,13 +308,13 @@ int Game::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 22)
+        if (_id < 23)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 22;
+        _id -= 23;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 22)
+        if (_id < 23)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 22;
+        _id -= 23;
     }
     return _id;
 }
@@ -346,5 +359,11 @@ void Game::retryAdventure()
 void Game::retryClassic()
 {
     QMetaObject::activate(this, &staticMetaObject, 6, nullptr);
+}
+
+// SIGNAL 7
+void Game::startGameTimer()
+{
+    QMetaObject::activate(this, &staticMetaObject, 7, nullptr);
 }
 QT_WARNING_POP

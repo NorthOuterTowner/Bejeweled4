@@ -2,9 +2,14 @@
 #include "ui_end.h"
 
 // 构造函数，初始化界面相关元素并设置布局
-End::End(Game* game,Client* c, QWidget* parent) : QWidget(parent), gameInfo(game),client(c)
+End::End(Game* game,Client* c, QWidget* parent) :
+    QWidget(parent),
+    ui(new Ui::End),
+    gameInfo(game),
+    client(c)
 {
     ui->setupUi(this);
+    this->setStyleSheet("background-image: url(:/end.png); background-repeat: no-repeat; background-position: center; background-size: cover;d");
     setWindowTitle("游戏结束");
 
     connect(ui->returnButton, &QPushButton::clicked, this, &End::onReturnButtonClicked);
@@ -33,7 +38,7 @@ void End::showEndUI()
     if(client!=nullptr){
         client->onSendData("c "+QString::number(finalScore));
     }
-    ui.scoreLabel->setText(QString("游戏结束啦，你的最终得分是: %1").arg(finalScore));
+    ui->scoreLabel->setText(QString("游戏结束啦，你的最终得分是: %1").arg(finalScore));
 
     // 显示结束界面
     show();

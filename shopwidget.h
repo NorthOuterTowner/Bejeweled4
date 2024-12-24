@@ -27,6 +27,9 @@ public:
     // 重置道具数量
     void resetItemCounts();
 
+signals:
+    void resumeGame();
+
 protected:
     void paintEvent(QPaintEvent *event) override;  // 绘制事件
 
@@ -35,6 +38,7 @@ private slots:
     void on_Buy_clicked();
     void on_horizon_clicked();
     void on_vertical_clicked();
+
 
 private:
     Ui::ShopWidget *ui;  // UI 控件的指针

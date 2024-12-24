@@ -6,6 +6,7 @@ release/end.o
 release/game.o
 release/gametimer.o
 release/globalvalue.o
+release/heatmap.o
 release/help.o
 release/hoverbutton.o
 release/main.o
@@ -29,6 +30,7 @@ release/moc_client.o
 release/moc_end.o
 release/moc_game.o
 release/moc_gametimer.o
+release/moc_heatmap.o
 release/moc_help.o
 release/moc_hoverbutton.o
 release/moc_mainwindow.o
