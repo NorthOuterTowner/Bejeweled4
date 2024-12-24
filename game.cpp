@@ -48,12 +48,12 @@ int genRandom(){
 void Game::update(){
     for (int i = 0; i < Game::jewelNum; i++) {
         for (int j = 0; j < Game::jewelNum; j++) {
-                StoneLabel* pic = stones.at(i).at(j);
-                pic->resize(48,48);
-                std::string pixStr=":/"+StoneLabel::stoneMode+std::to_string(pic->getIndex())+".png";
-                pic->setPixmap(QPixmap(QString::fromStdString(pixStr)).scaled(48,48));
-                pic->setAlignment(Qt::AlignCenter);
-                mainWidget->addWidget(pic, i, j);
+            StoneLabel* pic = stones.at(i).at(j);
+            pic->resize(48,48);
+            std::string pixStr=":/"+StoneLabel::stoneMode+std::to_string(pic->getIndex())+".png";
+            pic->setPixmap(QPixmap(QString::fromStdString(pixStr)).scaled(48,48));
+            pic->setAlignment(Qt::AlignCenter);
+            mainWidget->addWidget(pic, i, j);
         }
     }
 }
@@ -62,10 +62,8 @@ Game::Game(QWidget *parent,Game::GameMode mode,Client* c)
     : QWidget(parent)
     , ui(new Ui::Game)
     , gameMode(mode)
-    ,client(c)
+    , client(c)
 {
-
-
     // gameItems = new GameItems();  // 初始化 GameItems
     ui->setupUi(this);
     // 循环播放背景音乐
@@ -195,7 +193,8 @@ void Game::init(){
     for (int row = 0; row < Game::jewelNum; row++) {
         for (int col = 0; col < Game::jewelNum; col++) {
             StoneLabel* imgLabel = new StoneLabel(this);
-            stones[row][col]=imgLabel;
+
+            imgLabel->isFrozen = false;
             imgLabel->setrow(row);
             imgLabel->setcol(col);
             imgLabel->resize(48,48);
@@ -203,6 +202,11 @@ void Game::init(){
             std::string pixStr=":/"+StoneLabel::stoneMode+std::to_string(imgLabel->getIndex())+".png";
             imgLabel->setpix(pixStr);
             imgLabel->setPixmap(QPixmap(QString::fromStdString(pixStr)).scaled(48,48));
+            // 根据冰冻状态设置初始外观样式
+            if (imgLabel->isFrozen) {
+                imgLabel->setStyleSheetForFrozen();
+            }
+            stones[row][col]=imgLabel;
             mainWidget->addWidget(imgLabel, row, col); // 使用addWidget()来将QLabel添加到布局中
         }
     }
@@ -252,6 +256,9 @@ void Game::mousePressEvent(QMouseEvent *event) {
         }
     }
     StoneLabel* curLabel = stones[row][col];
+    if (curLabel->isFrozen) {  // 如果当前点击的棋子处于冰冻状态，直接返回，不做任何操作
+        return;
+    }
     if (isBombMode) {
         // 如果当前处于炸弹模式，触发炸弹效果
         triggerBomb(row, col);
@@ -429,14 +436,22 @@ bool Game::checkFormatches(){
 
 void Game::eliminateMatches() {
     int eliminatedCount = 0;  // 用于记录本次消除的棋子个数
+    int iceKilledNum = 0;   // 用于记录本次消除的冰块个数
 
     for (int row = 0; row < 8; ++row) {
         for (int col = 0; col < 8; ++col) {
-            if (stones[row][col] != nullptr && stones[row][col]->isMatched()) {
+            if (stones[row][col] != nullptr && stones[row][col]->isMatched() && !stones[row][col]->isFrozen) {//未冰冻的棋子，直接消除即可
                 //删除棋子
                 delete stones[row][col];
                 stones[row][col] = nullptr;  // 清空位置
                 eliminatedCount++;  // 统计消除的棋子个数
+            }else if (stones[row][col] != nullptr && stones[row][col]->isMatched() && stones[row][col]->isFrozen) { // 如果是冰冻棋子，清除匹配标记并恢复正常外观
+                stones[row][col]->setMatched(false);
+                stones[row][col]->isFrozen = false;
+                stones[row][col]->setStyleSheetForNormal();
+                std::string pixStr = ":/" + StoneLabel::stoneMode + std::to_string(stones[row][col]->getIndex()) + ".png";
+                stones[row][col]->setPixmap(QPixmap(QString::fromStdString(pixStr)).scaled(48, 48));
+                iceKilledNum++;
             }
         }
     }
@@ -444,7 +459,7 @@ void Game::eliminateMatches() {
     if (hasStartedScoring)  // 根据计分标记判断是否计分
     {
         // 根据消除的棋子个数计算得分，计分规则见calGainScore()
-        score += calGainScore(eliminatedCount); // 将本次得分累加到总积分中
+        score += calGainScore(eliminatedCount,iceKilledNum); // 将本次得分累加到总积分中
     }
 
     // 更新积分显示
@@ -495,6 +510,13 @@ void Game::generateNewStone(int row, int col){
 
     // 显示添加
    // mainWidget->addWidget(imgLabel, row, col);
+
+    if (genRandom() < 3) {
+        imgLabel->isFrozen = true;
+        imgLabel->setStyleSheetForFrozen();  // 设置为白色填充样式，代表冰冻状态
+    } else {
+        imgLabel->isFrozen = false;
+    }
 
     // 逻辑添加
     stones[row][col] = imgLabel;
@@ -647,12 +669,14 @@ void Game::onStartGameTimer(){
     disconnect(this, &Game::startGameTimer, this, &Game::onStartGameTimer);
 }
 
-int Game::calGainScore(int eliminatedCount){
-    // k是调节系数，offset是偏移量，用于保证积分值在合理范围且为正整数等
+int Game::calGainScore(int eliminatedCount,int iceKilledNum){
+    // k是对数调节系数，offset是偏移量，用于保证积分值在合理范围且为正整数等
+    // 例如设置k = 20，offset = 5
     int k = 10;
     int offset = 8;
-    // 例如设置k = 20，offset = 5
-    int scoreGain = static_cast<int>(std::log(eliminatedCount + 1) * k + offset);
+    // n为破冰数线性系数
+    int n = 15;
+    int scoreGain = static_cast<int>(std::log(eliminatedCount + 1) * k + offset + iceKilledNum * n);
     return scoreGain;
 }
 

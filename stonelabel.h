@@ -43,6 +43,18 @@ public:
     void setMatched(bool matchedStatus) { matched = matchedStatus; }
     bool isMatched() const { return matched; }
 
+    bool isFrozen;
+
+    void setStyleSheetForFrozen() {
+        // 设置为白色填充的样式，代表冰冻状态，可根据实际进一步调整样式细节，比如边框等
+        this->setStyleSheet("background-color: black;");
+    }
+
+    void setStyleSheetForNormal() {
+        // 恢复正常的样式，这里调用父类的默认样式设置（清除之前设置的特殊样式）
+        QLabel::setStyleSheet("");
+    }
+
     //目标位置
     int targetX=0;
     int targetY=0;
@@ -51,6 +63,7 @@ private:
     int row;
     int col;
     int index=0;
+
     std::string pix;//保存图片信息
 
 
