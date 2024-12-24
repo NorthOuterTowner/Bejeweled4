@@ -246,8 +246,11 @@ Makefile: ../../Bejeweled.pro ../../../../Qt/6.5.3/mingw_64/mkspecs/win32-g++/qm
 		../../../../Qt/6.5.3/mingw_64/mkspecs/features/yacc.prf \
 		../../../../Qt/6.5.3/mingw_64/mkspecs/features/lex.prf \
 		../../Bejeweled.pro \
+		../../../../Qt/6.5.3/mingw_64/lib/Qt6Charts.prl \
+		../../../../Qt/6.5.3/mingw_64/lib/Qt6OpenGLWidgets.prl \
 		../../../../Qt/6.5.3/mingw_64/lib/Qt6Widgets.prl \
 		../../../../Qt/6.5.3/mingw_64/lib/Qt6Multimedia.prl \
+		../../../../Qt/6.5.3/mingw_64/lib/Qt6OpenGL.prl \
 		../../../../Qt/6.5.3/mingw_64/lib/Qt6Gui.prl \
 		../../../../Qt/6.5.3/mingw_64/lib/Qt6Network.prl \
 		../../../../Qt/6.5.3/mingw_64/lib/Qt6Sql.prl \
@@ -437,8 +440,11 @@ Makefile: ../../Bejeweled.pro ../../../../Qt/6.5.3/mingw_64/mkspecs/win32-g++/qm
 ../../../../Qt/6.5.3/mingw_64/mkspecs/features/yacc.prf:
 ../../../../Qt/6.5.3/mingw_64/mkspecs/features/lex.prf:
 ../../Bejeweled.pro:
+../../../../Qt/6.5.3/mingw_64/lib/Qt6Charts.prl:
+../../../../Qt/6.5.3/mingw_64/lib/Qt6OpenGLWidgets.prl:
 ../../../../Qt/6.5.3/mingw_64/lib/Qt6Widgets.prl:
 ../../../../Qt/6.5.3/mingw_64/lib/Qt6Multimedia.prl:
+../../../../Qt/6.5.3/mingw_64/lib/Qt6OpenGL.prl:
 ../../../../Qt/6.5.3/mingw_64/lib/Qt6Gui.prl:
 ../../../../Qt/6.5.3/mingw_64/lib/Qt6Network.prl:
 ../../../../Qt/6.5.3/mingw_64/lib/Qt6Sql.prl:

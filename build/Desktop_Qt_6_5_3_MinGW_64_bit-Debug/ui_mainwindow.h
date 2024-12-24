@@ -36,6 +36,7 @@ public:
     QPushButton *ranking;
     QPushButton *About;
     QPushButton *Help;
+    QPushButton *Heat;
     QMenuBar *menubar;
     QMenu *menu;
     QStatusBar *statusbar;
@@ -74,6 +75,9 @@ public:
         Help = new QPushButton(centralwidget);
         Help->setObjectName("Help");
         Help->setGeometry(QRect(90, 0, 93, 28));
+        Heat = new QPushButton(centralwidget);
+        Heat->setObjectName("Heat");
+        Heat->setGeometry(QRect(180, 0, 93, 28));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
@@ -112,6 +116,7 @@ public:
         ranking->setText(QCoreApplication::translate("MainWindow", "\346\216\222\350\241\214\346\246\234", nullptr));
         About->setText(QCoreApplication::translate("MainWindow", "\345\205\263\344\272\216", nullptr));
         Help->setText(QCoreApplication::translate("MainWindow", "\345\270\256\345\212\251", nullptr));
+        Heat->setText(QCoreApplication::translate("MainWindow", "\347\203\255\345\212\233\345\233\276", nullptr));
         menu->setTitle(QCoreApplication::translate("MainWindow", "\350\217\234\345\215\225", nullptr));
         toolBar->setWindowTitle(QCoreApplication::translate("MainWindow", "toolBar", nullptr));
         toolBar_2->setWindowTitle(QCoreApplication::translate("MainWindow", "toolBar_2", nullptr));

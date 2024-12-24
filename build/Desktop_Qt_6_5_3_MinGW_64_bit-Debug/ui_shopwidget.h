@@ -32,6 +32,8 @@ public:
     QLabel *bombLabel;
     QLabel *horizonLabel;
     QLabel *verticalLabel;
+    QPushButton *hammer;
+    QLabel *hammerLabel;
 
     void setupUi(QWidget *ShopWidget)
     {
@@ -95,6 +97,12 @@ public:
         verticalLabel = new QLabel(ShopWidget);
         verticalLabel->setObjectName("verticalLabel");
         verticalLabel->setGeometry(QRect(140, 330, 111, 41));
+        hammer = new QPushButton(ShopWidget);
+        hammer->setObjectName("hammer");
+        hammer->setGeometry(QRect(70, 400, 61, 61));
+        hammerLabel = new QLabel(ShopWidget);
+        hammerLabel->setObjectName("hammerLabel");
+        hammerLabel->setGeometry(QRect(150, 410, 111, 41));
 
         retranslateUi(ShopWidget);
 
@@ -116,6 +124,8 @@ public:
         bombLabel->setText(QString());
         horizonLabel->setText(QString());
         verticalLabel->setText(QString());
+        hammer->setText(QCoreApplication::translate("ShopWidget", "hammer", nullptr));
+        hammerLabel->setText(QString());
     } // retranslateUi
 
 };

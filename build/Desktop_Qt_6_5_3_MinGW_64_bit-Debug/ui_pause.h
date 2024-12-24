@@ -20,11 +20,12 @@ QT_BEGIN_NAMESPACE
 class Ui_Pause
 {
 public:
-    QPushButton *returnButton;
-    QPushButton *resumeButton;
     QPushButton *background;
     QLabel *label;
     QLabel *levelInfo;
+    QPushButton *resumeButton;
+    QPushButton *renewButton;
+    QPushButton *returnButton;
 
     void setupUi(QWidget *Pause)
     {
@@ -32,32 +33,6 @@ public:
             Pause->setObjectName("Pause");
         Pause->resize(800, 600);
         Pause->setStyleSheet(QString::fromUtf8(""));
-        returnButton = new QPushButton(Pause);
-        returnButton->setObjectName("returnButton");
-        returnButton->setGeometry(QRect(290, 290, 121, 31));
-        returnButton->setStyleSheet(QString::fromUtf8("QPushButton {\n"
-"    color: rgb(255, 170, 0);             /* \346\226\207\345\255\227\351\242\234\350\211\262 */\n"
-"    border: 2px solid #2980b9; /* \350\276\271\346\241\206\351\242\234\350\211\262 */\n"
-"    border-radius: 5px;       /* \345\234\206\350\247\222 */\n"
-"    font-size:12px;          /* \345\255\227\344\275\223\345\244\247\345\260\217 */\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    background-color: rgb(170, 170, 127)/* \346\202\254\345\201\234\346\227\266\350\203\214\346\231\257\351\242\234\350\211\262 */\n"
-"}"));
-        resumeButton = new QPushButton(Pause);
-        resumeButton->setObjectName("resumeButton");
-        resumeButton->setGeometry(QRect(290, 230, 121, 31));
-        resumeButton->setStyleSheet(QString::fromUtf8("QPushButton {\n"
-"    color: rgb(255, 170, 0);             /* \346\226\207\345\255\227\351\242\234\350\211\262 */\n"
-"    border: 2px solid #2980b9; /* \350\276\271\346\241\206\351\242\234\350\211\262 */\n"
-"    border-radius: 5px;       /* \345\234\206\350\247\222 */\n"
-"    font-size:12px;          /* \345\255\227\344\275\223\345\244\247\345\260\217 */\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    background-color: rgb(170, 170, 127)/* \346\202\254\345\201\234\346\227\266\350\203\214\346\231\257\351\242\234\350\211\262 */\n"
-"}"));
         background = new QPushButton(Pause);
         background->setObjectName("background");
         background->setGeometry(QRect(0, 0, 800, 600));
@@ -85,11 +60,45 @@ public:
 "    text-align: center;             /* \346\226\207\346\234\254\345\261\205\344\270\255\345\257\271\351\275\220 */\n"
 "}\n"
 ""));
-        background->raise();
-        label->raise();
-        resumeButton->raise();
-        returnButton->raise();
-        levelInfo->raise();
+        resumeButton = new QPushButton(Pause);
+        resumeButton->setObjectName("resumeButton");
+        resumeButton->setGeometry(QRect(280, 220, 121, 31));
+        resumeButton->setStyleSheet(QString::fromUtf8("QPushButton {\n"
+"    color: rgb(255, 170, 0);             /* \346\226\207\345\255\227\351\242\234\350\211\262 */\n"
+"    border: 2px solid #2980b9; /* \350\276\271\346\241\206\351\242\234\350\211\262 */\n"
+"    border-radius: 5px;       /* \345\234\206\350\247\222 */\n"
+"    font-size:12px;          /* \345\255\227\344\275\223\345\244\247\345\260\217 */\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background-color: rgb(170, 170, 127)/* \346\202\254\345\201\234\346\227\266\350\203\214\346\231\257\351\242\234\350\211\262 */\n"
+"}"));
+        renewButton = new QPushButton(Pause);
+        renewButton->setObjectName("renewButton");
+        renewButton->setGeometry(QRect(280, 280, 121, 31));
+        renewButton->setStyleSheet(QString::fromUtf8("QPushButton {\n"
+"    color: rgb(255, 170, 0);             /* \346\226\207\345\255\227\351\242\234\350\211\262 */\n"
+"    border: 2px solid #2980b9; /* \350\276\271\346\241\206\351\242\234\350\211\262 */\n"
+"    border-radius: 5px;       /* \345\234\206\350\247\222 */\n"
+"    font-size:12px;          /* \345\255\227\344\275\223\345\244\247\345\260\217 */\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background-color: rgb(170, 170, 127)/* \346\202\254\345\201\234\346\227\266\350\203\214\346\231\257\351\242\234\350\211\262 */\n"
+"}"));
+        returnButton = new QPushButton(Pause);
+        returnButton->setObjectName("returnButton");
+        returnButton->setGeometry(QRect(280, 340, 121, 31));
+        returnButton->setStyleSheet(QString::fromUtf8("QPushButton {\n"
+"    color: rgb(255, 170, 0);             /* \346\226\207\345\255\227\351\242\234\350\211\262 */\n"
+"    border: 2px solid #2980b9; /* \350\276\271\346\241\206\351\242\234\350\211\262 */\n"
+"    border-radius: 5px;       /* \345\234\206\350\247\222 */\n"
+"    font-size:12px;          /* \345\255\227\344\275\223\345\244\247\345\260\217 */\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background-color: rgb(170, 170, 127)/* \346\202\254\345\201\234\346\227\266\350\203\214\346\231\257\351\242\234\350\211\262 */\n"
+"}"));
 
         retranslateUi(Pause);
 
@@ -99,11 +108,12 @@ public:
     void retranslateUi(QWidget *Pause)
     {
         Pause->setWindowTitle(QCoreApplication::translate("Pause", "Form", nullptr));
-        returnButton->setText(QCoreApplication::translate("Pause", "\350\277\224\345\233\236\344\270\273\350\217\234\345\215\225", nullptr));
-        resumeButton->setText(QCoreApplication::translate("Pause", "\346\201\242\345\244\215\346\270\270\346\210\217", nullptr));
         background->setText(QString());
         label->setText(QString());
         levelInfo->setText(QString());
+        resumeButton->setText(QCoreApplication::translate("Pause", "\346\201\242\345\244\215\346\270\270\346\210\217", nullptr));
+        renewButton->setText(QCoreApplication::translate("Pause", "\345\206\215\346\254\241\346\214\221\346\210\230", nullptr));
+        returnButton->setText(QCoreApplication::translate("Pause", "\350\277\224\345\233\236\344\270\273\350\217\234\345\215\225", nullptr));
     } // retranslateUi
 
 };

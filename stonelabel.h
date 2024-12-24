@@ -50,10 +50,15 @@ public:
         this->setStyleSheet("background-color: black;");
     }
 
-    void setStyleSheetForNormal() {
+    /*void setStyleSheetForNormal() {
         // 恢复正常的样式，这里调用父类的默认样式设置（清除之前设置的特殊样式）
         QLabel::setStyleSheet("");
+    }*/
+    void setStyleSheetForNormal() {
+        // 清除所有样式，恢复正常显示
+        this->setStyleSheet("");
     }
+
 
     //目标位置
     int targetX=0;

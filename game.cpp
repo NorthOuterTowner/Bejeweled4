@@ -255,10 +255,19 @@ void Game::mousePressEvent(QMouseEvent *event) {
             clickDistrict[3]++;
         }
     }
+
+    if(isHammerMode){
+        useHammer(row,  col);
+        return;
+
+    }
     StoneLabel* curLabel = stones[row][col];
+
     if (curLabel->isFrozen) {  // 如果当前点击的棋子处于冰冻状态，直接返回，不做任何操作
         return;
     }
+
+
     if (isBombMode) {
         // 如果当前处于炸弹模式，触发炸弹效果
         triggerBomb(row, col);
@@ -984,6 +993,11 @@ QList<QPair<int, int>> Game::findHint() {
     // 遍历所有棋盘位置
     for (int row = 0; row < Game::jewelNum; ++row) {
         for (int col = 0; col < Game::jewelNum; ++col) {
+            // 跳过冰冻状态的宝石
+            if (stones[row][col]->isFrozen) {
+                continue;
+            }
+
             if (canMatch(row, col)) {
                 hints.append(qMakePair(row, col));
                 return hints;  // 只返回第一个可以匹配的宝石
@@ -998,7 +1012,7 @@ QList<QPair<int, int>> Game::findHint() {
     return hints;
 }
 
-// 检查给定位置的宝石是否可以与相邻宝石交换形成匹配
+
 bool Game::canMatch(int row, int col) {
     // 上下左右相邻的方向
     const QVector<QPair<int, int>> directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
@@ -1008,7 +1022,10 @@ bool Game::canMatch(int row, int col) {
         int newRow = row + dir.first;
         int newCol = col + dir.second;
 
-        if (newRow >= 0 && newRow < Game::jewelNum && newCol >= 0 && newCol < Game::jewelNum) {
+        // 检查边界和冰冻状态
+        if (newRow >= 0 && newRow < Game::jewelNum &&
+            newCol >= 0 && newCol < Game::jewelNum &&
+            !stones[newRow][newCol]->isFrozen) {
             // 交换位置，检查是否形成匹配
             if (canSwapAndMatch(row, col, newRow, newCol)) {
                 return true;
@@ -1018,8 +1035,13 @@ bool Game::canMatch(int row, int col) {
     return false;
 }
 
-// 检查交换后是否能形成匹配
+
 bool Game::canSwapAndMatch(int row1, int col1, int row2, int col2) {
+    // 如果任一宝石处于冰冻状态，则直接返回 false
+    if (stones[row1][col1]->isFrozen || stones[row2][col2]->isFrozen) {
+        return false;
+    }
+
     // 交换两宝石
     StoneLabel* temp = stones[row1][col1];
     stones[row1][col1] = stones[row2][col2];
@@ -1034,6 +1056,7 @@ bool Game::canSwapAndMatch(int row1, int col1, int row2, int col2) {
 
     return isMatch;
 }
+
 
 
 void Game::highlightHints(const QList<QPair<int, int>>& hints) {
@@ -1185,6 +1208,11 @@ int Game::getVerticalCount() const {
     return ShopWidget::verticalCount;  // 直接访问 ShopWidget 中的静态变量
 }
 
+// 获取当前锤子数量
+int Game::gethammerCount() const {
+    return ShopWidget::hammerCount;  // 直接访问 ShopWidget 中的静态变量
+}
+
 // Game.cpp
 void Game::updateItemCountLabels() {
     // 更新炸弹道具数量标签
@@ -1195,4 +1223,44 @@ void Game::updateItemCountLabels() {
 
     // 更新竖向消除道具数量标签
     ui->verticalLabel->setText(QString("竖向消除: %1").arg(ShopWidget::verticalCount));
+    // 更新竖向消除道具数量标签
+    ui->hammerLabel->setText(QString("锤子: %1").arg(ShopWidget::hammerCount));
+
 }
+
+void Game::on_hammer_clicked()
+{
+    if (ShopWidget::hammerCount > 0) {
+        ShopWidget::hammerCount--;
+        isHammerMode = true;  // 激活锤子模式
+        this->updateItemCountLabels();
+        QMessageBox::information(this, "锤子模式", "点击一个被冻结的宝石以解除冰冻!");
+    } else {
+        QMessageBox::warning(this, "锤子已用尽", "您已用尽所有锤子!");
+    }
+}
+
+void Game::useHammer(int row, int col) {
+
+
+    // 检查目标位置是否合法
+    if (row < 0 || row >= Game::jewelNum || col < 0 || col >= Game::jewelNum) {
+        QMessageBox::warning(this, "无效位置", "无法对指定位置使用锤子!");
+        return;
+    }
+
+    StoneLabel* targetStone = stones[row][col];
+    if (!targetStone->isFrozen) {
+        QMessageBox::information(this, "非冰冻宝石", "请选择一个被冻结的宝石!");
+        return;
+    }
+
+    // 解除冰冻状态
+    targetStone->isFrozen = false;
+    targetStone->setStyleSheetForNormal();  // 恢复正常样式
+    // 结束炸弹模式
+    isHammerMode = false;
+
+}
+
+
