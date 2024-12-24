@@ -912,6 +912,7 @@ void Game::triggerBomb(int row, int col) {
                 StoneLabel* targetStone = stones[r][c];
                 if (targetStone != nullptr) {
                     targetStone->setMatched(true);  // 标记为待消除
+                    score+=4;
                 }
             }
         }
@@ -939,12 +940,12 @@ void Game::on_horizon_clicked()
 void Game::horizondelete(int row){
     for (int col = 0; col < 8; ++col) {
             if (stones[row][col] != nullptr ) {
-                //删除棋子
-                delete stones[row][col];
-                stones[row][col] = nullptr;  // 清空位置
+            score+=4;
+            stones[row][col]->setMatched(true);
             }
         }
-    dropStones();
+    eliminateMatches();
+
 
     qDebug()<<"horizon"<<row;
 }
@@ -970,11 +971,11 @@ void Game::onAnimationFinished(){
 void Game::verticaldelete(int col){
     for(int row=0;row<8;++row){
         if(stones[row][col]!=nullptr){
-            delete stones[row][col];
-            stones[row][col]=nullptr;
+            score+=4;
+            stones[row][col]->setMatched(true);
         }
     }
-    dropStones();
+    eliminateMatches();
 }
 
 QList<QPair<int, int>> Game::findHint() {
