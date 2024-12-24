@@ -48,6 +48,7 @@ public:
     void setStyleSheetForFrozen() {
         // 设置为白色填充的样式，代表冰冻状态，可根据实际进一步调整样式细节，比如边框等
         this->setStyleSheet("background-color: black;");
+
     }
 
     /*void setStyleSheetForNormal() {

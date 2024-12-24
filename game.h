@@ -145,6 +145,10 @@ private:
     static Game* gameInstance;
     bool arePositionsAdjacent(int row1, int col1, int row2, int col2);//判断两次鼠标点击位置是否相邻
     void mousePressEvent(QMouseEvent *event) override;
+    void mouseMoveEvent(QMouseEvent *event) override;
+    QPoint pressPoint;
+    bool canrelease=false;
+     void mouseReleaseEvent(QMouseEvent *event) override;
     bool checkFormatches();//判断哪些棋子将要被消去
     void eliminateMatches() ;//消除
     void dropStones();//棋子下落，创建新子
