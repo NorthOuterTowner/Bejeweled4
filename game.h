@@ -122,6 +122,8 @@ private slots:
     void on_pushButton_5_clicked();
     void onTimeExpired();//倒计时结束时的处理
 
+    void paintEvent(QPaintEvent *);
+
 
     void on_bombButton_clicked();
     //  void on_rainbowGemButton_clicked();

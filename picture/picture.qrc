@@ -19,5 +19,14 @@
         <file>button/Level_back.png</file>
         <file>Level.png</file>
         <file>end.png</file>
+        <file>OIP.jpg</file>
+        <file>OIP (1).jpg</file>
+        <file>hammer.jpg</file>
+        <file>StartPage/l0_sprite_01.png</file>
+        <file>hammer.png</file>
+        <file>bomb.png</file>
+        <file>OIP-C.jpg</file>
+        <file>horizon.png</file>
+        <file>vertical.png</file>
     </qresource>
 </RCC>
