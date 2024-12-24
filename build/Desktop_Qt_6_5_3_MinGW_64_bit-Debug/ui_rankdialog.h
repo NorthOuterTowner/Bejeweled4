@@ -13,6 +13,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QTableWidget>
 
@@ -23,18 +24,25 @@ class Ui_RankDialog
 public:
     QPushButton *pushButton;
     QTableWidget *tableWidget;
+    QLabel *label;
 
     void setupUi(QDialog *RankDialog)
     {
         if (RankDialog->objectName().isEmpty())
             RankDialog->setObjectName("RankDialog");
-        RankDialog->resize(850, 593);
+        RankDialog->resize(863, 610);
         pushButton = new QPushButton(RankDialog);
         pushButton->setObjectName("pushButton");
-        pushButton->setGeometry(QRect(660, 510, 121, 61));
+        pushButton->setGeometry(QRect(710, 540, 121, 61));
+        pushButton->setStyleSheet(QString::fromUtf8("font: 20pt \"Microsoft YaHei UI\";"));
         tableWidget = new QTableWidget(RankDialog);
         tableWidget->setObjectName("tableWidget");
-        tableWidget->setGeometry(QRect(40, 80, 741, 371));
+        tableWidget->setGeometry(QRect(50, 140, 741, 371));
+        label = new QLabel(RankDialog);
+        label->setObjectName("label");
+        label->setGeometry(QRect(50, 40, 451, 81));
+        label->setStyleSheet(QString::fromUtf8("font: 50pt \"\346\245\267\344\275\223\";\n"
+"color: rgb(255, 85, 0);"));
 
         retranslateUi(RankDialog);
 
@@ -45,6 +53,7 @@ public:
     {
         RankDialog->setWindowTitle(QCoreApplication::translate("RankDialog", "Dialog", nullptr));
         pushButton->setText(QCoreApplication::translate("RankDialog", "Quit", nullptr));
+        label->setText(QCoreApplication::translate("RankDialog", "\346\216\222\350\241\214\346\246\234", nullptr));
     } // retranslateUi
 
 };

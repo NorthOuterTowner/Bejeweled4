@@ -255,6 +255,7 @@ Makefile: ../../Bejeweled.pro ../../../../Qt/6.5.3/mingw_64/mkspecs/win32-g++/qm
 		../../../../Qt/6.5.3/mingw_64/lib/Qt6EntryPoint.prl \
 		../../../../Qt/6.5.3/mingw_64/mkspecs/features/build_pass.prf \
 		../Gems/jewel.qrc \
+		../rankback/rank.qrc \
 		../../music.qrc \
 		../../picture/picture.qrc \
 		debug/qmake_qmake_qm_files.qrc \
@@ -445,6 +446,7 @@ Makefile: ../../Bejeweled.pro ../../../../Qt/6.5.3/mingw_64/mkspecs/win32-g++/qm
 ../../../../Qt/6.5.3/mingw_64/lib/Qt6EntryPoint.prl:
 ../../../../Qt/6.5.3/mingw_64/mkspecs/features/build_pass.prf:
 ../Gems/jewel.qrc:
+../rankback/rank.qrc:
 ../../music.qrc:
 ../../picture/picture.qrc:
 debug/qmake_qmake_qm_files.qrc:
