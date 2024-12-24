@@ -20,6 +20,25 @@ ShopWidget::ShopWidget(QWidget *parent) :
 
 {
     ui->setupUi(this);
+    // 美化所有的 QLabel 样式
+    QString labelStyle = R"(
+        QLabel {
+            background-color: rgba(255, 255, 255, 0.7); /* 半透明白色背景 */
+            border: 1px solid rgba(200, 200, 200, 0.8); /* 柔和边框 */
+            border-radius: 10px; /* 圆角效果 */
+            font-size: 18px; /* 字体大小 */
+            font-family: "Arial", sans-serif; /* 字体样式 */
+            color: rgba(50, 50, 50, 0.9); /* 字体颜色 */
+            padding: 5px; /* 内边距 */
+        }
+    )";
+
+    ui->bombLabel->setStyleSheet(labelStyle);
+    ui->score->setStyleSheet(labelStyle);
+    ui->horizonLabel->setStyleSheet(labelStyle);
+    ui->verticalLabel->setStyleSheet(labelStyle);
+    ui->hammerLabel->setStyleSheet(labelStyle);
+    ui->introduction->setStyleSheet(labelStyle);
 
     connect(this, &ShopWidget::resumeGame, game, &Game::resume);
     // 初始化当前选择道具为 NONE

@@ -16,11 +16,49 @@
   <widget class="QPushButton" name="pushButton_2">
    <property name="geometry">
     <rect>
-     <x>670</x>
-     <y>50</y>
-     <width>93</width>
-     <height>28</height>
+     <x>660</x>
+     <y>10</y>
+     <width>101</width>
+     <height>31</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    background: qlineargradient(
+        x1: 0, y1: 0, x2: 0, y2: 1,
+        stop: 0 rgba(255, 240, 245, 0.8), /* 浅粉顶部 */
+        stop: 0.5 rgba(255, 220, 230, 0.6), /* 中间渐变 */
+        stop: 1 rgba(255, 200, 215, 0.8) /* 浅粉底部 */
+    ); /* 玻璃质感渐变背景 */
+    border: 2px solid rgba(255, 182, 193, 0.8); /* 柔和边框 */
+    border-radius: 15px; /* 圆角效果 */
+    color: rgba(50, 50, 50, 0.9); /* 字体颜色 */
+    font-size: 20px; /* 字体大小 */
+    font-family: &quot;Arial&quot;, sans-serif; /* 字体样式 */
+    font-weight: bold; /* 字体加粗 */
+    padding: 5px 5px; /* 内边距 */
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2); /* 按钮阴影 */
+}
+QPushButton:hover {
+    background: qlineargradient(
+        x1: 0, y1: 0, x2: 0, y2: 1,
+        stop: 0 rgba(255, 228, 238, 0.9), /* 悬停顶部 */
+        stop: 0.5 rgba(255, 200, 220, 0.7), /* 中间渐变 */
+        stop: 1 rgba(255, 182, 193, 0.9) /* 悬停底部 */
+    );
+    border: 2px solid rgba(255, 160, 176, 0.9); /* 悬停时边框颜色 */
+    box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.3); /* 更明显的阴影 */
+}
+QPushButton:pressed {
+    background: qlineargradient(
+        x1: 0, y1: 0, x2: 0, y2: 1,
+        stop: 0 rgba(255, 182, 193, 0.9), /* 按下顶部 */
+        stop: 1 rgba(255, 160, 176, 1.0) /* 按下底部 */
+    );
+    border: 2px solid rgba(255, 105, 135, 1.0); /* 按下时边框颜色 */
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3); /* 内凹阴影 */
+}
+</string>
    </property>
    <property name="text">
     <string>排行榜</string>
@@ -95,11 +133,49 @@ QProgressBar::chunk {
   <widget class="QPushButton" name="pauseButton">
    <property name="geometry">
     <rect>
-     <x>40</x>
-     <y>80</y>
-     <width>51</width>
-     <height>31</height>
+     <x>0</x>
+     <y>60</y>
+     <width>91</width>
+     <height>41</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    background: qlineargradient(
+        x1: 0, y1: 0, x2: 0, y2: 1,
+        stop: 0 rgba(255, 240, 245, 0.8), /* 浅粉顶部 */
+        stop: 0.5 rgba(255, 220, 230, 0.6), /* 中间渐变 */
+        stop: 1 rgba(255, 200, 215, 0.8) /* 浅粉底部 */
+    ); /* 玻璃质感渐变背景 */
+    border: 2px solid rgba(255, 182, 193, 0.8); /* 柔和边框 */
+    border-radius: 15px; /* 圆角效果 */
+    color: rgba(50, 50, 50, 0.9); /* 字体颜色 */
+    font-size: 20px; /* 字体大小 */
+    font-family: &quot;Arial&quot;, sans-serif; /* 字体样式 */
+    font-weight: bold; /* 字体加粗 */
+    padding: 5px 5px; /* 内边距 */
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2); /* 按钮阴影 */
+}
+QPushButton:hover {
+    background: qlineargradient(
+        x1: 0, y1: 0, x2: 0, y2: 1,
+        stop: 0 rgba(255, 228, 238, 0.9), /* 悬停顶部 */
+        stop: 0.5 rgba(255, 200, 220, 0.7), /* 中间渐变 */
+        stop: 1 rgba(255, 182, 193, 0.9) /* 悬停底部 */
+    );
+    border: 2px solid rgba(255, 160, 176, 0.9); /* 悬停时边框颜色 */
+    box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.3); /* 更明显的阴影 */
+}
+QPushButton:pressed {
+    background: qlineargradient(
+        x1: 0, y1: 0, x2: 0, y2: 1,
+        stop: 0 rgba(255, 182, 193, 0.9), /* 按下顶部 */
+        stop: 1 rgba(255, 160, 176, 1.0) /* 按下底部 */
+    );
+    border: 2px solid rgba(255, 105, 135, 1.0); /* 按下时边框颜色 */
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3); /* 内凹阴影 */
+}
+</string>
    </property>
    <property name="text">
     <string>暂停</string>
@@ -108,21 +184,28 @@ QProgressBar::chunk {
   <widget class="QLCDNumber" name="lcdNumber">
    <property name="geometry">
     <rect>
-     <x>660</x>
-     <y>120</y>
+     <x>650</x>
+     <y>90</y>
      <width>111</width>
      <height>41</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
    </property>
   </widget>
   <widget class="QLabel" name="scoreLabel">
    <property name="geometry">
     <rect>
-     <x>630</x>
-     <y>120</y>
+     <x>610</x>
+     <y>100</y>
      <width>69</width>
      <height>19</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 12pt &quot;Elephant&quot;;
+color: rgb(255, 255, 255);</string>
    </property>
    <property name="text">
     <string>分数：</string>
@@ -131,11 +214,49 @@ QProgressBar::chunk {
   <widget class="QPushButton" name="pushButton_5">
    <property name="geometry">
     <rect>
-     <x>670</x>
-     <y>80</y>
-     <width>93</width>
-     <height>28</height>
+     <x>660</x>
+     <y>50</y>
+     <width>101</width>
+     <height>31</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    background: qlineargradient(
+        x1: 0, y1: 0, x2: 0, y2: 1,
+        stop: 0 rgba(255, 240, 245, 0.8), /* 浅粉顶部 */
+        stop: 0.5 rgba(255, 220, 230, 0.6), /* 中间渐变 */
+        stop: 1 rgba(255, 200, 215, 0.8) /* 浅粉底部 */
+    ); /* 玻璃质感渐变背景 */
+    border: 2px solid rgba(255, 182, 193, 0.8); /* 柔和边框 */
+    border-radius: 15px; /* 圆角效果 */
+    color: rgba(50, 50, 50, 0.9); /* 字体颜色 */
+    font-size: 20px; /* 字体大小 */
+    font-family: &quot;Arial&quot;, sans-serif; /* 字体样式 */
+    font-weight: bold; /* 字体加粗 */
+    padding: 5px 5px; /* 内边距 */
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2); /* 按钮阴影 */
+}
+QPushButton:hover {
+    background: qlineargradient(
+        x1: 0, y1: 0, x2: 0, y2: 1,
+        stop: 0 rgba(255, 228, 238, 0.9), /* 悬停顶部 */
+        stop: 0.5 rgba(255, 200, 220, 0.7), /* 中间渐变 */
+        stop: 1 rgba(255, 182, 193, 0.9) /* 悬停底部 */
+    );
+    border: 2px solid rgba(255, 160, 176, 0.9); /* 悬停时边框颜色 */
+    box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.3); /* 更明显的阴影 */
+}
+QPushButton:pressed {
+    background: qlineargradient(
+        x1: 0, y1: 0, x2: 0, y2: 1,
+        stop: 0 rgba(255, 182, 193, 0.9), /* 按下顶部 */
+        stop: 1 rgba(255, 160, 176, 1.0) /* 按下底部 */
+    );
+    border: 2px solid rgba(255, 105, 135, 1.0); /* 按下时边框颜色 */
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3); /* 内凹阴影 */
+}
+</string>
    </property>
    <property name="text">
     <string>重置</string>
@@ -150,8 +271,49 @@ QProgressBar::chunk {
      <height>41</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    background: transparent; /* 背景透明 */
+    border: none; /* 无边框 */
+    background-image: url(:/horizon.png); /* 设置背景图片 */
+    background-repeat: no-repeat; /* 防止图片重复 */
+    background-position: center; /* 水平和垂直居中 */
+    background-size: contain; /* 图片缩放以适应按钮大小 */
+}
+
+QPushButton:hover {
+    background: qlineargradient(
+        x1: 0, y1: 0, x2: 0, y2: 1,
+        stop: 0 rgba(220, 220, 255, 0.9),
+        stop: 0.5 rgba(180, 180, 255, 0.7),
+        stop: 1 rgba(130, 130, 255, 0.9)
+    ); /* 悬停时背景渐变 */
+    border: 2px solid rgba(80, 80, 255, 0.9); /* 悬停时边框颜色 */
+    box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.3); /* 更明显的阴影 */  
+  background-image: url(:/horizon.png); /* 设置背景图片 */
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+QPushButton:pressed {
+    background: qlineargradient(
+        x1: 0, y1: 0, x2: 0, y2: 1,
+        stop: 0 rgba(150, 150, 255, 0.9),
+        stop: 1 rgba(100, 100, 200, 1.0)
+    ); /* 按下时背景渐变 */
+    border: 2px solid rgba(50, 50, 200, 1.0); /* 按下时边框颜色 */
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3); /* 内凹阴影 */
+    background-image: url(:/horizon.png); /* 设置背景图片 */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+</string>
+   </property>
    <property name="text">
-    <string>horizon</string>
+    <string/>
    </property>
   </widget>
   <widget class="QPushButton" name="vertical">
@@ -163,8 +325,49 @@ QProgressBar::chunk {
      <height>41</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    background: transparent; /* 背景透明 */
+    border: none; /* 无边框 */
+    background-image: url(:/vertical.png); /* 设置背景图片 */
+    background-repeat: no-repeat; /* 防止图片重复 */
+    background-position: center; /* 水平和垂直居中 */
+    background-size: contain; /* 图片缩放以适应按钮大小 */
+}
+
+QPushButton:hover {
+    background: qlineargradient(
+        x1: 0, y1: 0, x2: 0, y2: 1,
+        stop: 0 rgba(220, 220, 255, 0.9),
+        stop: 0.5 rgba(180, 180, 255, 0.7),
+        stop: 1 rgba(130, 130, 255, 0.9)
+    ); /* 悬停时背景渐变 */
+    border: 2px solid rgba(80, 80, 255, 0.9); /* 悬停时边框颜色 */
+    box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.3); /* 更明显的阴影 */  
+  background-image: url(:/vertical.png); /* 设置背景图片 */
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+QPushButton:pressed {
+    background: qlineargradient(
+        x1: 0, y1: 0, x2: 0, y2: 1,
+        stop: 0 rgba(150, 150, 255, 0.9),
+        stop: 1 rgba(100, 100, 200, 1.0)
+    ); /* 按下时背景渐变 */
+    border: 2px solid rgba(50, 50, 200, 1.0); /* 按下时边框颜色 */
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3); /* 内凹阴影 */
+    background-image: url(:/vertical.png); /* 设置背景图片 */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+</string>
+   </property>
    <property name="text">
-    <string>vertical</string>
+    <string/>
    </property>
   </widget>
   <widget class="QPushButton" name="bombButton">
@@ -176,18 +379,103 @@ QProgressBar::chunk {
      <height>41</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    background: transparent; /* 背景透明 */
+    border: none; /* 无边框 */
+    background-image: url(:/bomb.png); /* 设置背景图片 */
+    background-repeat: no-repeat; /* 防止图片重复 */
+    background-position: center; /* 水平和垂直居中 */
+    background-size: contain; /* 图片缩放以适应按钮大小 */
+}
+
+QPushButton:hover {
+    background: qlineargradient(
+        x1: 0, y1: 0, x2: 0, y2: 1,
+        stop: 0 rgba(220, 220, 255, 0.9),
+        stop: 0.5 rgba(180, 180, 255, 0.7),
+        stop: 1 rgba(130, 130, 255, 0.9)
+    ); /* 悬停时背景渐变 */
+    border: 2px solid rgba(80, 80, 255, 0.9); /* 悬停时边框颜色 */
+    box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.3); /* 更明显的阴影 */  
+  background-image: url(:/bomb.png); /* 设置背景图片 */
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+QPushButton:pressed {
+    background: qlineargradient(
+        x1: 0, y1: 0, x2: 0, y2: 1,
+        stop: 0 rgba(150, 150, 255, 0.9),
+        stop: 1 rgba(100, 100, 200, 1.0)
+    ); /* 按下时背景渐变 */
+    border: 2px solid rgba(50, 50, 200, 1.0); /* 按下时边框颜色 */
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3); /* 内凹阴影 */
+    background-image: url(:/bomb.png); /* 设置背景图片 */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+</string>
+   </property>
    <property name="text">
-    <string>bomb</string>
+    <string/>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>100</width>
+     <height>100</height>
+    </size>
    </property>
   </widget>
   <widget class="QPushButton" name="Tips">
    <property name="geometry">
     <rect>
-     <x>670</x>
-     <y>240</y>
-     <width>91</width>
-     <height>31</height>
+     <x>650</x>
+     <y>230</y>
+     <width>111</width>
+     <height>41</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    background: qlineargradient(
+        x1: 0, y1: 0, x2: 0, y2: 1,
+        stop: 0 rgba(255, 240, 245, 0.8), /* 浅粉顶部 */
+        stop: 0.5 rgba(255, 220, 230, 0.6), /* 中间渐变 */
+        stop: 1 rgba(255, 200, 215, 0.8) /* 浅粉底部 */
+    ); /* 玻璃质感渐变背景 */
+    border: 2px solid rgba(255, 182, 193, 0.8); /* 柔和边框 */
+    border-radius: 15px; /* 圆角效果 */
+    color: rgba(50, 50, 50, 0.9); /* 字体颜色 */
+    font-size: 20px; /* 字体大小 */
+    font-family: &quot;Arial&quot;, sans-serif; /* 字体样式 */
+    font-weight: bold; /* 字体加粗 */
+    padding: 10px 20px; /* 内边距 */
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2); /* 按钮阴影 */
+}
+QPushButton:hover {
+    background: qlineargradient(
+        x1: 0, y1: 0, x2: 0, y2: 1,
+        stop: 0 rgba(255, 228, 238, 0.9), /* 悬停顶部 */
+        stop: 0.5 rgba(255, 200, 220, 0.7), /* 中间渐变 */
+        stop: 1 rgba(255, 182, 193, 0.9) /* 悬停底部 */
+    );
+    border: 2px solid rgba(255, 160, 176, 0.9); /* 悬停时边框颜色 */
+    box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.3); /* 更明显的阴影 */
+}
+QPushButton:pressed {
+    background: qlineargradient(
+        x1: 0, y1: 0, x2: 0, y2: 1,
+        stop: 0 rgba(255, 182, 193, 0.9), /* 按下顶部 */
+        stop: 1 rgba(255, 160, 176, 1.0) /* 按下底部 */
+    );
+    border: 2px solid rgba(255, 105, 135, 1.0); /* 按下时边框颜色 */
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3); /* 内凹阴影 */
+}
+</string>
    </property>
    <property name="text">
     <string>Tips</string>
@@ -196,11 +484,14 @@ QProgressBar::chunk {
   <widget class="QLabel" name="hintRemain">
    <property name="geometry">
     <rect>
-     <x>680</x>
-     <y>220</y>
-     <width>81</width>
-     <height>21</height>
+     <x>650</x>
+     <y>190</y>
+     <width>111</width>
+     <height>31</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
    </property>
    <property name="text">
     <string>剩余：</string>
@@ -209,11 +500,49 @@ QProgressBar::chunk {
   <widget class="QPushButton" name="Shop">
    <property name="geometry">
     <rect>
-     <x>660</x>
+     <x>650</x>
      <y>510</y>
-     <width>101</width>
+     <width>111</width>
      <height>41</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    background: qlineargradient(
+        x1: 0, y1: 0, x2: 0, y2: 1,
+        stop: 0 rgba(255, 240, 245, 0.8), /* 浅粉顶部 */
+        stop: 0.5 rgba(255, 220, 230, 0.6), /* 中间渐变 */
+        stop: 1 rgba(255, 200, 215, 0.8) /* 浅粉底部 */
+    ); /* 玻璃质感渐变背景 */
+    border: 2px solid rgba(255, 182, 193, 0.8); /* 柔和边框 */
+    border-radius: 15px; /* 圆角效果 */
+    color: rgba(50, 50, 50, 0.9); /* 字体颜色 */
+    font-size: 20px; /* 字体大小 */
+    font-family: &quot;Arial&quot;, sans-serif; /* 字体样式 */
+    font-weight: bold; /* 字体加粗 */
+    padding: 10px 20px; /* 内边距 */
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2); /* 按钮阴影 */
+}
+QPushButton:hover {
+    background: qlineargradient(
+        x1: 0, y1: 0, x2: 0, y2: 1,
+        stop: 0 rgba(255, 228, 238, 0.9), /* 悬停顶部 */
+        stop: 0.5 rgba(255, 200, 220, 0.7), /* 中间渐变 */
+        stop: 1 rgba(255, 182, 193, 0.9) /* 悬停底部 */
+    );
+    border: 2px solid rgba(255, 160, 176, 0.9); /* 悬停时边框颜色 */
+    box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.3); /* 更明显的阴影 */
+}
+QPushButton:pressed {
+    background: qlineargradient(
+        x1: 0, y1: 0, x2: 0, y2: 1,
+        stop: 0 rgba(255, 182, 193, 0.9), /* 按下顶部 */
+        stop: 1 rgba(255, 160, 176, 1.0) /* 按下底部 */
+    );
+    border: 2px solid rgba(255, 105, 135, 1.0); /* 按下时边框颜色 */
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3); /* 内凹阴影 */
+}
+</string>
    </property>
    <property name="text">
     <string>Shop</string>
@@ -222,11 +551,22 @@ QProgressBar::chunk {
   <widget class="QLabel" name="bombLabel">
    <property name="geometry">
     <rect>
-     <x>630</x>
+     <x>660</x>
      <y>290</y>
-     <width>71</width>
+     <width>51</width>
      <height>41</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"> QLabel {
+            background-color: rgba(255, 255, 255, 0.7); /* 半透明白色背景 */
+            border: 1px solid rgba(200, 200, 200, 0.8); /* 柔和边框 */
+            border-radius: 10px; /* 圆角效果 */
+            font-size: 18px; /* 字体大小 */
+            font-family: &quot;Arial&quot;, sans-serif; /* 字体样式 */
+            color: rgba(50, 50, 50, 0.9); /* 字体颜色 */
+            padding: 5px; /* 内边距 */
+        }</string>
    </property>
    <property name="text">
     <string/>
@@ -235,11 +575,22 @@ QProgressBar::chunk {
   <widget class="QLabel" name="horizonLabel">
    <property name="geometry">
     <rect>
-     <x>600</x>
+     <x>660</x>
      <y>340</y>
-     <width>111</width>
+     <width>51</width>
      <height>41</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"> QLabel {
+            background-color: rgba(255, 255, 255, 0.7); /* 半透明白色背景 */
+            border: 1px solid rgba(200, 200, 200, 0.8); /* 柔和边框 */
+            border-radius: 10px; /* 圆角效果 */
+            font-size: 18px; /* 字体大小 */
+            font-family: &quot;Arial&quot;, sans-serif; /* 字体样式 */
+            color: rgba(50, 50, 50, 0.9); /* 字体颜色 */
+            padding: 5px; /* 内边距 */
+        }</string>
    </property>
    <property name="text">
     <string/>
@@ -248,11 +599,22 @@ QProgressBar::chunk {
   <widget class="QLabel" name="verticalLabel">
    <property name="geometry">
     <rect>
-     <x>600</x>
+     <x>660</x>
      <y>390</y>
-     <width>111</width>
+     <width>51</width>
      <height>41</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"> QLabel {
+            background-color: rgba(255, 255, 255, 0.7); /* 半透明白色背景 */
+            border: 1px solid rgba(200, 200, 200, 0.8); /* 柔和边框 */
+            border-radius: 10px; /* 圆角效果 */
+            font-size: 18px; /* 字体大小 */
+            font-family: &quot;Arial&quot;, sans-serif; /* 字体样式 */
+            color: rgba(50, 50, 50, 0.9); /* 字体颜色 */
+            padding: 5px; /* 内边距 */
+        }</string>
    </property>
    <property name="text">
     <string/>
@@ -261,11 +623,15 @@ QProgressBar::chunk {
   <widget class="QLabel" name="passScoreLabel">
    <property name="geometry">
     <rect>
-     <x>610</x>
-     <y>180</y>
+     <x>590</x>
+     <y>150</y>
      <width>51</width>
      <height>20</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 12pt &quot;Elephant&quot;;
+color: rgb(255, 255, 255);</string>
    </property>
    <property name="text">
     <string>目标得分：</string>
@@ -274,8 +640,8 @@ QProgressBar::chunk {
   <widget class="QTextBrowser" name="textBrowser">
    <property name="geometry">
     <rect>
-     <x>660</x>
-     <y>170</y>
+     <x>650</x>
+     <y>140</y>
      <width>111</width>
      <height>41</height>
     </rect>
@@ -320,23 +686,104 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <height>41</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    background: transparent; /* 背景透明 */
+    border: none; /* 无边框 */
+    background-image: url(:/hammer.png); /* 设置背景图片 */
+    background-repeat: no-repeat; /* 防止图片重复 */
+    background-position: center; /* 水平和垂直居中 */
+    background-size: contain; /* 图片缩放以适应按钮大小 */
+}
+
+QPushButton:hover {
+    background: qlineargradient(
+        x1: 0, y1: 0, x2: 0, y2: 1,
+        stop: 0 rgba(220, 220, 255, 0.9),
+        stop: 0.5 rgba(180, 180, 255, 0.7),
+        stop: 1 rgba(130, 130, 255, 0.9)
+    ); /* 悬停时背景渐变 */
+    border: 2px solid rgba(80, 80, 255, 0.9); /* 悬停时边框颜色 */
+    box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.3); /* 更明显的阴影 */
+    background-image: url(:/hammer.png); /* 保留背景图片 */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+QPushButton:pressed {
+    background: qlineargradient(
+        x1: 0, y1: 0, x2: 0, y2: 1,
+        stop: 0 rgba(150, 150, 255, 0.9),
+        stop: 1 rgba(100, 100, 200, 1.0)
+    ); /* 按下时背景渐变 */
+    border: 2px solid rgba(50, 50, 200, 1.0); /* 按下时边框颜色 */
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3); /* 内凹阴影 */
+    background-image: url(:/hammer.png); /* 保留背景图片 */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+</string>
+   </property>
    <property name="text">
-    <string>hammer</string>
+    <string/>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>450</width>
+     <height>450</height>
+    </size>
+   </property>
+   <property name="autoRepeatDelay">
+    <number>500</number>
    </property>
   </widget>
   <widget class="QLabel" name="hammerLabel">
    <property name="geometry">
     <rect>
-     <x>600</x>
+     <x>660</x>
      <y>440</y>
-     <width>111</width>
+     <width>51</width>
      <height>41</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"> QLabel {
+            background-color: rgba(255, 255, 255, 0.7); /* 半透明白色背景 */
+            border: 1px solid rgba(200, 200, 200, 0.8); /* 柔和边框 */
+            border-radius: 10px; /* 圆角效果 */
+            font-size: 18px; /* 字体大小 */
+            font-family: &quot;Arial&quot;, sans-serif; /* 字体样式 */
+            color: rgba(50, 50, 50, 0.9); /* 字体颜色 */
+            padding: 5px; /* 内边距 */
+        }</string>
    </property>
    <property name="text">
     <string/>
    </property>
   </widget>
+  <zorder>pushButton_2</zorder>
+  <zorder>timerLabel</zorder>
+  <zorder>progressBar</zorder>
+  <zorder>pauseButton</zorder>
+  <zorder>lcdNumber</zorder>
+  <zorder>scoreLabel</zorder>
+  <zorder>pushButton_5</zorder>
+  <zorder>horizon</zorder>
+  <zorder>vertical</zorder>
+  <zorder>bombButton</zorder>
+  <zorder>Tips</zorder>
+  <zorder>hintRemain</zorder>
+  <zorder>Shop</zorder>
+  <zorder>bombLabel</zorder>
+  <zorder>horizonLabel</zorder>
+  <zorder>verticalLabel</zorder>
+  <zorder>passScoreLabel</zorder>
+  <zorder>textBrowser</zorder>
+  <zorder>levelNumLabel</zorder>
+  <zorder>hammerLabel</zorder>
+  <zorder>hammer</zorder>
  </widget>
  <resources/>
  <connections/>
