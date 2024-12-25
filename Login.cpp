@@ -27,7 +27,7 @@ Login::Login(Client* c,QWidget *parent)
     // 设置鼠标-普通
     setCursor(QCursor(QPixmap(":/mouse1.png")));
     // 设置背景图片
-    QPixmap *pix = new QPixmap(":/blue.png");
+    QPixmap *pix = new QPixmap(":/OIP.jpg");
     QSize sz = ui->label_image->size();
     ui->label_image->setPixmap(pix->scaled(sz));
 

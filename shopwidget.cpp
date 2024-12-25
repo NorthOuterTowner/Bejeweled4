@@ -20,6 +20,8 @@ ShopWidget::ShopWidget(QWidget *parent) :
 
 {
     ui->setupUi(this);
+    // 设置鼠标-普通
+    setCursor(QCursor(QPixmap(":/mouse1.png")));
     // 美化所有的 QLabel 样式
     QString labelStyle = R"(
         QLabel {

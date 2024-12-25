@@ -14,7 +14,9 @@ Signup::Signup(Client* c,QWidget *parent) :
     client(c)
 {
     ui->setupUi(this);
-    QPixmap *pix = new QPixmap(":/girl1.png");
+    // 设置鼠标-普通
+    setCursor(QCursor(QPixmap(":/mouse1.png")));
+    QPixmap *pix = new QPixmap(":/OIP (1).jpg");
     QSize sz = ui->label_image->size();
     ui->label_image->setPixmap(pix->scaled(sz));
     connect(client->tcpSocket, &QTcpSocket::readyRead, this, &Signup::onDataReceived);
