@@ -61,7 +61,10 @@ public:
     void highlightHints(const QList<QPair<int, int>>& hints);
     void updateHintCountDisplay();
     bool canSwapAndMatch(int row1, int col1, int row2, int col2);
-    bool checkMatch(int row, int col);
+
+    int checkMatch(int countRow, int countCol);//匹配(数)检测函数
+    int rowCheckMatch(int row, int col);
+    int colCheckMatch(int row, int col);
 
     void resume();//处理继续游戏信号
 
@@ -85,9 +88,6 @@ public:
     // 获取当前竖向消除道具数量
     int getVerticalCount() const;
     void setVerticalCount(int count);
-    // 获取当前锤子数量
-    int gethammerCount() const;
-    void sethammerCount(int count);
     void updateItemCountLabels();  // 更新道具数量标签的函数
 
     Ui::Game *ui;
@@ -137,18 +137,12 @@ private slots:
 
     void on_Shop_clicked();
 
-    void on_hammer_clicked();
-
 private:
     explicit Game(QWidget *parent = nullptr,Game::GameMode mode = Game::GameMode::CLASSIC_MODE,Client* client=nullptr);//经典模式构造器
     explicit Game(QWidget *parent = nullptr,int LevelNum = -1,Game::GameMode mode = Game::GameMode::ADVENTURE_MODE,Client* client=nullptr);//冒险模式构造器
     static Game* gameInstance;
     bool arePositionsAdjacent(int row1, int col1, int row2, int col2);//判断两次鼠标点击位置是否相邻
     void mousePressEvent(QMouseEvent *event) override;
-    void mouseMoveEvent(QMouseEvent *event) override;
-    QPoint pressPoint;
-    bool canrelease=false;
-     void mouseReleaseEvent(QMouseEvent *event) override;
     bool checkFormatches();//判断哪些棋子将要被消去
     void eliminateMatches() ;//消除
     void dropStones();//棋子下落，创建新子
@@ -187,9 +181,6 @@ private:
     bool vertical=false;//是否竖向消除
     void triggerBomb(int row, int col);
     bool isBombMode = false;  // 标记是否处于炸弹模式
-    bool isHammerMode = false;  // 标记是否处于锤子模式
-    void useHammer(int row, int col);
-
     QSoundEffect* sound;  // 背景音乐
     int hintCount = 5;//提示的初始次数
     Client* client;

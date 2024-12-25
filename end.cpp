@@ -67,12 +67,19 @@ void End::showAdventureLoseUI()
 }
 
 void End::onNextButtonClicked(){
-    emit nextButtonClicked();
     close();
+    emit nextButtonClicked();
+
 }
 
 void End::onRetryButtonClicked()
 {
-    emit retryGame();
     close();
+    emit retryGame();
 }
+
+void End::on_retryButton_clicked()
+{
+
+}
+

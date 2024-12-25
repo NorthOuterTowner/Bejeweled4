@@ -8,8 +8,6 @@
 int ShopWidget::bombCount = 1;    // 炸弹数量
 int ShopWidget::horizonCount = 1; // 横向消除道具数量
 int ShopWidget::verticalCount = 1; // 竖向消除道具数量
-int ShopWidget::hammerCount = 1; //锤子道具数量
-
 
 
 
@@ -61,9 +59,8 @@ ShopWidget::ShopWidget(QWidget *parent) :
     ui->horizonLabel->setText(QString("横向: %1").arg(horizonCount));
     // 更新显示当前积分
 
-    ui->verticalLabel->setText(QString("竖向: %1").arg(verticalCount));
-    ui->hammerLabel->setText(QString("竖向: %1").arg(hammerCount));
 
+    ui->verticalLabel->setText(QString("竖向: %1").arg(verticalCount));
 
 
 
@@ -118,7 +115,6 @@ void ShopWidget::on_Buy_clicked()
         break;
     case ItemType::HORIZON:
     case ItemType::VERTICAL:
-     case ItemType::HAMMER:
         itemPrice = 30;  // 横向和竖向消除的价格
         break;
     }
@@ -146,11 +142,6 @@ void ShopWidget::on_Buy_clicked()
             verticalCount++;
            // 更新 Game 中的竖向消除数量
             ui->verticalLabel->setText(QString("竖向消除: %1").arg(verticalCount));
-            break;
-        case ItemType::HAMMER:
-            hammerCount++;
-            // 更新 Game 中的锤子数量
-            ui->hammerLabel->setText(QString("竖向消除: %1").arg(hammerCount));
             break;
         }
 
@@ -209,24 +200,9 @@ void ShopWidget::resetItemCounts() {
     bombCount = 1;   // 重置炸弹数量
     horizonCount = 1; // 重置横向消除道具数量
     verticalCount = 1; // 重置竖向消除道具数量
-    hammerCount = 1;
 
     // 更新 UI 显示
     ui->bombLabel->setText(QString("炸弹: %1").arg(bombCount));
     ui->horizonLabel->setText(QString("横向: %1").arg(horizonCount));
     ui->verticalLabel->setText(QString("竖向: %1").arg(verticalCount));
-    ui->hammerLabel->setText(QString("小锤子: %1").arg(hammerCount));
-
 }
-
-void ShopWidget::on_hammer_clicked()
-{
-    currentItemType = ItemType::HAMMER;  // 设置为竖向消除道具
-
-    // 显示竖向消除的图片和描述
-    ui->picture->setPixmap(QPixmap(":/button/HAMMER.png"));
-    ui->introduction->setText("小锤子吹冰块bang!\n价格：30积分");
-    ui->picture->show();
-    ui->introduction->show();
-}
-
