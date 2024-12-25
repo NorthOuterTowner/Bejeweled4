@@ -181,17 +181,18 @@ void Game::init(){
 
 
     // 更新炸弹道具数量标签
-    ui->bombLabel->setText(QString("炸弹: %1").arg(ShopWidget::bombCount));
+    ui->bombLabel->setText(QString(" %1").arg(ShopWidget::bombCount));
 
     // 更新横向消除道具数量标签
-    ui->horizonLabel->setText(QString("横向消除: %1").arg(ShopWidget::horizonCount));
+    ui->horizonLabel->setText(QString(" %1").arg(ShopWidget::horizonCount));
 
     // 更新竖向消除道具数量标签
-    ui->verticalLabel->setText(QString("竖向消除: %1").arg(ShopWidget::verticalCount));
+    ui->verticalLabel->setText(QString(" %1").arg(ShopWidget::verticalCount));
 
-    // 更新锤子消除道具数量标签
-    ui->hammerLabel->setText(QString("锤子消除: %1").arg(ShopWidget::hammerCount));
+    // 更新竖向消除道具数量标签
+    ui->hammerLabel->setText(QString(" %1").arg(ShopWidget::hammerCount));
 
+   
 
     updateHintCountDisplay();  // 显示初始提示次数
     for (int row = 0; row < Game::jewelNum; row++) {
