@@ -189,8 +189,8 @@ void Game::init(){
     // 更新竖向消除道具数量标签
     ui->verticalLabel->setText(QString("竖向消除: %1").arg(ShopWidget::verticalCount));
 
-    // 更新竖向消除道具数量标签
-    ui->hammerLabel->setText(QString("竖向消除: %1").arg(ShopWidget::hammerCount));
+    // 更新锤子消除道具数量标签
+    ui->hammerLabel->setText(QString("锤子消除: %1").arg(ShopWidget::hammerCount));
 
 
     updateHintCountDisplay();  // 显示初始提示次数
