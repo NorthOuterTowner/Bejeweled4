@@ -88,6 +88,8 @@ public:
     // 获取当前竖向消除道具数量
     int getVerticalCount() const;
     void setVerticalCount(int count);
+    int gethammerCount() const;
+    void sethammerCount(int count);
     void updateItemCountLabels();  // 更新道具数量标签的函数
 
     Ui::Game *ui;
@@ -137,6 +139,8 @@ private slots:
 
     void on_Shop_clicked();
 
+    void on_hammer_clicked();
+
 private:
     explicit Game(QWidget *parent = nullptr,Game::GameMode mode = Game::GameMode::CLASSIC_MODE,Client* client=nullptr);//经典模式构造器
     explicit Game(QWidget *parent = nullptr,int LevelNum = -1,Game::GameMode mode = Game::GameMode::ADVENTURE_MODE,Client* client=nullptr);//冒险模式构造器
@@ -181,6 +185,8 @@ private:
     bool vertical=false;//是否竖向消除
     void triggerBomb(int row, int col);
     bool isBombMode = false;  // 标记是否处于炸弹模式
+    bool isHammerMode = false;  // 标记是否处于锤子模式
+    void useHammer(int row, int col);
     QSoundEffect* sound;  // 背景音乐
     int hintCount = 5;//提示的初始次数
     Client* client;

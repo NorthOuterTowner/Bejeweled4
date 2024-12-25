@@ -262,6 +262,11 @@ void Game::mousePressEvent(QMouseEvent *event) {
             clickDistrict[3]++;
         }
     }
+    if(isHammerMode){
+        useHammer(row,  col);
+        return;
+
+    }
     StoneLabel* curLabel = stones[row][col];
     if (curLabel->isFrozen) {  // 如果当前点击的棋子处于冰冻状态，直接返回，不做任何操作
         return;
