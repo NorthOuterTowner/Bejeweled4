@@ -192,6 +192,7 @@ void Game::init(){
     // 更新竖向消除道具数量标签
     ui->hammerLabel->setText(QString(" %1").arg(ShopWidget::hammerCount));
 
+   
 
     updateHintCountDisplay();  // 显示初始提示次数
     for (int row = 0; row < Game::jewelNum; row++) {
