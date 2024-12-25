@@ -210,7 +210,7 @@ QProgressBar::chunk {
    <property name="geometry">
     <rect>
      <x>660</x>
-     <y>510</y>
+     <y>460</y>
      <width>101</width>
      <height>41</height>
     </rect>
@@ -309,32 +309,6 @@ li.checked::marker { content: &quot;\2612&quot;; }
    </property>
    <property name="text">
     <string>关卡 -- --</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="hammer">
-   <property name="geometry">
-    <rect>
-     <x>710</x>
-     <y>440</y>
-     <width>51</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>hammer</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="hammerLabel">
-   <property name="geometry">
-    <rect>
-     <x>600</x>
-     <y>440</y>
-     <width>111</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
    </property>
   </widget>
  </widget>

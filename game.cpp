@@ -226,7 +226,6 @@ bool Game::arePositionsAdjacent(int row1, int col1, int row2, int col2) {
 
 void Game::mousePressEvent(QMouseEvent *event) {
     QPoint clickPoint = event->pos();
-    pressPoint=clickPoint;
     int x = clickPoint.x(), y = clickPoint.y();
     if (x <= leftSpacer || y <= upSpacer || x >= leftSpacer + 8 * 48 || y >= upSpacer + 8 * 48)
         return;
@@ -256,26 +255,17 @@ void Game::mousePressEvent(QMouseEvent *event) {
             clickDistrict[3]++;
         }
     }
-
-    if(isHammerMode){
-        useHammer(row,  col);
-        return;
-
-    }
     StoneLabel* curLabel = stones[row][col];
-
     if (curLabel->isFrozen) {  // 如果当前点击的棋子处于冰冻状态，直接返回，不做任何操作
         return;
     }
-
-
     if (isBombMode) {
         // 如果当前处于炸弹模式，触发炸弹效果
         triggerBomb(row, col);
         return;
     }
     if (!change) {
-        isComboing = true;
+        //isComboing = true;
         waitLabel = curLabel;
         waitLabel->setStyle(1);
         change = true;
@@ -286,7 +276,7 @@ void Game::mousePressEvent(QMouseEvent *event) {
         if (!arePositionsAdjacent(row1, col1, row2, col2)) {// 判断两次点击的位置是否相邻,若不则跟随移动
             // 如果不相邻，忽视第一次点击，将此次点击视为第一次点击
             waitLabel->setStyle();
-            isComboing = true;
+            //isComboing = true;
             waitLabel = stones[row][col];
             waitLabel->setStyle(1);
             change = true;
@@ -330,6 +320,9 @@ void Game::mousePressEvent(QMouseEvent *event) {
             }
 
             if (checkFormatches()) {
+                // 标记被选中且发生消除的棋子
+                stones[row1][col1]->setSelectedAndEliminated(true);
+                stones[row2][col2]->setSelectedAndEliminated(true);
                 eliminateMatches();
             } else {
                 //Animation Shaked
@@ -395,13 +388,13 @@ void Game::mousePressEvent(QMouseEvent *event) {
             change = false;
         });
     }
-    if(horizon){
+    if(horizon){//横劈道具
         curLabel->setStyle(0);
         horizondelete(row);
         horizon=false;
         change=false;
     }
-    if(vertical){
+    if(vertical){//竖劈道具
         curLabel->setStyle(1);
         verticaldelete(col);
         vertical=false;
@@ -409,140 +402,6 @@ void Game::mousePressEvent(QMouseEvent *event) {
     }
 }
 
-void Game::mouseMoveEvent(QMouseEvent *event){
-    if(!change) return;
-    QPoint movePoint = event->pos();
-    int dx = movePoint.x() - pressPoint.x();
-    int dy = movePoint.y() - pressPoint.y();
-    // 判断移动是否超过一定距离，避免误操作
-    if (std::abs(dx) > 24 || std::abs(dy) > 24) {
-        qDebug()<<"move right";
-        canrelease=true;
-    }
-}
-void Game::mouseReleaseEvent(QMouseEvent *event){
-    if(!change) return;
-    if(!canrelease) return;
-    change=false;
-    QPoint releasePoint = event->pos();
-    int row1 = waitLabel->getrow(), col1 = waitLabel->getcol();
-    int row2 = (releasePoint.y() - upSpacer) / 48;
-    int col2 = (releasePoint.x() - leftSpacer) / 48;
-    if (row2 >= 0 && col2 >= 0 && row2 < 8 && col2 < 8) {
-        qDebug()<<"row2,col2"<<row2<<col2;
-        if (!arePositionsAdjacent(row1, col1, row2, col2)) {// 判断两次点击的位置是否相邻,若不则跟随移动
-            // 如果不相邻，忽视第一次点击，将此次点击视为第一次点击
-            waitLabel->setStyle();
-            isComboing = true;
-            waitLabel = stones[row1][col1];
-            waitLabel->setStyle(1);
-            change = true;
-            return;
-        }
-
-        // 创建动画
-        QPropertyAnimation *animation1 = new QPropertyAnimation(stones[row1][col1], "pos");
-        QPropertyAnimation *animation2 = new QPropertyAnimation(stones[row2][col2], "pos");
-
-        // 设置动画时长和目标位置
-        animation1->setDuration(300); // 动画持续时间300ms
-        animation2->setDuration(300);
-
-        // 计算目标位置
-        QPoint targetPos1 = stones[row2][col2]->pos();
-        QPoint targetPos2 = stones[row1][col1]->pos();
-
-        animation1->setEndValue(targetPos1);
-        animation2->setEndValue(targetPos2);
-
-        // 启动动画
-        animation1->start(QAbstractAnimation::DeleteWhenStopped);
-        animation2->start(QAbstractAnimation::DeleteWhenStopped);
-
-        // 动画结束后交换
-        connect(animation1, &QPropertyAnimation::finished, [=]() {
-            // 交换数据
-            waitLabel->setStyle();
-            std::swap(stones[row1][col1], stones[row2][col2]);
-            stones[row1][col1]->setrow(row1);
-            stones[row1][col1]->setcol(col1);
-            stones[row2][col2]->setrow(row2);
-            stones[row2][col2]->setcol(col2);
-
-            update();
-
-            if (!hasStartedScoring)  // 如果还未开始计分，在这里标记为开始计分
-            {
-                hasStartedScoring = true;
-            }
-
-            if (checkFormatches()) {
-                eliminateMatches();
-            } else {
-                //Animation Shaked
-                QPoint originalPos = stones[row2][col2]->pos();
-                QPropertyAnimation *animationShake = new QPropertyAnimation(stones[row2][col2], "pos");
-                animationShake->setDuration(300);
-                QList<QPair<double, QVariant>> keyframes;
-
-                keyframes.append(qMakePair(0.0, QVariant::fromValue(originalPos + QPoint(8, 0))));  // 向右移动
-                keyframes.append(qMakePair(0.1, QVariant::fromValue(originalPos - QPoint(8, 0))));  // 向左移动
-                keyframes.append(qMakePair(0.2, QVariant::fromValue(originalPos + QPoint(8, 0))));  // 向右移动
-                keyframes.append(qMakePair(0.3, QVariant::fromValue(originalPos - QPoint(8, 0))));  // 向左移动
-                keyframes.append(qMakePair(0.4, QVariant::fromValue(originalPos)));                  // 恢复原位置
-
-                // 设置关键帧
-                animationShake->setKeyValues(keyframes);
-                animationShake->start(QAbstractAnimation::DeleteWhenStopped);
-                //Animation Shaked2
-                QPoint originalPos2 = stones[row1][col1]->pos();
-                QPropertyAnimation *animationShake2 = new QPropertyAnimation(stones[row1][col1], "pos");
-                animationShake2->setDuration(300);
-                QList<QPair<double, QVariant>> keyframes2;
-
-                keyframes2.append(qMakePair(0.0, QVariant::fromValue(originalPos2 + QPoint(8, 0))));  // 向右移动
-                keyframes2.append(qMakePair(0.1, QVariant::fromValue(originalPos2 - QPoint(8, 0))));  // 向左移动
-                keyframes2.append(qMakePair(0.2, QVariant::fromValue(originalPos2 + QPoint(8, 0))));  // 向右移动
-                keyframes2.append(qMakePair(0.3, QVariant::fromValue(originalPos2 - QPoint(8, 0))));  // 向左移动
-                keyframes2.append(qMakePair(0.4, QVariant::fromValue(originalPos2)));                  // 恢复原位置
-
-                // 设置关键帧
-                animationShake2->setKeyValues(keyframes2);
-                animationShake2->start(QAbstractAnimation::DeleteWhenStopped);
-
-                connect(animationShake, &QPropertyAnimation::finished, [=](){
-
-                    QPropertyAnimation *reverseAnim1 = new QPropertyAnimation(stones[row1][col1], "pos");
-                    QPropertyAnimation *reverseAnim2 = new QPropertyAnimation(stones[row2][col2], "pos");
-
-                    reverseAnim1->setDuration(200);
-                    reverseAnim2->setDuration(200);
-
-                    // 计算回退的目标位置
-                    reverseAnim1->setEndValue(targetPos1); // 原位置
-                    reverseAnim2->setEndValue(targetPos2); // 原位置
-
-                    reverseAnim1->start(QAbstractAnimation::DeleteWhenStopped);
-                    reverseAnim2->start(QAbstractAnimation::DeleteWhenStopped);
-
-                    // 动画完成后恢复交换
-                    connect(reverseAnim1, &QPropertyAnimation::finished, [=]() {
-                        // 换回去
-                        std::swap(stones[row1][col1], stones[row2][col2]);
-                        stones[row1][col1]->setrow(row1);
-                        stones[row1][col1]->setcol(col1);
-                        stones[row2][col2]->setrow(row2);
-                        stones[row2][col2]->setcol(col2);
-
-                        update();
-                    });
-                });
-            }
-
-            change = false;
-        });
-    }
-}
 //判断
 bool Game::checkFormatches(){
     bool hasMatch = false;
@@ -575,6 +434,18 @@ bool Game::checkFormatches(){
         }
     }
 
+    for (int col = 0; col < 8; ++col) {
+
+        for (int row = 0; row < 8; ++row) {
+            // 更新匹配数
+            stones[row][col]->setColMatchNum(colCheckMatch(row, col));
+            stones[row][col]->setRowMatchNum(rowCheckMatch(row, col));
+            stones[row][col]->setMatchNum(checkMatch(stones[row][col]->rowMatchNum,stones[row][col]->colMatchNum));
+            // 更新样式状态
+            stones[row][col]->setOriginalStyleSheet(stones[row][col]->styleSheet());
+        }
+    }
+
     return hasMatch;
 }
 
@@ -585,11 +456,54 @@ void Game::eliminateMatches() {
     for (int row = 0; row < 8; ++row) {
         for (int col = 0; col < 8; ++col) {
             if (stones[row][col] != nullptr && stones[row][col]->isMatched() && !stones[row][col]->isFrozen) {//未冰冻的棋子，直接消除即可
-                //删除棋子
-                delete stones[row][col];
-                stones[row][col] = nullptr;  // 清空位置
+                if(stones[row][col]->isSelectedAndEliminated && stones[row][col]->matchNum == 4){//鼠标点击了一次4消
+                    if(stones[row][col]->colMatchNum == 4){//四个纵的合成横劈
+                        stones[row][col]->setLineKiller(1);
+                        stones[row][col]->setMatched(false);
+                        stones[row][col]->setStyleSheetForRowKiller();
+                    }else if(stones[row][col]->rowMatchNum == 4){//四个横的合成竖劈
+                        stones[row][col]->setLineKiller(2);
+                        stones[row][col]->setMatched(false);
+                        stones[row][col]->setStyleSheetForColKiller();
+                    }
+                }
+                else {//非鼠标直接消除 或 鼠标点击了普通三消 直接删除即可
+                    if(stones[row][col]->lineKiller == 0){//如果是普通棋子
+                        //删除棋子
+                        delete stones[row][col];
+                        stones[row][col] = nullptr;  // 清空位置
+                    }
+                    else if(stones[row][col]->lineKiller == 1){//如果是横劈
+                        //使用掉lineKiller效果
+                        stones[row][col]->lineKiller = 0;
+                        stones[row][col]->setStyleSheetForNormal();
+                        // 执行横劈逻辑，消除整行
+                        for (int temp_col = 0; temp_col < 8; ++temp_col) {
+                            if (stones[row][temp_col]!= nullptr) {
+                                delete stones[row][temp_col];
+                                stones[row][temp_col] = nullptr;
+                                eliminatedCount++;  // 统计消除的棋子个数
+                            }
+                        }
+                    }
+                    else if(stones[row][col]->lineKiller == 2){//如果是竖劈
+                        //使用掉lineKiller效果
+                        stones[row][col]->lineKiller == 0;
+                        stones[row][col]->setStyleSheetForNormal();
+                        // 执行竖劈逻辑，消除整列
+                        for (int temp_row = 0; temp_row < 8; ++temp_row) {
+                            if (stones[temp_row][col]!= nullptr) {
+                                delete stones[temp_row][col];
+                                stones[temp_row][col] = nullptr;
+                                eliminatedCount++;
+                            }
+                        }
+                    }
+                }
+
                 eliminatedCount++;  // 统计消除的棋子个数
-            }else if (stones[row][col] != nullptr && stones[row][col]->isMatched() && stones[row][col]->isFrozen) { // 如果是冰冻棋子，清除匹配标记并恢复正常外观
+            }
+            else if (stones[row][col] != nullptr && stones[row][col]->isMatched() && stones[row][col]->isFrozen) { // 如果是冰冻棋子，清除匹配标记并恢复正常外观
                 stones[row][col]->setMatched(false);
                 stones[row][col]->isFrozen = false;
                 stones[row][col]->setStyleSheetForNormal();
@@ -669,6 +583,7 @@ void Game::generateNewStone(int row, int col){
 void Game::onEliminateAgain(){
     {
         if(checkFormatches()){
+            isComboing = true;
             eliminateMatches();
         }else{
             isComboing = false;
@@ -792,6 +707,7 @@ void Game::resetMatchedFlags(){
         for (int col = 0; col < 8; ++col) {
             if (stones[row][col] != nullptr) {
                 stones[row][col]->setMatched(false);
+                stones[row][col]->isSelectedAndEliminated = false;  // 重置标记
             }
         }
     }
@@ -896,6 +812,12 @@ void Game::resetGameState()
         gameTimer = nullptr;
     }
     score = 0;
+    if (end) {
+        end = nullptr;
+    }
+    if (pause) {
+        pause = nullptr;
+    }
     // 这里可以进一步添加对其他游戏相关变量的重置逻辑，比如：
     // 重置棋子相关状态等，可根据实际需求完善
 }
@@ -1128,11 +1050,6 @@ QList<QPair<int, int>> Game::findHint() {
     // 遍历所有棋盘位置
     for (int row = 0; row < Game::jewelNum; ++row) {
         for (int col = 0; col < Game::jewelNum; ++col) {
-            // 跳过冰冻状态的宝石
-            if (stones[row][col]->isFrozen) {
-                continue;
-            }
-
             if (canMatch(row, col)) {
                 hints.append(qMakePair(row, col));
                 return hints;  // 只返回第一个可以匹配的宝石
@@ -1147,7 +1064,7 @@ QList<QPair<int, int>> Game::findHint() {
     return hints;
 }
 
-
+// 检查给定位置的宝石是否可以与相邻宝石交换形成匹配
 bool Game::canMatch(int row, int col) {
     // 上下左右相邻的方向
     const QVector<QPair<int, int>> directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
@@ -1157,10 +1074,7 @@ bool Game::canMatch(int row, int col) {
         int newRow = row + dir.first;
         int newCol = col + dir.second;
 
-        // 检查边界和冰冻状态
-        if (newRow >= 0 && newRow < Game::jewelNum &&
-            newCol >= 0 && newCol < Game::jewelNum &&
-            !stones[newRow][newCol]->isFrozen) {
+        if (newRow >= 0 && newRow < Game::jewelNum && newCol >= 0 && newCol < Game::jewelNum) {
             // 交换位置，检查是否形成匹配
             if (canSwapAndMatch(row, col, newRow, newCol)) {
                 return true;
@@ -1170,20 +1084,15 @@ bool Game::canMatch(int row, int col) {
     return false;
 }
 
-
+// 检查交换后是否能形成匹配
 bool Game::canSwapAndMatch(int row1, int col1, int row2, int col2) {
-    // 如果任一宝石处于冰冻状态，则直接返回 false
-    if (stones[row1][col1]->isFrozen || stones[row2][col2]->isFrozen) {
-        return false;
-    }
-
     // 交换两宝石
     StoneLabel* temp = stones[row1][col1];
     stones[row1][col1] = stones[row2][col2];
     stones[row2][col2] = temp;
 
     // 检查是否形成匹配
-    bool isMatch = checkMatch(row1, col1) || checkMatch(row2, col2);
+    bool isMatch = checkMatch(rowCheckMatch(row1, col1),colCheckMatch(row1, col1)) >= 3 || checkMatch(rowCheckMatch(row2, col2),colCheckMatch(row2, col2)) >= 3;
 
     // 交换回原位置
     stones[row2][col2] = stones[row1][col1];
@@ -1191,7 +1100,6 @@ bool Game::canSwapAndMatch(int row1, int col1, int row2, int col2) {
 
     return isMatch;
 }
-
 
 
 void Game::highlightHints(const QList<QPair<int, int>>& hints) {
@@ -1250,36 +1158,40 @@ void Game::highlightHints(const QList<QPair<int, int>>& hints) {
     }
 }
 
-// 检查某个位置的宝石是否和相邻的宝石匹配
-bool Game::checkMatch(int row, int col) {
-    // 这里假设你的棋盘是横竖均为3个或更多相同宝石组成一条直线
-    // 你可以根据你的实际匹配逻辑来修改
+//最大匹配数
+int Game::checkMatch(int countRow, int countCol) {
+    return countRow>countCol ? countRow : countCol;
+}
 
+// 检查某个位置的宝石是否和相邻的宝石匹配
+int Game::rowCheckMatch(int row, int col) {
     // 检查横向是否匹配
-    int count = 1;  // 当前宝石本身算一个
+    int countRow = 1;  // 当前宝石本身算一个
     // 向右检查
     for (int i = col + 1; i < Game::jewelNum && stones[row][i]->getIndex() == stones[row][col]->getIndex(); ++i) {
-        ++count;
+        ++countRow;
     }
     // 向左检查
     for (int i = col - 1; i >= 0 && stones[row][i]->getIndex() == stones[row][col]->getIndex(); --i) {
-        ++count;
+        ++countRow;
     }
-    if (count >= 3) return true;
+    stones[row][col]->setRowMatchNum(countRow);
+    return countRow;
+}
 
+int Game::colCheckMatch(int row, int col) {
     // 检查纵向是否匹配
-    count = 1;
+    int countCol = 1;
     // 向下检查
     for (int i = row + 1; i < Game::jewelNum && stones[i][col]->getIndex() == stones[row][col]->getIndex(); ++i) {
-        ++count;
+        ++countCol;
     }
     // 向上检查
     for (int i = row - 1; i >= 0 && stones[i][col]->getIndex() == stones[row][col]->getIndex(); --i) {
-        ++count;
+        ++countCol;
     }
-    if (count >= 3) return true;
-
-    return false;
+    stones[row][col]->setColMatchNum(countCol);
+    return countCol;
 }
 
 
@@ -1343,11 +1255,6 @@ int Game::getVerticalCount() const {
     return ShopWidget::verticalCount;  // 直接访问 ShopWidget 中的静态变量
 }
 
-// 获取当前锤子数量
-int Game::gethammerCount() const {
-    return ShopWidget::hammerCount;  // 直接访问 ShopWidget 中的静态变量
-}
-
 // Game.cpp
 void Game::updateItemCountLabels() {
     // 更新炸弹道具数量标签
@@ -1358,44 +1265,4 @@ void Game::updateItemCountLabels() {
 
     // 更新竖向消除道具数量标签
     ui->verticalLabel->setText(QString("竖向消除: %1").arg(ShopWidget::verticalCount));
-    // 更新竖向消除道具数量标签
-    ui->hammerLabel->setText(QString("锤子: %1").arg(ShopWidget::hammerCount));
-
 }
-
-void Game::on_hammer_clicked()
-{
-    if (ShopWidget::hammerCount > 0) {
-        ShopWidget::hammerCount--;
-        isHammerMode = true;  // 激活锤子模式
-        this->updateItemCountLabels();
-        QMessageBox::information(this, "锤子模式", "点击一个被冻结的宝石以解除冰冻!");
-    } else {
-        QMessageBox::warning(this, "锤子已用尽", "您已用尽所有锤子!");
-    }
-}
-
-void Game::useHammer(int row, int col) {
-
-
-    // 检查目标位置是否合法
-    if (row < 0 || row >= Game::jewelNum || col < 0 || col >= Game::jewelNum) {
-        QMessageBox::warning(this, "无效位置", "无法对指定位置使用锤子!");
-        return;
-    }
-
-    StoneLabel* targetStone = stones[row][col];
-    if (!targetStone->isFrozen) {
-        QMessageBox::information(this, "非冰冻宝石", "请选择一个被冻结的宝石!");
-        return;
-    }
-
-    // 解除冰冻状态
-    targetStone->isFrozen = false;
-    targetStone->setStyleSheetForNormal();  // 恢复正常样式
-    // 结束炸弹模式
-    isHammerMode = false;
-
-}
-
-

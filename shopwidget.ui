@@ -191,32 +191,6 @@ QLabel:pressed {
     <string/>
    </property>
   </widget>
-  <widget class="QPushButton" name="hammer">
-   <property name="geometry">
-    <rect>
-     <x>70</x>
-     <y>400</y>
-     <width>61</width>
-     <height>61</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>hammer</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="hammerLabel">
-   <property name="geometry">
-    <rect>
-     <x>150</x>
-     <y>410</y>
-     <width>111</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
  </widget>
  <resources/>
  <connections/>

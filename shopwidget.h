@@ -24,7 +24,6 @@ public:
     static int bombCount;    // 炸弹数量
     static int horizonCount; // 横向消除道具数量
     static int verticalCount; // 竖向消除道具数量
-    static int hammerCount;//锤子道具
     // 重置道具数量
     void resetItemCounts();
 
@@ -41,8 +40,6 @@ private slots:
     void on_vertical_clicked();
 
 
-    void on_hammer_clicked();
-
 private:
     Ui::ShopWidget *ui;  // UI 控件的指针
     Game* game;  // 游戏对象指针，用于访问分数
@@ -51,8 +48,7 @@ private:
         NONE,        // 没有选择道具
         BOMB,        // 炸弹
         HORIZON,     // 横向消除
-        VERTICAL,     // 竖向消除
-        HAMMER        //锤子道具
+        VERTICAL     // 竖向消除
     };
 
  ItemType currentItemType;  // 当前选中的道具类型
