@@ -22,6 +22,47 @@
      <height>61</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    background: transparent; /* 背景透明 */
+    border: none; /* 无边框 */
+    background-image: url(:/bomb.png); /* 设置背景图片 */
+    background-repeat: no-repeat; /* 防止图片重复 */
+    background-position: center; /* 水平和垂直居中 */
+    background-size: contain; /* 图片缩放以适应按钮大小 */
+}
+
+QPushButton:hover {
+    background: qlineargradient(
+        x1: 0, y1: 0, x2: 0, y2: 1,
+        stop: 0 rgba(220, 220, 255, 0.9),
+        stop: 0.5 rgba(180, 180, 255, 0.7),
+        stop: 1 rgba(130, 130, 255, 0.9)
+    ); /* 悬停时背景渐变 */
+    border: 2px solid rgba(80, 80, 255, 0.9); /* 悬停时边框颜色 */
+    box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.3); /* 更明显的阴影 */  
+  background-image: url(:/bomb.png); /* 设置背景图片 */
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+QPushButton:pressed {
+    background: qlineargradient(
+        x1: 0, y1: 0, x2: 0, y2: 1,
+        stop: 0 rgba(150, 150, 255, 0.9),
+        stop: 1 rgba(100, 100, 200, 1.0)
+    ); /* 按下时背景渐变 */
+    border: 2px solid rgba(50, 50, 200, 1.0); /* 按下时边框颜色 */
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3); /* 内凹阴影 */
+    background-image: url(:/bomb.png); /* 设置背景图片 */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+</string>
+   </property>
    <property name="text">
     <string>bomb</string>
    </property>
@@ -35,8 +76,49 @@
      <height>61</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    background: transparent; /* 背景透明 */
+    border: none; /* 无边框 */
+    background-image: url(:/horizon.png); /* 设置背景图片 */
+    background-repeat: no-repeat; /* 防止图片重复 */
+    background-position: center; /* 水平和垂直居中 */
+    background-size: contain; /* 图片缩放以适应按钮大小 */
+}
+
+QPushButton:hover {
+    background: qlineargradient(
+        x1: 0, y1: 0, x2: 0, y2: 1,
+        stop: 0 rgba(220, 220, 255, 0.9),
+        stop: 0.5 rgba(180, 180, 255, 0.7),
+        stop: 1 rgba(130, 130, 255, 0.9)
+    ); /* 悬停时背景渐变 */
+    border: 2px solid rgba(80, 80, 255, 0.9); /* 悬停时边框颜色 */
+    box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.3); /* 更明显的阴影 */  
+  background-image: url(:/horizon.png); /* 设置背景图片 */
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+QPushButton:pressed {
+    background: qlineargradient(
+        x1: 0, y1: 0, x2: 0, y2: 1,
+        stop: 0 rgba(150, 150, 255, 0.9),
+        stop: 1 rgba(100, 100, 200, 1.0)
+    ); /* 按下时背景渐变 */
+    border: 2px solid rgba(50, 50, 200, 1.0); /* 按下时边框颜色 */
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3); /* 内凹阴影 */
+    background-image: url(:/horizon.png); /* 设置背景图片 */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+</string>
+   </property>
    <property name="text">
-    <string>horizon</string>
+    <string/>
    </property>
   </widget>
   <widget class="QPushButton" name="vertical">
@@ -48,21 +130,100 @@
      <height>61</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    background: transparent; /* 背景透明 */
+    border: none; /* 无边框 */
+    background-image: url(:/vertical.png); /* 设置背景图片 */
+    background-repeat: no-repeat; /* 防止图片重复 */
+    background-position: center; /* 水平和垂直居中 */
+    background-size: contain; /* 图片缩放以适应按钮大小 */
+}
+
+QPushButton:hover {
+    background: qlineargradient(
+        x1: 0, y1: 0, x2: 0, y2: 1,
+        stop: 0 rgba(220, 220, 255, 0.9),
+        stop: 0.5 rgba(180, 180, 255, 0.7),
+        stop: 1 rgba(130, 130, 255, 0.9)
+    ); /* 悬停时背景渐变 */
+    border: 2px solid rgba(80, 80, 255, 0.9); /* 悬停时边框颜色 */
+    box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.3); /* 更明显的阴影 */  
+  background-image: url(:/vertical.png); /* 设置背景图片 */
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+QPushButton:pressed {
+    background: qlineargradient(
+        x1: 0, y1: 0, x2: 0, y2: 1,
+        stop: 0 rgba(150, 150, 255, 0.9),
+        stop: 1 rgba(100, 100, 200, 1.0)
+    ); /* 按下时背景渐变 */
+    border: 2px solid rgba(50, 50, 200, 1.0); /* 按下时边框颜色 */
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3); /* 内凹阴影 */
+    background-image: url(:/vertical.png); /* 设置背景图片 */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+</string>
+   </property>
    <property name="text">
-    <string>vertical</string>
+    <string/>
    </property>
   </widget>
   <widget class="QPushButton" name="Buy">
    <property name="geometry">
     <rect>
-     <x>440</x>
-     <y>370</y>
+     <x>350</x>
+     <y>380</y>
      <width>141</width>
      <height>51</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    background: qlineargradient(
+        x1: 0, y1: 0, x2: 0, y2: 1,
+        stop: 0 rgba(255, 240, 245, 0.8), /* 浅粉顶部 */
+        stop: 0.5 rgba(255, 220, 230, 0.6), /* 中间渐变 */
+        stop: 1 rgba(255, 200, 215, 0.8) /* 浅粉底部 */
+    ); /* 玻璃质感渐变背景 */
+    border: 2px solid rgba(255, 182, 193, 0.8); /* 柔和边框 */
+    border-radius: 15px; /* 圆角效果 */
+    color: rgba(50, 50, 50, 0.9); /* 字体颜色 */
+    font-size: 20px; /* 字体大小 */
+    font-family: &quot;Arial&quot;, sans-serif; /* 字体样式 */
+    font-weight: bold; /* 字体加粗 */
+    padding: 10px 20px; /* 内边距 */
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2); /* 按钮阴影 */
+}
+QPushButton:hover {
+    background: qlineargradient(
+        x1: 0, y1: 0, x2: 0, y2: 1,
+        stop: 0 rgba(255, 228, 238, 0.9), /* 悬停顶部 */
+        stop: 0.5 rgba(255, 200, 220, 0.7), /* 中间渐变 */
+        stop: 1 rgba(255, 182, 193, 0.9) /* 悬停底部 */
+    );
+    border: 2px solid rgba(255, 160, 176, 0.9); /* 悬停时边框颜色 */
+    box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.3); /* 更明显的阴影 */
+}
+QPushButton:pressed {
+    background: qlineargradient(
+        x1: 0, y1: 0, x2: 0, y2: 1,
+        stop: 0 rgba(255, 182, 193, 0.9), /* 按下顶部 */
+        stop: 1 rgba(255, 160, 176, 1.0) /* 按下底部 */
+    );
+    border: 2px solid rgba(255, 105, 135, 1.0); /* 按下时边框颜色 */
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3); /* 内凹阴影 */
+}
+</string>
+   </property>
    <property name="text">
-    <string>Buy</string>
+    <string>Buy!!!</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_2">
@@ -116,27 +277,27 @@ QLabel:pressed {
   <widget class="QLabel" name="introduction">
    <property name="geometry">
     <rect>
-     <x>400</x>
+     <x>310</x>
      <y>230</y>
-     <width>191</width>
-     <height>91</height>
+     <width>251</width>
+     <height>131</height>
     </rect>
    </property>
    <property name="text">
-    <string>TextLabel</string>
+    <string/>
    </property>
   </widget>
   <widget class="QLabel" name="picture">
    <property name="geometry">
     <rect>
-     <x>409</x>
-     <y>131</y>
-     <width>171</width>
-     <height>71</height>
+     <x>329</x>
+     <y>91</y>
+     <width>231</width>
+     <height>121</height>
     </rect>
    </property>
    <property name="text">
-    <string>TextLabel</string>
+    <string/>
    </property>
   </widget>
   <widget class="QLabel" name="score">
@@ -183,6 +344,72 @@ QLabel:pressed {
     <rect>
      <x>140</x>
      <y>330</y>
+     <width>111</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="hammer">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>400</y>
+     <width>61</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    background: transparent; /* 背景透明 */
+    border: none; /* 无边框 */
+    background-image: url(:/hammer.png); /* 设置背景图片 */
+    background-repeat: no-repeat; /* 防止图片重复 */
+    background-position: center; /* 水平和垂直居中 */
+    background-size: contain; /* 图片缩放以适应按钮大小 */
+}
+
+QPushButton:hover {
+    background: qlineargradient(
+        x1: 0, y1: 0, x2: 0, y2: 1,
+        stop: 0 rgba(220, 220, 255, 0.9),
+        stop: 0.5 rgba(180, 180, 255, 0.7),
+        stop: 1 rgba(130, 130, 255, 0.9)
+    ); /* 悬停时背景渐变 */
+    border: 2px solid rgba(80, 80, 255, 0.9); /* 悬停时边框颜色 */
+    box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.3); /* 更明显的阴影 */
+    background-image: url(:/hammer.png); /* 保留背景图片 */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+QPushButton:pressed {
+    background: qlineargradient(
+        x1: 0, y1: 0, x2: 0, y2: 1,
+        stop: 0 rgba(150, 150, 255, 0.9),
+        stop: 1 rgba(100, 100, 200, 1.0)
+    ); /* 按下时背景渐变 */
+    border: 2px solid rgba(50, 50, 200, 1.0); /* 按下时边框颜色 */
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3); /* 内凹阴影 */
+    background-image: url(:/hammer.png); /* 保留背景图片 */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="hammerLabel">
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>410</y>
      <width>111</width>
      <height>41</height>
     </rect>

@@ -426,12 +426,20 @@ debug/qrc_picture.cpp: ../../picture/picture.qrc \
 		../../picture/arrow.png \
 		../../picture/backdrop00.jpg \
 		../../picture/end.png \
+		../../picture/hammer.jpg \
+		../../picture/OIP\ (1).jpg \
 		../../picture/blueBar.png \
 		../../picture/pause.png \
+		../../picture/horizon.png \
 		../../picture/mouse1.png \
 		../../picture/Level.png \
+		../../picture/OIP.jpg \
+		../../picture/hammer.png \
+		../../picture/bomb.png \
 		../../picture/mouse3.png \
+		../../picture/OIP-C.jpg \
 		../../picture/mouse2.png \
+		../../picture/vertical.png \
 		../../picture/title.png \
 		../../picture/button/Level_back.png \
 		../../picture/Settingpage/thumb.png \
@@ -441,6 +449,7 @@ debug/qrc_picture.cpp: ../../picture/picture.qrc \
 		../../picture/Settingpage/dialogbutton.png \
 		../../picture/Settingpage/dialogtitle.png \
 		../../picture/Settingpage/DialogButtonGlow.png \
+		../../picture/StartPage/l0_sprite_01.png \
 		../../picture/StartPage/background.png
 	D:\Qt\6.5.3\mingw_64\bin\rcc.exe -name picture --no-zstd ..\..\picture\picture.qrc -o debug\qrc_picture.cpp
 
@@ -5039,7 +5048,23 @@ debug/game.o: ../../game.cpp ../../game.h \
 		../../../../../../Qt/6.5.3/mingw_64/include/QtCore/qanimationgroup.h \
 		../../../../../../Qt/6.5.3/mingw_64/include/QtCore/QParallelAnimationGroup \
 		../../../../../../Qt/6.5.3/mingw_64/include/QtCore/qparallelanimationgroup.h \
-		../../ShopWidget.h
+		../../ShopWidget.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtGui/QMovie \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtGui/qmovie.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtGui/qimagereader.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtGui/qimageiohandler.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtCore/qplugin.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtCore/qjsonobject.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtCore/qjsonvalue.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtCore/qcborvalue.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtCore/qdatetime.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtCore/qcalendar.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtCore/qcborcommon.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtCore/qregularexpression.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtCore/quuid.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtCore/q20algorithm.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtCore/q20functional.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtCore/qfactoryinterface.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\game.o ..\..\game.cpp
 
 debug/gametimer.o: ../../gametimer.cpp ../../gametimer.h \
@@ -5505,6 +5530,38 @@ debug/heatmap.o: ../../heatmap.cpp ../../heatmap.h \
 		../../../../../../Qt/6.5.3/mingw_64/include/QtCharts/QValueAxis \
 		../../../../../../Qt/6.5.3/mingw_64/include/QtCharts/qvalueaxis.h \
 		ui_heatmap.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/QAbstractButton \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/qabstractbutton.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/QApplication \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/qapplication.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtCore/qcoreapplication.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtCore/qeventloop.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtCore/qcoreapplication_platform.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtCore/qfuture.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtCore/qfutureinterface.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtCore/qmutex.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtCore/qtsan_impl.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtCore/qresultstore.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtCore/qfuture_impl.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtCore/qthreadpool.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtCore/qthread.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtCore/qdeadlinetimer.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtCore/qelapsedtimer.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtCore/qrunnable.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtCore/qexception.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtCore/qpromise.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtGui/qguiapplication.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtGui/qinputmethod.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtCore/qlocale.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtGui/qguiapplication_platform.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/QDialogButtonBox \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/qdialogbuttonbox.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/QVBoxLayout \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/qboxlayout.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/qlayout.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/qlayoutitem.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/qgridlayout.h \
+		../../../../../../Qt/6.5.3/mingw_64/include/QtWidgets/QWidget \
 		../../../../../../Qt/6.5.3/mingw_64/include/QtGui/QColor
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\heatmap.o ..\..\heatmap.cpp
 

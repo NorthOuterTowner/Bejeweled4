@@ -22,7 +22,7 @@
 #include <QSoundEffect>
 #include <QParallelAnimationGroup>
 #include "ShopWidget.h"  // 引入 ShopWidget
-
+#include<QMovie>
 
 /*Space between Window and Labels*/
 #define upSpacer 80
@@ -72,7 +72,8 @@ Game::Game(QWidget *parent,Game::GameMode mode,Client* c)
     sound->setLoopCount(QSoundEffect::Infinite);
     sound->setVolume(1.0f);  // 最大音量
     sound->play();
-
+    // 设置鼠标-普通
+    setCursor(QCursor(QPixmap(":/mouse2.png")));
 
     Game::jewelNum=8;
     this->parent=parent;
@@ -116,6 +117,7 @@ Game::Game(QWidget *parent,int levelNumber,Game::GameMode mode,Client* c)
     , client(c)
 {
     ui->setupUi(this);
+
     Game::jewelNum=8;
     this->parent=parent;
     this->score=0;
@@ -180,14 +182,18 @@ void Game::init(){
 
 
     // 更新炸弹道具数量标签
-    ui->bombLabel->setText(QString("炸弹: %1").arg(ShopWidget::bombCount));
+    ui->bombLabel->setText(QString(" %1").arg(ShopWidget::bombCount));
 
     // 更新横向消除道具数量标签
-    ui->horizonLabel->setText(QString("横向消除: %1").arg(ShopWidget::horizonCount));
+    ui->horizonLabel->setText(QString(" %1").arg(ShopWidget::horizonCount));
 
     // 更新竖向消除道具数量标签
-    ui->verticalLabel->setText(QString("竖向消除: %1").arg(ShopWidget::verticalCount));
+    ui->verticalLabel->setText(QString(" %1").arg(ShopWidget::verticalCount));
 
+    // 更新竖向消除道具数量标签
+    ui->hammerLabel->setText(QString(" %1").arg(ShopWidget::hammerCount));
+
+   
 
     updateHintCountDisplay();  // 显示初始提示次数
     for (int row = 0; row < Game::jewelNum; row++) {
@@ -225,6 +231,7 @@ bool Game::arePositionsAdjacent(int row1, int col1, int row2, int col2) {
 }
 
 void Game::mousePressEvent(QMouseEvent *event) {
+
     QPoint clickPoint = event->pos();
     int x = clickPoint.x(), y = clickPoint.y();
     if (x <= leftSpacer || y <= upSpacer || x >= leftSpacer + 8 * 48 || y >= upSpacer + 8 * 48)
@@ -948,6 +955,8 @@ void Game::on_bombButton_clicked() {
 
     if(ShopWidget::bombCount > 0){
         ShopWidget::bombCount--;  // 减少炸弹数量
+        // 设置鼠标-普通
+        setCursor(QCursor(QPixmap(":/bomb.png")));
         // 激活炸弹模式
         isBombMode = true;
         this->updateItemCountLabels();
@@ -988,6 +997,8 @@ void Game::triggerBomb(int row, int col) {
 
     // 结束炸弹模式
     isBombMode = false;
+    // 设置鼠标-普通
+    setCursor(QCursor(QPixmap(":/mouse1.png")));
     // statusBar()->clearMessage();  // 清除提示信息
 }
 //横向删除按钮
@@ -1212,9 +1223,20 @@ void Game::on_Tips_clicked()
 }
 
 void Game::updateHintCountDisplay() {
-    ui->hintRemain->setText(QString("剩余提示次数: %1").arg(hintCount));
-    ui->hintRemain->setStyleSheet("color: black; font-size: 9px;");  // 可选：设置文本样式
-}
+    ui->hintRemain->setText(QString("剩余提示: %1").arg(hintCount));
+    ui->hintRemain->setStyleSheet(R"(
+        QLabel {
+            background-color: rgba(255, 255, 204, 0.8); /* 半透明淡黄色背景 */
+            border: 1px solid rgba(200, 200, 150, 0.8); /* 柔和边框 */
+            border-radius: 10px; /* 圆角效果 */
+            font-size: 14px; /* 字体大小 */
+            font-family: "Arial", sans-serif; /* 字体样式 */
+            font-weight: bold; /* 加粗字体 */
+            color: rgba(80, 80, 80, 1); /* 字体颜色 */
+            padding: 5px; /* 内边距 */
+            text-align: center; /* 文本居中 */
+        }
+    )");}
 
 
 
@@ -1226,10 +1248,6 @@ void Game::on_Shop_clicked()
     ShopWidget *shopWindow = new ShopWidget;
     // 显示 ShopWidget 窗口
     shopWindow->show();    // this 表示父窗口是当前游戏窗口
-    // 更新UI显示炸弹数量
-    ui->bombLabel->setText(QString("炸弹: %1").arg(ShopWidget::bombCount));
-
-    ui->horizonLabel->setText(QString("横向消除: %1").arg(ShopWidget::horizonCount));
 
 
 }
@@ -1258,11 +1276,73 @@ int Game::getVerticalCount() const {
 // Game.cpp
 void Game::updateItemCountLabels() {
     // 更新炸弹道具数量标签
-    ui->bombLabel->setText(QString("炸弹: %1").arg(ShopWidget::bombCount));
+    ui->bombLabel->setText(QString(" %1").arg(ShopWidget::bombCount));
 
     // 更新横向消除道具数量标签
-    ui->horizonLabel->setText(QString("横向消除: %1").arg(ShopWidget::horizonCount));
+    ui->horizonLabel->setText(QString(" %1").arg(ShopWidget::horizonCount));
 
     // 更新竖向消除道具数量标签
-    ui->verticalLabel->setText(QString("竖向消除: %1").arg(ShopWidget::verticalCount));
+
+    ui->verticalLabel->setText(QString(" %1").arg(ShopWidget::verticalCount));
+    // 更新竖向消除道具数量标签
+    ui->hammerLabel->setText(QString(" %1").arg(ShopWidget::hammerCount));
+
 }
+
+void Game::on_hammer_clicked()
+{
+    if (ShopWidget::hammerCount > 0) {
+        ShopWidget::hammerCount--;
+        // 设置鼠标-hammer
+        setCursor(QCursor(QPixmap(":/hammer.png")));
+        isHammerMode = true;  // 激活锤子模式
+        this->updateItemCountLabels();
+        QMessageBox::information(this, "锤子模式", "点击一个被冻结的宝石以解除冰冻!");
+    } else {
+        QMessageBox::warning(this, "锤子已用尽", "您已用尽所有锤子!");
+    }
+}
+
+void Game::useHammer(int row, int col) {
+
+
+    // 检查目标位置是否合法
+    if (row < 0 || row >= Game::jewelNum || col < 0 || col >= Game::jewelNum) {
+        QMessageBox::warning(this, "无效位置", "无法对指定位置使用锤子!");
+        return;
+    }
+
+    StoneLabel* targetStone = stones[row][col];
+    if (!targetStone->isFrozen) {
+        QMessageBox::information(this, "非冰冻宝石", "请选择一个被冻结的宝石!");
+        return;
+    }
+
+    // 解除冰冻状态
+    targetStone->isFrozen = false;
+    targetStone->setStyleSheetForNormal();  // 恢复正常样式
+    // 设置鼠标-普通
+    setCursor(QCursor(QPixmap(":/mouse1.png")));
+    // 结束冰冻模式
+    isHammerMode = false;
+
+}
+
+
+void Game::paintEvent(QPaintEvent *event)
+{
+    QPainter p(this);
+    QPixmap pixmap(":/OIP-C.jpg");
+
+    // 缩放图片以填满整个窗口
+    pixmap = pixmap.scaled(this->size(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+
+    // 绘制背景图片
+    p.drawPixmap(0, 0, pixmap);
+
+    // 调用父类的 paintEvent，确保子控件不被覆盖
+    QWidget::paintEvent(event);
+}
+
+
+
