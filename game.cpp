@@ -72,7 +72,8 @@ Game::Game(QWidget *parent,Game::GameMode mode,Client* c)
     sound->setLoopCount(QSoundEffect::Infinite);
     sound->setVolume(1.0f);  // 最大音量
     sound->play();
-
+    // 设置鼠标-普通
+    setCursor(QCursor(QPixmap(":/mouse2.png")));
 
     Game::jewelNum=8;
     this->parent=parent;
@@ -230,6 +231,7 @@ bool Game::arePositionsAdjacent(int row1, int col1, int row2, int col2) {
 }
 
 void Game::mousePressEvent(QMouseEvent *event) {
+
     QPoint clickPoint = event->pos();
     pressPoint=clickPoint;
     int x = clickPoint.x(), y = clickPoint.y();
@@ -1031,6 +1033,8 @@ void Game::on_bombButton_clicked() {
 
     if(ShopWidget::bombCount > 0){
         ShopWidget::bombCount--;  // 减少炸弹数量
+        // 设置鼠标-普通
+        setCursor(QCursor(QPixmap(":/bomb.png")));
         // 激活炸弹模式
         isBombMode = true;
         this->updateItemCountLabels();
@@ -1071,6 +1075,8 @@ void Game::triggerBomb(int row, int col) {
 
     // 结束炸弹模式
     isBombMode = false;
+    // 设置鼠标-普通
+    setCursor(QCursor(QPixmap(":/mouse1.png")));
     // statusBar()->clearMessage();  // 清除提示信息
 }
 //横向删除按钮
@@ -1379,6 +1385,8 @@ void Game::on_hammer_clicked()
 {
     if (ShopWidget::hammerCount > 0) {
         ShopWidget::hammerCount--;
+        // 设置鼠标-hammer
+        setCursor(QCursor(QPixmap(":/hammer.png")));
         isHammerMode = true;  // 激活锤子模式
         this->updateItemCountLabels();
         QMessageBox::information(this, "锤子模式", "点击一个被冻结的宝石以解除冰冻!");
@@ -1405,6 +1413,8 @@ void Game::useHammer(int row, int col) {
     // 解除冰冻状态
     targetStone->isFrozen = false;
     targetStone->setStyleSheetForNormal();  // 恢复正常样式
+    // 设置鼠标-普通
+    setCursor(QCursor(QPixmap(":/mouse1.png")));
     // 结束冰冻模式
     isHammerMode = false;
 
