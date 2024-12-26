@@ -2,6 +2,8 @@
 #define STONELABEL_H
 #include <QLabel>
 #include <QMouseEvent>  // 包含鼠标事件类
+#include <QPainter>
+
 class StoneLabel:public QLabel
 {
     Q_OBJECT
@@ -69,7 +71,11 @@ public:
 
     void setStyleSheetForFrozen() {
         // 设置为黑色填充的样式，代表冰冻状态，可根据实际进一步调整样式细节，比如边框等
-        this->setStyleSheet("background-color: black;");
+        this->setStyleSheet("background-color: black; "
+                            "border: 2px solid white; "
+                            "border-radius: 5px; "
+                            "box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); "
+                            "opacity: 0.7;");
     }
 
     void setStyleSheetForNormal() {
@@ -106,7 +112,7 @@ public:
 
     void setKing(bool value) { isKing = value;}
 
-    void setLineKiller(int value) { lineKiller = value; }
+    //void setLineKiller(int value) { lineKiller = value; }
 
     //目标位置
     int targetX=0;

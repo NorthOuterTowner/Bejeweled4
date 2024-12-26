@@ -425,12 +425,21 @@ release/qrc_picture.cpp: ../../picture/picture.qrc \
 		C:/Qt1/6.7.3/mingw_64/bin/rcc.exe \
 		../../picture/arrow.png \
 		../../picture/backdrop00.jpg \
+		../../picture/end.png \
+		../../picture/hammer.jpg \
+		../../picture/OIP\ (1).jpg \
 		../../picture/blueBar.png \
 		../../picture/pause.png \
+		../../picture/horizon.png \
 		../../picture/mouse1.png \
 		../../picture/Level.png \
+		../../picture/OIP.jpg \
+		../../picture/hammer.png \
+		../../picture/bomb.png \
 		../../picture/mouse3.png \
+		../../picture/OIP-C.jpg \
 		../../picture/mouse2.png \
+		../../picture/vertical.png \
 		../../picture/title.png \
 		../../picture/button/Level_back.png \
 		../../picture/Settingpage/thumb.png \
@@ -440,6 +449,7 @@ release/qrc_picture.cpp: ../../picture/picture.qrc \
 		../../picture/Settingpage/dialogbutton.png \
 		../../picture/Settingpage/dialogtitle.png \
 		../../picture/Settingpage/DialogButtonGlow.png \
+		../../picture/StartPage/l0_sprite_01.png \
 		../../picture/StartPage/background.png
 	C:\Qt1\6.7.3\mingw_64\bin\rcc.exe -name picture --no-zstd ..\..\picture\picture.qrc -o release\qrc_picture.cpp
 
@@ -1464,6 +1474,17 @@ release/moc_end.cpp: ../../end.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/QTimer \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qtimer.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qbasictimer.h \
+		../../client.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QMainWindow \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qmainwindow.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qtabwidget.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/QTcpSocket \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qtcpsocket.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qtnetworkglobal.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qtnetwork-config.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qtnetworkexports.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qabstractsocket.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qhostaddress.h \
 		../../pause.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QProgressDialog \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qprogressdialog.h \
@@ -1679,6 +1700,17 @@ release/moc_game.cpp: ../../game.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/QTimer \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qtimer.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qbasictimer.h \
+		../../client.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QMainWindow \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qmainwindow.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qtabwidget.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/QTcpSocket \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qtcpsocket.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qtnetworkglobal.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qtnetwork-config.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qtnetworkexports.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qabstractsocket.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qhostaddress.h \
 		../../pause.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QWidget \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QProgressDialog \
@@ -2639,6 +2671,14 @@ release/moc_mainwindow.cpp: ../../mainwindow.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/QTimer \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qtimer.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qbasictimer.h \
+		../../client.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/QTcpSocket \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qtcpsocket.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qtnetworkglobal.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qtnetwork-config.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qtnetworkexports.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qabstractsocket.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qhostaddress.h \
 		../../pause.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QWidget \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QProgressDialog \
@@ -2664,8 +2704,13 @@ release/moc_mainwindow.cpp: ../../mainwindow.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qabstractanimation.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qeasingcurve.h \
 		../../hoverbutton.h \
-		../../rankdialog.h \
-		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QDialog \
+		../../shopwidget.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/QPainter \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/qpainter.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/qtextoption.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/qpen.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/QPixmap \
+		ui_shopwidget.h \
 		release/moc_predefs.h \
 		C:/Qt1/6.7.3/mingw_64/bin/moc.exe
 	C:\Qt1\6.7.3\mingw_64\bin\moc.exe $(DEFINES) --include C:/Users/86189/Desktop/Bejeweled/build/Desktop_Qt_6_7_3_MinGW_64_bit-Debug/release/moc_predefs.h -IC:/Qt1/6.7.3/mingw_64/mkspecs/win32-g++ -IC:/Users/86189/Desktop/Bejeweled -IC:/Qt1/6.7.3/mingw_64/include -IC:/Qt1/6.7.3/mingw_64/include/QtCharts -IC:/Qt1/6.7.3/mingw_64/include/QtOpenGLWidgets -IC:/Qt1/6.7.3/mingw_64/include/QtWidgets -IC:/Qt1/6.7.3/mingw_64/include/QtMultimedia -IC:/Qt1/6.7.3/mingw_64/include/QtOpenGL -IC:/Qt1/6.7.3/mingw_64/include/QtGui -IC:/Qt1/6.7.3/mingw_64/include/QtNetwork -IC:/Qt1/6.7.3/mingw_64/include/QtSql -IC:/Qt1/6.7.3/mingw_64/include/QtCore -I. -IC:/Qt1/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++ -IC:/Qt1/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32 -IC:/Qt1/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/backward -IC:/Qt1/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include -IC:/Qt1/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed -IC:/Qt1/Tools/mingw1120_64/x86_64-w64-mingw32/include ..\..\mainwindow.h -o release\moc_mainwindow.cpp
@@ -3471,6 +3516,17 @@ release/moc_shopwidget.cpp: ../../shopwidget.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/QTimer \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qtimer.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qbasictimer.h \
+		../../client.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QMainWindow \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qmainwindow.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qtabwidget.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/QTcpSocket \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qtcpsocket.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qtnetworkglobal.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qtnetwork-config.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qtnetworkexports.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qabstractsocket.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qhostaddress.h \
 		../../pause.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QProgressDialog \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qprogressdialog.h \
@@ -4243,8 +4299,13 @@ release/Login.o: ../../Login.cpp ../../login.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qprogressbar.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QGraphicsOpacityEffect \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qgraphicseffect.h \
-		../../rankdialog.h \
-		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QDialog \
+		../../shopwidget.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/QPainter \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/qpainter.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/qtextoption.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/qpen.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/QPixmap \
+		ui_shopwidget.h \
 		../../utils.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/QString \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QGraphicsDropShadowEffect
@@ -4886,8 +4947,13 @@ release/client.o: ../../client.cpp ../../client.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QGraphicsOpacityEffect \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qgraphicseffect.h \
 		../../hoverbutton.h \
-		../../rankdialog.h \
-		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QDialog
+		../../shopwidget.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/QPainter \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/qpainter.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/qtextoption.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/qpen.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/QPixmap \
+		ui_shopwidget.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\client.o ..\..\client.cpp
 
 release/end.o: ../../end.cpp ../../end.h \
@@ -5090,6 +5156,17 @@ release/end.o: ../../end.cpp ../../end.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/QTimer \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qtimer.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qbasictimer.h \
+		../../client.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QMainWindow \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qmainwindow.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qtabwidget.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/QTcpSocket \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qtcpsocket.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qtnetworkglobal.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qtnetwork-config.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qtnetworkexports.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qabstractsocket.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qhostaddress.h \
 		../../pause.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QProgressDialog \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qprogressdialog.h \
@@ -5303,6 +5380,17 @@ release/game.o: ../../game.cpp ../../game.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/QTimer \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qtimer.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qbasictimer.h \
+		../../client.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QMainWindow \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qmainwindow.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qtabwidget.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/QTcpSocket \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qtcpsocket.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qtnetworkglobal.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qtnetwork-config.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qtnetworkexports.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qabstractsocket.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qhostaddress.h \
 		../../pause.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QWidget \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QProgressDialog \
@@ -5318,9 +5406,6 @@ release/game.o: ../../game.cpp ../../game.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtMultimedia/qaudio.h \
 		ui_game.h \
 		../../mainwindow.h \
-		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QMainWindow \
-		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qmainwindow.h \
-		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qtabwidget.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QPushButton \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qpushbutton.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qabstractbutton.h \
@@ -5333,8 +5418,13 @@ release/game.o: ../../game.cpp ../../game.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qabstractanimation.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qeasingcurve.h \
 		../../hoverbutton.h \
-		../../rankdialog.h \
-		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QDialog \
+		../../shopwidget.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/QPainter \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/qpainter.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/qtextoption.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/qpen.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/QPixmap \
+		ui_shopwidget.h \
 		ui_pause.h \
 		../../end.h \
 		ui_end.h \
@@ -5354,12 +5444,22 @@ release/game.o: ../../game.cpp ../../game.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/QParallelAnimationGroup \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qparallelanimationgroup.h \
 		../../ShopWidget.h \
-		C:/Qt1/6.7.3/mingw_64/include/QtGui/QPainter \
-		C:/Qt1/6.7.3/mingw_64/include/QtGui/qpainter.h \
-		C:/Qt1/6.7.3/mingw_64/include/QtGui/qtextoption.h \
-		C:/Qt1/6.7.3/mingw_64/include/QtGui/qpen.h \
-		C:/Qt1/6.7.3/mingw_64/include/QtGui/QPixmap \
-		ui_shopwidget.h
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/QMovie \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/qmovie.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/qimagereader.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/qimageiohandler.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtCore/qplugin.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtCore/qpointer.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtCore/qjsonobject.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtCore/qjsonvalue.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtCore/qcborvalue.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtCore/qdatetime.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtCore/qcalendar.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtCore/qcborcommon.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtCore/qregularexpression.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtCore/quuid.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtCore/q20algorithm.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtCore/qfactoryinterface.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\game.o ..\..\game.cpp
 
 release/gametimer.o: ../../gametimer.cpp ../../gametimer.h \
@@ -6499,6 +6599,14 @@ release/main.o: ../../main.cpp ../../mainwindow.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/QTimer \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qtimer.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qbasictimer.h \
+		../../client.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/QTcpSocket \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qtcpsocket.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qtnetworkglobal.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qtnetwork-config.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qtnetworkexports.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qabstractsocket.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qhostaddress.h \
 		../../pause.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QWidget \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QProgressDialog \
@@ -6524,16 +6632,13 @@ release/main.o: ../../main.cpp ../../mainwindow.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qabstractanimation.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qeasingcurve.h \
 		../../hoverbutton.h \
-		../../rankdialog.h \
-		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QDialog \
-		../../client.h \
-		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/QTcpSocket \
-		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qtcpsocket.h \
-		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qtnetworkglobal.h \
-		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qtnetwork-config.h \
-		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qtnetworkexports.h \
-		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qabstractsocket.h \
-		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qhostaddress.h \
+		../../shopwidget.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/QPainter \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/qpainter.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/qtextoption.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/qpen.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/QPixmap \
+		ui_shopwidget.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QApplication \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qapplication.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/QLocale \
@@ -6743,6 +6848,14 @@ release/mainwindow.o: ../../mainwindow.cpp ../../mainwindow.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/QTimer \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qtimer.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qbasictimer.h \
+		../../client.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/QTcpSocket \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qtcpsocket.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qtnetworkglobal.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qtnetwork-config.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qtnetworkexports.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qabstractsocket.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qhostaddress.h \
 		../../pause.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QWidget \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QProgressDialog \
@@ -6768,9 +6881,21 @@ release/mainwindow.o: ../../mainwindow.cpp ../../mainwindow.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qabstractanimation.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qeasingcurve.h \
 		../../hoverbutton.h \
+		../../shopwidget.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/QPainter \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/qpainter.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/qtextoption.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/qpen.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/QPixmap \
+		ui_shopwidget.h \
 		../../rankdialog.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QDialog \
 		ui_mainwindow.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QVBoxLayout \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qboxlayout.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qlayout.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qlayoutitem.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qgridlayout.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/QCoreApplication \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/QDebug \
 		ui_rankdialog.h \
@@ -6778,8 +6903,46 @@ release/mainwindow.o: ../../mainwindow.cpp ../../mainwindow.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/QString \
 		ui_settingwidget.h \
 		../../globalValue.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QMessageBox.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qdialogbuttonbox.h \
 		../../about.h \
-		../../help.h
+		../../help.h \
+		../../heatmap.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtCharts/QChartView \
+		C:/Qt1/6.7.3/mingw_64/include/QtCharts/qchartview.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtCharts/QAbstractAxis \
+		C:/Qt1/6.7.3/mingw_64/include/QtCharts/qabstractaxis.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtCharts/QChartGlobal \
+		C:/Qt1/6.7.3/mingw_64/include/QtCharts/qchartglobal.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtCharts/qtcharts-config.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtCharts/qtchartsexports.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/QPen \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/QFont \
+		C:/Qt1/6.7.3/mingw_64/include/QtCore/QVariant \
+		C:/Qt1/6.7.3/mingw_64/include/QtCharts/QAbstractSeries \
+		C:/Qt1/6.7.3/mingw_64/include/QtCharts/qabstractseries.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtCharts/QChart \
+		C:/Qt1/6.7.3/mingw_64/include/QtCharts/qchart.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtCharts/QLegend \
+		C:/Qt1/6.7.3/mingw_64/include/QtCharts/qlegend.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QGraphicsWidget \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qgraphicswidget.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qgraphicslayoutitem.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qgraphicsitem.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/qpainterpath.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/QBrush \
+		C:/Qt1/6.7.3/mingw_64/include/QtCore/QMargins \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QGraphicsView \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qgraphicsview.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qscrollarea.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qabstractscrollarea.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qgraphicsscene.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtCharts/QScatterSeries \
+		C:/Qt1/6.7.3/mingw_64/include/QtCharts/qscatterseries.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtCharts/qxyseries.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtGui/QImage \
+		C:/Qt1/6.7.3/mingw_64/include/QtCharts/QValueAxis \
+		C:/Qt1/6.7.3/mingw_64/include/QtCharts/qvalueaxis.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\mainwindow.o ..\..\mainwindow.cpp
 
 release/rankdialog.o: ../../rankdialog.cpp ../../rankdialog.h \
@@ -7593,6 +7756,17 @@ release/shopwidget.o: ../../shopwidget.cpp ../../ShopWidget.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/QTimer \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qtimer.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qbasictimer.h \
+		../../client.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QMainWindow \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qmainwindow.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qtabwidget.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/QTcpSocket \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qtcpsocket.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qtnetworkglobal.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qtnetwork-config.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qtnetworkexports.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qabstractsocket.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qhostaddress.h \
 		../../pause.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QProgressDialog \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qprogressdialog.h \
@@ -8053,6 +8227,17 @@ release/stonelabel.o: ../../stonelabel.cpp ../../stonelabel.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/QTimer \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qtimer.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtCore/qbasictimer.h \
+		../../client.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QMainWindow \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qmainwindow.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/qtabwidget.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/QTcpSocket \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qtcpsocket.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qtnetworkglobal.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qtnetwork-config.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qtnetworkexports.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qabstractsocket.h \
+		C:/Qt1/6.7.3/mingw_64/include/QtNetwork/qhostaddress.h \
 		../../pause.h \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QWidget \
 		C:/Qt1/6.7.3/mingw_64/include/QtWidgets/QProgressDialog \

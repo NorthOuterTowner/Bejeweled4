@@ -194,7 +194,10 @@ private:
     QSoundEffect* sound;  // 背景音乐
     int hintCount = 5;//提示的初始次数
     Client* client;
-
+    void mouseMoveEvent(QMouseEvent *event) override;
+    QPoint pressPoint;
+    bool canrelease=false;
+    void mouseReleaseEvent(QMouseEvent *event) override;
 };
 
 #endif // GAME_H

@@ -25,7 +25,7 @@ private slots:
     void onNextButtonClicked();// 下一关
     void onRetryButtonClicked();//再次挑战
 
-    void on_retryButton_clicked();
+    //void on_retryButton_clicked();
 
 private:
     Ui::End *ui;
