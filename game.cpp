@@ -104,8 +104,7 @@ Game::Game(QWidget *parent,Game::GameMode mode,Client* c)
     ui->passScoreLabel->hide();
     ui->textBrowser->hide();
     ui->levelNumLabel->hide();
-
-
+    ui->iceNumLabel->hide();
 }
 
 
@@ -145,9 +144,11 @@ Game::Game(QWidget *parent,int levelNumber,Game::GameMode mode,Client* c)
 
     //冒险模式下相关显示与逻辑特殊处理
     setWinScore(levelNumber);
+    setWinIceCount(levelNumber);
     QString levelInfo=QString::fromStdString("关卡:"+std::to_string(levelNumber/8+1)+"-"+std::to_string((levelNumber-1)%8+1));
     ui->levelNumLabel->setText(levelInfo);
-
+    ui->iceNumLabel->setStyleSheet("color:red;");
+    ui->iceNumLabel->setText(QString("冰块 %1/%2").arg(eliminatedIceCount).arg(winIceCount));
 }
 
 Game::~Game()
@@ -200,7 +201,7 @@ void Game::init(){
         for (int col = 0; col < Game::jewelNum; col++) {
             StoneLabel* imgLabel = new StoneLabel(this);
 
-            imgLabel->isFrozen = false;
+            imgLabel->setFrozen(false);
             imgLabel->setrow(row);
             imgLabel->setcol(col);
             imgLabel->resize(48,48);
@@ -326,6 +327,7 @@ void Game::mousePressEvent(QMouseEvent *event) {
 
             update();
 
+
             if (!hasStartedScoring)  // 如果还未开始计分，在这里标记为开始计分
             {
                 hasStartedScoring = true;
@@ -337,6 +339,184 @@ void Game::mousePressEvent(QMouseEvent *event) {
                 stones[row2][col2]->setSelectedAndEliminated(true);
                 eliminateMatches();
             } else {
+                // 新增判断逻辑，检查交换的两个棋子是否分别为横劈和竖劈
+                if(stones[row1][col1]->lineKiller == 1 && stones[row2][col2]->lineKiller == 1){//两个横劈交换，劈一(两)行
+                    for (int temp_Col = 0; temp_Col < 8; ++temp_Col) {
+                        stones[row1][temp_Col]->setMatched(true);
+                    }
+                    if(row1 != row2){
+                        for (int temp_Col = 0; temp_Col < 8; ++temp_Col) {
+                            stones[row2][temp_Col]->setMatched(true);
+                        }
+                    }
+                    eliminateMatches();
+                    return;
+                }
+                else if(stones[row1][col1]->lineKiller == 2 && stones[row2][col2]->lineKiller == 2){//两个竖劈交换，劈一(两)列
+                    for (int temp_row = 0; temp_row < 8; ++temp_row) {
+                        stones[temp_row][col1]->setMatched(true);
+                    }
+                    if(col1 != col2){
+                        for (int temp_row = 0; temp_row < 8; ++temp_row) {
+                            stones[temp_row][col2]->setMatched(true);
+                        }
+                    }
+                    eliminateMatches();
+                    return;
+                }
+                else if ((stones[row1][col1]->lineKiller == 1 && stones[row2][col2]->lineKiller == 2) ||
+                    (stones[row1][col1]->lineKiller == 2 && stones[row2][col2]->lineKiller == 1)) {//横竖交换，消十字
+                    // 消除所在行和所在列
+                    for (int temp_Col = 0; temp_Col < 8; ++temp_Col) {
+                        stones[row2][temp_Col]->setMatched(true);
+                    }
+                    for (int temp_row = 0; temp_row < 8; ++temp_row) {
+                        stones[temp_row][col2]->setMatched(true);
+                    }
+                    eliminateMatches();
+                    return;
+                }
+                else if((stones[row1][col1]->isBombKiller && stones[row2][col2]->lineKiller == 1) ||
+                    (stones[row1][col1]->lineKiller == 1 && stones[row2][col2]->isBombKiller)){//爆炸+横劈消三行
+                    for (int temp_Col = 0; temp_Col < 8; ++temp_Col) {
+                        for (int temp_row = row2-1; temp_row <= row2+1 && temp_row < 8; ++temp_row) {
+                            stones[temp_row][temp_Col]->setMatched(true);
+                        }
+                    }
+                    eliminateMatches();
+                    return;
+                }
+                else if((stones[row1][col1]->isBombKiller && stones[row2][col2]->lineKiller == 2) ||
+                    (stones[row1][col1]->lineKiller == 2 && stones[row2][col2]->isBombKiller)){//爆炸+竖劈消三列
+                    for (int temp_Col = col2-1; temp_Col <= col2+1 && temp_Col < 8; ++temp_Col) {
+                        for (int temp_row = 0; temp_row < 8; ++temp_row) {
+                            stones[temp_row][temp_Col]->setMatched(true);
+                        }
+                    }
+                    eliminateMatches();
+                    return;
+                }
+                else if(stones[row1][col1]->isBombKiller && stones[row2][col2]->isBombKiller){//两个bombKiller交换炸全屏
+                    for (int temp_Col = 0; temp_Col < 8; ++temp_Col) {
+                        for (int temp_row = 0; temp_row < 8; ++temp_row) {
+                            stones[temp_row][temp_Col]->setMatched(true);
+                        }
+                    }
+                    eliminateMatches();
+                    return;
+                }
+                else if (stones[row1][col1]->isKing && stones[row2][col2]->lineKiller == 1) {//king+横劈，全部与king同类型的棋子全变横劈
+                    stones[row1][col1]->setMatched(true);
+                    stones[row2][col2]->setMatched(true);
+                    for (int temp_Col = 0; temp_Col < 8; ++temp_Col) {
+                        for (int temp_row = 0; temp_row < 8; ++temp_row) {
+                            if (!stones[temp_row][temp_Col]->isFrozen && stones[temp_row][temp_Col]->getIndex() == stones[row1][col1]->getIndex()) {
+                                stones[temp_row][temp_Col]->setLineKiller(1);
+                                stones[temp_row][temp_Col]->setStyleSheetForRowKiller();
+                                stones[temp_row][temp_Col]->setOriginalStyleSheet("background-color: yellow;");
+                                stones[temp_row][temp_Col]->setKing(false);
+                                stones[temp_row][temp_Col]->setBomb(false);
+                            }
+                        }
+                    }
+                    eliminateMatches();
+                    return;
+                }
+                else if (stones[row1][col1]->lineKiller == 1 && stones[row2][col2]->isKing) {
+                    stones[row1][col1]->setMatched(true);
+                    stones[row2][col2]->setMatched(true);
+                    for (int temp_Col = 0; temp_Col < 8; ++temp_Col) {
+                        for (int temp_row = 0; temp_row < 8; ++temp_row) {
+                            if (!stones[temp_row][temp_Col]->isFrozen && stones[temp_row][temp_Col]->getIndex() == stones[row2][col2]->getIndex()) {
+                                stones[temp_row][temp_Col]->setLineKiller(1);
+                                stones[temp_row][temp_Col]->setStyleSheetForRowKiller();
+                                stones[temp_row][temp_Col]->setOriginalStyleSheet("background-color: yellow;");
+                                stones[temp_row][temp_Col]->setKing(false);
+                                stones[temp_row][temp_Col]->setBomb(false);
+                            }
+                        }
+                    }
+                    eliminateMatches();
+                    return;
+                }
+                else if (stones[row1][col1]->isKing && stones[row2][col2]->lineKiller == 2) {//king+竖劈，全部与king同类型的棋子全变竖劈
+                    stones[row1][col1]->setMatched(true);
+                    stones[row2][col2]->setMatched(true);
+                    for (int temp_Col = 0; temp_Col < 8; ++temp_Col) {
+                        for (int temp_row = 0; temp_row < 8; ++temp_row) {
+                            if (!stones[temp_row][temp_Col]->isFrozen && stones[temp_row][temp_Col]->getIndex() == stones[row1][col1]->getIndex()) {
+                                stones[temp_row][temp_Col]->setLineKiller(2);
+                                stones[temp_row][temp_Col]->setStyleSheetForColKiller();
+                                stones[temp_row][temp_Col]->setOriginalStyleSheet("background-color: green;");
+                                stones[temp_row][temp_Col]->setKing(false);
+                                stones[temp_row][temp_Col]->setBomb(false);
+                            }
+                        }
+                    }
+                    eliminateMatches();
+                    return;
+                }
+                else if (stones[row1][col1]->lineKiller == 2 && stones[row2][col2]->isKing) {
+                    stones[row1][col1]->setMatched(true);
+                    stones[row2][col2]->setMatched(true);
+                    for (int temp_Col = 0; temp_Col < 8; ++temp_Col) {
+                        for (int temp_row = 0; temp_row < 8; ++temp_row) {
+                            if (!stones[temp_row][temp_Col]->isFrozen && stones[temp_row][temp_Col]->getIndex() == stones[row2][col2]->getIndex()) {
+                                stones[temp_row][temp_Col]->setLineKiller(2);
+                                stones[temp_row][temp_Col]->setStyleSheetForColKiller();
+                                stones[temp_row][temp_Col]->setOriginalStyleSheet("background-color: green;");
+                                stones[temp_row][temp_Col]->setKing(false);
+                                stones[temp_row][temp_Col]->setBomb(false);
+                            }
+                        }
+                    }
+                    eliminateMatches();
+                    return;
+                }
+                else if (stones[row1][col1]->isKing && stones[row2][col2]->isBombKiller) {
+                    stones[row1][col1]->setMatched(true);
+                    stones[row2][col2]->setMatched(true);
+                    for (int temp_Col = 0; temp_Col < 8; ++temp_Col) {
+                        for (int temp_row = 0; temp_row < 8; ++temp_row) {
+                            if (!stones[temp_row][temp_Col]->isFrozen && stones[temp_row][temp_Col]->getIndex() == stones[row1][col1]->getIndex()) {
+                                stones[temp_row][temp_Col]->setLineKiller(0);
+                                stones[temp_row][temp_Col]->setKing(false);
+                                stones[temp_row][temp_Col]->setBomb(true);
+                                stones[temp_row][temp_Col]->setStyleSheetForBomb();
+                                stones[temp_row][temp_Col]->setOriginalStyleSheet("background-color: pink;");
+                            }
+                        }
+                    }
+                    eliminateMatches();
+                    return;
+                }
+                else if (stones[row1][col1]->isBombKiller && stones[row2][col2]->isKing) {
+                    stones[row1][col1]->setMatched(true);
+                    stones[row2][col2]->setMatched(true);
+                    for (int temp_Col = 0; temp_Col < 8; ++temp_Col) {
+                        for (int temp_row = 0; temp_row < 8; ++temp_row) {
+                            if (!stones[temp_row][temp_Col]->isFrozen && stones[temp_row][temp_Col]->getIndex() == stones[row2][col2]->getIndex()) {
+                                stones[temp_row][temp_Col]->setLineKiller(0);
+                                stones[temp_row][temp_Col]->setKing(false);
+                                stones[temp_row][temp_Col]->setBomb(true);
+                                stones[temp_row][temp_Col]->setStyleSheetForBomb();
+                                stones[temp_row][temp_Col]->setOriginalStyleSheet("background-color: pink;");
+                            }
+                        }
+                    }
+                    eliminateMatches();
+                    return;
+                }
+                else if(stones[row1][col]->isKing && stones[row2][col2]->isKing) {
+                    for (int temp_Col = 0; temp_Col < 8; ++temp_Col) {
+                        for (int temp_row = 0; temp_row < 8; ++temp_row) {
+                            stones[temp_row][temp_Col]->setMatched(true);
+                        }
+                    }
+                    eliminateMatches();
+                    return;
+                }
+
                 //Animation Shaked
                 QPoint originalPos = stones[row2][col2]->pos();
                 QPropertyAnimation *animationShake = new QPropertyAnimation(stones[row2][col2], "pos");
@@ -447,7 +627,6 @@ bool Game::checkFormatches(){
     }
 
     for (int col = 0; col < 8; ++col) {
-
         for (int row = 0; row < 8; ++row) {
             // 更新匹配数
             stones[row][col]->setColMatchNum(colCheckMatch(row, col));
@@ -462,14 +641,22 @@ bool Game::checkFormatches(){
 }
 
 void Game::eliminateMatches() {
-    int eliminatedCount = 0;  // 用于记录本次消除的棋子个数
-    int iceKilledNum = 0;   // 用于记录本次消除的冰块个数
+    for (int col = 0; col < 8; ++col) {
+        for (int row = 0; row < 8; ++row) {
+            // 更新匹配数
+            stones[row][col]->setColMatchNum(colCheckMatch(row, col));
+            stones[row][col]->setRowMatchNum(rowCheckMatch(row, col));
+            stones[row][col]->setMatchNum(checkMatch(stones[row][col]->rowMatchNum,stones[row][col]->colMatchNum));
+            // 更新样式状态
+            stones[row][col]->setOriginalStyleSheet(stones[row][col]->styleSheet());
+        }
+    }
 
     for (int row = 0; row < 8; ++row) {
         for (int col = 0; col < 8; ++col) {
             if (stones[row][col] != nullptr && stones[row][col]->isMatched() && !stones[row][col]->isFrozen) {//未冰冻的棋子，直接消除即可
-                if(stones[row][col]->isSelectedAndEliminated && stones[row][col]->matchNum == 4){//鼠标点击了一次4消
-                    if(stones[row][col]->colMatchNum == 4){//四个纵的合成横劈
+                if(stones[row][col]->isSelectedAndEliminated){//由鼠标点击产生的消除
+                    if(stones[row][col]->colMatchNum == 4 && stones[row][col]->rowMatchNum < 3){//四个纵的合成横劈
                         stones[row][col]->setLineKiller(1);
                         stones[row][col]->setMatched(false);
                         stones[row][col]->setStyleSheetForRowKiller();
@@ -478,50 +665,26 @@ void Game::eliminateMatches() {
                         stones[row][col]->setMatched(false);
                         stones[row][col]->setStyleSheetForColKiller();
                     }
+                    else if(stones[row][col]->colMatchNum >= 3 && stones[row][col]->rowMatchNum >= 3 && stones[row][col]->colMatchNum <= 4 && stones[row][col]->rowMatchNum <= 4) {
+                        stones[row][col]->setBomb(true);
+                        stones[row][col]->setMatched(false);
+                        stones[row][col]->setStyleSheetForBomb();
+                    }
+                    else if(stones[row][col]->matchNum == 5){
+                        stones[row][col]->setKing(true);
+                        stones[row][col]->setMatched(false);
+                        stones[row][col]->setStyleSheetForKing();
+                    }
+                    else{
+                        eliminateStone(stones,stones[row][col],row,col);
+                    }
                 }
                 else {//非鼠标直接消除 或 鼠标点击了普通三消 直接删除即可
-                    if(stones[row][col]->lineKiller == 0){//如果是普通棋子
-                        //删除棋子
-                        delete stones[row][col];
-                        stones[row][col] = nullptr;  // 清空位置
-                    }
-                    else if(stones[row][col]->lineKiller == 1){//如果是横劈
-                        //使用掉lineKiller效果
-                        stones[row][col]->lineKiller = 0;
-                        stones[row][col]->setStyleSheetForNormal();
-                        // 执行横劈逻辑，消除整行
-                        for (int temp_col = 0; temp_col < 8; ++temp_col) {
-                            if (stones[row][temp_col]!= nullptr) {
-                                delete stones[row][temp_col];
-                                stones[row][temp_col] = nullptr;
-                                eliminatedCount++;  // 统计消除的棋子个数
-                            }
-                        }
-                    }
-                    else if(stones[row][col]->lineKiller == 2){//如果是竖劈
-                        //使用掉lineKiller效果
-                        stones[row][col]->lineKiller == 0;
-                        stones[row][col]->setStyleSheetForNormal();
-                        // 执行竖劈逻辑，消除整列
-                        for (int temp_row = 0; temp_row < 8; ++temp_row) {
-                            if (stones[temp_row][col]!= nullptr) {
-                                delete stones[temp_row][col];
-                                stones[temp_row][col] = nullptr;
-                                eliminatedCount++;
-                            }
-                        }
-                    }
+                    eliminateStone(stones,stones[row][col],row,col);
                 }
-
-                eliminatedCount++;  // 统计消除的棋子个数
             }
             else if (stones[row][col] != nullptr && stones[row][col]->isMatched() && stones[row][col]->isFrozen) { // 如果是冰冻棋子，清除匹配标记并恢复正常外观
-                stones[row][col]->setMatched(false);
-                stones[row][col]->isFrozen = false;
-                stones[row][col]->setStyleSheetForNormal();
-                std::string pixStr = ":/" + StoneLabel::stoneMode + std::to_string(stones[row][col]->getIndex()) + ".png";
-                stones[row][col]->setPixmap(QPixmap(QString::fromStdString(pixStr)).scaled(48, 48));
-                iceKilledNum++;
+                eliminateStone(stones,stones[row][col],row,col);
             }
         }
     }
@@ -529,7 +692,19 @@ void Game::eliminateMatches() {
     if (hasStartedScoring)  // 根据计分标记判断是否计分
     {
         // 根据消除的棋子个数计算得分，计分规则见calGainScore()
-        score += calGainScore(eliminatedCount,iceKilledNum); // 将本次得分累加到总积分中
+        score += calGainScore(eliminatedCount,iceKilledNum); // 将本次得分累加到总积分中       
+        // 更新冰块数量显示
+        if (gameMode == GameMode::ADVENTURE_MODE) {
+            eliminatedIceCount += iceKilledNum;// 将本次消除冰块数累加到总消除冰块数中
+            QString iceNumberText = QString("冰块 %1/%2").arg(eliminatedIceCount).arg(winIceCount);
+            ui->iceNumLabel->setText(iceNumberText);
+            if(eliminatedIceCount >= winIceCount){
+                ui->iceNumLabel->setStyleSheet("color:green;");
+            }
+        }
+
+        eliminatedCount = 0;  // 用于记录本次消除的棋子个数
+        iceKilledNum = 0;   // 用于记录本次消除的冰块个数
     }
 
     // 更新积分显示
@@ -565,6 +740,65 @@ void Game::eliminateMatches() {
     dropStones();// 执行棋子下落逻辑，用于填补因消除产生的空位
     resetMatchedFlags();// 重置所有棋子的匹配标记，为下一轮检测做准备
 }
+
+void Game::eliminateStone(std::vector<std::vector<StoneLabel*>>& stones, StoneLabel* stoneLabel, int row, int col){
+    if(stoneLabel == nullptr)   { return; }
+    if(stoneLabel->isFrozen){//冰冻棋子
+        stoneLabel->setMatched(false);
+        stoneLabel->setFrozen(false);
+        stoneLabel->setStyleSheetForNormal();
+        iceKilledNum++;
+    }
+    else if(stoneLabel->lineKiller == 1){//如果是横劈
+        //使用掉lineKiller效果
+        stoneLabel->setLineKiller(0);
+        stoneLabel->setStyleSheetForNormal();
+        for (int temp_Col = 0; temp_Col < 8; ++temp_Col) {
+            eliminateStone(stones,stones[row][temp_Col],row,temp_Col);
+        }
+    }
+    else if(stoneLabel->lineKiller == 2){//如果是竖劈
+        //使用掉lineKiller效果
+        stoneLabel->setLineKiller(0);
+        stoneLabel->setStyleSheetForNormal();
+        // 执行竖劈逻辑，消除整列
+        for (int temp_row = 0; temp_row < 8; ++temp_row) {
+            eliminateStone(stones,stones[temp_row][col],temp_row,col);
+        }
+    }
+    else if(stoneLabel->isBombKiller){//如果是炸弹
+        stoneLabel->setBomb(false);
+        stoneLabel->setStyleSheetForNormal();
+        // 执行炸弹逻辑，消除5*5；
+        for (int temp_row = row-2; temp_row <= row+2; ++temp_row) {
+            for (int temp_col = col-2; temp_col <= col+2; ++temp_col) {
+                if(temp_row < 8 && temp_row > 0 && temp_col < 8 && temp_col > 0){
+                    eliminateStone(stones,stones[temp_row][temp_col],temp_row,temp_col);
+                }
+            }
+        }
+    }
+    else if(stoneLabel->isKing){//如果是王棋子
+        stoneLabel->setKing(false);
+        stoneLabel->setStyleSheetForNormal();
+        // 执行王逻辑，消除场上所有同类型棋子；
+        for (int temp_row = 0; temp_row < 8; ++temp_row) {
+            for (int temp_col = 0; temp_col < 8; ++temp_col) {
+                if (stones[temp_row][temp_col] != nullptr && stones[temp_row][temp_col]->getIndex() == stoneLabel->getIndex() && temp_row != stoneLabel->getrow() && temp_col != stoneLabel->getcol()) {
+                    eliminateStone(stones,stones[temp_row][temp_col],temp_row,temp_col);
+                }
+            }
+        }
+
+        eliminateStone(stones,stones[row][col],row,col);
+    }
+    else{//普通棋子
+        stoneLabel->setMatched(false);
+        delete stones[row][col];
+        stones[row][col] = nullptr;
+        eliminatedCount++;
+    }
+}
 //生成新子
 //生成一个新子
 void Game::generateNewStone(int row, int col){
@@ -580,12 +814,15 @@ void Game::generateNewStone(int row, int col){
 
     // 显示添加
    // mainWidget->addWidget(imgLabel, row, col);
-
-    if (genRandom() < 3) {
-        imgLabel->isFrozen = true;
-        imgLabel->setStyleSheetForFrozen();  // 设置为白色填充样式，代表冰冻状态
-    } else {
-        imgLabel->isFrozen = false;
+    if(gameMode == Game::GameMode::ADVENTURE_MODE){//只有冒险模式才生成冰块
+        if (genRandom() < 2) {
+            imgLabel->setFrozen(true);
+            imgLabel->setStyleSheetForFrozen();  // 设置为白色填充样式，代表冰冻状态
+        } else {
+            imgLabel->setFrozen(false);
+        }
+    }else{
+        imgLabel->setFrozen(false);
     }
 
     // 逻辑添加
@@ -659,6 +896,9 @@ void Game::creatstones(){
 //棋子下落动画
 //duration should set to x/v
 void Game::dropLabel(StoneLabel* stoneLabel, int startX,int startY,int targetX, int targetY, int duration) {
+    if(stoneLabel == nullptr){
+        return;
+    }
     this->initing=true;
     duration=1000*(targetY-startY)/192;
     QPropertyAnimation* animation = new QPropertyAnimation(stoneLabel, "pos");
@@ -747,7 +987,7 @@ int Game::calGainScore(int eliminatedCount,int iceKilledNum){
     int k = 10;
     int offset = 8;
     // n为破冰数线性系数
-    int n = 15;
+    int n = 10;
     int scoreGain = static_cast<int>(std::log(eliminatedCount + 1) * k + offset + iceKilledNum * n);
     return scoreGain;
 }
@@ -773,6 +1013,7 @@ void Game::onTimeExpired()
     }else{
         end = new End(this,client);
         connect(end, &End::nextButtonClicked, this, &Game::onNextButtonClicked);
+        connect(end, &End::retryGame, this, &Game::onRetryGame);
         end->showEndUI();
         // 停止游戏相关的定时器等操作
         resetGameState();
@@ -951,8 +1192,16 @@ int Game::getScore(){
 }
 
 void Game::setWinScore(int levelNum){
-    winScore = 200+(levelNum-1)*50;
+    winScore = 400+(levelNum-1)*50;
     ui->textBrowser->setText(QString::number(winScore));
+}
+
+void Game::setWinIceCount(int levelNum){
+    // k是对数调节系数，offset是偏移量，用于保证积分值在合理范围且为正整数等
+    // 例如设置k = 6，offset = 6
+    int k = 6;
+    int offset = 6;
+    winIceCount = static_cast<int>(std::log(levelNum + 1) * k + offset);
 }
 
 void Game::on_bombButton_clicked() {
@@ -974,7 +1223,7 @@ void Game::on_bombButton_clicked() {
 
 bool Game::checkAdventureWin() const
 {
-    if (score >= winScore) {
+    if (score >= winScore && eliminatedIceCount >= winIceCount) {
         return true;
     }
     return false;
@@ -1041,7 +1290,7 @@ void Game::on_vertical_clicked()
         this->updateItemCountLabels();
     }
     else{
-         QMessageBox::information(nullptr, "没有vertical", "您没有vertical道具了！");
+        QMessageBox::information(nullptr, "没有vertical", "您没有vertical道具了！");
     }
 
 }
@@ -1289,7 +1538,7 @@ void Game::updateItemCountLabels() {
     // 更新竖向消除道具数量标签
 
     ui->verticalLabel->setText(QString(" %1").arg(ShopWidget::verticalCount));
-    // 更新竖向消除道具数量标签
+    // 更新锤子消除道具数量标签
     ui->hammerLabel->setText(QString(" %1").arg(ShopWidget::hammerCount));
 
 }
@@ -1309,8 +1558,6 @@ void Game::on_hammer_clicked()
 }
 
 void Game::useHammer(int row, int col) {
-
-
     // 检查目标位置是否合法
     if (row < 0 || row >= Game::jewelNum || col < 0 || col >= Game::jewelNum) {
         QMessageBox::warning(this, "无效位置", "无法对指定位置使用锤子!");
@@ -1324,8 +1571,9 @@ void Game::useHammer(int row, int col) {
     }
 
     // 解除冰冻状态
-    targetStone->isFrozen = false;
+    targetStone->setFrozen(false);
     targetStone->setStyleSheetForNormal();  // 恢复正常样式
+    eliminatedIceCount++;
     // 设置鼠标-普通
     setCursor(QCursor(QPixmap(":/mouse1.png")));
     // 结束冰冻模式

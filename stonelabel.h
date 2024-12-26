@@ -36,8 +36,13 @@ public:
     inline void setStyle(int mode=0){
         if(mode==1)
             this->setStyleSheet("background-color: lightblue;");
-        else
+
+        else if(originalStyleSheet != nullptr){
             this->setStyleSheet(originalStyleSheet);
+        }
+        else{
+            this->setStyleSheet("");
+        }
     }
     bool matched = false;  // 是否匹配，用于消除
 
@@ -53,6 +58,8 @@ public:
 
     bool isFrozen = false;  // 标记是否是冰块
     int lineKiller = 0;  // 标记是否是linekiller，0不是，1横劈，2竖劈
+    bool isBombKiller = false; // 标记是否为bomb
+    bool isKing = false; // 标记是否为king
 
     QString originalStyleSheet = "";  // 记录样式状态
 
@@ -67,8 +74,9 @@ public:
 
     void setStyleSheetForNormal() {
         // 恢复正常的样式，这里调用父类的默认样式设置（清除之前设置的特殊样式）
-        QLabel::setStyleSheet("");
+        this->setStyleSheet("");
     }
+   
 
     void setStyleSheetForRowKiller() {
         // 设置为黄色填充的样式，代表横劈，可根据实际进一步调整样式细节，比如边框等
@@ -80,6 +88,23 @@ public:
         this->setStyleSheet("background-color: green;");
     }
 
+    void setStyleSheetForBomb() {
+        // 设置为粉色填充的样式，代表竖劈，可根据实际进一步调整样式细节，比如边框等
+        this->setStyleSheet("background-color: pink;");
+    }
+
+    void setStyleSheetForKing() {
+        // 设置为紫色填充的样式，代表竖劈，可根据实际进一步调整样式细节，比如边框等
+        this->setStyleSheet("background-color: purple;");
+    }
+
+    void setFrozen(bool value) { isFrozen = value; }
+
+    void setLineKiller(int value) { lineKiller = value; }
+
+    void setBomb(bool value) { isBombKiller = value;}
+
+    void setKing(bool value) { isKing = value;}
 
     void setLineKiller(int value) { lineKiller = value; }
 

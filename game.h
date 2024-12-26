@@ -149,6 +149,9 @@ private:
     void mousePressEvent(QMouseEvent *event) override;
     bool checkFormatches();//判断哪些棋子将要被消去
     void eliminateMatches() ;//消除
+    void eliminateStone(std::vector<std::vector<StoneLabel*>>& stones, StoneLabel* stoneLabel, int row, int col);//按不同逻辑消除不同棋子
+    int eliminatedCount = 0;  // 用于记录本次消除的棋子个数
+    int iceKilledNum = 0;   // 用于记录本次消除的冰块个数
     void dropStones();//棋子下落，创建新子
     void dropLabel(StoneLabel* stoneLabel, int startX,int startY,int targetX, int targetY, int duration) ;//棋子下落动画
     void resetMatchedFlags();//重置所有棋子为不可消除
@@ -156,7 +159,7 @@ private:
     void creatstones();//创建所有需要的子
     void shuffleStones();//重排布
     int calGainScore(int scoreGain = 0,int iceKilledNum = 0);//计分规则
-    int initTime = 20;//初始时间20s
+    int initTime = 60;//初始时间60s
     GameTimer *gameTimer = nullptr;//计时器
     bool isTimeExpired = false;//判断时间是否结束
     QProgressBar *progressBar = nullptr;  //计时进度条
@@ -171,16 +174,17 @@ private:
     std::vector<int> swapReturn;
     QProgressDialog *progressDialog;
     bool initing;
-
-
     //Ui::Game *ui;
     bool isComboing = false; // 判断此时是否处于连击combo状态
-    void setWinScore(int levelNum);//根据关卡数设置通关分数
     bool checkAdventureWin() const;//判断是否过关
     int score=0;  //记录游戏当前积分
+    int eliminatedIceCount = 0;  // 记录已消除的冰块数量
     bool hasStartedScoring=false;  //标记是否可以开始计分，初始化为false，表示未开始计分
     int levelNumber = -1;//关卡难度
     int winScore;//目标分数
+    int winIceCount;//通关所需冰块数
+    void setWinScore(int levelNum);//根据关卡数设置通关分数
+    void setWinIceCount(int levelNum);//根据关卡数设置通关所需冰块数
     bool horizon=false;//是否要横向消除
     bool vertical=false;//是否竖向消除
     void triggerBomb(int row, int col);

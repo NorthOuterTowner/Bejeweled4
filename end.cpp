@@ -32,7 +32,6 @@ void End::onReturnButtonClicked()
 void End::showEndUI()
 {
     ui->nextButton->hide();
-    ui->retryButton->hide();
     // 获取游戏最终得分并设置到得分标签上显示
     int finalScore = gameInfo->getScore();
     if(client!=nullptr){
@@ -76,10 +75,5 @@ void End::onRetryButtonClicked()
 {
     close();
     emit retryGame();
-}
-
-void End::on_retryButton_clicked()
-{
-
 }
 

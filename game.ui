@@ -763,6 +763,22 @@ QPushButton:pressed {
     <string/>
    </property>
   </widget>
+  <widget class="QLabel" name="iceNumLabel">
+   <property name="geometry">
+    <rect>
+     <x>250</x>
+     <y>20</y>
+     <width>121</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 700 12pt &quot;Microsoft YaHei UI&quot;;</string>
+   </property>
+   <property name="text">
+    <string>冰块 -- --/-- --</string>
+   </property>
+  </widget>
   <zorder>pushButton_2</zorder>
   <zorder>timerLabel</zorder>
   <zorder>progressBar</zorder>
@@ -784,6 +800,7 @@ QPushButton:pressed {
   <zorder>levelNumLabel</zorder>
   <zorder>hammerLabel</zorder>
   <zorder>hammer</zorder>
+  <zorder>iceNumLabel</zorder>
  </widget>
  <resources/>
  <connections/>
