@@ -55,7 +55,7 @@ private:
         HAMMER        //锤子道具
     };
 
- ItemType currentItemType;  // 当前选中的道具类型
+    ItemType currentItemType;  // 当前选中的道具类型
 
 };
 

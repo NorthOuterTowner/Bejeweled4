@@ -20,6 +20,8 @@ ShopWidget::ShopWidget(QWidget *parent) :
 
 {
     ui->setupUi(this);
+    // 设置鼠标-普通
+    setCursor(QCursor(QPixmap(":/mouse1.png")));
     // 美化所有的 QLabel 样式
     QString labelStyle = R"(
         QLabel {
@@ -116,7 +118,7 @@ void ShopWidget::on_Buy_clicked()
         break;
     case ItemType::HORIZON:
     case ItemType::VERTICAL:
-     case ItemType::HAMMER:
+    case ItemType::HAMMER:
         itemPrice = 30;  // 横向和竖向消除的价格
         break;
     }
@@ -134,7 +136,7 @@ void ShopWidget::on_Buy_clicked()
             bombCount++;
             // 更新 Game 中的炸弹数量
             ui->bombLabel->setText(QString("炸弹: %1").arg(bombCount));
-              break;
+            break;
         case ItemType::HORIZON:
             horizonCount++;
             // 更新 Game 中的横向消除数量
@@ -142,7 +144,7 @@ void ShopWidget::on_Buy_clicked()
             break;
         case ItemType::VERTICAL:
             verticalCount++;
-           // 更新 Game 中的竖向消除数量
+            // 更新 Game 中的竖向消除数量
             ui->verticalLabel->setText(QString("竖向消除: %1").arg(verticalCount));
             break;
         case ItemType::HAMMER:
@@ -227,4 +229,3 @@ void ShopWidget::on_hammer_clicked()
     ui->picture->show();
     ui->introduction->show();
 }
-

@@ -38,24 +38,25 @@
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>120</y>
-      <width>191</width>
-      <height>51</height>
+      <x>10</x>
+      <y>30</y>
+      <width>351</width>
+      <height>91</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font: 87 20pt &quot;Arial Black&quot;;</string>
+     <string notr="true"> font: bold 18pt &quot;Comic Sans MS&quot;; /* 使用更好看的字体，例如 Comic Sans MS */
+    color: rgb(255, 182, 193); /* 浅粉色字体 */</string>
     </property>
     <property name="text">
-     <string>Login Now</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:26pt;&quot;&gt;LOGIN INTO&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>200</y>
+      <x>40</x>
+      <y>150</y>
       <width>291</width>
       <height>111</height>
      </rect>
@@ -103,14 +104,12 @@ font: 10pt &quot;Candara&quot;;</string>
       </widget>
      </item>
     </layout>
-    <zorder>lineEdit_password</zorder>
-    <zorder>lineEdit_username</zorder>
    </widget>
    <widget class="QPushButton" name="btn_signin">
     <property name="geometry">
      <rect>
-      <x>19</x>
-      <y>360</y>
+      <x>20</x>
+      <y>330</y>
       <width>121</width>
       <height>61</height>
      </rect>
@@ -122,14 +121,7 @@ font: 10pt &quot;Candara&quot;;</string>
      </size>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: qlineargradient(spread:pad, x1:0.52, y1:1, x2:0.54, y2:0, 
-stop:0.0112994 rgba(64, 145, 252, 255), 
-stop:1 rgba(255, 255, 255, 255));
-color: rgb(255, 255, 255);
-
-border:0px groove gray;border-radius:
-7px;padding:2px 4px;
-font: 14pt &quot;Candara&quot;;</string>
+     <string notr="true"/>
     </property>
     <property name="text">
      <string>Sign in</string>
@@ -138,8 +130,8 @@ font: 14pt &quot;Candara&quot;;</string>
    <widget class="QPushButton" name="btn_signup">
     <property name="geometry">
      <rect>
-      <x>190</x>
-      <y>360</y>
+      <x>210</x>
+      <y>330</y>
       <width>121</width>
       <height>61</height>
      </rect>
@@ -151,14 +143,7 @@ font: 14pt &quot;Candara&quot;;</string>
      </size>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: qlineargradient(spread:pad, x1:0.52, y1:1, x2:0.54, y2:0, 
-stop:0.0112994 rgba(64, 145, 252, 255), 
-stop:1 rgba(255, 255, 255, 255));
-color: rgb(255, 255, 255);
-
-border:0px groove gray;border-radius:
-7px;padding:2px 4px;
-font: 14pt &quot;Candara&quot;;</string>
+     <string notr="true"/>
     </property>
     <property name="text">
      <string>Sign up</string>

@@ -72,7 +72,8 @@ Game::Game(QWidget *parent,Game::GameMode mode,Client* c)
     sound->setLoopCount(QSoundEffect::Infinite);
     sound->setVolume(1.0f);  // 最大音量
     sound->play();
-
+    // 设置鼠标-普通
+    setCursor(QCursor(QPixmap(":/mouse2.png")));
 
     Game::jewelNum=8;
     this->parent=parent;
@@ -103,8 +104,7 @@ Game::Game(QWidget *parent,Game::GameMode mode,Client* c)
     ui->passScoreLabel->hide();
     ui->textBrowser->hide();
     ui->levelNumLabel->hide();
-
-
+    ui->iceNumLabel->hide();
 }
 
 
@@ -144,9 +144,11 @@ Game::Game(QWidget *parent,int levelNumber,Game::GameMode mode,Client* c)
 
     //冒险模式下相关显示与逻辑特殊处理
     setWinScore(levelNumber);
+    setWinIceCount(levelNumber);
     QString levelInfo=QString::fromStdString("关卡:"+std::to_string(levelNumber/8+1)+"-"+std::to_string((levelNumber-1)%8+1));
     ui->levelNumLabel->setText(levelInfo);
-
+    ui->iceNumLabel->setStyleSheet("color:red;");
+    ui->iceNumLabel->setText(QString("冰块 %1/%2").arg(eliminatedIceCount).arg(winIceCount));
 }
 
 Game::~Game()
@@ -199,7 +201,7 @@ void Game::init(){
         for (int col = 0; col < Game::jewelNum; col++) {
             StoneLabel* imgLabel = new StoneLabel(this);
 
-            imgLabel->isFrozen = false;
+            imgLabel->setFrozen(false);
             imgLabel->setrow(row);
             imgLabel->setcol(col);
             imgLabel->resize(48,48);
@@ -230,8 +232,8 @@ bool Game::arePositionsAdjacent(int row1, int col1, int row2, int col2) {
 }
 
 void Game::mousePressEvent(QMouseEvent *event) {
+
     QPoint clickPoint = event->pos();
-    pressPoint=clickPoint;
     int x = clickPoint.x(), y = clickPoint.y();
     if (x <= leftSpacer || y <= upSpacer || x >= leftSpacer + 8 * 48 || y >= upSpacer + 8 * 48)
         return;
@@ -261,26 +263,22 @@ void Game::mousePressEvent(QMouseEvent *event) {
             clickDistrict[3]++;
         }
     }
-
     if(isHammerMode){
         useHammer(row,  col);
         return;
 
     }
     StoneLabel* curLabel = stones[row][col];
-
     if (curLabel->isFrozen) {  // 如果当前点击的棋子处于冰冻状态，直接返回，不做任何操作
         return;
     }
-
-
     if (isBombMode) {
         // 如果当前处于炸弹模式，触发炸弹效果
         triggerBomb(row, col);
         return;
     }
     if (!change) {
-        isComboing = true;
+        //isComboing = true;
         waitLabel = curLabel;
         waitLabel->setStyle(1);
         change = true;
@@ -291,7 +289,7 @@ void Game::mousePressEvent(QMouseEvent *event) {
         if (!arePositionsAdjacent(row1, col1, row2, col2)) {// 判断两次点击的位置是否相邻,若不则跟随移动
             // 如果不相邻，忽视第一次点击，将此次点击视为第一次点击
             waitLabel->setStyle();
-            isComboing = true;
+            //isComboing = true;
             waitLabel = stones[row][col];
             waitLabel->setStyle(1);
             change = true;
@@ -329,14 +327,196 @@ void Game::mousePressEvent(QMouseEvent *event) {
 
             update();
 
+
             if (!hasStartedScoring)  // 如果还未开始计分，在这里标记为开始计分
             {
                 hasStartedScoring = true;
             }
 
             if (checkFormatches()) {
+                // 标记被选中且发生消除的棋子
+                stones[row1][col1]->setSelectedAndEliminated(true);
+                stones[row2][col2]->setSelectedAndEliminated(true);
                 eliminateMatches();
             } else {
+                // 新增判断逻辑，检查交换的两个棋子是否分别为横劈和竖劈
+                if(stones[row1][col1]->lineKiller == 1 && stones[row2][col2]->lineKiller == 1){//两个横劈交换，劈一(两)行
+                    for (int temp_Col = 0; temp_Col < 8; ++temp_Col) {
+                        stones[row1][temp_Col]->setMatched(true);
+                    }
+                    if(row1 != row2){
+                        for (int temp_Col = 0; temp_Col < 8; ++temp_Col) {
+                            stones[row2][temp_Col]->setMatched(true);
+                        }
+                    }
+                    eliminateMatches();
+                    return;
+                }
+                else if(stones[row1][col1]->lineKiller == 2 && stones[row2][col2]->lineKiller == 2){//两个竖劈交换，劈一(两)列
+                    for (int temp_row = 0; temp_row < 8; ++temp_row) {
+                        stones[temp_row][col1]->setMatched(true);
+                    }
+                    if(col1 != col2){
+                        for (int temp_row = 0; temp_row < 8; ++temp_row) {
+                            stones[temp_row][col2]->setMatched(true);
+                        }
+                    }
+                    eliminateMatches();
+                    return;
+                }
+                else if ((stones[row1][col1]->lineKiller == 1 && stones[row2][col2]->lineKiller == 2) ||
+                    (stones[row1][col1]->lineKiller == 2 && stones[row2][col2]->lineKiller == 1)) {//横竖交换，消十字
+                    // 消除所在行和所在列
+                    for (int temp_Col = 0; temp_Col < 8; ++temp_Col) {
+                        stones[row2][temp_Col]->setMatched(true);
+                    }
+                    for (int temp_row = 0; temp_row < 8; ++temp_row) {
+                        stones[temp_row][col2]->setMatched(true);
+                    }
+                    eliminateMatches();
+                    return;
+                }
+                else if((stones[row1][col1]->isBombKiller && stones[row2][col2]->lineKiller == 1) ||
+                    (stones[row1][col1]->lineKiller == 1 && stones[row2][col2]->isBombKiller)){//爆炸+横劈消三行
+                    for (int temp_Col = 0; temp_Col < 8; ++temp_Col) {
+                        for (int temp_row = row2-1; temp_row <= row2+1 && temp_row < 8; ++temp_row) {
+                            stones[temp_row][temp_Col]->setMatched(true);
+                        }
+                    }
+                    eliminateMatches();
+                    return;
+                }
+                else if((stones[row1][col1]->isBombKiller && stones[row2][col2]->lineKiller == 2) ||
+                    (stones[row1][col1]->lineKiller == 2 && stones[row2][col2]->isBombKiller)){//爆炸+竖劈消三列
+                    for (int temp_Col = col2-1; temp_Col <= col2+1 && temp_Col < 8; ++temp_Col) {
+                        for (int temp_row = 0; temp_row < 8; ++temp_row) {
+                            stones[temp_row][temp_Col]->setMatched(true);
+                        }
+                    }
+                    eliminateMatches();
+                    return;
+                }
+                else if(stones[row1][col1]->isBombKiller && stones[row2][col2]->isBombKiller){//两个bombKiller交换炸全屏
+                    for (int temp_Col = 0; temp_Col < 8; ++temp_Col) {
+                        for (int temp_row = 0; temp_row < 8; ++temp_row) {
+                            stones[temp_row][temp_Col]->setMatched(true);
+                        }
+                    }
+                    eliminateMatches();
+                    return;
+                }
+                else if (stones[row1][col1]->isKing && stones[row2][col2]->lineKiller == 1) {//king+横劈，全部与king同类型的棋子全变横劈
+                    stones[row1][col1]->setMatched(true);
+                    stones[row2][col2]->setMatched(true);
+                    for (int temp_Col = 0; temp_Col < 8; ++temp_Col) {
+                        for (int temp_row = 0; temp_row < 8; ++temp_row) {
+                            if (!stones[temp_row][temp_Col]->isFrozen && stones[temp_row][temp_Col]->getIndex() == stones[row1][col1]->getIndex()) {
+                                stones[temp_row][temp_Col]->setLineKiller(1);
+                                stones[temp_row][temp_Col]->setStyleSheetForRowKiller();
+                                stones[temp_row][temp_Col]->setOriginalStyleSheet("background-color: yellow;");
+                                stones[temp_row][temp_Col]->setKing(false);
+                                stones[temp_row][temp_Col]->setBomb(false);
+                            }
+                        }
+                    }
+                    eliminateMatches();
+                    return;
+                }
+                else if (stones[row1][col1]->lineKiller == 1 && stones[row2][col2]->isKing) {
+                    stones[row1][col1]->setMatched(true);
+                    stones[row2][col2]->setMatched(true);
+                    for (int temp_Col = 0; temp_Col < 8; ++temp_Col) {
+                        for (int temp_row = 0; temp_row < 8; ++temp_row) {
+                            if (!stones[temp_row][temp_Col]->isFrozen && stones[temp_row][temp_Col]->getIndex() == stones[row2][col2]->getIndex()) {
+                                stones[temp_row][temp_Col]->setLineKiller(1);
+                                stones[temp_row][temp_Col]->setStyleSheetForRowKiller();
+                                stones[temp_row][temp_Col]->setOriginalStyleSheet("background-color: yellow;");
+                                stones[temp_row][temp_Col]->setKing(false);
+                                stones[temp_row][temp_Col]->setBomb(false);
+                            }
+                        }
+                    }
+                    eliminateMatches();
+                    return;
+                }
+                else if (stones[row1][col1]->isKing && stones[row2][col2]->lineKiller == 2) {//king+竖劈，全部与king同类型的棋子全变竖劈
+                    stones[row1][col1]->setMatched(true);
+                    stones[row2][col2]->setMatched(true);
+                    for (int temp_Col = 0; temp_Col < 8; ++temp_Col) {
+                        for (int temp_row = 0; temp_row < 8; ++temp_row) {
+                            if (!stones[temp_row][temp_Col]->isFrozen && stones[temp_row][temp_Col]->getIndex() == stones[row1][col1]->getIndex()) {
+                                stones[temp_row][temp_Col]->setLineKiller(2);
+                                stones[temp_row][temp_Col]->setStyleSheetForColKiller();
+                                stones[temp_row][temp_Col]->setOriginalStyleSheet("background-color: green;");
+                                stones[temp_row][temp_Col]->setKing(false);
+                                stones[temp_row][temp_Col]->setBomb(false);
+                            }
+                        }
+                    }
+                    eliminateMatches();
+                    return;
+                }
+                else if (stones[row1][col1]->lineKiller == 2 && stones[row2][col2]->isKing) {
+                    stones[row1][col1]->setMatched(true);
+                    stones[row2][col2]->setMatched(true);
+                    for (int temp_Col = 0; temp_Col < 8; ++temp_Col) {
+                        for (int temp_row = 0; temp_row < 8; ++temp_row) {
+                            if (!stones[temp_row][temp_Col]->isFrozen && stones[temp_row][temp_Col]->getIndex() == stones[row2][col2]->getIndex()) {
+                                stones[temp_row][temp_Col]->setLineKiller(2);
+                                stones[temp_row][temp_Col]->setStyleSheetForColKiller();
+                                stones[temp_row][temp_Col]->setOriginalStyleSheet("background-color: green;");
+                                stones[temp_row][temp_Col]->setKing(false);
+                                stones[temp_row][temp_Col]->setBomb(false);
+                            }
+                        }
+                    }
+                    eliminateMatches();
+                    return;
+                }
+                else if (stones[row1][col1]->isKing && stones[row2][col2]->isBombKiller) {
+                    stones[row1][col1]->setMatched(true);
+                    stones[row2][col2]->setMatched(true);
+                    for (int temp_Col = 0; temp_Col < 8; ++temp_Col) {
+                        for (int temp_row = 0; temp_row < 8; ++temp_row) {
+                            if (!stones[temp_row][temp_Col]->isFrozen && stones[temp_row][temp_Col]->getIndex() == stones[row1][col1]->getIndex()) {
+                                stones[temp_row][temp_Col]->setLineKiller(0);
+                                stones[temp_row][temp_Col]->setKing(false);
+                                stones[temp_row][temp_Col]->setBomb(true);
+                                stones[temp_row][temp_Col]->setStyleSheetForBomb();
+                                stones[temp_row][temp_Col]->setOriginalStyleSheet("background-color: pink;");
+                            }
+                        }
+                    }
+                    eliminateMatches();
+                    return;
+                }
+                else if (stones[row1][col1]->isBombKiller && stones[row2][col2]->isKing) {
+                    stones[row1][col1]->setMatched(true);
+                    stones[row2][col2]->setMatched(true);
+                    for (int temp_Col = 0; temp_Col < 8; ++temp_Col) {
+                        for (int temp_row = 0; temp_row < 8; ++temp_row) {
+                            if (!stones[temp_row][temp_Col]->isFrozen && stones[temp_row][temp_Col]->getIndex() == stones[row2][col2]->getIndex()) {
+                                stones[temp_row][temp_Col]->setLineKiller(0);
+                                stones[temp_row][temp_Col]->setKing(false);
+                                stones[temp_row][temp_Col]->setBomb(true);
+                                stones[temp_row][temp_Col]->setStyleSheetForBomb();
+                                stones[temp_row][temp_Col]->setOriginalStyleSheet("background-color: pink;");
+                            }
+                        }
+                    }
+                    eliminateMatches();
+                    return;
+                }
+                else if(stones[row1][col]->isKing && stones[row2][col2]->isKing) {
+                    for (int temp_Col = 0; temp_Col < 8; ++temp_Col) {
+                        for (int temp_row = 0; temp_row < 8; ++temp_row) {
+                            stones[temp_row][temp_Col]->setMatched(true);
+                        }
+                    }
+                    eliminateMatches();
+                    return;
+                }
+
                 //Animation Shaked
                 QPoint originalPos = stones[row2][col2]->pos();
                 QPropertyAnimation *animationShake = new QPropertyAnimation(stones[row2][col2], "pos");
@@ -400,13 +580,13 @@ void Game::mousePressEvent(QMouseEvent *event) {
             change = false;
         });
     }
-    if(horizon){
+    if(horizon){//横劈道具
         curLabel->setStyle(0);
         horizondelete(row);
         horizon=false;
         change=false;
     }
-    if(vertical){
+    if(vertical){//竖劈道具
         curLabel->setStyle(1);
         verticaldelete(col);
         vertical=false;
@@ -414,140 +594,6 @@ void Game::mousePressEvent(QMouseEvent *event) {
     }
 }
 
-void Game::mouseMoveEvent(QMouseEvent *event){
-    if(!change) return;
-    QPoint movePoint = event->pos();
-    int dx = movePoint.x() - pressPoint.x();
-    int dy = movePoint.y() - pressPoint.y();
-    // 判断移动是否超过一定距离，避免误操作
-    if (std::abs(dx) > 24 || std::abs(dy) > 24) {
-        qDebug()<<"move right";
-        canrelease=true;
-    }
-}
-void Game::mouseReleaseEvent(QMouseEvent *event){
-    if(!change) return;
-    if(!canrelease) return;
-    change=false;
-    QPoint releasePoint = event->pos();
-    int row1 = waitLabel->getrow(), col1 = waitLabel->getcol();
-    int row2 = (releasePoint.y() - upSpacer) / 48;
-    int col2 = (releasePoint.x() - leftSpacer) / 48;
-    if (row2 >= 0 && col2 >= 0 && row2 < 8 && col2 < 8) {
-        qDebug()<<"row2,col2"<<row2<<col2;
-        if (!arePositionsAdjacent(row1, col1, row2, col2)) {// 判断两次点击的位置是否相邻,若不则跟随移动
-            // 如果不相邻，忽视第一次点击，将此次点击视为第一次点击
-            waitLabel->setStyle();
-            isComboing = true;
-            waitLabel = stones[row1][col1];
-            waitLabel->setStyle(1);
-            change = true;
-            return;
-        }
-
-        // 创建动画
-        QPropertyAnimation *animation1 = new QPropertyAnimation(stones[row1][col1], "pos");
-        QPropertyAnimation *animation2 = new QPropertyAnimation(stones[row2][col2], "pos");
-
-        // 设置动画时长和目标位置
-        animation1->setDuration(300); // 动画持续时间300ms
-        animation2->setDuration(300);
-
-        // 计算目标位置
-        QPoint targetPos1 = stones[row2][col2]->pos();
-        QPoint targetPos2 = stones[row1][col1]->pos();
-
-        animation1->setEndValue(targetPos1);
-        animation2->setEndValue(targetPos2);
-
-        // 启动动画
-        animation1->start(QAbstractAnimation::DeleteWhenStopped);
-        animation2->start(QAbstractAnimation::DeleteWhenStopped);
-
-        // 动画结束后交换
-        connect(animation1, &QPropertyAnimation::finished, [=]() {
-            // 交换数据
-            waitLabel->setStyle();
-            std::swap(stones[row1][col1], stones[row2][col2]);
-            stones[row1][col1]->setrow(row1);
-            stones[row1][col1]->setcol(col1);
-            stones[row2][col2]->setrow(row2);
-            stones[row2][col2]->setcol(col2);
-
-            update();
-
-            if (!hasStartedScoring)  // 如果还未开始计分，在这里标记为开始计分
-            {
-                hasStartedScoring = true;
-            }
-
-            if (checkFormatches()) {
-                eliminateMatches();
-            } else {
-                //Animation Shaked
-                QPoint originalPos = stones[row2][col2]->pos();
-                QPropertyAnimation *animationShake = new QPropertyAnimation(stones[row2][col2], "pos");
-                animationShake->setDuration(300);
-                QList<QPair<double, QVariant>> keyframes;
-
-                keyframes.append(qMakePair(0.0, QVariant::fromValue(originalPos + QPoint(8, 0))));  // 向右移动
-                keyframes.append(qMakePair(0.1, QVariant::fromValue(originalPos - QPoint(8, 0))));  // 向左移动
-                keyframes.append(qMakePair(0.2, QVariant::fromValue(originalPos + QPoint(8, 0))));  // 向右移动
-                keyframes.append(qMakePair(0.3, QVariant::fromValue(originalPos - QPoint(8, 0))));  // 向左移动
-                keyframes.append(qMakePair(0.4, QVariant::fromValue(originalPos)));                  // 恢复原位置
-
-                // 设置关键帧
-                animationShake->setKeyValues(keyframes);
-                animationShake->start(QAbstractAnimation::DeleteWhenStopped);
-                //Animation Shaked2
-                QPoint originalPos2 = stones[row1][col1]->pos();
-                QPropertyAnimation *animationShake2 = new QPropertyAnimation(stones[row1][col1], "pos");
-                animationShake2->setDuration(300);
-                QList<QPair<double, QVariant>> keyframes2;
-
-                keyframes2.append(qMakePair(0.0, QVariant::fromValue(originalPos2 + QPoint(8, 0))));  // 向右移动
-                keyframes2.append(qMakePair(0.1, QVariant::fromValue(originalPos2 - QPoint(8, 0))));  // 向左移动
-                keyframes2.append(qMakePair(0.2, QVariant::fromValue(originalPos2 + QPoint(8, 0))));  // 向右移动
-                keyframes2.append(qMakePair(0.3, QVariant::fromValue(originalPos2 - QPoint(8, 0))));  // 向左移动
-                keyframes2.append(qMakePair(0.4, QVariant::fromValue(originalPos2)));                  // 恢复原位置
-
-                // 设置关键帧
-                animationShake2->setKeyValues(keyframes2);
-                animationShake2->start(QAbstractAnimation::DeleteWhenStopped);
-
-                connect(animationShake, &QPropertyAnimation::finished, [=](){
-
-                    QPropertyAnimation *reverseAnim1 = new QPropertyAnimation(stones[row1][col1], "pos");
-                    QPropertyAnimation *reverseAnim2 = new QPropertyAnimation(stones[row2][col2], "pos");
-
-                    reverseAnim1->setDuration(200);
-                    reverseAnim2->setDuration(200);
-
-                    // 计算回退的目标位置
-                    reverseAnim1->setEndValue(targetPos1); // 原位置
-                    reverseAnim2->setEndValue(targetPos2); // 原位置
-
-                    reverseAnim1->start(QAbstractAnimation::DeleteWhenStopped);
-                    reverseAnim2->start(QAbstractAnimation::DeleteWhenStopped);
-
-                    // 动画完成后恢复交换
-                    connect(reverseAnim1, &QPropertyAnimation::finished, [=]() {
-                        // 换回去
-                        std::swap(stones[row1][col1], stones[row2][col2]);
-                        stones[row1][col1]->setrow(row1);
-                        stones[row1][col1]->setcol(col1);
-                        stones[row2][col2]->setrow(row2);
-                        stones[row2][col2]->setcol(col2);
-
-                        update();
-                    });
-                });
-            }
-
-            change = false;
-        });
-    }
-}
 //判断
 bool Game::checkFormatches(){
     bool hasMatch = false;
@@ -580,27 +626,65 @@ bool Game::checkFormatches(){
         }
     }
 
+    for (int col = 0; col < 8; ++col) {
+        for (int row = 0; row < 8; ++row) {
+            // 更新匹配数
+            stones[row][col]->setColMatchNum(colCheckMatch(row, col));
+            stones[row][col]->setRowMatchNum(rowCheckMatch(row, col));
+            stones[row][col]->setMatchNum(checkMatch(stones[row][col]->rowMatchNum,stones[row][col]->colMatchNum));
+            // 更新样式状态
+            stones[row][col]->setOriginalStyleSheet(stones[row][col]->styleSheet());
+        }
+    }
+
     return hasMatch;
 }
 
 void Game::eliminateMatches() {
-    int eliminatedCount = 0;  // 用于记录本次消除的棋子个数
-    int iceKilledNum = 0;   // 用于记录本次消除的冰块个数
+    for (int col = 0; col < 8; ++col) {
+        for (int row = 0; row < 8; ++row) {
+            // 更新匹配数
+            stones[row][col]->setColMatchNum(colCheckMatch(row, col));
+            stones[row][col]->setRowMatchNum(rowCheckMatch(row, col));
+            stones[row][col]->setMatchNum(checkMatch(stones[row][col]->rowMatchNum,stones[row][col]->colMatchNum));
+            // 更新样式状态
+            stones[row][col]->setOriginalStyleSheet(stones[row][col]->styleSheet());
+        }
+    }
 
     for (int row = 0; row < 8; ++row) {
         for (int col = 0; col < 8; ++col) {
             if (stones[row][col] != nullptr && stones[row][col]->isMatched() && !stones[row][col]->isFrozen) {//未冰冻的棋子，直接消除即可
-                //删除棋子
-                delete stones[row][col];
-                stones[row][col] = nullptr;  // 清空位置
-                eliminatedCount++;  // 统计消除的棋子个数
-            }else if (stones[row][col] != nullptr && stones[row][col]->isMatched() && stones[row][col]->isFrozen) { // 如果是冰冻棋子，清除匹配标记并恢复正常外观
-                stones[row][col]->setMatched(false);
-                stones[row][col]->isFrozen = false;
-                stones[row][col]->setStyleSheetForNormal();
-                std::string pixStr = ":/" + StoneLabel::stoneMode + std::to_string(stones[row][col]->getIndex()) + ".png";
-                stones[row][col]->setPixmap(QPixmap(QString::fromStdString(pixStr)).scaled(48, 48));
-                iceKilledNum++;
+                if(stones[row][col]->isSelectedAndEliminated){//由鼠标点击产生的消除
+                    if(stones[row][col]->colMatchNum == 4 && stones[row][col]->rowMatchNum < 3){//四个纵的合成横劈
+                        stones[row][col]->setLineKiller(1);
+                        stones[row][col]->setMatched(false);
+                        stones[row][col]->setStyleSheetForRowKiller();
+                    }else if(stones[row][col]->rowMatchNum == 4 && stones[row][col]->colMatchNum < 3){//四个横的合成竖劈
+                        stones[row][col]->setLineKiller(2);
+                        stones[row][col]->setMatched(false);
+                        stones[row][col]->setStyleSheetForColKiller();
+                    }
+                    else if(stones[row][col]->colMatchNum >= 3 && stones[row][col]->rowMatchNum >= 3 && stones[row][col]->colMatchNum <= 4 && stones[row][col]->rowMatchNum <= 4) {
+                        stones[row][col]->setBomb(true);
+                        stones[row][col]->setMatched(false);
+                        stones[row][col]->setStyleSheetForBomb();
+                    }
+                    else if(stones[row][col]->matchNum == 5){
+                        stones[row][col]->setKing(true);
+                        stones[row][col]->setMatched(false);
+                        stones[row][col]->setStyleSheetForKing();
+                    }
+                    else{
+                        eliminateStone(stones,stones[row][col],row,col);
+                    }
+                }
+                else {//非鼠标直接消除 或 鼠标点击了普通三消 直接删除即可
+                    eliminateStone(stones,stones[row][col],row,col);
+                }
+            }
+            else if (stones[row][col] != nullptr && stones[row][col]->isMatched() && stones[row][col]->isFrozen) { // 如果是冰冻棋子，清除匹配标记并恢复正常外观
+                eliminateStone(stones,stones[row][col],row,col);
             }
         }
     }
@@ -608,7 +692,19 @@ void Game::eliminateMatches() {
     if (hasStartedScoring)  // 根据计分标记判断是否计分
     {
         // 根据消除的棋子个数计算得分，计分规则见calGainScore()
-        score += calGainScore(eliminatedCount,iceKilledNum); // 将本次得分累加到总积分中
+        score += calGainScore(eliminatedCount,iceKilledNum); // 将本次得分累加到总积分中       
+        // 更新冰块数量显示
+        if (gameMode == GameMode::ADVENTURE_MODE) {
+            eliminatedIceCount += iceKilledNum;// 将本次消除冰块数累加到总消除冰块数中
+            QString iceNumberText = QString("冰块 %1/%2").arg(eliminatedIceCount).arg(winIceCount);
+            ui->iceNumLabel->setText(iceNumberText);
+            if(eliminatedIceCount >= winIceCount){
+                ui->iceNumLabel->setStyleSheet("color:green;");
+            }
+        }
+
+        eliminatedCount = 0;  // 用于记录本次消除的棋子个数
+        iceKilledNum = 0;   // 用于记录本次消除的冰块个数
     }
 
     // 更新积分显示
@@ -644,6 +740,65 @@ void Game::eliminateMatches() {
     dropStones();// 执行棋子下落逻辑，用于填补因消除产生的空位
     resetMatchedFlags();// 重置所有棋子的匹配标记，为下一轮检测做准备
 }
+
+void Game::eliminateStone(std::vector<std::vector<StoneLabel*>>& stones, StoneLabel* stoneLabel, int row, int col){
+    if(stoneLabel == nullptr)   { return; }
+    if(stoneLabel->isFrozen){//冰冻棋子
+        stoneLabel->setMatched(false);
+        stoneLabel->setFrozen(false);
+        stoneLabel->setStyleSheetForNormal();
+        iceKilledNum++;
+    }
+    else if(stoneLabel->lineKiller == 1){//如果是横劈
+        //使用掉lineKiller效果
+        stoneLabel->setLineKiller(0);
+        stoneLabel->setStyleSheetForNormal();
+        for (int temp_Col = 0; temp_Col < 8; ++temp_Col) {
+            eliminateStone(stones,stones[row][temp_Col],row,temp_Col);
+        }
+    }
+    else if(stoneLabel->lineKiller == 2){//如果是竖劈
+        //使用掉lineKiller效果
+        stoneLabel->setLineKiller(0);
+        stoneLabel->setStyleSheetForNormal();
+        // 执行竖劈逻辑，消除整列
+        for (int temp_row = 0; temp_row < 8; ++temp_row) {
+            eliminateStone(stones,stones[temp_row][col],temp_row,col);
+        }
+    }
+    else if(stoneLabel->isBombKiller){//如果是炸弹
+        stoneLabel->setBomb(false);
+        stoneLabel->setStyleSheetForNormal();
+        // 执行炸弹逻辑，消除5*5；
+        for (int temp_row = row-2; temp_row <= row+2; ++temp_row) {
+            for (int temp_col = col-2; temp_col <= col+2; ++temp_col) {
+                if(temp_row < 8 && temp_row > 0 && temp_col < 8 && temp_col > 0){
+                    eliminateStone(stones,stones[temp_row][temp_col],temp_row,temp_col);
+                }
+            }
+        }
+    }
+    else if(stoneLabel->isKing){//如果是王棋子
+        stoneLabel->setKing(false);
+        stoneLabel->setStyleSheetForNormal();
+        // 执行王逻辑，消除场上所有同类型棋子；
+        for (int temp_row = 0; temp_row < 8; ++temp_row) {
+            for (int temp_col = 0; temp_col < 8; ++temp_col) {
+                if (stones[temp_row][temp_col] != nullptr && stones[temp_row][temp_col]->getIndex() == stoneLabel->getIndex() && temp_row != stoneLabel->getrow() && temp_col != stoneLabel->getcol()) {
+                    eliminateStone(stones,stones[temp_row][temp_col],temp_row,temp_col);
+                }
+            }
+        }
+
+        eliminateStone(stones,stones[row][col],row,col);
+    }
+    else{//普通棋子
+        stoneLabel->setMatched(false);
+        delete stones[row][col];
+        stones[row][col] = nullptr;
+        eliminatedCount++;
+    }
+}
 //生成新子
 //生成一个新子
 void Game::generateNewStone(int row, int col){
@@ -659,12 +814,15 @@ void Game::generateNewStone(int row, int col){
 
     // 显示添加
    // mainWidget->addWidget(imgLabel, row, col);
-
-    if (genRandom() < 3) {
-        imgLabel->isFrozen = true;
-        imgLabel->setStyleSheetForFrozen();  // 设置为白色填充样式，代表冰冻状态
-    } else {
-        imgLabel->isFrozen = false;
+    if(gameMode == Game::GameMode::ADVENTURE_MODE){//只有冒险模式才生成冰块
+        if (genRandom() < 2) {
+            imgLabel->setFrozen(true);
+            imgLabel->setStyleSheetForFrozen();  // 设置为白色填充样式，代表冰冻状态
+        } else {
+            imgLabel->setFrozen(false);
+        }
+    }else{
+        imgLabel->setFrozen(false);
     }
 
     // 逻辑添加
@@ -674,6 +832,7 @@ void Game::generateNewStone(int row, int col){
 void Game::onEliminateAgain(){
     {
         if(checkFormatches()){
+            isComboing = true;
             eliminateMatches();
         }else{
             isComboing = false;
@@ -737,6 +896,9 @@ void Game::creatstones(){
 //棋子下落动画
 //duration should set to x/v
 void Game::dropLabel(StoneLabel* stoneLabel, int startX,int startY,int targetX, int targetY, int duration) {
+    if(stoneLabel == nullptr){
+        return;
+    }
     this->initing=true;
     duration=1000*(targetY-startY)/192;
     QPropertyAnimation* animation = new QPropertyAnimation(stoneLabel, "pos");
@@ -797,6 +959,7 @@ void Game::resetMatchedFlags(){
         for (int col = 0; col < 8; ++col) {
             if (stones[row][col] != nullptr) {
                 stones[row][col]->setMatched(false);
+                stones[row][col]->isSelectedAndEliminated = false;  // 重置标记
             }
         }
     }
@@ -824,7 +987,7 @@ int Game::calGainScore(int eliminatedCount,int iceKilledNum){
     int k = 10;
     int offset = 8;
     // n为破冰数线性系数
-    int n = 15;
+    int n = 10;
     int scoreGain = static_cast<int>(std::log(eliminatedCount + 1) * k + offset + iceKilledNum * n);
     return scoreGain;
 }
@@ -850,6 +1013,7 @@ void Game::onTimeExpired()
     }else{
         end = new End(this,client);
         connect(end, &End::nextButtonClicked, this, &Game::onNextButtonClicked);
+        connect(end, &End::retryGame, this, &Game::onRetryGame);
         end->showEndUI();
         // 停止游戏相关的定时器等操作
         resetGameState();
@@ -901,6 +1065,12 @@ void Game::resetGameState()
         gameTimer = nullptr;
     }
     score = 0;
+    if (end) {
+        end = nullptr;
+    }
+    if (pause) {
+        pause = nullptr;
+    }
     // 这里可以进一步添加对其他游戏相关变量的重置逻辑，比如：
     // 重置棋子相关状态等，可根据实际需求完善
 }
@@ -1022,8 +1192,16 @@ int Game::getScore(){
 }
 
 void Game::setWinScore(int levelNum){
-    winScore = 200+(levelNum-1)*50;
+    winScore = 400+(levelNum-1)*50;
     ui->textBrowser->setText(QString::number(winScore));
+}
+
+void Game::setWinIceCount(int levelNum){
+    // k是对数调节系数，offset是偏移量，用于保证积分值在合理范围且为正整数等
+    // 例如设置k = 6，offset = 6
+    int k = 6;
+    int offset = 6;
+    winIceCount = static_cast<int>(std::log(levelNum + 1) * k + offset);
 }
 
 void Game::on_bombButton_clicked() {
@@ -1031,6 +1209,8 @@ void Game::on_bombButton_clicked() {
 
     if(ShopWidget::bombCount > 0){
         ShopWidget::bombCount--;  // 减少炸弹数量
+        // 设置鼠标-普通
+        setCursor(QCursor(QPixmap(":/bomb.png")));
         // 激活炸弹模式
         isBombMode = true;
         this->updateItemCountLabels();
@@ -1043,7 +1223,7 @@ void Game::on_bombButton_clicked() {
 
 bool Game::checkAdventureWin() const
 {
-    if (score >= winScore) {
+    if (score >= winScore && eliminatedIceCount >= winIceCount) {
         return true;
     }
     return false;
@@ -1071,6 +1251,8 @@ void Game::triggerBomb(int row, int col) {
 
     // 结束炸弹模式
     isBombMode = false;
+    // 设置鼠标-普通
+    setCursor(QCursor(QPixmap(":/mouse1.png")));
     // statusBar()->clearMessage();  // 清除提示信息
 }
 //横向删除按钮
@@ -1108,7 +1290,7 @@ void Game::on_vertical_clicked()
         this->updateItemCountLabels();
     }
     else{
-         QMessageBox::information(nullptr, "没有vertical", "您没有vertical道具了！");
+        QMessageBox::information(nullptr, "没有vertical", "您没有vertical道具了！");
     }
 
 }
@@ -1133,11 +1315,6 @@ QList<QPair<int, int>> Game::findHint() {
     // 遍历所有棋盘位置
     for (int row = 0; row < Game::jewelNum; ++row) {
         for (int col = 0; col < Game::jewelNum; ++col) {
-            // 跳过冰冻状态的宝石
-            if (stones[row][col]->isFrozen) {
-                continue;
-            }
-
             if (canMatch(row, col)) {
                 hints.append(qMakePair(row, col));
                 return hints;  // 只返回第一个可以匹配的宝石
@@ -1152,7 +1329,7 @@ QList<QPair<int, int>> Game::findHint() {
     return hints;
 }
 
-
+// 检查给定位置的宝石是否可以与相邻宝石交换形成匹配
 bool Game::canMatch(int row, int col) {
     // 上下左右相邻的方向
     const QVector<QPair<int, int>> directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
@@ -1162,10 +1339,7 @@ bool Game::canMatch(int row, int col) {
         int newRow = row + dir.first;
         int newCol = col + dir.second;
 
-        // 检查边界和冰冻状态
-        if (newRow >= 0 && newRow < Game::jewelNum &&
-            newCol >= 0 && newCol < Game::jewelNum &&
-            !stones[newRow][newCol]->isFrozen) {
+        if (newRow >= 0 && newRow < Game::jewelNum && newCol >= 0 && newCol < Game::jewelNum) {
             // 交换位置，检查是否形成匹配
             if (canSwapAndMatch(row, col, newRow, newCol)) {
                 return true;
@@ -1175,20 +1349,15 @@ bool Game::canMatch(int row, int col) {
     return false;
 }
 
-
+// 检查交换后是否能形成匹配
 bool Game::canSwapAndMatch(int row1, int col1, int row2, int col2) {
-    // 如果任一宝石处于冰冻状态，则直接返回 false
-    if (stones[row1][col1]->isFrozen || stones[row2][col2]->isFrozen) {
-        return false;
-    }
-
     // 交换两宝石
     StoneLabel* temp = stones[row1][col1];
     stones[row1][col1] = stones[row2][col2];
     stones[row2][col2] = temp;
 
     // 检查是否形成匹配
-    bool isMatch = checkMatch(row1, col1) || checkMatch(row2, col2);
+    bool isMatch = checkMatch(rowCheckMatch(row1, col1),colCheckMatch(row1, col1)) >= 3 || checkMatch(rowCheckMatch(row2, col2),colCheckMatch(row2, col2)) >= 3;
 
     // 交换回原位置
     stones[row2][col2] = stones[row1][col1];
@@ -1196,7 +1365,6 @@ bool Game::canSwapAndMatch(int row1, int col1, int row2, int col2) {
 
     return isMatch;
 }
-
 
 
 void Game::highlightHints(const QList<QPair<int, int>>& hints) {
@@ -1255,36 +1423,40 @@ void Game::highlightHints(const QList<QPair<int, int>>& hints) {
     }
 }
 
-// 检查某个位置的宝石是否和相邻的宝石匹配
-bool Game::checkMatch(int row, int col) {
-    // 这里假设你的棋盘是横竖均为3个或更多相同宝石组成一条直线
-    // 你可以根据你的实际匹配逻辑来修改
+//最大匹配数
+int Game::checkMatch(int countRow, int countCol) {
+    return countRow>countCol ? countRow : countCol;
+}
 
+// 检查某个位置的宝石是否和相邻的宝石匹配
+int Game::rowCheckMatch(int row, int col) {
     // 检查横向是否匹配
-    int count = 1;  // 当前宝石本身算一个
+    int countRow = 1;  // 当前宝石本身算一个
     // 向右检查
     for (int i = col + 1; i < Game::jewelNum && stones[row][i]->getIndex() == stones[row][col]->getIndex(); ++i) {
-        ++count;
+        ++countRow;
     }
     // 向左检查
     for (int i = col - 1; i >= 0 && stones[row][i]->getIndex() == stones[row][col]->getIndex(); --i) {
-        ++count;
+        ++countRow;
     }
-    if (count >= 3) return true;
+    stones[row][col]->setRowMatchNum(countRow);
+    return countRow;
+}
 
+int Game::colCheckMatch(int row, int col) {
     // 检查纵向是否匹配
-    count = 1;
+    int countCol = 1;
     // 向下检查
     for (int i = row + 1; i < Game::jewelNum && stones[i][col]->getIndex() == stones[row][col]->getIndex(); ++i) {
-        ++count;
+        ++countCol;
     }
     // 向上检查
     for (int i = row - 1; i >= 0 && stones[i][col]->getIndex() == stones[row][col]->getIndex(); --i) {
-        ++count;
+        ++countCol;
     }
-    if (count >= 3) return true;
-
-    return false;
+    stones[row][col]->setColMatchNum(countCol);
+    return countCol;
 }
 
 
@@ -1355,11 +1527,6 @@ int Game::getVerticalCount() const {
     return ShopWidget::verticalCount;  // 直接访问 ShopWidget 中的静态变量
 }
 
-// 获取当前锤子数量
-int Game::gethammerCount() const {
-    return ShopWidget::hammerCount;  // 直接访问 ShopWidget 中的静态变量
-}
-
 // Game.cpp
 void Game::updateItemCountLabels() {
     // 更新炸弹道具数量标签
@@ -1369,8 +1536,9 @@ void Game::updateItemCountLabels() {
     ui->horizonLabel->setText(QString(" %1").arg(ShopWidget::horizonCount));
 
     // 更新竖向消除道具数量标签
+
     ui->verticalLabel->setText(QString(" %1").arg(ShopWidget::verticalCount));
-    // 更新竖向消除道具数量标签
+    // 更新锤子消除道具数量标签
     ui->hammerLabel->setText(QString(" %1").arg(ShopWidget::hammerCount));
 
 }
@@ -1379,6 +1547,8 @@ void Game::on_hammer_clicked()
 {
     if (ShopWidget::hammerCount > 0) {
         ShopWidget::hammerCount--;
+        // 设置鼠标-hammer
+        setCursor(QCursor(QPixmap(":/hammer.png")));
         isHammerMode = true;  // 激活锤子模式
         this->updateItemCountLabels();
         QMessageBox::information(this, "锤子模式", "点击一个被冻结的宝石以解除冰冻!");
@@ -1388,8 +1558,6 @@ void Game::on_hammer_clicked()
 }
 
 void Game::useHammer(int row, int col) {
-
-
     // 检查目标位置是否合法
     if (row < 0 || row >= Game::jewelNum || col < 0 || col >= Game::jewelNum) {
         QMessageBox::warning(this, "无效位置", "无法对指定位置使用锤子!");
@@ -1403,8 +1571,11 @@ void Game::useHammer(int row, int col) {
     }
 
     // 解除冰冻状态
-    targetStone->isFrozen = false;
+    targetStone->setFrozen(false);
     targetStone->setStyleSheetForNormal();  // 恢复正常样式
+    eliminatedIceCount++;
+    // 设置鼠标-普通
+    setCursor(QCursor(QPixmap(":/mouse1.png")));
     // 结束冰冻模式
     isHammerMode = false;
 
@@ -1425,5 +1596,6 @@ void Game::paintEvent(QPaintEvent *event)
     // 调用父类的 paintEvent，确保子控件不被覆盖
     QWidget::paintEvent(event);
 }
+
 
 
