@@ -660,7 +660,7 @@ void Game::eliminateMatches() {
                         stones[row][col]->setLineKiller(1);
                         stones[row][col]->setMatched(false);
                         stones[row][col]->setStyleSheetForRowKiller();
-                    }else if(stones[row][col]->rowMatchNum == 4 && stones[row][col]->colMatchNum < 3){//四个横的合成竖劈
+                    }else if(stones[row][col]->rowMatchNum == 4){//四个横的合成竖劈
                         stones[row][col]->setLineKiller(2);
                         stones[row][col]->setMatched(false);
                         stones[row][col]->setStyleSheetForColKiller();

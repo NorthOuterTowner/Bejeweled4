@@ -36,6 +36,7 @@ public:
     inline void setStyle(int mode=0){
         if(mode==1)
             this->setStyleSheet("background-color: lightblue;");
+
         else if(originalStyleSheet != nullptr){
             this->setStyleSheet(originalStyleSheet);
         }
@@ -75,6 +76,7 @@ public:
         // 恢复正常的样式，这里调用父类的默认样式设置（清除之前设置的特殊样式）
         this->setStyleSheet("");
     }
+   
 
     void setStyleSheetForRowKiller() {
         // 设置为黄色填充的样式，代表横劈，可根据实际进一步调整样式细节，比如边框等
@@ -103,6 +105,8 @@ public:
     void setBomb(bool value) { isBombKiller = value;}
 
     void setKing(bool value) { isKing = value;}
+
+    void setLineKiller(int value) { lineKiller = value; }
 
     //目标位置
     int targetX=0;
